@@ -2,15 +2,11 @@
 	<div class="bnr" id="home">
 		<div  id="top" class="callbacks_container">
 			<ul class="rslides" id="slider4">
+				@foreach($Slide as $slide)
 			    <li>
-					<img src="../images/bnr-1.jpg" alt=""/>
+					<img src="../images/Banner/{{$slide->hinh}}" alt="{{$slide->hinh}}"  style="height:400px;"  />
 				</li>
-				<li>
-					<img src="../images/bnr-2.jpg" alt=""/>
-				</li>
-				<li>
-					<img src="../images/bnr-3.jpg" alt=""/>
-				</li>
+				@endforeach
 			</ul>
 		</div>
 		<div class="clearfix"> </div>
@@ -42,33 +38,17 @@
 		<div class="about"> 
 		<div class="container">
 			<div class="about-top grid-1">
+				@foreach($hotPro as $hot)
 				<div class="col-md-4 about-left">
 					<figure class="effect-bubba">
-						<img class="img-responsive" src="images/abt-1.jpg" alt=""/>
+						<img class="img-responsive" src="../images/{{$hot->image}}" alt=""/>
 						<figcaption>
-							<h2>Nulla maximus nunc</h2>
-							<p>In sit amet sapien eros Integer dolore magna aliqua</p>	
+							<h2>{{$hot->name}}</h2>
+							<p>{{number_format($hot->unit_price)}}VNĐ</p>	
 						</figcaption>			
 					</figure>
 				</div>
-				<div class="col-md-4 about-left">
-					<figure class="effect-bubba">
-						<img class="img-responsive" src="images/abt-2.jpg" alt=""/>
-						<figcaption>
-							<h4>Mauris erat augue</h4>
-							<p>In sit amet sapien eros Integer dolore magna aliqua</p>	
-						</figcaption>			
-					</figure>
-				</div>
-				<div class="col-md-4 about-left">
-					<figure class="effect-bubba">
-						<img class="img-responsive" src="images/abt-3.jpg" alt=""/>
-						<figcaption>
-							<h4>Cras elit mauris</h4>
-							<p>In sit amet sapien eros Integer dolore magna aliqua</p>	
-						</figcaption>			
-					</figure>
-				</div>
+				@endforeach
 				<div class="clearfix"></div>
 			</div>
 		</div>

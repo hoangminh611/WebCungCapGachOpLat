@@ -29,7 +29,7 @@
 							<div><a href="{{route('Login')}}">Đăng Nhập</a></div>
 							 <div class="total">
 								<span class="simpleCart_total"></span></div>
-								<img src="images/cart-1.png" alt="" />
+								<img src="../images/cart-1.png" alt="" />
 						</a>
 						<p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
 						<div class="clearfix"> </div>
@@ -68,6 +68,6 @@
 		{{-- cai nay de tao khoang trong chua header khi load trang --}}
 	<!--start-logo-->
 	<div class="logo">
-		<a href="index.html"><h1>Luxury Watches</h1></a>
+		<a href="index.html"><h1>Gạch Ốp Lát Cao Cấp</h1></a>
 	</div>
 	<!--start-logo-->
