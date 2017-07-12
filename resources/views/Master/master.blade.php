@@ -24,6 +24,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="../js/simpleCart.min.js"> </script>
 <link href="../css/memenu.css" rel="stylesheet" type="text/css" media="all" />
 <script type="text/javascript" src="../js/memenu.js"></script>
+
 <script>$(document).ready(function(){$(".memenu").memenu();});</script>	
 <!--dropdown-->
 <script src="../js/jquery.easydropdown.js"></script>			
@@ -31,6 +32,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <body> 
 	<!--top-header-->
 	@include('Master.Top_header')
+	@include('Master.Login')
+	@include('Master.Register')
 	<!--top-header-->
 	<!--bottom-header-->
 	@include('Master.Menu')

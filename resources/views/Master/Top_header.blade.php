@@ -1,5 +1,6 @@
 	<!--top-header-->
-	<div class="top-header" style="width: 100%;display: block;;position: fixed;top: 0;left: 0;z-index: 100000; /*Hiển thị lớp trên cùng*/">
+		<link rel="stylesheet" type="text/css" href="../css/PopUpLogin.css">
+	<div class="top-header" style="width: 100%;display: block;;position: fixed;top: 0;left: 0;z-index: 1000; /*Hiển thị lớp trên cùng*/">
 		<div class="container">
 			<div class="top-header-main">
 				<div class="col-md-6 top-header-left"  style="float:left">
@@ -26,12 +27,13 @@
 				<div class="col-md-6 top-header-left">
 					<div class="cart box_1">
 						<a href="checkout.html">
-							<div><a href="{{route('Login')}}">Đăng Nhập</a></div>
+							<div><a  href="#login-box" class="login-window">Đăng Nhập</a></div>
 							 <div class="total">
-								<span class="simpleCart_total"></span></div>
+								<span>0 Đồng</span>
 								<img src="../images/cart-1.png" alt="" />
+							</div>
 						</a>
-						<p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
+						<p><a href="javascript" class="simpleCart_empty">Empty Cart</a></p>
 						<div class="clearfix"> </div>
 					</div>
 				</div>
@@ -54,10 +56,11 @@
 						<a href="checkout.html">
 							<div><a>Đăng Nhập</a></div>
 							 <div class="total">
-								<span class="simpleCart_total"></span></div>
-								<img src="images/cart-1.png" alt="" />
+								<span class="simpleCart_total"></span>
+								<img src="../images/cart-1.png" alt="" />
+								<p><a href="javascript" class="simpleCart_empty">Empty Cart</a></p>
+							</div>
 						</a>
-						<p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
 						<div class="clearfix"> </div>
 					</div>
 				</div>
@@ -71,3 +74,33 @@
 		<a href="index.html"><h1>Gạch Ốp Lát Cao Cấp</h1></a>
 	</div>
 	<!--start-logo-->
+
+	<script type="text/javascript">
+		$(document).ready(function() 
+		{
+				$('a.login-window').click(function() 
+				{
+				    
+				            //Getting the variable's value from a link 
+				    var loginBox = $(this).attr('href');
+
+				    //Fade in the Popup
+				    $(loginBox).fadeIn(300);
+				    // Add the mask to body
+				    $('body').append('<div id="mask"></div>');
+				    $('#mask').fadeIn(300);
+				    
+				    return false;
+				});
+
+				// When clicking on the button close or the mask layer the popup closed
+				$(document).on('click','a.close, #mask', function() 
+				{ 
+				  	$('#mask , .login-popup').fadeOut(300 , function() 
+				  	{
+				    	$('#mask').remove();  
+					}); 
+					return false;
+				});
+		});
+	</script>

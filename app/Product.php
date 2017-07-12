@@ -21,6 +21,12 @@ class Product extends Model
             return $hotPro;
 
     }
+    public static function Top8NewsProduct(){
+      $newPro = DB::table('products')
+            ->orderBy('id','DESC')->limit(8);
+            return $newPro;
+
+    }
   //   //hiện tất cả các sản phẩm
   //   public static function Show_Product_All(){
   //           $product=DB::table('products')

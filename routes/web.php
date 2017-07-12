@@ -20,10 +20,3 @@ Route::get('home',[
 Route::get('Content_Admin',[
 	'as'=>'Content_Admin',
 	'uses'=>'Admin_Controller@Content_Admin']);
-Route::get('Login',[
-	'as'=>'Login',
-	'uses'=>'LoginRegister_Controller@Login']);
-Route::get('Register',[
-	'as'=>'Register',
-	'uses'=>'LoginRegister_Controller@Register']);
-

@@ -11,12 +11,5 @@ use App\TypeProduct;
 use App\News;
 class LoginRegister_Controller extends Controller
 {
-   public function Login()
-   {
-   	return view("Page.Login");
-   }
-   public function Register()
-   {
-   	return view("Page.Register");
-   }
+  
 }
