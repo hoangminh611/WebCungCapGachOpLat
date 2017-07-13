@@ -17,6 +17,10 @@ class Home_Controller extends Controller
       $new8Pro=Product::Top8NewsProduct()->get();
    	return view('Master.home',compact('new8Pro'));
    }
+   public function getContact()
+   {
+      return view('Page.Contact');
+   }
    // public function info(){
    // 	return view('page.gioithieu');
    // }

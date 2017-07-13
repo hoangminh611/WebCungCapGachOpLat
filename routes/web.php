@@ -17,6 +17,12 @@ Route::get('/',[
 Route::get('home',[
 	'as'=>'home',
 	'uses'=>'Home_Controller@getindex']);
+Route::get('Contact',[
+	'as'=>'Contact',
+	'uses'=>'Home_Controller@getContact']);
+// ------------------------------ADMIN------------------------------------
 Route::get('Content_Admin',[
 	'as'=>'Content_Admin',
 	'uses'=>'Admin_Controller@Content_Admin']);
+// ------------------------------ADMIN------------------------------------
+

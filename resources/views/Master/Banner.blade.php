@@ -37,6 +37,7 @@
 			<!--End-slider-script-->
 		<div class="about"> 
 		<div class="container">
+			<div style="text-align: center"><h2>SẢN PHẨM NỔI BẬT</h2></div>
 			<div class="about-top grid-1">
 				@foreach($hotPro as $hot)
 				<div class="col-md-4 about-left">
