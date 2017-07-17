@@ -1,5 +1,5 @@
 	<!--top-header-->
-		<link rel="stylesheet" type="text/css" href="../css/PopUpLogin.css">
+		<link rel="stylesheet" type="text/css" href="css/PopUpLogin.css">
 	<div class="top-header" style="width: 100%;display: block;;position: fixed;top: 0;left: 0;z-index: 1000; /*Hiển thị lớp trên cùng*/">
 		<div class="container">
 			<div class="top-header-main">
@@ -25,12 +25,29 @@
 					</div>
 				</div>
 				<div class="col-md-6 top-header-left">
-					<div class="cart box_1">
+					<div class="cart box_1" style="text-align: center;">
+						@if(Session::has('thatbai'))
+									<div class="alert alert-danger them " id="alert">{{Session::get('thatbai')}}</div>
+									<script type="text/javascript">
+										$('.them').hide(5000);
+									
+									</script>
+						@endif
+						
+							@if(Auth::check())
+								<div>
+									<i class="fa fa-user"></i>Chào bạn {{Auth::User()->full_name}}
+									|
+									<a href="{{route('logout')}}">Đăng xuất</a>
+								</div>
+
+							@else
+								<div><a  href="#login-box" class="login-window">Đăng Nhập</a></div>
+							@endif
 						<a href="checkout.html">
-							<div><a  href="#login-box" class="login-window">Đăng Nhập</a></div>
 							 <div class="total">
 								<span>0 Đồng</span>
-								<img src="../images/cart-1.png" alt="" />
+								<img src="images/cart-1.png" alt="" />
 							</div>
 						</a>
 						<p><a href="javascript" class="simpleCart_empty">Empty Cart</a></p>
@@ -57,7 +74,7 @@
 							<div><a>Đăng Nhập</a></div>
 							 <div class="total">
 								<span class="simpleCart_total"></span>
-								<img src="../images/cart-1.png" alt="" />
+								<img src="images/cart-1.png" alt="" />
 								<p><a href="javascript" class="simpleCart_empty">Empty Cart</a></p>
 							</div>
 						</a>
@@ -102,5 +119,6 @@
 					}); 
 					return false;
 				});
+
 		});
 	</script>

@@ -12,16 +12,13 @@
 		</div>
 	</div>
 	<!--end-breadcrumbs-->
-	<!--prdt-starts-->
-	<div class="prdt"> 
+<div class="prdt"> 
 		<div class="container">
 			<div class="prdt-top">
 				<div class="col-md-9 prdt-left">
 					<div class="product-one">
 
-					@if( $typepro == 0)
-						@foreach($All_Product as $pro)
-							@foreach($pro as $All)
+						@foreach($product as $All)
 							<div class="col-md-4 product-left p-left">
 								<div class="product-main simpleCart_shelfItem">
 									<a href="{{route('Detail',"$All->id")}}" class="mask">
@@ -39,35 +36,11 @@
 									</div>
 								</div>
 							</div>
-							@endforeach
 						@endforeach
 						<div class="clearfix"></div>
-						{{-- <div>{{$All_Product->links()}}</div> --}}
-					@else
-						@foreach($product as $pro)
-							<div class="col-md-4 product-left p-left">
-								<div class="product-main simpleCart_shelfItem">
-									<a href="{{route('Detail',"$pro->id")}}" class="mask">
-										<img class="img-responsive zoom-img"  width="200px" height="200px" src="images/{{$pro->image}}" alt="" /></a>
-										<div class="product-bottom">
-										<h3>{{$pro->name}}</h3>
-										<p>Tìm hiểu thêm</p>									
-									
-										<h4>
-												<a class="item_add" href="#"><i></i>
-													<em><span class=" item_price">{{number_format($pro->unit_price)}}VNĐ/m<sup>2</sup></span></em>
-												</a>
-										</h4>
-									</div>
-								</div>
-							</div>
-						@endforeach
-						<div class="clearfix"></div>
-						<div>{{$product->links()}}</div>
-					@endif
 					</div>
-				</div>	
-					<form action="{{route('Search')}}" method="get">
+				</div>
+				<form action="{{route('Search')}}" method="get">
 					<div class="col-md-3 prdt-right">
 							<div class="w_sidebar">
 								<section  class="sky-form">
@@ -80,7 +53,7 @@
 										<div class="col col-4">
 											@foreach($type as $typePro)								
 													@foreach($loaicon[$typePro->id] as $typebrand)	
-													<label><input type="radio" name="type" value="{{$typebrand->id}}"><i></i>{{$typebrand->name}}</label>
+													<label ><input type="radio" name="type" value="{{$typebrand->id}}"><i></i>{{$typebrand->name}}</label>
 													<br>
 												@endforeach
 											@endforeach

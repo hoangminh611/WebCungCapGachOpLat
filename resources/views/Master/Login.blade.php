@@ -1,7 +1,7 @@
 
 	<!--start-breadcrumbs-->
 <div id="login-box" class="login-popup">
-	<a href="#" class="close"><img src="../images/close.png" class="btn_close" title="Close Window" alt="Close" /></a>
+	<a href="#" class="close"><img src="images/close.png" class="btn_close" title="Close Window" alt="Close" /></a>
 	<div class="breadcrumbs">
 		<div class="container">
 			<div class="breadcrumbs-main">
@@ -23,18 +23,21 @@
 				<div class="col-md-6 account-left">
 					<h3>Existing User</h3>
 					<div class="account-bottom">
-						<input placeholder="Email" type="text" tabindex="3" required>
-						<input placeholder="Password" type="password" tabindex="4" required>
+					<form  accept-charset="UTF-8" action="{{route('login')}}"  method="post">
+						<input type="hidden" name="_token" value="{{csrf_token()}}">
+						<input placeholder="Email" type="text" tabindex="3" title="Email Address" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$" data-validation="email" required="" value="" name="email">
+						<input placeholder="Password" type="password" name="password" tabindex="4" required>
 						<div class="address">
 							<a class="forgot" href="#">Forgot Your Password?</a>
 							<input type="submit" value="Login">
 						</div>
+					</form>
 					</div>
 				</div>
 				<div class="col-md-6 account-right account-left">
 					<h3>New User? Create an Account</h3>
 					<p>Có tài khoản sẽ có thể cho bạn hưởng thêm nhiều ưu đãi từ dịch vụ của chúng tôi</p>
-					<a  href="#register-box" class="register-window">Create an Account</a>
+					<a href="{{route('getregister')}}" class="register-window">Create an Account</a>
 				</div>
 				<div class="clearfix"></div>
 			</div>

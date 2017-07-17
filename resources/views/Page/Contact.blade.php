@@ -26,15 +26,15 @@
 							<span>22 Lê Trung Nghĩa</span>
 							<span>Tel:1115550001</span>
 							<span>Fax:190-4509-494</span>
-							Email: <a href="mailto:example@email.com">contact@example.com</a></p>
+							<span>Email:<a href="mailto:example@email.com">manhhoangminh611@gmail.com</a></span>
 						</p>
 					</div>
 				</div>
 					<div class="col-md-9 contact-right">
 						<form>
 							<input type="text" placeholder="Name">
-							<input type="text" placeholder="Phone">
-							<input type="text"  placeholder="Email">
+							<input type="text" placeholder="Phone" style="margin-left: 5px;">
+							<input type="text" placeholder="Email">
 							<textarea placeholder="Message" required=""></textarea>
 							<div class="submit-btn">
 								<input type="submit" value="SUBMIT">

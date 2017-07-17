@@ -4,17 +4,20 @@
 				<div class="col-md-9 header-left" style="font-family: Time New Roman; ">
 				<div class="top-nav">
 					<ul class="memenu skyblue"><li class="active"><a href="{{route('home')}}">Home</a></li>
-						<li class="grid"><a href="#">Sản Phẩm</a>
-							<div class="mepanel">
+						<li class="grid"><a href="javascript:void(0)">Sản Phẩm</a>
+							<div class="mepanel" >
 								<div class="row">
-									<div class="col1 me-one" >
-										{{-- <h4>Shop</h4> --}}
+									@foreach($type as $typepro)
+									<div class="col1 me-one" style="width: 20% ;margin:0px; float:left; " >
+										<h4 style="width: 20%"><a href="{{route('ViewAll_Product',$typepro->id)}}">{{$typepro->name}}</a></h4>
 										<ul>
-											@foreach($type as $typepro)
-												<li ><a href="products.html" style="font-size: 15px;">{{$typepro->name}}</a></li>
+											@foreach($loaicon[$typepro->id] as $type_child)
+												<li><a href="{{route('ViewAll_Product_By_Type',$type_child->id)}}">{{$type_child->name}}</a></li>
 											@endforeach
 										</ul>
 									</div>
+
+									@endforeach
 								</div>
 							</div>
 						</li>
@@ -28,8 +31,10 @@
 			</div>
 			<div class="col-md-3 header-right"> 
 				<div class="search-bar">
-					<input type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
+				<form action="{{route('Detail_Search')}}" method="get">
+					<input type="text" value="Search"  name="search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
 					<input type="submit" value="">
+				</form>
 				</div>
 			</div>
 			<div class="clearfix"> </div>
