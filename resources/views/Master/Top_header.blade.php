@@ -44,13 +44,23 @@
 							@else
 								<div><a  href="#login-box" class="login-window">Đăng Nhập</a></div>
 							@endif
-						<a href="checkout.html">
+						 @if(Session::has('cart'))
+							<a href="{{route('cart-detail')}}">
+								 <div class="total">
+									<span class="cart_price">{{number_format(Session('cart')->totalPrice)}} Đồng</span>
+									<img src="images/cart-1.png" alt="" />
+								</div>
+								<p class="cart_qty" >{{Session('cart')->totalQty}} Product</p>
+							</a>
+						@else
+							<a href="javascript:void(0)">
 							 <div class="total">
 								<span>0 Đồng</span>
 								<img src="images/cart-1.png" alt="" />
 							</div>
-						</a>
-						<p><a href="javascript" class="simpleCart_empty">Empty Cart</a></p>
+							</a>
+							<p><a href="javascript:void(0)" class="simpleCart_empty">Empty Cart</a></p>
+						@endif
 						<div class="clearfix"> </div>
 					</div>
 				</div>

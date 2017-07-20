@@ -27,12 +27,12 @@
 										<div class="product-bottom">
 										<h3 style="height: 30px;">{{$All->name}}</h3>
 										<p>Tìm hiểu thêm</p>									
-									
+{{-- 									
 										<h4>
 												<a class="item_add" href="#"><i></i>
 													<em><span class=" item_price">{{number_format($All->unit_price)}}VNĐ/m<sup>2</sup></span></em>
 												</a>
-										</h4>
+										</h4> --}}
 									</div>
 								</div>
 							</div>
@@ -53,7 +53,7 @@
 										<div class="col col-4">
 											@foreach($type as $typePro)								
 													@foreach($loaicon[$typePro->id] as $typebrand)	
-													<label ><input type="radio" name="type" value="{{$typebrand->id}}"><i></i>{{$typebrand->name}}</label>
+													<label ><input type="radio" name="type"  class="type{{$typebrand->id}}" value="{{$typebrand->id}}"><i></i>{{$typebrand->name}}</label>
 													<br>
 												@endforeach
 											@endforeach
@@ -63,15 +63,21 @@
 								<section class="sky-form">
 									<h4>Size</h4>
 										<div class="col col-4">
-											<label><input type="radio" name="size" checked="" value="khong"><i></i>Tất Cả Kích Thước</label>
+											<label><input type="radio" name="size" checked="" class="size" value="khong"><i></i>Tất Cả Kích Thước</label>
 										</div>
 										<div class="col col-4">
 											@foreach($size_gach as $sizePro)
-												<label><input type="radio" name="size" value="{{$sizePro}}"><i></i>{{$sizePro}}</label>
+												<label><input type="radio" name="size" class="size{{$sizePro}}" value="{{$sizePro}}"><i></i>{{$sizePro}}</label>
 												<br>
 											@endforeach
 										</div>
 								</section>
+										<script type="text/javascript">
+											var a="{{$_GET['type']}}";
+											$(".type"+a).attr('checked','checked');
+											var b="{{$_GET['size']}}";
+											$(".size"+b).attr('checked','checked');
+									</script>
 							</div>
 
 							<button type="submit" name="" style="width:100%">search<i class="fa fa-search" aria-hidden="true" style="float: right"></i></button>
@@ -79,6 +85,7 @@
 					
 				</form>
 				<div class="clearfix"></div>
+					
 			</div>
 		</div>
 	</div>

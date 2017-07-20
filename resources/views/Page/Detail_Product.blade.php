@@ -71,11 +71,12 @@
 							</h5>
 
 							{{-- <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p> --}}
+							<form method="get" action="{{route('add-cart')}}">
 							<div class="available">
 								<ul>
 									<li>
 										<span>Size</span>
-										<select>
+										<select name="idsize">
 											@foreach($product as $pro)
 												<option value="{{$pro->idsize}}">{{$pro->size}}</option>
 											@endforeach
@@ -83,21 +84,23 @@
 									</li>
 									<li>
 										<span>Số Lượng:</span>
-											<button id="minus" style="margin-left: 3%;"><i class="fa fa-minus" aria-hidden="true"></i></button>
-											<input type="number" name="" id="quantity" disabled="" value="1">
-											<button  id="plus"><i class="fa fa-plus" aria-hidden="true"></i></button>
+											<button  type="button" id="minus" style="margin-left: 3%;"><i class="fa fa-minus" aria-hidden="true"></i></button>
+											<input type="text" name="quantity" id="quantity"  value="1" pattern="[0-9]{1,4}" required title=" nhâp 1 to 4 chữ số">
+											<button   type="button" id="plus"><i class="fa fa-plus" aria-hidden="true"></i></button>
 									</li>
 									
 									<div class="clearfix"> </div>
 								</ul>
 							</div>
+							<button type="submit" name="" class="add-cart item_add">ADD TO CART</button>
+							</form>
 							{{-- <ul class="tag-men">
 								<li><span>TAG</span>
 								<span class="women1">: Women,</span></li>
 								<li><span>SKU</span>
 								<span class="women1">: CK09</span></li>
 							</ul> --}}
-								<a href="#" class="add-cart item_add">ADD TO CART</a>
+								
 							
 						</div>
 					</div>
@@ -153,7 +156,7 @@
 										</a>
 										<h4>
 														<a class="item_add" href="#"><i></i>
-															<em><span class=" item_price">{{number_format($samePro->unit_price)}}VNĐ/m<sup>2</sup></span></em>
+															<em><span class=" item_price">{{number_format($samePro->unit_price)}}VNĐ</span></em>
 														</a>
 												</h4>
 											</div>

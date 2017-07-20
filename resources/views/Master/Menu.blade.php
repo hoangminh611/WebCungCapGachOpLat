@@ -3,7 +3,7 @@
 			<div class="header">
 				<div class="col-md-9 header-left" style="font-family: Time New Roman; ">
 				<div class="top-nav">
-					<ul class="memenu skyblue"><li class="active"><a href="{{route('home')}}">Home</a></li>
+					<ul class="memenu skyblue"><li class="active"><a href="{{route('index')}}">Home</a></li>
 						<li class="grid"><a href="javascript:void(0)">Sản Phẩm</a>
 							<div class="mepanel" >
 								<div class="row">

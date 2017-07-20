@@ -5,13 +5,26 @@
         <div class="leftside-navigation">
             <ul class="sidebar-menu" id="nav-accordion">
                 <li>
-                    <a class="active" href="index.html">
+                    <a class="active" href="{{route('Content_Admin')}}">
                         <i class="fa fa-dashboard"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
-                
                 <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+                        <span>Product</span>
+                    </a>
+                    <ul class="sub">
+                        <li> <a href="{{route('Admin_All_Product')}}">Tất cả sản phẩm</a>
+                        @foreach($type as $type_parent)
+                            @foreach($loaicon[$type_parent->id] as $type_child)
+                        <li><a href="{{route('Admin_All_Product_By_Type',$type_child->id)}}">{{$type_child->name}}</a></li>
+                            @endforeach
+                        @endforeach
+                    </ul>
+                </li>
+{{--                 <li class="sub-menu">
                     <a href="javascript:;">
                         <i class="fa fa-book"></i>
                         <span>UI Elements</span>
@@ -89,7 +102,7 @@
 						<li><a href="404.html">404 Error</a></li>
                         <li><a href="registration.html">Registration</a></li>
                     </ul>
-                </li>
+                </li> --}}
                 <li>
                     <a href="login.html">
                         <i class="fa fa-user"></i>

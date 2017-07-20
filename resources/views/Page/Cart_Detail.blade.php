@@ -20,16 +20,52 @@
 			</div>
 			<div class="ckeckout-top">
 			<div class="cart-items">
-			 <h3>My Shopping Bag (3)</h3>
-				<script>$(document).ready(function(c) {
+			 <h3>My Shopping Bag ({{$totalQty}})</h3>
+				<script>
+				$(document).ready(function(c) {
 					$('.close1').on('click', function(c){
-						$('.cart-header').fadeOut('slow', function(c){
-							$('.cart-header').remove();
+						var val= $(this).attr('value');
+						alert(val);
+						var totalPrice=$('.totalPrice').attr('value');
+						alert(totalPrice);
+						var totalQty=$('.totalQty').attr('value');
+						alert(totalQty);
+						var soluong=$('.soluong'+val).attr('value');
+						alert(soluong);
+						var price=$('.gia'+val).attr('value');
+						alert(price)
+						var totalPrice=parseInt(totalPrice-price);
+
+						var totalQty=parseInt(totalQty-soluong);
+						alert(totalPrice);
+						alert(totalQty);
+						var route="{{route('delete-item-cart','id')}}";
+						route=route.replace('id',val);
+						$.ajax ({
+							url: route,
+							type:'get',
+							data: null,
+							success:function(data){
+								$('.product'+val).fadeOut('slow', function(c){
+									$('.product'+val).remove();
+								});
+								$('.totalPrice').html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+ " Đồng");
+								$('.totalQty').html(totalQty.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+ " Sản Phẩm");
+								$('.totalPrice').attr('value',totalPrice);
+								$('.totalQty').attr('value',totalQty);
+								$('.cart_price').html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+ " Đồng");
+								if(totalQty!=0)
+									$('.cart_qty').html(totalQty.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+ " Sản Phẩm");
+								else
+									$('.cart_qty').html('Empty Cart');
+
+							}
 						});
-						});	  
-					});
+						
+					});	  
+				});
 			   </script>
-			<script>$(document).ready(function(c) {
+			{{-- <script>$(document).ready(function(c) {
 					$('.close2').on('click', function(c){
 						$('.cart-header1').fadeOut('slow', function(c){
 							$('.cart-header1').remove();
@@ -44,49 +80,60 @@
 						});
 						});	  
 					});
-			   </script>
+			   </script> --}}
 				
 			<div class="in-check" >
-				<ul class="unit">
+				<ul class="unit" style="border:solid 1px black;">
 					<li><span>Item</span></li>
-					<li><span>Product Name</span></li>		
-					<li><span>Unit Price</span></li>
-					<li><span>Delivery Details</span></li>
-					<li> </li>
+					<li><span>Product Name</span></li>
+					<li><span>Quantity/Size</span></li>
+					<li><span>Price/Unit_Price</span></li>
 					<div class="clearfix"> </div>
 				</ul>
-				<ul class="cart-header">
-					<div class="close1"> </div>
-						<li class="ring-in"><a href="single.html" ><img src="images/c-1.jpg" class="img-responsive" alt=""></a>
-						</li>
-						<li><span class="name">Analog Watches</span></li>
-						<li><span class="cost">$ 290.00</span></li>
-						<li><span>Free</span>
-						<p>Delivered in 2-3 business days</p></li>
-					<div class="clearfix"> </div>
-				</ul>
-				<ul class=" cart-header1">
-					<div class="close2"> </div>
-						<li class="ring-in"><a href="single.html" ><img src="images/c-2.jpg" class="img-responsive" alt=""></a>
-						</li>
-						<li><span class="name">Analog Watches</span></li>
-						<li><span class="cost">$ 300.00</span></li>
-						<li><span>Free</span>
-						<p>Delivered in 2-3 business days</p></li>
-						<div class="clearfix"> </div>
-				</ul>
-				<ul class="cart-header2">
-					<div class="close3"> </div>
-						<li class="ring-in"><a href="single.html" ><img src="images/c-3.jpg" class="img-responsive" alt=""></a>
-						</li>
-						<li><span class="name">Analog Watches</span></li>
-						<li><span class="cost">$ 360.00</span></li>
-						<li><span>Free</span>
-						<p>Delivered in 2-3 business days</p></li>
-						<div class="clearfix"> </div>
-				</ul>
-			</div>
-			</div>  
+				@if(Session::has('cart'))
+					@foreach($product_cart as $product)
+						<ul class="cart-header product{{$product['item'][0]->idsize}}">
+							<div class="close1 {{$product['item'][0]->idsize}}" value="{{$product['item'][0]->idsize}}"> </div>
+								<li class="ring-in">
+									<a href="{{route('Detail',$product['item'][0]->id)}}">
+										<img src="images/{{$product['item'][0]->image}} " class="img-responsive" alt="" style="width: 100px; height: 100px;">
+									</a>
+								</li>
+								<li>
+									<span class="name">{{$product['item'][0]->name}}</span>
+								</li>
+								<li>
+									<span class="quantity soluong{{$product['item'][0]->idsize}}" value="{{$product['qty']}}" >
+										Số Lượng:{{$product['qty']}}
+									</span>
+									{{$product['item'][0]->size}}
+								</li>
+								<li>
+									<span class="cost price gia{{$product['item'][0]->idsize}}" value="{{$product['price']}}">{{number_format($product['price'])}}</span>
+									{{number_format($product['item'][0]->export_price)}}
+								</li>
+							<div class="clearfix"> </div>
+						</ul>
+					@endforeach
+					<ul class="cart-header">
+								<li style="float: right;">
+									<span>Tổng Tiền:</span>
+									<span class="cost totalPrice" value="{{$totalPrice}}">{{number_format($totalPrice)}} Đồng</span>
+								</li>
+								<li style="float: right;">
+									<span>Tổng Số Lượng:</span>
+									<span class="cost totalQty" value="{{$totalQty}}">{{number_format($totalQty)}} Sản Phẩm</span>
+								</li>
+							<div class="clearfix"> </div>
+						</ul>
+					<ul>
+								<li style="float: right"><a href="" class="add-cart btn btn-success">Thanh Toán</a></li>
+								<li  style="float:left;"><a href="{{route('delete-cart')}}" class=" add-cart btn btn-warning">Xóa Cart</a></li>
+								
+								<div class="clearfix"> </div>
+					</ul>
+				@endif
+						
 		 </div>
 		</div>
 	</div>

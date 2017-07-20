@@ -12,6 +12,7 @@ use Auth;
 use Socialite;
 use App\User;
 use Mail;
+
 class LoginRegister_Controller extends Controller
 {
    public function postLogin(Request $req)
@@ -46,9 +47,10 @@ class LoginRegister_Controller extends Controller
         	return redirect()->back()->with('thatbai','Email đã tồn tại');
         else
         {
+            
 	        $user=new User();
 	        $user->full_name = $req->full_name;
-	        $user->email = $req->email;
+	        $user->email =$req->email;
 	        $user->password = Hash::make($req->password);
 	        $user->phone = $req->phone;
 	        $user->address = $req->address;

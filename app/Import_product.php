@@ -8,5 +8,4 @@ class Import_product extends Model
 {
     protected $table='import_product';
 
-
 }

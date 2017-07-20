@@ -15,7 +15,7 @@ Route::get('/',[
 	'as'=>'home',
 	'uses'=>'Home_Controller@getindex']);
 Route::get('home',[
-	'as'=>'home',
+	'as'=>'index',
 	'uses'=>'Home_Controller@getindex']);
 Route::get('Contact',[
 	'as'=>'Contact',
@@ -24,6 +24,21 @@ Route::get('Contact',[
 Route::get('Content_Admin',[
 	'as'=>'Content_Admin',
 	'uses'=>'Admin_Controller@Content_Admin']);
+Route::get('Login_Admin',[
+	'as'=>'Login_Admin',
+	'uses'=>'Admin_Login_Controller@Login_Admin']);
+//-------------------------------Sản phẩm Admin--------------------------
+Route::get('Admin_All_Product',[
+	'as'=>'Admin_All_Product',
+	'uses'=>'Admin_Product_Controller@Admin_All_Product']);
+Route::get('Admin_All_Product_By_Type/{id}',[
+	'as'=>'Admin_All_Product_By_Type',
+	'uses'=>'Admin_Product_Controller@Admin_All_Product_By_Type']);
+
+
+
+
+//-------------------------------Sản phẩm Admin--------------------------
 // ------------------------------ADMIN------------------------------------
 //------------------------------Trang Giao Diện------------------------------------
 //------------------------------Sản Phẩm------------------------------------
@@ -62,9 +77,26 @@ Route::get('getregister',[
 	'uses'=>'LoginRegister_Controller@Register']);
 Route::get('active-user',[
 	'as'=>'active-user',
-	'uses'=>'LoginRegister_Controller@activeUser']
-);
+	'uses'=>'LoginRegister_Controller@activeUser']);
 
 //------------------------------Đăng Nhập------------------------------------
+//------------------------------Giỏ Hàng------------------------------------
+Route::get('add-to-cart/',[
+	'as'=>'add-cart',
+	'uses'=>'Home_Controller@AddCart']);
+Route::get('cart-detail',[
+	'as'=>'cart-detail',
+	'uses'=>'Home_Controller@DetailCart']);
+Route::get('delete-cart',[
+	'as'=>'delete-cart',
+	'uses'=>'Home_Controller@DeleteCart']);
+Route::get('delete-item-cart/{id}',[
+	'as'=>'delete-item-cart',
+	'uses'=>'Home_Controller@getDelItemCart']);
+Route::get('update-cart',[
+	'as'=>'update-cart',
+	'uses'=>'Home_Controller@Update_Cart']);
+//------------------------------Giỏ Hàng------------------------------------
+
 //------------------------------Trang Giao Diện------------------------------------
 

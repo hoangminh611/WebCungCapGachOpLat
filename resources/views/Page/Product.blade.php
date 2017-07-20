@@ -30,12 +30,6 @@
 										<div class="product-bottom">
 										<h3 style="height: 30px;">{{$All->name}}</h3>
 										<p>Tìm hiểu thêm</p>									
-									
-										<h4>
-												<a class="item_add" href="#"><i></i>
-													<em><span class=" item_price">{{number_format($All->unit_price)}}VNĐ/m<sup>2</sup></span></em>
-												</a>
-										</h4>
 									</div>
 								</div>
 							</div>
@@ -55,7 +49,7 @@
 									
 										<h4>
 												<a class="item_add" href="#"><i></i>
-													<em><span class=" item_price">{{number_format($pro->unit_price)}}VNĐ/m<sup>2</sup></span></em>
+													<em><span class=" item_price">{{number_format($pro->unit_price)}}VNĐ</span></em>
 												</a>
 										</h4>
 									</div>
@@ -70,17 +64,16 @@
 					<form action="{{route('Search')}}" method="get">
 					<div class="col-md-3 prdt-right">
 							<div class="w_sidebar">
-								<section  class="sky-form">
-								
+								<section  class="sky-form">					
 									<h4>Catogories</h4>
 									<div class="row1 scroll-pane">
 										<div class="col col-4">
-											<label><input type="radio" name="type" checked="" value="khong"><i></i>Tất Cả Sản Phẩm</a></label>
+											<label><input type="radio" name="type" class="type" checked="" value="khong"><i></i>Tất Cả Sản Phẩm</a></label>
 										</div>
 										<div class="col col-4">
 											@foreach($type as $typePro)								
 													@foreach($loaicon[$typePro->id] as $typebrand)	
-													<label><input type="radio" name="type" value="{{$typebrand->id}}"><i></i>{{$typebrand->name}}</label>
+													<label  id="loai{{$typebrand->id}}"><input type="radio" name="type" value="{{$typebrand->id}}">{{$typebrand->name}}</label>
 													<br>
 												@endforeach
 											@endforeach
@@ -100,11 +93,12 @@
 										</div>
 								</section>
 							</div>
-
+							
 							<button type="submit" name="" style="width:100%">search<i class="fa fa-search" aria-hidden="true" style="float: right"></i></button>
 					</div>
 					
 				</form>
+
 				<div class="clearfix"></div>
 			</div>
 		</div>

@@ -9,10 +9,10 @@ use File;
 use Illuminate\Support\Facades\Input;
 use App\TypeProduct;
 use App\News;
-class Admin_Controller extends Controller
+class Admin_Login_Controller extends Controller
 {
-   public function Content_Admin()
+   public function Login_Admin()
    {
-   	return view('Admin.Master.Admin_Content');
+   	return view('Admin.Page.Login_Admin');
    }
 }

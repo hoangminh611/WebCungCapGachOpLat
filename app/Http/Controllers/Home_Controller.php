@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Input;
 use App\TypeProduct;
 use App\News;
 use App\Product;
+use App\Cart;
+use Session;
+use App\Export_product;
 class Home_Controller extends Controller
 {
    public function getIndex()
@@ -17,10 +20,52 @@ class Home_Controller extends Controller
       $new8Pro=Product::Top8NewsProduct()->get();
    	return view('Master.home',compact('new8Pro'));
    }
+
    public function getContact()
    {
       return view('Page.Contact');
    }
+
+   public function AddCart(Request $req)
+   {  
+
+      $product=Export_product::FindProductByIdPro_Size($req->idsize)->get();
+      $oldcart=Session('cart')?Session::get('cart'):null;
+      $cart=new Cart($oldcart);
+      $cart->add($product,$req->idsize,$req->quantity);
+      $req->session()->put('cart',$cart);
+      return redirect()->back();
+   }
+
+   public function DetailCart()
+   {
+      return view('Page.Cart_Detail');
+   }
+
+   public function DeleteCart(Request $req)
+   {
+       Session::forget('cart');
+       return redirect()->route('index');
+   }
+
+   public function getDelItemCart(Request $req)
+   {
+        $oldCart=Session('cart')?Session::get('cart'):null;
+        $cart=new Cart($oldCart);
+        $cart->removeItem($req->id);
+        if(count($cart->items)<=0)
+            Session::forget('cart');
+        else
+            Session::put('cart',$cart);
+    }
+    public function Update_Cart(Request $req)
+    {
+      dd($req->quantity);
+    }
+
+
+
+
    // public function info(){
    // 	return view('page.gioithieu');
    // }

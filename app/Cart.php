@@ -16,25 +16,19 @@ class Cart
 		}
 	}
 
-	public function add($item, $id){
+	public function add($item, $id,$quantity){
 		$giohang = ['qty'=>0, 'price' => 0, 'item' => $item];
 		if($this->items){
+			//kiểm tra cái id co trong $this->item k
 			if(array_key_exists($id, $this->items)){
 				$giohang = $this->items[$id];
 			}
-		}
-		$giohang['qty']++;
-		if($item->promotion_price==0){
-			$giohang['price'] = $item->unit_price * $giohang['qty'];
+		}	
+			$giohang['qty']+=$quantity;
+			$giohang['price'] = $item[0]->export_price * $giohang['qty'];
 			$this->items[$id] = $giohang;
-			$this->totalQty++;
-			$this->totalPrice += $giohang['price'];
-		}else{
-			$giohang['price'] = $item->promotion_price * $giohang['qty'];
-			$this->items[$id] = $giohang;
-			$this->totalQty++;
-			$this->totalPrice += $giohang['price'];
-		}
+			$this->totalQty+=$quantity;
+			$this->totalPrice +=  $item[0]->export_price * $quantity;
 	}
 	//xóa 1
 	public function reduceByOne($id){ 

@@ -13,32 +13,33 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- bootstrap-css -->
-<link rel="stylesheet" href="../css/bootstrap.min.css" >
+<base href="{{asset('')}}">
+<link rel="stylesheet" href="css/bootstrap.min.css" >
 <!-- //bootstrap-css -->
 <!-- Custom CSS -->
-<link href="../css/style(Admin).css" rel='stylesheet' type='text/css' />
-<link href="../css/style-responsive(Admin).css" rel="stylesheet"/>
+<link href="css/style(Admin).css" rel='stylesheet' type='text/css' />
+<link href="css/style-responsive(Admin).css" rel="stylesheet"/>
 <!-- font CSS -->
 <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 <!-- font-awesome icons -->
-<link rel="stylesheet" href="../css/font.css" type="text/css"/>
-<link href="../css/font-awesome.css" rel="stylesheet"> 
-<link rel="stylesheet" href="../css/morris.css" type="text/css"/>
+<link rel="stylesheet" href="css/font.css" type="text/css"/>
+<link href="css/font-awesome.css" rel="stylesheet"> 
+<link rel="stylesheet" href="css/morris.css" type="text/css"/>
 <!-- calendar -->
-<link rel="stylesheet" href="../css/monthly.css">
+<link rel="stylesheet" href="css/monthly.css">
 <!-- //calendar -->
 <!-- //font-awesome icons -->
-<script src="../js/jquery2.0.3.min.js"></script>
-<script src="../js/raphael-min.js"></script>
-<script src="../js/morris.js"></script>
+<script src="js/jquery2.0.3.min.js"></script>
+<script src="js/raphael-min.js"></script>
+<script src="js/morris.js"></script>
 </head>
 <body>
 <section id="container">
 <!--header start-->
-@include('Admin.header')
+@include('Admin.Master.Admin_Header')
 <!--header end-->
 <!--sidebar start-->
-@include('Admin.Menu')
+@include('Admin.Master.Admin_Menu')
 <!--sidebar end-->
 <!--main content start-->
 @yield('body')
@@ -52,13 +53,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </section>
 <!--main content end-->
 </section>
-<script src="../js/bootstrap.js"></script>
-<script src="../js/jquery.dcjqaccordion.2.7.js"></script>
-<script src="../js/scripts.js"></script>
-<script src="../js/jquery.slimscroll.js"></script>
-<script src="../js/jquery.nicescroll.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/jquery.dcjqaccordion.2.7.js"></script>
+<script src="js/scripts.js"></script>
+<script src="js/jquery.slimscroll.js"></script>
+<script src="js/jquery.nicescroll.js"></script>
 <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
-<script src="../js/jquery.scrollTo.js"></script>
+<script src="js/jquery.scrollTo.js"></script>
 <!-- morris JavaScript -->	
 <script>
 	$(document).ready(function() {
@@ -116,7 +117,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	});
 	</script>
 <!-- calendar -->
-	<script type="text/javascript" src="../js/monthly.js"></script>
+	<script type="text/javascript" src="js/monthly.js"></script>
 	<script type="text/javascript">
 		$(window).load( function() {
 

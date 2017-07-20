@@ -55,26 +55,38 @@ class Product extends Model
                     ['id_type','=',$id],
                     ['size','=',$size],
                     ])
-                  ->select();
+                  ->select('export_product.id as idsize','products.id','products.id_type','products.view','products.name','products.image','products.description','export_product.size as size','export_product.export_price','products.unit_price');
             return $product;
     }
 
+    //tìm sản phầm theo size
      public static function Search_Product_By_Size($size)
     {
       $product=DB::table('products')
                   ->join('export_product','products.id','=','export_product.id_product')
                   ->where('size',$size)
-                  ->select();
+                  ->select('export_product.id as idsize','products.id','products.id_type','products.view','products.name','products.image','products.description','export_product.size as size','export_product.export_price','products.unit_price');
             return $product;
+    }
+
+    //Tìm sản phẩm theo  loai
+    public static function Find_Product_By_Id_Type($id){
+
+        $product=DB::table('products')->where('id_type',$id);
+
+        return $product;
     }
     //Tìm sản phẩm chi tiết
     public static function Find_Product_By_Id($id)
     {
+        $view=DB::table('products')->where('products.id','=',$id)->select('view')->get();
+        $view=($view[0]->view)+1;
+        DB::table('products')->where('products.id','=',$id)->update(['view'=>$view]);
         $product=DB::table('products')
                     ->where('products.id','=',$id)
                     ->join('export_product','products.id','=','export_product.id_product')
-                    ->select('export_product.id as idsize','products.id','products.id_type','products.view','products.name','products.image','products.unit','products.description','export_product.size as size','export_product.export_price');
-                    
+                    ->select('export_product.id as idsize','products.id','products.id_type','products.view','products.name','products.image','products.description','export_product.size as size','export_product.export_price');
+          
         return $product;
     }
 
@@ -87,20 +99,27 @@ class Product extends Model
 
         return $product;
     }
-    public static function Find_Product_By_Id_Type($id){
-        $product=DB::table('products')->where('id_type',$id);
-
+    
+    //hiện tất cả các sản phẩm-------Admin-----------
+    public static function Show_Product_All(){
+            $product=DB::table('products')
+                        ->join('category','products.id_type','=','category.id')
+                        ->join('export_product','products.id','=','export_product.id_product')
+                        ->select('category.name as type_name','products.id','products.name','products.unit_price', 
+                                'products.image','products.created_at',
+                                 'products.updated_at','products.description','export_product.size as size','export_product.export_price');
         return $product;
-    }
-    //hiện tất cả các sản phẩm
-  //   public static function Show_Product_All(){
-  //           $product=DB::table('products')
-  //                       ->join('category','products.id_type','=','category.id')
-  //                       ->select('category.name as type_name','products.id','products.name','products.unit_price', 
-  //                                'products.promotion_price','products.image','products.unit','products.created_at',
-  //                                'products.updated_at','products.description');
-  //       return $product;
-  // }
+  }
+    public static function Show_Product_All_By_Type($id){
+            $product=DB::table('products')
+                        ->where('id_type',$id)
+                        ->join('category','products.id_type','=','category.id')
+                        ->join('export_product','products.id','=','export_product.id_product')
+                        ->select('category.name as type_name','products.id','products.name','products.unit_price', 
+                                'products.image','products.created_at',
+                                 'products.updated_at','products.description','export_product.size as size','export_product.export_price');
+        return $product;
+  }
   
   //   //Xóa sản phẩm theo id
   //   public static function Find_Product_By_Id($id){

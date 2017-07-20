@@ -41,7 +41,7 @@
 						<input type="hidden" name="_token" value="{{csrf_token()}}">
 						<input placeholder="Full name" type="text" name="full_name" id="full_name" tabindex="1" required>
 						<input placeholder="Email address" type="text"  name="email" id="email" tabindex="3" required  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$" data-validation="email">
-						<input placeholder="Mobile" type="text"  name="phone" id="phone" pattern="[0-9]{10}" tabindex="3" required>
+						<input placeholder="Mobile" type="text"  name="phone" id="phone" pattern="[0-9]{10,11}"  tabindex="3" required required title=" nhâp số điện thoại 10 hoặc 11 chữ số">
 						<input placeholder="Address" type="text" name="address" id="address" tabindex="2" required>
 					</div>
 					<div class="col-md-6 account-right account-left">

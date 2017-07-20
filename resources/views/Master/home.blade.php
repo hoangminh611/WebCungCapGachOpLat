@@ -12,11 +12,7 @@
 							<div class="product-bottom">
 								<h4>{{$newPro->name}}</h4>
 								<p>Tìm Hiểu Thêm</p></a>
-								<h4>
-										<a class="item_add" href="#"><i></i>
-											<em><span class=" item_price">{{number_format($newPro->unit_price)}}VNĐ/m<sup>2</sup></span></em>
-										</a>
-								</h4>
+
 							</div>
 						</div>
 					</div>
