@@ -15,12 +15,23 @@ use Mail;
 class LoginRegister_Controller extends Controller
 {
    public function postLogin(Request $req)
-   {
+   {    
+        
         if(Auth::attempt(['email'=>$req->email,'password'=>$req->password,'active'=>1])){
                 return redirect()->route('home');
         }
-        else{
-            return redirect()->back()->with('thatbai','Sai thông tin đăng nhập');
+        else
+        {  
+            $active=DB::table('users')->where('email',$req->email)->select('active')->get();
+                if($active[0]->active==0)
+                {
+                    $thatbai="Email chưa kích hoạt";
+                }
+                else
+                {
+                    $thatbai="Sai thông tn đăng nhập";
+                }
+            return redirect()->back()->with('thatbai',$thatbai);
         }
     }
        public function Register()
@@ -95,14 +106,14 @@ class LoginRegister_Controller extends Controller
           //return $user->getEmail();
       }
       catch(\Exception $e){
-          return redirect()->route('home')->with(['flash_level'=>'danger','flash_message'=>"Đăng nhập không thành công"]);
+          return redirect()->route('home')->with(['flash_level'=>'danger','thatbai'=>"Đăng nhập không thành công"]);
       }
        $socialProvider = User::where('provider_id',$socialUser->getId())->first();
        if(!$socialProvider){
           //tạo mới
           $user = User::where('email',$socialUser->getEmail())->first();
           if($user){
-            return redirect()->route('home')->with(['flash_level'=>'danger','flash_message'=>"Email đã có người sử dụng"]);
+            return redirect()->route('home')->with(['flash_level'=>'danger','thatbai'=>"Email đã có người sử dụng"]);
           }
           else{
             $user = new User();
@@ -117,17 +128,12 @@ class LoginRegister_Controller extends Controller
            // $user->avatar = $socialUser->getAvatar();
             $user->save();
           }
-          // $provider = new SocialProvider();
-          // $provider->provider_id = $socialUser->getId();
-          // $provider->provider = $providers;
-          // $provider->email = $socialUser->getEmail();
-          // $provider->save();
       }
       else{
           $user = User::where('email',$socialUser->getEmail())->first();
       }
       Auth()->login($user);
-      return redirect()->route('home')->with(['flash_level'=>'success','flash_message'=>"Đăng nhập thành công"]);
+      return redirect()->route('home')->with(['flash_level'=>'success','thanhcong'=>"Đăng nhập thành công"]);
     }
 
 }

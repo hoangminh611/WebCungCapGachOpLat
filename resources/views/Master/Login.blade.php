@@ -42,7 +42,7 @@
 							</a>
 					</button>
 					<button type="button">
-							<a href="{{route('provider_login','facebook')}}">
+							<a href="{{route('provider_login','google')}}">
 								<i class="fa fa-google-plus" aria-hidden="true" style="font-size: 20px;">
 								Login with Google
 								</i>

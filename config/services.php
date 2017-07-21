@@ -39,4 +39,10 @@ return [
     'client_secret' => '942e0ab7baa3ce1d716830d02a6be015',
     'redirect' => 'http://localhost/webcungcapgachoplat/public/index.php/loginfacebook/facebook/callback',
     ],
+    
+    'google' => [
+    'client_id' =>'451765861702-b62tsdb43eufur1d5m6a8dt4l910ih7d.apps.googleusercontent.com',
+    'client_secret' =>'RQz_0pnWVQ7uXzzuNiqhMeqF',
+    'redirect' => 'http://localhost/webcungcapgachoplat/public/index.php/loginfacebook/google/callback',
+    ],
 ];

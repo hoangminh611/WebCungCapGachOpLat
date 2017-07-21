@@ -33,6 +33,13 @@
 									
 									</script>
 						@endif
+						@if(Session::has('thanhcong'))
+									<div class="alert alert-danger them " id="alert">{{Session::get('thanhcong')}}</div>
+									<script type="text/javascript">
+										$('.them').hide(5000);
+									
+									</script>
+						@endif
 						
 							@if(Auth::check())
 								<div>
