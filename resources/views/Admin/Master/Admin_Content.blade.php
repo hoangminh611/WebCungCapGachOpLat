@@ -1,4 +1,4 @@
-@extends('Admin.Master.Master')
+@extends('Admin.Master.Admin_Master')
 @section('body')
 <section id="main-content">
 	<section class="wrapper">

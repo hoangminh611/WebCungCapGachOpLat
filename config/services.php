@@ -34,5 +34,9 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
-
+    'facebook' => [
+    'client_id' => '2033544113598636',
+    'client_secret' => '942e0ab7baa3ce1d716830d02a6be015',
+    'redirect' => 'http://localhost/webcungcapgachoplat/public/index.php/loginfacebook/facebook/callback',
+    ],
 ];

@@ -11,7 +11,7 @@
                     </a>
                 </li>
                 <li class="sub-menu">
-                    <a href="javascript:;">
+                    <a href="javascript:void(0);">
                         <i class="fa fa-book"></i>
                         <span>Product</span>
                     </a>
@@ -21,6 +21,18 @@
                             @foreach($loaicon[$type_parent->id] as $type_child)
                         <li><a href="{{route('Admin_All_Product_By_Type',$type_child->id)}}">{{$type_child->name}}</a></li>
                             @endforeach
+                        @endforeach
+                    </ul>
+                </li>
+                 <li class="sub-menu">
+                    <a href="javascript:void(0);">
+                        <i class="fa fa-book"></i>
+                        <span>Category</span>
+                    </a>
+                    <ul class="sub">
+                        <li> <a href="{{route('Admin_All_Type')}}">Tất cả loại cha</a>
+                        @foreach($type as $type_parent)
+                            <li><a href="{{route('Admin_All_Type_By_Type',$type_parent->id)}}">{{$type_parent->name}}</a></li>
                         @endforeach
                     </ul>
                 </li>

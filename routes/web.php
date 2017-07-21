@@ -34,11 +34,19 @@ Route::get('Admin_All_Product',[
 Route::get('Admin_All_Product_By_Type/{id}',[
 	'as'=>'Admin_All_Product_By_Type',
 	'uses'=>'Admin_Product_Controller@Admin_All_Product_By_Type']);
-
-
-
-
 //-------------------------------Sản phẩm Admin--------------------------
+//-------------------------------Loại Admin--------------------------
+Route::get('Admin_All_Type',[
+	'as'=>'Admin_All_Type',
+	'uses'=>'Admin_Product_Controller@Admin_All_Type']);
+Route::get('Admin_All_Type_By_Type/{id}',[
+	'as'=>'Admin_All_Type_By_Type',
+	'uses'=>'Admin_Product_Controller@Admin_All_Type_By_Type']);
+
+
+
+
+//-------------------------------Loại Admin--------------------------
 // ------------------------------ADMIN------------------------------------
 //------------------------------Trang Giao Diện------------------------------------
 //------------------------------Sản Phẩm------------------------------------
@@ -78,7 +86,14 @@ Route::get('getregister',[
 Route::get('active-user',[
 	'as'=>'active-user',
 	'uses'=>'LoginRegister_Controller@activeUser']);
-
+Route::get('loginfacebook/{provider}', [
+	'as'=>'provider_login',
+	'uses'=>'LoginRegister_Controller@redirectToProvider'
+]);
+Route::get('loginfacebook/{provider}/callback', [
+	'as'=>'provider_login_callback',
+	'uses'=>'LoginRegister_Controller@handleProviderCallback'
+]);
 //------------------------------Đăng Nhập------------------------------------
 //------------------------------Giỏ Hàng------------------------------------
 Route::get('add-to-cart/',[

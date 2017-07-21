@@ -10,10 +10,21 @@ class TypeProduct extends Model
     public function products(){
     	return $this->hasMany('App\Product','id_type','id');
     }
- //    public static function Show_Type_product(){
-	// 	$Type_product=DB::table('category')->select('id','name');
-	// 	return $Type_product;
-	// }	
+    public static function Show_All_Type_Product_Parent(){
+		$Type_product=DB::table('category')->select()->where([
+                                    ['type', '=', '1'],
+                                    ['type_cha', '=', '0'],
+                                    ])->select();
+		return $Type_product;
+	}	
+	  public static function Show_All_Type_Product_By_Id_Parent($id){
+		$Type_product=DB::table('category')
+						->where([
+                        ['type', '=', '1'],
+                        ['type_cha', '=', $id],
+                        ])->select();
+		return $Type_product;
+	}	
 
 	// public static function Edit_Category($id, $name, $desc, $image){
  //        $pro=DB::table('category')->where('id','=',$id)->update(['name'=>$name, 'description'=>$desc,'image'=>$image]);

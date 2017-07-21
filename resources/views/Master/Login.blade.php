@@ -33,6 +33,22 @@
 						</div>
 					</form>
 					</div>
+					<button type="button">
+							<a href="{{route('provider_login','facebook')}}">
+								<i class="fa fa-facebook-square" aria-hidden="true" style="font-size: 20px;">
+								Login with Facebook
+								</i>
+								
+							</a>
+					</button>
+					<button type="button">
+							<a href="{{route('provider_login','facebook')}}">
+								<i class="fa fa-google-plus" aria-hidden="true" style="font-size: 20px;">
+								Login with Google
+								</i>
+								
+							</a>
+					</button>
 				</div>
 				<div class="col-md-6 account-right account-left">
 					<h3>New User? Create an Account</h3>

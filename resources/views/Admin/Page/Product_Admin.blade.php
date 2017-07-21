@@ -1,4 +1,4 @@
-  @extends('Admin.Master.Admin_Master')
+@extends('Admin.Master.Admin_Master')
 @section('body')
 <section id="main-content" style="overflow: scroll;">
 	<section class="wrapper">
