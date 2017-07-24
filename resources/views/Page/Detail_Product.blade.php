@@ -59,9 +59,9 @@
 									</ul>
 								<div class="review">
 									<a href="javascript:void(0)">{{$product[0]->view}}View </a>
-									
 								</div>
-							<div class="clearfix"> </div>
+								<div class="fb-like" data-href="http://localhost/webcungcapgachoplat/public/index.php/Detail/{{$product[0]->id}}" data-width="500" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+								<div class="clearfix"> </div>
 							</div>
 							
 							<h5 class="item_price">
@@ -109,24 +109,21 @@
 				<div class="tabs">
 					<ul class="menu_drop">
 				<li class="item1"><a href="javascript:void(0)"><img src="images/arrow.png" alt="">Description</a>
-					<ul>
-						<li class="subitem2"><a href="javascript:void(0)">{{$product[0]->description}}</a></li>
+					<ul style="background-color: white;">
+						<li class="subitem2" ><a href="javascript:void(0)">{{$product[0]->description}}</a></li>
 					</ul>
 				</li>
-				<li class="item2"><a href="#"><img src="images/arrow.png" alt="">Additional information</a>
-					<ul>
-					    <li class="subitem2"><a href="#"> Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore</a></li>
-						<li class="subitem3"><a href="#">Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes </a></li>
-					</ul>
-				</li>
+{{-- 				<li class="item2"><a href="#"><img src="images/arrow.png" alt="">Additional information</a>
+				</li> --}}
 				<li class="item3"><a href="#"><img src="images/arrow.png" alt="">Comment</a>
-					<ul>
-						<li class="subitem1"><a href="#">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</a></li>
-						<li class="subitem2"><a href="#"> Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore</a></li>
-						<li class="subitem3"><a href="#">Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes </a></li>
+					<ul style="background-color: white;">
+					    <li class="subitem3">
+					    	<div class="fb-comments" data-href="http://localhost/webcungcapgachoplat/public/index.php/Detail//{{$product[0]->id}}" data-width="560" data-numposts="5"></div>
+					    </li>
+
 					</ul>
 				</li>
-				<li class="item4"><a href="#"><img src="images/arrow.png" alt="">Helpful Links</a>
+				{{-- <li class="item4"><a href="#"><img src="images/arrow.png" alt="">Helpful Links</a>
 					<ul>
 					    <li class="subitem2"><a href="#"> Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore</a></li>
 						<li class="subitem3"><a href="#">Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes </a></li>
@@ -138,7 +135,7 @@
 						<li class="subitem2"><a href="#"> Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore</a></li>
 						<li class="subitem3"><a href="#">Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes </a></li>
 					</ul>
-				</li>
+				</li> --}}
 	 		</ul>
 				</div>
 				<div class="latestproducts">

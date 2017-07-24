@@ -100,7 +100,8 @@ class Product extends Model
         return $product;
     }
     
-    //hiện tất cả các sản phẩm-------Admin-----------
+   //-------Admin-----------
+     //hiện tất cả các sản phẩm
     public static function Show_Product_All(){
             $product=DB::table('products')
                         ->join('category','products.id_type','=','category.id')
@@ -110,7 +111,8 @@ class Product extends Model
                                  'products.updated_at','products.description','export_product.size as size','export_product.export_price');
         return $product;
   }
-    public static function Show_Product_All_By_Type($id){
+  //Hiện tất cả sản phẩm theo loại cha 
+  public static function Show_Product_All_By_Type($id){
             $product=DB::table('products')
                         ->where('id_type',$id)
                         ->join('category','products.id_type','=','category.id')
@@ -120,12 +122,16 @@ class Product extends Model
                                  'products.updated_at','products.description','export_product.size as size','export_product.export_price');
         return $product;
   }
-  
-  //   //Xóa sản phẩm theo id
-  //   public static function Find_Product_By_Id($id){
-  //       $product=DB::table('products')->where('id','=',$id)->delete();
-  //       return $product;
-  //   }
+  //xóa sản phẩm theo id sản phẩm
+  public static function Delete_Product($id){
+        $pro=DB::table('products')->where('id','=',$id)->delete();
+        return $pro;
+  }
+  //Insert san phẩm mới
+    public static function Insert_Product($name, $type, $desc,$image){
+            $id=DB::table('products')->insertGetId(['name'=>$name,'id_type'=>$type,'description'=>$desc,'image'=>$image]);
+            return $id;
+  }
   //   //Các sản phẩm có lượng view nhiều nhất
   //   public static function MostViewProduct(){
   //       $product=array();
@@ -140,14 +146,8 @@ class Product extends Model
   //           $pro=DB::table('products')->where('id','=',$id)->update(['name'=>$name,'id_type'=>$type, 'description'=>$desc,'unit_price'=>$unit_price,'promotion_price'=>$pro_price,'image'=>$image,'unit'=>$unit]);
   //           return $pro; 
   // }
-  // public static function Insert_Product($name, $type, $desc, $unit_price, $pro_price, $image, $unit){
-  //           $id=DB::table('products')->insertGetId(['name'=>$name,'id_type'=>$type,'description'=>$desc,'unit_price'=>$unit_price,'promotion_price'=>$pro_price,'image'=>$image, 'unit'=>$unit]);
-  //           return $id;
-  // }
-  // public static function Delete_Product($id){
-  //       $pro=DB::table('products')->where('id','=',$id)->delete();
-  //       return $pro;
-  // }
+
+
 
   //     public static function findProductBestSale() // tim san pham ban chay
   //       {

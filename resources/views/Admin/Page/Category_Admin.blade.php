@@ -7,6 +7,9 @@
         <div class="panel-heading">
          Basic table
         </div>
+          <div>
+            <button id="addRow" onclick="addRow()"  class=" btn btn-info btn-lg glyphicon glyphicon-plus-sign" style=" border-radius: 10px;"></button>
+        </div> 
         <div>
           <table class="table" ui-jq="footable" ui-options='{
             "paging": {

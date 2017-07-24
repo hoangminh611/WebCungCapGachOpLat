@@ -1,4 +1,4 @@
-<!--sidebar start-->
+
 <aside>
     <div id="sidebar" class="nav-collapse">
         <!-- sidebar menu start-->
@@ -36,18 +36,20 @@
                         @endforeach
                     </ul>
                 </li>
-{{--                 <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-book"></i>
-                        <span>UI Elements</span>
+                <li class="sub-menu">
+                    <a href="javascript:void(0)">
+                            <i class="fa fa-newspaper-o"></i>
+                            <span>News</span>
                     </a>
                     <ul class="sub">
-						<li><a href="typography.html">Typography</a></li>
-						<li><a href="glyphicon.html">glyphicon</a></li>
-                        <li><a href="grids.html">Grids</a></li>
+                        <li><a href="{{route('ViewNews')}}"> Tất cả tin</a></li>
+                        <li><a href="{{route('TypeNews')}}"> Tất cả loại tin</a></li>
+                        @foreach($typenews as $typenew)
+						<li><a href="{{route('ViewNewsBy_id',$typenew->id)}}">{{$typenew->name}}</a></li>
+                        @endforeach
                     </ul>
                 </li>
-                <li>
+               {{--  <li>
                     <a href="fontawesome.html">
                         <i class="fa fa-bullhorn"></i>
                         <span>Font awesome </span>
@@ -114,15 +116,15 @@
 						<li><a href="404.html">404 Error</a></li>
                         <li><a href="registration.html">Registration</a></li>
                     </ul>
-                </li> --}}
+                </li>
                 <li>
                     <a href="login.html">
                         <i class="fa fa-user"></i>
                         <span>Login Page</span>
                     </a>
-                </li>
+                </li> --}}
             </ul>            </div>
         <!-- sidebar menu end-->
     </div>
 </aside>
-<!--sidebar end-->
+<!--sidebar end

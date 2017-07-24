@@ -26,21 +26,6 @@
 				</div>
 				<div class="col-md-6 top-header-left">
 					<div class="cart box_1" style="text-align: center;">
-						@if(Session::has('thatbai'))
-									<div class="alert alert-danger them " id="alert">{{Session::get('thatbai')}}</div>
-									<script type="text/javascript">
-										$('.them').hide(5000);
-									
-									</script>
-						@endif
-						@if(Session::has('thanhcong'))
-									<div class="alert alert-danger them " id="alert">{{Session::get('thanhcong')}}</div>
-									<script type="text/javascript">
-										$('.them').hide(5000);
-									
-									</script>
-						@endif
-						
 							@if(Auth::check())
 								<div>
 									<i class="fa fa-user"></i>Chào bạn {{Auth::User()->full_name}}
@@ -104,6 +89,19 @@
 	</div>
 		{{-- cai nay de tao khoang trong chua header khi load trang --}}
 	<!--start-logo-->
+	@if(Session::has('thatbai'))
+		<div class="alert alert-danger them " id="alert">{{Session::get('thatbai')}}</div>
+		<script type="text/javascript">
+			$('.them').hide(3000);							
+		</script>
+	@endif
+	@if(Session::has('thanhcong'))
+		<div class="alert alert-danger them " id="alert">{{Session::get('thanhcong')}}</div>
+		<script type="text/javascript">
+			$('.them').hide(3000);							
+		</script>
+	@endif
+						
 	<div class="logo">
 		<a href="index.html"><h1>Gạch Ốp Lát Cao Cấp</h1></a>
 	</div>

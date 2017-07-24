@@ -8,6 +8,7 @@ use DB;
 class User extends Authenticatable
 {
     protected $table='users';
+    public $timestamps = true;
     use Notifiable;
 
     /**

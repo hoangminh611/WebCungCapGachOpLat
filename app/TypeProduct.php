@@ -7,17 +7,19 @@ use DB;
 class TypeProduct extends Model
 {
     protected $table ='category';
+    public $timestamps = true;
     public function products(){
     	return $this->hasMany('App\Product','id_type','id');
     }
     public static function Show_All_Type_Product_Parent(){
-		$Type_product=DB::table('category')->select()->where([
+		$Type_product=DB::table('category')->where([
                                     ['type', '=', '1'],
                                     ['type_cha', '=', '0'],
                                     ])->select();
 		return $Type_product;
-	}	
-	  public static function Show_All_Type_Product_By_Id_Parent($id){
+	}
+
+	public static function Show_All_Type_Product_By_Id_Parent($id){
 		$Type_product=DB::table('category')
 						->where([
                         ['type', '=', '1'],
@@ -25,15 +27,36 @@ class TypeProduct extends Model
                         ])->select();
 		return $Type_product;
 	}	
+	//Lấy cac thuộc tính của loại sản phẩm
+	public static function Get_Category($id){
+		$Type_product=DB::table('category')
+						->where([
+                        ['type', '=', '1'],
+                        ['id','=',$id],
+                        ])->select();
+        return $Type_product;               
+	}
+	 public static function Insert_Category($name, $desc, $image,$type_cha,$type){
+            $id=DB::table('category')->insertGetId(['name'=>$name,'description'=>$desc,'image'=>$image,'type_cha'=>$type_cha,'type'=>$type]);
+            return $id;
+  	}
+	public static function Update_Category($anhthemmoi_suaAnh,$id,$name,$description,$type_cha,$type,$image){
+       if($anhthemmoi_suaAnh==1)
+            {
+               $News=DB::table('category')
+                        ->where('id',$id)
+                        ->update(['name'=>$name,'image'=>$image,'description'=>$description,'type_cha'=>$type_cha,'type'=>$type]);
+                return $News;
+            }
+            else
+            {
+                 $News=DB::table('category')
+                        ->where('id',$id)
+                        ->update(['name'=>$name,'description'=>$description,'type_cha'=>$type_cha,'type'=>$type]);
+                return $News;
+            }
+  	}
 
-	// public static function Edit_Category($id, $name, $desc, $image){
- //        $pro=DB::table('category')->where('id','=',$id)->update(['name'=>$name, 'description'=>$desc,'image'=>$image]);
- //        return $pro; 
- //  	}
- //  	public static function Insert_Category($name, $desc, $image){
- //            $id=DB::table('category')->insertGetId(['name'=>$name,'description'=>$desc,'image'=>$image]);
- //            return $id;
- //  	}
 	// public static function Delete_Category($id){
 	// 	$pro=DB::table('products')->where('id_type',$id)->delete();
 	// 	$type_pro=DB::table('category')->where('id',$id)->delete();

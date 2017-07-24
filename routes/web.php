@@ -21,6 +21,9 @@ Route::get('Contact',[
 	'as'=>'Contact',
 	'uses'=>'Home_Controller@getContact']);
 // ------------------------------ADMIN------------------------------------
+Route::group(['prefix'=>'admin'],function()
+{
+
 Route::get('Content_Admin',[
 	'as'=>'Content_Admin',
 	'uses'=>'Admin_Controller@Content_Admin']);
@@ -34,6 +37,26 @@ Route::get('Admin_All_Product',[
 Route::get('Admin_All_Product_By_Type/{id}',[
 	'as'=>'Admin_All_Product_By_Type',
 	'uses'=>'Admin_Product_Controller@Admin_All_Product_By_Type']);
+Route::get('ViewPage_ImportProduct',[
+	'as'=>'ViewPage_ImportProduct',
+	'uses'=>'Admin_Product_Controller@ViewPageImportProduct']);
+
+Route::get('ViewPage_InsertProduct',[
+	'as'=>'ViewPage_InsertProduct',
+	'uses'=>'Admin_Product_Controller@ViewPageInsertProduct']);
+Route::post('Update_Product',
+	['as'=>'Update_Product',
+	 'uses'=>'Admin_Product_Controller@Update_Product']);
+Route::post('Insert_Product',
+	['as'=>'Insert_Product',
+	 'uses'=>'Admin_Product_Controller@Insert_Product']);
+Route::get('Delete_Product',
+	['as'=>'Delete_Product',
+	 'uses'=>'Admin_Product_Controller@Delete_Product']);
+
+Route::post('Insert_Import_Product',
+	['as'=>'Insert_Import_Product',
+	 'uses'=>'Admin_Product_Controller@Insert_Import_product']);
 //-------------------------------Sản phẩm Admin--------------------------
 //-------------------------------Loại Admin--------------------------
 Route::get('Admin_All_Type',[
@@ -42,11 +65,57 @@ Route::get('Admin_All_Type',[
 Route::get('Admin_All_Type_By_Type/{id}',[
 	'as'=>'Admin_All_Type_By_Type',
 	'uses'=>'Admin_Product_Controller@Admin_All_Type_By_Type']);
-
-
-
+Route::get('ViewPage_InsertCategory',[
+	'as'=>'ViewPage_InsertCategory',
+	'uses'=>'Admin_Product_Controller@ViewPage_InsertCategory']);
+Route::post('Insert_Category',[
+	'as'=>'Insert_Category',
+	'uses'=>'Admin_Product_Controller@InsertCategory']);
+Route::post('Update_Category',[
+	'as'=>'Update_Category',
+	'uses'=>'Admin_Product_Controller@UpdateCategory']);
 
 //-------------------------------Loại Admin--------------------------
+//-------------------------------News Admin--------------------------
+Route::get('ViewNews',
+	['as'=>'ViewNews',
+	'uses'=>'Admin_News_Controller@ViewAllNews']);
+Route::get('ViewNewsBy_id/{id}',
+	['as'=>'ViewNewsBy_id',
+	'uses'=>'Admin_News_Controller@ViewAllNewsBy_id']);
+
+Route::post('UpdateNews',
+	['as'=>'UpdateNews',
+	'uses'=>'Admin_News_Controller@UpdateNews']);
+Route::post('InsertNews',
+	['as'=>'InsertNews',
+	'uses'=>'Admin_News_Controller@InsertNews']);
+Route::get('InsertNews',
+	['as'=>'InsertNews',
+	'uses'=>'Admin_News_Controller@ViewPageInsertNews']);
+Route::get('DeleteNews',
+	['as'=>'DeleteNews',
+	'uses'=>'Admin_News_Controller@DeleteNews']);
+
+
+Route::get('TypeNews',
+	['as'=>'TypeNews',
+	'uses'=>'Admin_News_Controller@AllTypeNews']);
+Route::get('Insert_Type_News',
+	['as'=>'Insert_Type_News',
+	'uses'=>'Admin_News_Controller@View_Insert_Type_News']);
+
+Route::get('DeleteTypeNews',
+	['as'=>'DeleteTypeNews',
+	'uses'=>'Admin_News_Controller@Delete_Type_News']);
+Route::post('Insert_Type_News',
+	['as'=>'Insert_Type_News',
+	'uses'=>'Admin_News_Controller@Insert_Type_News']);
+Route::post('Update_Type_News',
+	['as'=>'Update_Type_News',
+	'uses'=>'Admin_News_Controller@Update_Type_News']);
+//-------------------------------News Admin---------------------
+});
 // ------------------------------ADMIN------------------------------------
 //------------------------------Trang Giao Diện------------------------------------
 //------------------------------Sản Phẩm------------------------------------

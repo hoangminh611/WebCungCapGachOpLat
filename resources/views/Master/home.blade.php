@@ -10,7 +10,7 @@
 						<div class="product-main simpleCart_shelfItem">
 							<a href="{{route('Detail',"$newPro->id")}}" class="mask"><img class="img-responsive zoom-img" src="images/{{$newPro->image}}" alt="" style="width: 250px; height: 250px;" />
 							<div class="product-bottom">
-								<h4>{{$newPro->name}}</h4>
+								<h4 style="height: 30px;">{{$newPro->name}}</h4>
 								<p>Tìm Hiểu Thêm</p></a>
 
 							</div>
