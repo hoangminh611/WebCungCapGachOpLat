@@ -37,8 +37,7 @@ class Admin_News_Controller extends Controller
       
       public function UpdateNews(Request $req){
          $id=$req->id;
-         // $id_user=Auth::User()->id;
-         $id_user=3;
+         $id_user=Auth::User()->id;
          $title=$req->title;
          $description=($req->description);
          $content=($req->content);
@@ -63,8 +62,7 @@ class Admin_News_Controller extends Controller
       //insert news
       public function InsertNews(Request $req){
          //Chưa kiểm tra đươc image và description
-         // $id_user=Auth::User()->id;
-         $id_user=3;
+         $id_user=Auth::User()->id;
          $title=$req->title;
          if ($req->hasFile('image')) 
          {
@@ -81,7 +79,7 @@ class Admin_News_Controller extends Controller
           $news=News::InsertNews($id_user,$title,$image,$description,$content,$category_id_news);
          return redirect()->route('ViewNews');
       }
-      //xoa1 tin tuc
+      //xoa tin tuc
       public function DeleteNews(Request $req){
          $id=$req->id;
          $news=News::DeleteNews($id);
@@ -134,7 +132,6 @@ class Admin_News_Controller extends Controller
       {
          $id=$req->id;
          $name=$req->name;
-         // $id_user=Auth::User()->id;
          $description=$req->description;
          $type_cha=$req->type_cha;
          $type=$req->type;

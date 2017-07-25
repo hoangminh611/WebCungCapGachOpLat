@@ -20,6 +20,15 @@ Route::get('home',[
 Route::get('Contact',[
 	'as'=>'Contact',
 	'uses'=>'Home_Controller@getContact']);
+Route::get('News',[
+	'as'=>'News',
+	'uses'=>'Home_Controller@getNews']);
+Route::get('News_By_Type/{id}',[
+	'as'=>'News_By_Type',
+	'uses'=>'Home_Controller@getNews_By_Type']);
+Route::get('New_Detail/{id_new}',[
+		'as'=>'New_Detail',
+	'uses'=>'Home_Controller@getNew_Detail']);
 // ------------------------------ADMIN------------------------------------
 Route::group(['prefix'=>'admin'],function()
 {
@@ -30,6 +39,12 @@ Route::get('Content_Admin',[
 Route::get('Login_Admin',[
 	'as'=>'Login_Admin',
 	'uses'=>'Admin_Login_Controller@Login_Admin']);
+Route::post('Login',[
+	'as'=>'Login',
+	'uses'=>'Admin_Login_Controller@postLogin_Admin']);
+Route::get('Logout',[
+	'as'=>'Logout',
+	'uses'=>'Admin_Login_Controller@getLogout']);
 //-------------------------------Sản phẩm Admin--------------------------
 Route::get('Admin_All_Product',[
 	'as'=>'Admin_All_Product',
@@ -53,7 +68,6 @@ Route::post('Insert_Product',
 Route::get('Delete_Product',
 	['as'=>'Delete_Product',
 	 'uses'=>'Admin_Product_Controller@Delete_Product']);
-
 Route::post('Insert_Import_Product',
 	['as'=>'Insert_Import_Product',
 	 'uses'=>'Admin_Product_Controller@Insert_Import_product']);
@@ -74,6 +88,13 @@ Route::post('Insert_Category',[
 Route::post('Update_Category',[
 	'as'=>'Update_Category',
 	'uses'=>'Admin_Product_Controller@UpdateCategory']);
+Route::get('Delete_Category_Parent',
+	['as'=>'Delete_Category_Parent',
+	'uses'=>'Admin_Product_Controller@DeleteCategory_Parent']);
+
+Route::get('Delete_Category_Child',
+	['as'=>'Delete_Category_Child',
+	'uses'=>'Admin_Product_Controller@DeleteCategory_Child']);
 
 //-------------------------------Loại Admin--------------------------
 //-------------------------------News Admin--------------------------

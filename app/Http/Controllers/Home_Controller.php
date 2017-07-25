@@ -21,6 +21,29 @@ class Home_Controller extends Controller
    	return view('Master.home',compact('new8Pro'));
    }
 
+   public function getNews()
+   {
+      $new_post=News::ShowNewPost()->get();
+      $All_news=News::ShowAllPost()->paginate(3);
+      $category=News::CategoryNews()->get();
+      return view('Page.News',compact('new_post','All_news','category'));
+   }
+   public function getNews_By_Type(Request $req)
+   {
+      $new_post=News::ShowNewPost()->get();
+      $All_news=News::ShowAllPost_ByType($req->id)->paginate(3);
+      $category=News::CategoryNews()->get();
+      return view('Page.News',compact('new_post','All_news','category'));
+   }
+
+   public function getNew_Detail($id)
+   { 
+     $new_post=News::ShowNewPost()->get();
+     $new_detail=News::New_Detail($id)->get();
+     $category=News::CategoryNews()->get();
+     return view('Page.News_Detail',compact('new_post','new_detail','category'));
+
+   }
    public function getContact()
    {
       return view('Page.Contact');

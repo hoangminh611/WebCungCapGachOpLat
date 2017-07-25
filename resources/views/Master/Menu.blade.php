@@ -21,7 +21,7 @@
 								</div>
 							</div>
 						</li>
-						<li class="grid"><a href="typo.html">Blog</a>
+						<li class="grid"><a href="{{route('News')}}">News</a>
 						</li>
 						<li class="grid"><a href="{{route('Contact')}}">Contact</a>
 						</li>

@@ -16,6 +16,7 @@ class Export_product extends Model
     				->select('export_product.id as idsize','products.id','products.name','products.image','export_product.size','export_product.export_price');
     	return $product;
     }
+     //xòa sản phẩm theo id product va size doi voi xoa từng sản phẩm,kiểm tra coi san pham do con size nao k
     public static function Delete_Export_Product($id,$size)
     {
         $pro=DB::table('export_product')
@@ -24,6 +25,20 @@ class Export_product extends Model
         		->where('id_product','=',$id)->select()->first();
         return $pro;
     }
+    //tìm sản phẩm 
+    public static function FindOneExportProduct($id,$size)
+    {
+        $pro=DB::table('export_product')
+                ->where('id_product','=',$id)->select();
+        return $pro;
+    }
+    //xòa sản phẩm khi loại sản phẩm bị xóa
+    public static function Delete_Export_Product_By_Id($id)
+    {
+         $pro=DB::table('export_product')
+                ->where('id_product','=',$id)->delete();
+    }
+    //Lúc nhập hàng hoặc thêm kích thước
     public static function  Update_Insert_Export_Product($id,$size,$export_price)
     {
         $pro=DB::table('export_product')
@@ -35,4 +50,11 @@ class Export_product extends Model
                 ->whereRaw("id_product ='$id' and size REGEXP'$size' ")->update(['export_price'=>$export_price]);
 
     }
+    //lúc sửa lại mọi thứ trong sản phẩm
+    public static function Update_Export_Product($id,$first_size,$size,$export_price)
+    {
+        $pro=DB::table('export_product')
+                ->whereRaw("id_product ='$id' and size REGEXP'$first_size' ")->update(['size'=>$size,'export_price'=>$export_price]);
+    }
+
 }

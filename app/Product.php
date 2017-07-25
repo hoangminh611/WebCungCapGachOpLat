@@ -106,9 +106,11 @@ class Product extends Model
             $product=DB::table('products')
                         ->join('category','products.id_type','=','category.id')
                         ->join('export_product','products.id','=','export_product.id_product')
+                        ->join('import_product','products.id','=','import_product.id_product')
                         ->select('category.name as type_name','products.id','products.name','products.unit_price', 
-                                'products.image','products.created_at',
-                                 'products.updated_at','products.description','export_product.size as size','export_product.export_price');
+                                'products.image','products.description','export_product.size as size','export_product.export_price','export_product.export_quantity','import_product.import_quantity','import_product.import_price','import_product.created_at')
+                        ->orderBy('id','DESC');
+
         return $product;
   }
   //Hiện tất cả sản phẩm theo loại cha 
@@ -117,9 +119,10 @@ class Product extends Model
                         ->where('id_type',$id)
                         ->join('category','products.id_type','=','category.id')
                         ->join('export_product','products.id','=','export_product.id_product')
+                        ->join('import_product','products.id','=','import_product.id_product')
                         ->select('category.name as type_name','products.id','products.name','products.unit_price', 
-                                'products.image','products.created_at',
-                                 'products.updated_at','products.description','export_product.size as size','export_product.export_price');
+                                'products.image','products.description','export_product.size as size','export_product.export_price','export_product.export_quantity','import_product.import_quantity','import_product.import_price','import_product.created_at')
+                        ->orderBy('id','DESC');
         return $product;
   }
   //xóa sản phẩm theo id sản phẩm
@@ -128,10 +131,32 @@ class Product extends Model
         return $pro;
   }
   //Insert san phẩm mới
-    public static function Insert_Product($name, $type, $desc,$image){
+  public static function Insert_Product($name, $type, $desc,$image){
             $id=DB::table('products')->insertGetId(['name'=>$name,'id_type'=>$type,'description'=>$desc,'image'=>$image]);
             return $id;
   }
+
+  //Tìm 1 sản phẩm chi tiết
+  public static function findOneProduct($id)
+    {
+        $product = DB::table('products')
+                    ->where('id','=',$id);
+        return $product;
+
+    }
+  //Update sản phẩm
+  public static function Update_Product($anhthemmoi_suaAnh,$id,$name, $type,$desc,$image){
+      if($anhthemmoi_suaAnh==1)
+        {
+            $pro=DB::table('products')->where('id','=',$id)->update(['name'=>$name,'id_type'=>$type,'description'=>$desc,'image'=>$image]);
+            return $pro; 
+        }
+      else
+        {
+             $pro=DB::table('products')->where('id','=',$id)->update(['name'=>$name,'id_type'=>$type,'description'=>$desc]);
+        }
+  }
+  //Update sản phẩm
   //   //Các sản phẩm có lượng view nhiều nhất
   //   public static function MostViewProduct(){
   //       $product=array();
@@ -142,10 +167,7 @@ class Product extends Model
   //       return $product;
   //   }
 
-  //   public static function Edit_Product($id, $name, $type, $desc, $unit_price, $pro_price,$image,$unit){
-  //           $pro=DB::table('products')->where('id','=',$id)->update(['name'=>$name,'id_type'=>$type, 'description'=>$desc,'unit_price'=>$unit_price,'promotion_price'=>$pro_price,'image'=>$image,'unit'=>$unit]);
-  //           return $pro; 
-  // }
+
 
 
 
@@ -159,14 +181,7 @@ class Product extends Model
 
   //           return $bestsale;
   //       }
-  //   public static function findOneProduct($id)
-  //   {
-  //       $productcart = DB::table('products')
-  //                   ->where('products.id','=',$id)
-  //                   ->first();
-  //       return $productcart;
 
-  //   }
 
   //   public static function findProductPromotion()
   //   {

@@ -125,39 +125,40 @@
                 }
             );
             }
-            // function delete_row(id)
-            // {
-            //     ssi_modal.confirm({
-            //     content: 'Bạn có muốn xóa loại này nếu xóa loại này sẽ ảnh hưởng tới bảng product?',
-            //     okBtn: {
-            //     className:'btn btn-primary'
-            //     },
-            //     cancelBtn:{
-            //     className:'btn btn-danger'
-            //     }
-            //     },function (result) {
-            //         if(result)
-            //         {
-            //             // var image = $('#img'+id).attr("src");
-            //             var route="{{ route('DeleteTypeNews') }}";
-            //             $.ajax({
-            //                 url:route,
-            //                 type:'get',
-            //                 data:{
-            //                     id:id,
-            //                     // imageFile:image,
-            //                 },
-            //                 success:function() {  
-            //                      $('#row'+id).hide();
-            //                     alert('Xóa thành công');
-            //                 }
-            //             });
-            //         }
-            //         else
-            //             ssi_modal.notify('error', {content: 'Result: ' + result});
-            //     }
-            // );
-            // }
+            function delete_row_category(id)
+            {
+
+                ssi_modal.confirm({
+                content: 'Bạn có muốn xóa loại này nếu xóa loại này sẽ ảnh hưởng tới bảng product?',
+                okBtn: {
+                className:'btn btn-primary'
+                },
+                cancelBtn:{
+                className:'btn btn-danger'
+                }
+                },function (result) {
+                    if(result)
+                    {
+                        // var image = $('#img'+id).attr("src");
+                        var route="{{ route('Delete_Category_Parent') }}";
+                        $.ajax({
+                            url:route,
+                            type:'get',
+                            data:{
+                                id:id,
+                                // imageFile:image,
+                            },
+                            success:function() {  
+                                 $('#row'+id).hide();
+                                alert('Xóa thành công');
+                            }
+                        });
+                    }
+                    else
+                        ssi_modal.notify('error', {content: 'Result: ' + result});
+                }
+            );
+            }
 
     </script>
 @endsection

@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use DB;
+use App\Import_product;
+use App\Export_product;
 class TypeProduct extends Model
 {
     protected $table ='category';
@@ -56,11 +58,40 @@ class TypeProduct extends Model
                 return $News;
             }
   	}
+  	//xóa loại sãn phẩm cha
+	public static function Delete_Category_Parent($id){
+		// $pro=DB::table('products')->where('id_type',$id)->delete();
+		$type=DB::table('category')
+                  ->where('category.id',$id)
+                  ->join('category as bang','category.id','=','bang.type_cha')
+                  ->select('bang.id')->get();
+        foreach ($type as $type_parent) 
+        {
+        	$product=DB::table('products')->where('id_type',$type_parent->id)->select('id')->get();
+        	foreach ($product as $pro) {
+        		$import_product=Import_product::Delete_Import_Product_By_Id($pro->id);
+        		$export_product=Export_product::Delete_Export_Product_By_Id($pro->id);
+        		$bill_detail=Bill_Detail::Delete_Bill_Detail_By_Id($pro->id);
+        	}
+        	$product=DB::table('products')->where('id_type',$type_parent->id)->delete();
+        	$type=DB::table('category')
+                  ->where('category.id',$type_parent->id)->delete();
+        }
+       	 $type=DB::table('category')
+                  ->where('category.id',$id)->delete();
 
-	// public static function Delete_Category($id){
-	// 	$pro=DB::table('products')->where('id_type',$id)->delete();
-	// 	$type_pro=DB::table('category')->where('id',$id)->delete();
-	// }
+	}
+	//xóa loại sản phẩm con
+	public static function Delete_Category_Child($id){
+		$product=DB::table('products')->where('id_type',$id)->select('id')->get();
+		foreach ($product as $pro) {
+        		$import_product=Import_product::Delete_Import_Product_By_Id($pro->id);
+        		$export_product=Export_product::Delete_Export_Product_By_Id($pro->id);
+        		$bill_detail=Bill_Detail::Delete_Bill_Detail_By_Id($pro->id);
+        	}
+		$product=DB::table('products')->where('id_type',$id)->delete();
+        $type=DB::table('category')->where('category.id',$id)->delete();
+	}
 	// public static function ALL_Type_product(){
 	// 	$Type_product=DB::table('category')->select();
 	// 	return $Type_product;

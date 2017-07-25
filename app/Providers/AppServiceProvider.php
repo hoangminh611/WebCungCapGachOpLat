@@ -18,7 +18,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-          view()->composer(['Master.Menu','Page.Product','Page.Detail_Product','Page.Search_Product','Admin.Master.Admin_Master','Admin.Page.Product_Admin_Insert','Admin.Page.Product_Admin_Import'],function($view){
+          view()->composer(['Master.Menu','Page.Product','Page.Detail_Product','Page.Search_Product','Admin.Master.Admin_Master','Admin.Page.Product_Admin_Insert','Admin.Page.Product_Admin_Import','Admin.Page.Category_Admin_Insert'],function($view){
               $type =  DB::table('category')->select()->where([
                                     ['type', '=', '1'],
                                     ['type_cha', '=', '0'],

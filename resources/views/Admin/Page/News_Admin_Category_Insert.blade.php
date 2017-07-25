@@ -48,11 +48,6 @@
                                             <select class="form-control m-bot15" id="type_cha" name ="type_cha">
                                             @if(isset($khongcocha))
                                                 <option value="0">Không có loại cha</option>
-                                            @else
-                                                <option value="0">Không có loại cha</option>
-                                                @foreach($typenews as $type)
-                                                    <option value="{{$type->id}}">{{$type->name}}</option>
-                                                @endforeach
                                             @endif
                                             </select>
                                     </div>
@@ -96,11 +91,6 @@
                                             <select class="form-control m-bot15" id="type_cha" name ="type_cha">
                                             @if(isset($khongcocha))
                                                 <option value="0">Không có loại cha</option>
-                                            @else
-                                                <option value="0">Không có loại cha</option>
-                                                @foreach($typenews as $type)
-                                                    <option value="{{$type->id}}">{{$type->name}}</option>
-                                                @endforeach
                                             @endif
                                             </select>
                                     </div>

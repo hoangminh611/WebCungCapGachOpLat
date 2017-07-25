@@ -8,6 +8,35 @@ class News extends Model
 {
     protected $table='news';
     public $timestamps = true;
+    //lấy 5 bài mới nhất
+    public  static function ShowNewPost(){
+        $news=DB::table('news')->limit(5)->orderBy('id','DESC')->select();
+        return $news;
+    }
+    public static function ShowAllPost(){
+         $news=DB::table('news')->orderBy('id','DESC')->select();
+        return $news;
+    }
+
+     public static function ShowAllPost_ByType($id){
+         $news=DB::table('news')->where('Category_ID_News',$id)->orderBy('id','DESC')->select();
+        return $news;
+    }
+    public static function  CategoryNews(){
+        $news=DB::table('category')
+                    ->where([
+                            ['type', '=', '2'],
+                            ['type_cha', '=', '0'],
+                            ])->select();
+        return $news;
+    }
+    public static function New_Detail($id)
+    {
+        $news=DB::table('news')->where('news.id',$id)->join('users','news.id_user','=','users.id')->select('news.title','news.image','news.description','news.content','users.full_name','news.created_at','news.Category_ID_News');
+        return $news;
+    }
+
+    //--------------------------------------------ADMIN-------------------------------------
     public static function Load_ALL_News(){
         $news=DB::table('news')
                 ->where([

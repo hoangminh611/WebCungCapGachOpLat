@@ -32,12 +32,18 @@ class Bill_Detail extends Model
     //    			->get();
     //     return $product;   
     //     }
+    //xóa theo từng sản phẩm và kiểm tra coi sản phẩm đó còn size nào k
     public static function Delete_Bill_Detail($id,$size){
         $pro=DB::table('bill_detail')
             ->whereRaw("id_product ='$id' and size REGEXP'$size' ")->delete();
         $pro=DB::table('bill_detail')
             ->where('id_product','=',$id)->select()->first();
-
     }
+    //xóa loại sản phẩm 
+     public static function Delete_Bill_Detail_By_Id($id)
+     {
+         $pro=DB::table('bill_detail')
+            ->where('id_product','=',$id)->delete();
+     }
 
 }

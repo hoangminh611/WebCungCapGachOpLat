@@ -15,17 +15,17 @@ session_start();
 /* IMPORTANT!!! Do not comment or remove uncommented settings in this file
    even if you are using session configuration.
    See http://kcfinder.sunhater.com/install for setting descriptions */
-   // $auth=true;
-    // if(isset($_SESSION['group'])==true)
-    //         $auth=false;
-    // else
-    //     $auth=true;
+   $auth=true;
+    if(isset($_SESSION['group'])==false)
+        $auth=false;
+    else
+        $auth=true;
 $_CONFIG = array(
 
 
 // GENERAL SETTINGS
 
-    'disabled' => false,
+    'disabled' => $auth,
     'uploadURL' => "../../public",
     'uploadDir' => "",
     'theme' => "default",

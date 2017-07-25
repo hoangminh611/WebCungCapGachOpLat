@@ -16,26 +16,30 @@ class Admin_Product_Controller extends Controller
 {
    public function Admin_All_Product()
    {
-   	$product=Product::Show_Product_All()->orderBy('id','DES')->paginate(8);
+   	$product=Product::Show_Product_All()->orderBy('created_at','DESC')->paginate(8);
    	return view('Admin.Page.Product_Admin',compact('product'));
    }
 
    public function Admin_All_Product_By_Type(Request $req)
    {
-   	$product=Product::Show_Product_All_By_Type($req->id)->paginate(8);
+   	$product=Product::Show_Product_All_By_Type($req->id)->orderBy('created_at','DESC')->paginate(8);
    	$typepro=$req->id;
-   	return view('Admin.Page.Product_Admin',compact('product'));
+   	return view('Admin.Page.Product_Admin',compact('product','typepro'));
    }
    //Neu co id nghia la update con khong co la insert
    public function ViewPageInsertProduct(Request $req){
        $id=$req->id;
+       $typepro=$req->type;
          if($id!=null){
-            // $news=News::UpdateNewById($req->id)->get();
-            return view('Admin.Page.Product_Admin_Insert',compact('id','news'));
+            $product=Product::findOneProduct($req->id)->get();
+            $size=$req->size;
+            $export_product=Export_product::FindOneExportProduct($id,$size)->first();
+            $import_product=Import_product::FindOneImportProduct($id,$size)->first();
+            return view('Admin.Page.Product_Admin_Insert',compact('id','product','typepro','export_product','import_product','size'));
          }
          else{
             $id=0;
-            return view('Admin.Page.Product_Admin_Insert',compact('id'));
+            return view('Admin.Page.Product_Admin_Insert',compact('id','typepro'));
          }
    }
 
@@ -62,22 +66,32 @@ class Admin_Product_Controller extends Controller
       return redirect()->route('Admin_All_Product');
    }
    public function Update_Product(Request $req){
-      $filename="";
-      $id = $req->input('id');
-      $name = $req->input('edit_name');
-      $type = $req->input('edit_type');
-      $desc = $req->input('edit_des');
-      $unit_price = $req->input('edit_unit_price');
-      $pro_price = $req->input('edit_pro_price');
-      $unit = $req->input('edit_unit');
-      if ($req->hasFile('edit_image')) {
-         $filename= $req->file('edit_image')->getClientOriginalName();
-      $req->file('edit_image')->move('images/product',$filename);
-      }else{
-         $filename=null;
-      }
-      $pro=Product::Edit_Product($id,$name,$type, $desc,$filename);
-      return $pro; 
+         $id=$req->id;
+         $first_size=$req->first_size;
+         $name = $req->name;
+         $type = $req->category_id;
+         $desc = $req->description;
+         $size = $req->size;
+         $export_price = $req->export_price;
+         $import_price=$req->import_price;
+         $import_quantity=$req->import_quantity;
+         $export_product=Export_product::Update_Export_Product($id,$first_size,$size,$export_price);
+         $import_product=Import_product::Update_Import_Product($id,$first_size,$size,$import_price,$import_quantity);
+         if ($req->hasFile('image')) 
+         {
+            $image= $req->file('image')->getClientOriginalName();
+            $req->file('image')->move('images',$image);
+            $suaanh=1;         
+            $pro=Product::Update_Product($suaanh,$id,$name, $type,$desc,$image);
+         }
+         else
+         {
+            $image=null;
+            $suaanh=0;
+            $pro=Product::Update_Product($suaanh,$id,$name, $type,$desc,$image);
+         }
+         return redirect()->route('Admin_All_Product_By_Type',$type);
+         
    }
 
    public function Insert_Product(Request $req){
@@ -116,7 +130,7 @@ class Admin_Product_Controller extends Controller
       if(!isset($import_product)&&!isset($export_product)&&!isset($bill_detail))
          $pro=Product::Delete_Product($id);
    }
-   //--------------------------------Loại sản phẩm -----------------------
+   //--------------------------------Loại sản phẩm ----------------------------------------------------------------------------------------------
    public function Admin_All_Type()
    {
       $Type_Product=TypeProduct::Show_All_Type_Product_Parent()->orderBy('id','DESC')->paginate(8);
@@ -127,22 +141,26 @@ class Admin_Product_Controller extends Controller
    public function Admin_All_Type_By_Type(Request $req)
    {
       $Type_Product=TypeProduct::Show_All_Type_Product_By_Id_Parent($req->id)->paginate(8);
-      $name_parent=DB::table('category')->where('id',$req->id)->select('name')->get();
+      $name_parent=DB::table('category')->where('id',$req->id)->select('name','id')->get();
       return view('Admin.Page.Category_Admin',compact('Type_Product','name_parent'));
    }
 
    public function ViewPage_InsertCategory(Request $req)
    {
            $id=$req->id;
-           $type=1;
-           $khongcocha=0;
+           $loai=1;
+           $khongcocha=$req->khongcocha;
+           if($khongcocha==null)
+           {
+            $khongcocha=0;
+           }
          if($id!=null){
-            $news=TypeProduct::Get_Category($id)->get();
-            return view('Admin.Page.Category_Admin_Insert',compact('id','news','type','khongcocha'));
+            $type_detail=TypeProduct::Get_Category($id)->get();
+            return view('Admin.Page.Category_Admin_Insert',compact('id','type_detail','loai','khongcocha'));
          }
          else{
             $id=0;
-            return view('Admin.Page.Category_Admin_Insert',compact('id','type','khongcocha'));
+            return view('Admin.Page.Category_Admin_Insert',compact('id','loai','khongcocha'));
          }
    }
    public function InsertCategory(Request $req)
@@ -160,8 +178,12 @@ class Admin_Product_Controller extends Controller
          $description=$req->description;
          $type_cha=$req->type_cha;
          $type=$req->type;
+         $khongcocha=$req->khongcocha;
          $category=TypeProduct::Insert_Category($name, $description, $image,$type_cha,$type);
+         if($khongcocha==0)
           return redirect()->route('Admin_All_Type');
+         else
+         return redirect()->route('Admin_All_Type_By_Type',$khongcocha);
       
    }
    public function UpdateCategory(Request $req)
@@ -172,10 +194,11 @@ class Admin_Product_Controller extends Controller
          $description=$req->description;
          $type_cha=$req->type_cha;
          $type=$req->type;
+         $khongcocha=$req->khongcocha;
          if ($req->hasFile('image')) 
          {
             $image= $req->file('image')->getClientOriginalName();
-            $req->file('image')->move('images/news',$image);
+            $req->file('image')->move('images/category',$image);
             $suaanh=1;
             $type=TypeProduct::Update_Category($suaanh,$id,$name,$description,$type_cha,$type,$image);
          }
@@ -186,8 +209,23 @@ class Admin_Product_Controller extends Controller
             $type=TypeProduct::Update_Category($suaanh,$id,$name,$description,$type_cha,$type,$image);
          }
          
-          return redirect()->route('Admin_All_Type');
+         if($khongcocha==0)
+            return redirect()->route('Admin_All_Type');
+         else
+            return redirect()->route('Admin_All_Type_By_Type',$khongcocha);
       
    }
-
+   //xóa loại sản phẩm cha
+   public function DeleteCategory_Parent(Request $req)
+   {
+      $id=$req->id;
+      $type=TypeProduct::Delete_Category_Parent($id);
+   }
+   //xóa loại sản phẩm con
+   public function DeleteCategory_Child(Request $req)
+   {
+       $id=$req->id;
+      $type=TypeProduct::Delete_Category_Child($id);
+   }
+        
 }
