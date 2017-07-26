@@ -70,13 +70,13 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Giá Nhập Hàng:</label>
                                         <div class="col-sm-6">
-                                             <input type="text" value="" name="import_price" class="form-control" style="border-top: 1px solid black;" required="">
+                                             <input type="text" value="" name="import_price" class="form-control" style="border-top: 1px solid black;"  pattern="[0-9]*" maxlength='10'  required required title=" nhập từ 0 tới 10 chữ số" >>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">SỐ lượng Nhập:</label>
                                         <div class="col-sm-6">
-                                             <input type="text" value="" name="import_quantity" class="form-control" style="border-top: 1px solid black;" required="">
+                                             <input type="text" value="" name="import_quantity" class="form-control" style="border-top: 1px solid black;" pattern="[0-9]*" maxlength='9' required required title=" nhập từ 0 tới 9 chữ số" >
                                         </div>
                                     </div>
                                   

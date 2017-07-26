@@ -118,7 +118,7 @@ Route::get('DeleteNews',
 	['as'=>'DeleteNews',
 	'uses'=>'Admin_News_Controller@DeleteNews']);
 
-
+//--------------------Loại News---------------------------------
 Route::get('TypeNews',
 	['as'=>'TypeNews',
 	'uses'=>'Admin_News_Controller@AllTypeNews']);
@@ -136,8 +136,29 @@ Route::post('Update_Type_News',
 	['as'=>'Update_Type_News',
 	'uses'=>'Admin_News_Controller@Update_Type_News']);
 //-------------------------------News Admin---------------------
-});
+//-------------------------------Bill Admin---------------------
+Route::get('ViewPageBill_Admin',
+	['as'=>'ViewPageBill_Admin',
+	'uses'=>'Admin_Bill_Controller@ViewPageBill_Admin']);
+
+Route::get('ViewPageBill_Detail_Admin/{id}',
+	['as'=>'ViewPageBill_Detail_Admin',
+	'uses'=>'Admin_Bill_Controller@ViewPageBill_Detail_Admin']);
+Route::get('ViewPageBill_Detail_Admin_Insert/{id}/{quantity}/{name_product}',
+	['as'=>'ViewPageBill_Detail_Admin_Insert',
+	'uses'=>'Admin_Bill_Controller@ViewPageBill_Detail_Admin_Insert']);
+Route::post('Update_Bill_Detail',
+	['as'=>'Update_Bill_Detail',
+	'uses'=>'Admin_Bill_Controller@Update_Bill_Detail']);
+Route::get('ViewPageBill_Admin_Insert/{id}/{user}/',
+	['as'=>'ViewPageBill_Admin_Insert',
+	'uses'=>'Admin_Bill_Controller@ViewPageBill_Admin_Insert']);
+Route::post('Update_Bill',
+	['as'=>'Update_Bill',
+	'uses'=>'Admin_Bill_Controller@Update_Bill']);
+
 // ------------------------------ADMIN------------------------------------
+});
 //------------------------------Trang Giao Diện------------------------------------
 //------------------------------Sản Phẩm------------------------------------
 Route::get('ViewAll_Product/{id}',[

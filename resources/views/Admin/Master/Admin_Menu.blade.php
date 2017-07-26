@@ -49,13 +49,13 @@
                         @endforeach
                     </ul>
                 </li>
-               {{--  <li>
-                    <a href="fontawesome.html">
+                <li>
+                    <a href="{{route('ViewPageBill_Admin')}}">
                         <i class="fa fa-bullhorn"></i>
-                        <span>Font awesome </span>
+                        <span>Bill </span>
                     </a>
                 </li>
-                <li class="sub-menu">
+{{--                 <li class="sub-menu">
                     <a href="javascript:;">
                         <i class="fa fa-th"></i>
                         <span>Data Tables</span>

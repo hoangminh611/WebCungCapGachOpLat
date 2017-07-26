@@ -18,7 +18,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-          view()->composer(['Master.Menu','Page.Product','Page.Detail_Product','Page.Search_Product','Admin.Master.Admin_Master','Admin.Page.Product_Admin_Insert','Admin.Page.Product_Admin_Import','Admin.Page.Category_Admin_Insert'],function($view){
+            view()->composer(['Master.Menu','Page.Product','Page.Detail_Product','Page.Search_Product','Admin.Master.Admin_Master','Admin.Page.Product_Admin_Insert','Admin.Page.Product_Admin_Import','Admin.Page.Category_Admin_Insert'],function($view)
+            {
               $type =  DB::table('category')->select()->where([
                                     ['type', '=', '1'],
                                     ['type_cha', '=', '0'],
@@ -34,21 +35,26 @@ class AppServiceProvider extends ServiceProvider
               }
              
               $view->with(['type'=>$type,'loaicon'=>$loaicon]);
-          });
-           view()->composer(['Admin.Master.Admin_Master','Admin.Page.News_Admin_Insert'],function($view){
+            });
+
+            view()->composer(['Admin.Master.Admin_Master','Admin.Page.News_Admin_Insert'],function($view)
+            {
               $typenews =  DB::table('category')->select()->where([
                                     ['type', '=', '2'],
                                     ['type_cha', '=', '0'],
                                     ])->get();
               $view->with('typenews',$typenews);
-          });
-          view()->composer('Master.Banner',function($view){
+            });
+
+            view()->composer('Master.Banner',function($view)
+            {
               $Slide =Slide::Top5Slide()->get();
               $hotPro=Product::Top4Product()->get();
               $view->with(['Slide'=>$Slide,'hotPro'=>$hotPro]);
-          });
+            });
 
-          view()->composer(['Page.Product','Page.Detail_Product','Page.Search_Product'],function($view){
+            view()->composer(['Page.Product','Page.Detail_Product','Page.Search_Product'],function($view)
+            {
                $size=DB::table('export_product')->select()->get();
                $size_gach=array();
                $size_gach[0]=$size[0]->size;
@@ -67,15 +73,17 @@ class AppServiceProvider extends ServiceProvider
                     }
                 }
                 $view->with('size_gach',$size_gach);
-          });
-          view()->composer(['Master.Top_header','Page.Cart_Detail'],function($view){
+            });
+
+            view()->composer(['Master.Top_header','Page.Cart_Detail'],function($view)
+            {
               if(Session('cart'))
               {
                 $oldcart=Session::get('cart');
                 $cart=new Cart($oldcart);
               $view->with(['cart'=>Session::get('cart'),'product_cart'=>$cart->items,'totalPrice'=>$cart->totalPrice,'totalQty'=>$cart->totalQty]);
               }
-          });
+            });
 
 
     }
