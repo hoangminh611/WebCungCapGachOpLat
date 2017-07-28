@@ -11,7 +11,7 @@
             <button id="addRow" onclick="addRow({{$name_parent[0]->id}})"  class=" btn btn-info btn-lg glyphicon glyphicon-plus-sign" style=" border-radius: 10px;"></button>
         </div> 
         <div>
-          <table class="table" ui-jq="footable" ui-options='{
+          <table id="category_table" class="table" ui-jq="footable" ui-options='{
             "paging": {
               "enabled": true
             },
@@ -51,7 +51,6 @@
               @endforeach
             </tbody>
           </table>
-          <div>{{$Type_Product->links()}}</div>
       </div>
   </div>
 </div>
@@ -61,7 +60,9 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            
+            $(document).ready(function(){
+              $('#category_table').DataTable();
+});
             function editRow($id,$idtype){
                 var  route="{!!route('ViewPage_InsertCategory',['id=idtype','khongcocha=idcha'])!!}";
                 route=route.replace('idtype',$id);

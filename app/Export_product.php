@@ -8,6 +8,8 @@ class Export_product extends Model
 {
     protected $table='export_product';
     public $timestamps = true;
+
+    //Tìm sản phẩm theo id của bàng export
     public static function FindProductByIdPro_Size($idsize)
     {
     	$product=DB::table('export_product')

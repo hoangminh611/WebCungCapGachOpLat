@@ -15,7 +15,7 @@
           @endif
         </div> 
         <div>
-          <table class="table" ui-jq="footable" ui-options='{
+          <table id="product_table" class="table" ui-jq="footable" ui-options='{
             "paging": {
               "enabled": true
             },
@@ -65,11 +65,13 @@
               @endforeach
             </tbody>
           </table>
-          <div>{{$product->links()}}</div>
       </div>
   </div>
 </div>
 <script type="text/javascript">
+$(document).ready(function(){
+  $('#product_table').DataTable();
+});
             
     function editRow(id,size)
             {

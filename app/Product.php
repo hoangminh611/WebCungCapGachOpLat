@@ -15,7 +15,7 @@ class Product extends Model
     public function bill(){
     	return $this->hasManyThrough('App\Bill','App\BillDetail','id_product','id');
     }
-    public static function Top4Product()// tim san pham SAT noi bat
+    public static function Top4Product()// tim san pham NHIỀU VIEW NHẤT
     {
     	$hotPro = DB::table('products')
     				->orderBy('view','DESC')->limit(4);

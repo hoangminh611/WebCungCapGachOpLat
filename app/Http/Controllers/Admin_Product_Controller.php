@@ -16,13 +16,13 @@ class Admin_Product_Controller extends Controller
 {
    public function Admin_All_Product()
    {
-   	$product=Product::Show_Product_All()->orderBy('created_at','DESC')->paginate(8);
+   	$product=Product::Show_Product_All()->orderBy('created_at','DESC')->get();
    	return view('Admin.Page.Product_Admin',compact('product'));
    }
 
    public function Admin_All_Product_By_Type(Request $req)
    {
-   	$product=Product::Show_Product_All_By_Type($req->id)->orderBy('created_at','DESC')->paginate(8);
+   	$product=Product::Show_Product_All_By_Type($req->id)->orderBy('created_at','DESC')->get();
    	$typepro=$req->id;
    	return view('Admin.Page.Product_Admin',compact('product','typepro'));
    }
@@ -133,14 +133,14 @@ class Admin_Product_Controller extends Controller
    //--------------------------------Loại sản phẩm ----------------------------------------------------------------------------------------------
    public function Admin_All_Type()
    {
-      $Type_Product=TypeProduct::Show_All_Type_Product_Parent()->orderBy('id','DESC')->paginate(8);
+      $Type_Product=TypeProduct::Show_All_Type_Product_Parent()->orderBy('id','DESC')->get();
       $type=1;
       return view('Admin.Page.Category_Parent_Admin',compact('Type_Product','type'));
    }
 
    public function Admin_All_Type_By_Type(Request $req)
    {
-      $Type_Product=TypeProduct::Show_All_Type_Product_By_Id_Parent($req->id)->paginate(8);
+      $Type_Product=TypeProduct::Show_All_Type_Product_By_Id_Parent($req->id)->get();
       $name_parent=DB::table('category')->where('id',$req->id)->select('name','id')->get();
       return view('Admin.Page.Category_Admin',compact('Type_Product','name_parent'));
    }

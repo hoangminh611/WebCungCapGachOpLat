@@ -42,16 +42,10 @@
 							<div class="col-md-4 product-left p-left">
 								<div class="product-main simpleCart_shelfItem">
 									<a href="{{route('Detail',"$pro->id")}}" class="mask">
-										<img class="img-responsive zoom-img"  width="200px" height="200px" src="images/{{$pro->image}}" alt="" /></a>
+										<img class="img-responsive zoom-img"  src="images/{{$pro->image}}" style="width: 200px;height:200px;" alt="" /></a>
 										<div class="product-bottom">
 										<h3>{{$pro->name}}</h3>
 										<p>Tìm hiểu thêm</p>									
-									
-										<h4>
-												<a class="item_add" href="#"><i></i>
-													<em><span class=" item_price">{{number_format($pro->unit_price)}}VNĐ</span></em>
-												</a>
-										</h4>
 									</div>
 								</div>
 							</div>

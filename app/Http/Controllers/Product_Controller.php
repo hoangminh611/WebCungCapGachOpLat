@@ -45,22 +45,31 @@ class Product_Controller extends Controller
       $type=$req->type;
       $size=$req->size;
       if($type=="khong"&&$size=='khong')
-         $product=DB::table('products')->select()->paginate(6);
+         $product=DB::table('products')->select()->get();
       else if($type!="khong"&&$size=='khong')
-         $product=DB::table('products')->where('id_type',$type)->select()->paginate(6);
+         $product=DB::table('products')->where('id_type',$type)->select()->get();
       else if($type=="khong"&&$size!='khong')
          $product=Product::Search_Product_By_Size($size)->get();
       else
-         $product=Product::Search_Product_By_Type_Size($type,$size)->paginate(6);
+         $product=Product::Search_Product_By_Type_Size($type,$size)->get();
       return view('Page.Search_Product',compact('product'));
    }
 
    public function Search_Detail(Request $req)
    {
-      $product=DB::table('products')->whereRaw("match(name) against('$req->search')")->get();
-      if(!isset($product[0]))
-          $product=DB::table('products')->whereRaw("name REGEXP '$req->search'")->get();
+      $product=DB::table('products')->whereRaw("match(name) against('$req->search')")->orWhere('name','Like','%'.$req->search.'%')->get();
      return view('Page.Search_Product',compact('product'));
    }
-
+   public function autocomplete(Request $req){
+      $term = $req->term;
+      $results = array();
+      
+      $queries =DB::table('products')->whereRaw("match(name) against('$term')")->orWhere('name','Like','%'.$term.'%')
+              ->take(5)->get();
+      foreach ($queries as $query)
+      {
+          $results[] = [ 'id' => $query->id, 'value' =>$query->name];
+      }
+      return response()->json($results);
+   }
 }

@@ -55,12 +55,21 @@
                         <span>Bill </span>
                     </a>
                 </li>
-{{--                 <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-th"></i>
-                        <span>Data Tables</span>
+                @if(Auth::User()->group==2)
+                <li >
+                    <a href="{{route('ViewPage_User_Admin')}}">
+                        <i class="fa fa-user"></i>
+                        <span>User</span>
                     </a>
-                    <ul class="sub">
+                </li>
+                @endif
+                     <li >
+                    <a href="{{route('ViewPage_Customer_Admin')}}">
+                        <i class="fa fa-user"></i>
+                        <span>Customer</span>
+                    </a>
+                </li>
+{{--                     <ul class="sub">
                         <li><a href="basic_table.html">Basic Table</a></li>
                         <li><a href="responsive_table.html">Responsive Table</a></li>
                     </ul>

@@ -30,8 +30,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<link rel="stylesheet" href="css/morris.css" type="text/css"/>
 			<!-- calendar -->
 			<link rel="stylesheet" href="css/monthly.css">
+			<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+			
 			<!-- //calendar -->
 			<!-- //font-awesome icons -->
+
 			<script src="js/jquery2.0.3.min.js"></script>
 			<script src="js/raphael-min.js"></script>
 			<script src="js/morris.js"></script>
@@ -39,6 +42,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<script src="ssi-modal/js/ssi-modal.min.js"></script>
 			{{--ckeditor--}}
 			<script src="ckeditor/ckeditor.js"></script>
+			<script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js" ></script>
+			
 		</head>
 		<body>
 			<section id="container">

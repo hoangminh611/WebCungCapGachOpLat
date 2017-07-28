@@ -14,6 +14,7 @@ use App\User;
 use Mail;
 class LoginRegister_Controller extends Controller
 {
+  //Login
    public function postLogin(Request $req)
    {    
         
@@ -34,11 +35,12 @@ class LoginRegister_Controller extends Controller
             return redirect()->back()->with('thatbai',$thatbai);
         }
     }
+    //Gọi trang register
        public function Register()
    {
    		return view('Master.Register');
    }
-
+   //Đăng kí
     public function postregister(Request $req){
         $this->validate($req,['email'=>'required|email', 'full_name'=>'required', 'password'=>'required|min:6|max:10', 'phone'=>'required|min:10|max:11', 're_password'=>'required|same:password'
             ],['email.required'=>'Vui lòng nhập Email',
@@ -78,7 +80,7 @@ class LoginRegister_Controller extends Controller
 
       return redirect()->back()->with('thanhcong','Đăng ký thành công, Vui lòng kiểm tra Email');
     }
-
+    //ACTIVE TÀI KHOẢN thường
     public function activeUser(Request $req){
          $user=User::where([
                 ['id','=',$req->id],
@@ -90,13 +92,13 @@ class LoginRegister_Controller extends Controller
             return redirect()->route('getregister')->with('thanhcong','Đã kích hoạt tài khoản');
         }
     }
-
+    //logout
     public function getLogout()
     {
         Auth::logout();
         return redirect()->route('home');
     }
-
+//khúc này để gọi facebook và google
     public function redirectToProvider($providers){
         return Socialite::driver($providers)->redirect();
     }
@@ -136,4 +138,25 @@ class LoginRegister_Controller extends Controller
       return redirect()->route('home')->with(['flash_level'=>'success','thanhcong'=>"Đăng nhập thành công"]);
     }
 
+    public function ViewPage_User_Edit()
+    {
+      return view('Master.User_Edit');
+    }
+    public function User_Edit(Request $req)
+    {
+      $name=$req->name;
+      $phone=$req->phone;
+      $password=$req->password;
+      if($name==null)
+        $name=Auth::User()->full_name;
+      if($phone==null)
+        $phone=Auth::User()->phone;
+      if($password==null)
+        $password=Auth::User()->password;
+      else
+        $password=Hash::make($password);
+      $user = User::where('email',Auth::User()->email)->update(['full_name'=>$name,'phone'=>$phone,'password'=>$password]);
+      return redirect()->back();
+
+    }
 }

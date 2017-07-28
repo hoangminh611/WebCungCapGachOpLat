@@ -32,7 +32,7 @@
 			<div class="col-md-3 header-right"> 
 				<div class="search-bar">
 				<form action="{{route('Detail_Search')}}" method="get">
-					<input type="text" value="Search"  name="search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
+					<input type="text" value="Nhập tên sản phẩm" id="search" name="search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
 					<input type="submit" value="">
 				</form>
 				</div>
@@ -41,3 +41,26 @@
 			</div>
 		</div>
 	</div>
+	<style type="text/css">
+        .ui-autocomplete.ui-menu
+        {
+            position: fixed;
+            display: inline-block;
+            background-color: white;
+            z-index: 9999; /* for mozilla */
+        }
+    </style>
+	<script type="text/javascript">
+  $( function() {
+    $( "#search" ).autocomplete({
+
+      source: "{{route('autosearch')}}",
+      minLength: 1,
+      autoFocus: true,
+	  select: function(event, ui) {
+	  		$('#search').val(ui.item.value);
+	  		// $('#idSearch').val(ui.item.id);
+	  	}
+	});
+    });
+  </script>

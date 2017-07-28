@@ -11,7 +11,7 @@
           {{--   <button id="addRow" onclick="addRow({{$name_parent[0]->id}})"  class=" btn btn-info btn-lg glyphicon glyphicon-plus-sign" style=" border-radius: 10px;"></button> --}}
         </div> 
         <div>
-          <table class="table" ui-jq="footable" ui-options='{
+          <table id="bill_table" class="table" ui-jq="footable" ui-options='{
             "paging": {
               "enabled": true
             },
@@ -58,12 +58,14 @@
   </div>
 </div>
  <script type="text/javascript">
-            // $.ajaxSetup({
-            //     headers: {
-            //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            //     }
-            // });
-            
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $(document).ready(function(){
+              $('#bill_table').DataTable();
+            });
             function editRow($id,$user){
                 var  route="{{route('ViewPageBill_Admin_Insert',['idtype','nameuser'])}}";
                 route=route.replace('idtype',$id);

@@ -28,10 +28,12 @@ class Import_product extends Model
          $pro=DB::table('import_product')
                 ->where('id_product','=',$id)->delete();
     }
+    //insert vào bảng import product
     public static function Insert_Import_Product($id,$size,$import_price,$import_quantity)
     {
             $pro=DB::table('import_product')->insert(['id_product'=>$id,'size'=>$size,'import_price'=>$import_price,'import_quantity'=>$import_quantity]);
     }
+    //update lai bang import product khi nó lở nhập sai
     public static function Update_Import_Product($id,$first_size,$size,$import_price,$import_quantity)
     {
         $pro=DB::table('import_product')

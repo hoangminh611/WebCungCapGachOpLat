@@ -11,7 +11,7 @@
           {{--   <button id="addRow" onclick="addRow({{$name_parent[0]->id}})"  class=" btn btn-info btn-lg glyphicon glyphicon-plus-sign" style=" border-radius: 10px;"></button> --}}
         </div> 
         <div>
-          <table id="bill_detail_table" class="table" ui-jq="footable" ui-options='{
+          <table id="bill_table" class="table" ui-jq="footable" ui-options='{
             "paging": {
               "enabled": true
             },
@@ -23,38 +23,31 @@
             }}'>
             <thead>
               <tr>
-                <th data-breakpoints="xs">ID_bill</th>
-                <th>ID</th>
-                <th>Product</th>
-                <th>Size</th>
-                <th data-breakpoints="xs">Quantity</th>
-                <th>Giá Bán</th>
-                <th>Giá Tổng</th>
-                <th>Ngày tạo</th>
-                <th>Ngày update</th>
-                <th data-breakpoints="xs sm md" data-title="DOB">Edit</th>
+                <th data-breakpoints="xs">ID</th>
+                <th data-breakpoints="xs">FullName</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
+                {{-- <th data-breakpoints="xs sm md" data-title="DOB">Edit</th> --}}
               </tr>
             </thead>
             <tbody>
-              @foreach($Bill_Detail as $bill_detail)
+              @foreach($customers as $customer)
                 <tr data-expanded="true">
-                	<td>{{$bill_detail->id_bill}}</td>
-                  <td>{{$bill_detail->id}}</td>
-                  <td>{{$bill_detail->name}}</td>
-                  <td>{{$bill_detail->size}}</td>
-                  <td>{{number_format($bill_detail->quantity)}}</td>
-                  <td>{{number_format($bill_detail->sales_price)}}</td>
-                  <td>{{number_format($bill_detail->quantity*$bill_detail->sales_price)}}</td>
-                  <td>{{$bill_detail->created_at}}</td>
-                  <td>{{$bill_detail->updated_at}}</td>
-                  <td>
-                    <button class="btn btn-info btn-lg glyphicon glyphicon-hand-right" style="border-radius: 10px;" onclick="editRow({{ $bill_detail->id }},{{$bill_detail->quantity}},'{{$bill_detail->name}}')"></button>
-                     {{-- <button class="btn btn-warning btn-lg glyphicon glyphicon-trash" style="border-radius: 10px" id="delete_button{{ $type_pro->id  }}" onclick="delete_row('{{ $type_pro->id}}');"></button> --}}
-                  </td>
+                  <td>{{$customer->id}}</td>
+                  <td>{{$customer->full_name}}</td>
+                  <td>{{$customer->email}}</td>
+                  <td>{{$customer->phone}}</td>
+                  <td>{{$customer->address}}</td>
+                  {{-- <td>
+                    <button class="btn btn-info btn-lg glyphicon glyphicon-hand-right" style="border-radius: 10px;" onclick="editRow({{ $customer->id }})"></button>
+                     <button class="btn btn-warning btn-lg glyphicon glyphicon-trash" style="border-radius: 10px" id="delete_button{{ $type_pro->id  }}" onclick="delete_row('{{ $type_pro->id}}');"></button>
+                  </td> --}}
                 </tr> 
               @endforeach
             </tbody>
           </table>
+{{--  <div>{{$Type_Product->links()}}</div> --}}
       </div>
   </div>
 </div>
@@ -65,15 +58,14 @@
                 }
             });
             $(document).ready(function(){
-              $('#bill_detail_table').DataTable();
+              $('#bill_table').DataTable();
             });
-            function editRow(id,quantity,name_product){
-                var  route="{{route('ViewPageBill_Detail_Admin_Insert',['idbill_detail','soluong','name'])}}";
-                route=route.replace('idbill_detail',id);
-                route=route.replace('soluong',quantity);
-                route=route.replace('name',name_product);
-              	window.location.replace(route);
-            }
+            // function editRow($id){
+            //     var  route="";
+            //     route=route.replace('idtype',$id);
+                
+            //   window.location.replace(route);
+            // }
             // function addRow($idtype){
             //       var  route="";
             //      route=route.replace('idcha',$idtype);

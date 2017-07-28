@@ -29,6 +29,7 @@ Route::get('News_By_Type/{id}',[
 Route::get('New_Detail/{id_new}',[
 		'as'=>'New_Detail',
 	'uses'=>'Home_Controller@getNew_Detail']);
+
 // ------------------------------ADMIN------------------------------------
 Route::group(['prefix'=>'admin'],function()
 {
@@ -45,6 +46,13 @@ Route::post('Login',[
 Route::get('Logout',[
 	'as'=>'Logout',
 	'uses'=>'Admin_Login_Controller@getLogout']);
+//-------------------------------User,Customer Admin------------------------------
+Route::get('ViewPage_User_Admin',[
+	'as'=>'ViewPage_User_Admin',
+	'uses'=>'Admin_Controller@ViewPage_User_Admin']);
+Route::get('ViewPage_Customer_Admin',[
+	'as'=>'ViewPage_Customer_Admin',
+	'uses'=>'Admin_Controller@ViewPage_Customer_Admin']);
 //-------------------------------Sản phẩm Admin--------------------------
 Route::get('Admin_All_Product',[
 	'as'=>'Admin_All_Product',
@@ -178,6 +186,9 @@ Route::get('Search',[
 Route::get('Detail_Search',[
 	'as'=>'Detail_Search',
 	'uses'=>'Product_Controller@Search_Detail']);
+Route::get('autosearch',[
+	'as'=>'autosearch',
+	'uses'=>'Product_Controller@autocomplete']);
 
 //------------------------------Sản Phẩm------------------------------------
 
@@ -205,6 +216,13 @@ Route::get('loginfacebook/{provider}/callback', [
 	'as'=>'provider_login_callback',
 	'uses'=>'LoginRegister_Controller@handleProviderCallback'
 ]);
+
+Route::get('ViewPage_User_Edit',
+	['as'=>'ViewPage_User_Edit',
+	'uses'=>'LoginRegister_Controller@ViewPage_User_Edit']);
+Route::post('User_Edit',
+	['as'=>'User_Edit',
+	'uses'=>'LoginRegister_Controller@User_Edit']);
 //------------------------------Đăng Nhập------------------------------------
 //------------------------------Giỏ Hàng------------------------------------
 Route::get('add-to-cart/',[
@@ -219,8 +237,15 @@ Route::get('delete-cart',[
 Route::get('delete-item-cart/{id}',[
 	'as'=>'delete-item-cart',
 	'uses'=>'Home_Controller@getDelItemCart']);
-Route::get('update-cart',[
-	'as'=>'update-cart',
+
+Route::get('rise-to-qty/{id}',
+	['as'=>'rise-to-qty',
+	 'uses'=>'Home_Controller@riseByOne']); 
+Route::get('reduce-to-qty/{id}',
+	['as'=>'reduce-to-qty',
+	 'uses'=>'Home_Controller@reduceByOne']);
+Route::get('Update_Cart',[
+	'as'=>'Update_Cart',
 	'uses'=>'Home_Controller@Update_Cart']);
 //------------------------------Giỏ Hàng------------------------------------
 

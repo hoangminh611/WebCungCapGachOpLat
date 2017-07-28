@@ -22,7 +22,7 @@ class Bill_Detail extends Model
         ->select('products.name','bill_detail.id','bill_detail.id_bill','bill_detail.size','bill_detail.quantity','bill_detail.sales_price','bill_detail.created_at','bill_detail.updated_at');
         return $bill_detail;
     }
-
+    //update lai số lượng mua của khách hàng
     public static function Update_Bill_Detail($id,$first_quantity,$quantity,$id_product,$size)
     {
         if($first_quantity>$quantity)

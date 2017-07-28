@@ -41,7 +41,7 @@
 	            <a href="{{route('New_Detail',$All_new->id)}}">
 	              <figure class="featured_img"><img src="images/news/{{$All_new->image}}"  style="width: 150px; height: 150px;" alt=""></figure>
 	              <article class="featured_article">
-	                <h2 class="article_titile"><a href="pages/single_page.html">{{$All_new->title}}</a></h2>
+	                <h2 class="article_titile">{{$All_new->title}}</h2>
 	                <p>{{$All_new->description}}</p>
 	              </article>
 	            </a>

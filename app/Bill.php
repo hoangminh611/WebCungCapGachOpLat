@@ -26,7 +26,7 @@ class Bill extends Model
         $Bill=DB::table('bills')->where('id',$id)->select();
         return $Bill;
     }
-
+    //update bill update lai cai phuong thuc
     public static function Update_Bill($id,$method)
     {
         $Bill=DB::table('bills')->where('id',$id)->update(['method'=>$method]);

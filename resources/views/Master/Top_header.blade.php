@@ -14,7 +14,7 @@
 						</div>
 						<br>
 						<div class="box1">
-							<select tabindex="4" class="dropdown">
+							<select >
 								<option value="" class="label">English :</option>
 								<option value="1">English</option>
 								<option value="2">French</option>
@@ -27,12 +27,19 @@
 				<div class="col-md-6 top-header-left">
 					<div class="cart box_1" style="text-align: center;">
 							@if(Auth::check())
-								<div>
-									<i class="fa fa-user"></i>Chào bạn {{Auth::User()->full_name}}
-									|
-									<a href="{{route('logout')}}">Đăng xuất</a>
-								</div>
-
+								@if(Auth::User()->provider_id==null)
+									<div>
+										<a href="{{route('ViewPage_User_Edit')}}"><i class="fa fa-user"></i>Chào bạn {{Auth::User()->full_name}}</a>
+										|
+										<a href="{{route('logout')}}">Đăng xuất</a>
+									</div>
+								@else
+									<div>
+										<i class="fa fa-user"></i>Chào bạn {{Auth::User()->full_name}}
+										|
+										<a href="{{route('logout')}}">Đăng xuất</a>
+									</div>
+								@endif
 							@else
 								<div><a  href="#login-box" class="login-window">Đăng Nhập</a></div>
 							@endif
@@ -42,7 +49,7 @@
 									<span class="cart_price">{{number_format(Session('cart')->totalPrice)}} Đồng</span>
 									<img src="images/cart-1.png" alt="" />
 								</div>
-								<p class="cart_qty" >{{Session('cart')->totalQty}} Product</p>
+								<p class="cart_qty" >{{Session('cart')->totalQty}} Sản Phẩm</p>
 							</a>
 						@else
 							<a href="javascript:void(0)">

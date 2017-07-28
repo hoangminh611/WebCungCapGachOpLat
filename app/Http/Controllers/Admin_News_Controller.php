@@ -13,11 +13,11 @@ class Admin_News_Controller extends Controller
 {
 
       public function ViewAllNews(){
-         $news=News::Load_ALL_News()->paginate(5);
+         $news=News::Load_ALL_News()->get();
          return view('Admin.Page.News_Admin',compact('news'));
       }
       public function ViewAllNewsBy_id($id){
-         $news=News::Load_ALL_News_By_Id($id)->paginate(5);
+         $news=News::Load_ALL_News_By_Id($id)->get();
          return view('Admin.Page.News_Admin',compact('news'));
       }
       //---------------------------------News-------------------------
@@ -89,7 +89,7 @@ class Admin_News_Controller extends Controller
       //----------------------------Loại News-------------------
       public function AllTypeNews()
       {
-         $Type_Product=News::Show_All_Type_News()->paginate(5);
+         $Type_Product=News::Show_All_Type_News()->get();
          $type=2;
          return view ('Admin.Page.Category_Parent_Admin',compact('Type_Product','type'));
       }

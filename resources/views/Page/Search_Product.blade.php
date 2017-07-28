@@ -72,12 +72,14 @@
 											@endforeach
 										</div>
 								</section>
+								@if(isset($_GET['type']))
 										<script type="text/javascript">
 											var a="{{$_GET['type']}}";
 											$(".type"+a).attr('checked','checked');
 											var b="{{$_GET['size']}}";
 											$(".size"+b).attr('checked','checked');
 									</script>
+								@endif
 							</div>
 
 							<button type="submit" name="" style="width:100%">search<i class="fa fa-search" aria-hidden="true" style="float: right"></i></button>
@@ -85,7 +87,6 @@
 					
 				</form>
 				<div class="clearfix"></div>
-					
 			</div>
 		</div>
 	</div>

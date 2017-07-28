@@ -37,7 +37,7 @@
 			<!--End-slider-script-->
 		<div class="about"> 
 		<div class="container">
-			<div style="text-align: center"><h2>SẢN PHẨM NỔI BẬT</h2></div>
+			<div style="text-align: center"><h2>SẢN PHẨM NHIỀU VIEW NHẤT</h2></div>
 			<div class="about-top grid-1">
 				@foreach($hotPro as $hot)
 				<div class="col-md-4 about-left" style="width: 282px; height: 282px;padding-left: 15px; padding-right: 5px;" >
@@ -46,7 +46,6 @@
 							<img class="img-responsive" src="images/{{$hot->image}}" style="width: 282px; height: 282px; " alt="{{$hot->image}}"/>
 							<figcaption>
 								<h2>{{$hot->name}}</h2>
-								<p>{{number_format($hot->unit_price)}}VNĐ</p>	
 							</figcaption>		
 						</a>	
 					</figure>

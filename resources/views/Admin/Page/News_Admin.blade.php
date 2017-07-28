@@ -11,7 +11,7 @@
             <button id="addRow" onclick="addRow()"  class=" btn btn-info btn-lg glyphicon glyphicon-plus-sign" style=" border-radius: 10px;"></button>
         </div> 
         <div>
-          <table class="table" ui-jq="footable" ui-options='{
+          <table id="new_table" class="table" ui-jq="footable" ui-options='{
             "paging": {
               "enabled": true
             },
@@ -53,7 +53,6 @@
                 @endforeach
             </tbody>
           </table>
-           <div>{{  $news->links() }}</div>
       </div>
   </div>
 </div>
@@ -64,7 +63,9 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            
+            $(document).ready(function(){
+                $('#new_table').DataTable();
+            });
             function editRow($id){
                 var  route="{{route('InsertNews','id=idnews')}}";
                 route=route.replace('idnews',$id)

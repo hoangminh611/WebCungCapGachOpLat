@@ -1,3 +1,4 @@
+
 @extends("Master.master")
 @section('body')
 	<!--start-breadcrumbs-->
@@ -13,6 +14,7 @@
 	</div>
 	<!--end-breadcrumbs-->
 	<!--start-ckeckout-->
+<div id="update">
 	<div class="ckeckout">
 		<div class="container">
 			<div class="ckeck-top heading">
@@ -20,20 +22,15 @@
 			</div>
 			<div class="ckeckout-top">
 			<div class="cart-items">
-			 <h3>My Shopping Bag ({{$totalQty}})</h3>
+			 <h3>My Shopping Bag</h3>
 				<script>
 				$(document).ready(function(c) {
 					$('.close1').on('click', function(c){
 						var val= $(this).attr('value');
-						alert(val);
 						var totalPrice=$('.totalPrice').attr('value');
-						alert(totalPrice);
 						var totalQty=$('.totalQty').attr('value');
-						alert(totalQty);
 						var soluong=$('.soluong'+val).attr('value');
-						alert(soluong);
 						var price=$('.gia'+val).attr('value');
-						alert(price)
 						var totalPrice=parseInt(totalPrice-price);
 
 						var totalQty=parseInt(totalQty-soluong);
@@ -49,10 +46,12 @@
 								$('.product'+val).fadeOut('slow', function(c){
 									$('.product'+val).remove();
 								});
+								//phần này của cart tong phía dưới
 								$('.totalPrice').html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+ " Đồng");
 								$('.totalQty').html(totalQty.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+ " Sản Phẩm");
 								$('.totalPrice').attr('value',totalPrice);
 								$('.totalQty').attr('value',totalQty);
+								//cai này của header
 								$('.cart_price').html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+ " Đồng");
 								if(totalQty!=0)
 									$('.cart_qty').html(totalQty.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+ " Sản Phẩm");
@@ -103,9 +102,13 @@
 									<span class="name">{{$product['item'][0]->name}}</span>
 								</li>
 								<li>
+									
 									<span class="quantity soluong{{$product['item'][0]->idsize}}" value="{{$product['qty']}}" >
+									<button style="border-radius: 6px;"><a href='javascript:void(0)' class='subtruct_itm_qty quantity_change' item_id="{{$product['item'][0]->idsize}}">-</a></button>
 										Số Lượng:{{$product['qty']}}
+									<button style="border-radius: 6px;"><a href='javascript:void(0)' class='add_itm_qty quantity_change' item_id="{{$product['item'][0]->idsize}}">+</a></button>
 									</span>
+									    
 									{{$product['item'][0]->size}}
 								</li>
 								<li>
@@ -137,5 +140,33 @@
 		 </div>
 		</div>
 	</div>
+
+	<script type="text/javascript">
+		$('a.add_itm_qty').click(function(e){
+		 e.preventDefault(); 
+        var item_id = $(this).attr("item_id"); 
+        var route = "{{route('rise-to-qty','id_sp')}}";
+         route=route.replace("id_sp",item_id);   
+           $.getJSON( route, function(data){ 
+           	$(".cart_price").html(data.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" Đồng"); 
+           	$(".cart_qty").html(data.totalQty.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" Sản Phẩm"); 
+           	 $("#update").load("{{route('Update_Cart')}}");
+           	});
+
+		});
+		 $('a.subtruct_itm_qty').click(function(e){
+			e.preventDefault(); 
+	        var item_id = $(this).attr("item_id"); 
+	        var route = "{{route('reduce-to-qty','id_sp')}}";
+	        route=route.replace("id_sp",item_id);
+	        $.getJSON( route, function(data){ 
+	           	$(".cart_price").html(data.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" Đồng"); 
+	           	$(".cart_qty").html(data.totalQty.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" Sản Phẩm"); 
+	           	 $("#update").load("{{route('Update_Cart')}}");
+	        });
+
+		});
+	</script>
+</div>
 	<!--end-ckeckout-->
 @endsection

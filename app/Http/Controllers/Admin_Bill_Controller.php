@@ -21,7 +21,7 @@ class Admin_Bill_Controller extends Controller
 
    public function ViewPageBill_Detail_Admin($id)
    {
-   	$Bill_Detail=Bill_Detail::View_All($id)->paginate(6);
+   	$Bill_Detail=Bill_Detail::View_All($id)->get();
    	return view('Admin.Page.Bill_Detail_Admin',compact('Bill_Detail'));
    }
 

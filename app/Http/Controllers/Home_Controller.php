@@ -59,12 +59,16 @@ class Home_Controller extends Controller
       $req->session()->put('cart',$cart);
       return redirect()->back();
    }
-
+   //Hiện ra trang cart-detail
    public function DetailCart()
    {
       return view('Page.Cart_Detail');
    }
-
+   //Dùng ajax cai update cart_detail
+   public function Update_Cart()
+   {
+      return view('Page.Cart_Detail_Update');
+   }
    public function DeleteCart(Request $req)
    {
        Session::forget('cart');
@@ -81,9 +85,31 @@ class Home_Controller extends Controller
         else
             Session::put('cart',$cart);
     }
-    public function Update_Cart(Request $req)
+
+    public function reduceByOne($id)
     {
-      dd($req->quantity);
+        $oldCart = Session('cart')?Session::get('cart'):null;
+        $cart = new Cart($oldCart);
+        $cart->reduceByOne($id);
+        if(count($cart->items)<=0)
+            Session::forget('cart');
+        else
+            Session::put('cart',$cart);
+        return json_encode($cart);
+    }
+
+    public function riseByOne($id)
+    {
+
+        $oldCart = Session('cart')?Session::get('cart'):null;
+        $cart = new Cart($oldCart);
+        $cart->riseByOne($id);
+
+        if(count($cart->items)<=0)
+            Session::forget('cart');
+        else
+            Session::put('cart',$cart);
+        return json_encode($cart);
     }
 
 

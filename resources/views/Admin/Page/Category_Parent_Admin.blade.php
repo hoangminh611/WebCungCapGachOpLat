@@ -15,7 +15,7 @@
           @endif
         </div> 
         <div>
-          <table class="table" ui-jq="footable" ui-options='{
+          <table id="category_table" class="table" ui-jq="footable" ui-options='{
             "paging": {
               "enabled": true
             },
@@ -60,7 +60,6 @@
               @endforeach
             </tbody>
           </table>
-          <div>{{$Type_Product->links()}}</div>
       </div>
   </div>
 </div>
@@ -71,7 +70,9 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            
+            $(document).ready(function(){
+              $('#category_table').DataTable();
+            });
             function editRow($id){
                 var  route="{{route('Insert_Type_News','id=idtype')}}";
                 route=route.replace('idtype',$id)
