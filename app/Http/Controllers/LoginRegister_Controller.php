@@ -51,7 +51,7 @@ class LoginRegister_Controller extends Controller
       }
    //Đăng kí
     public function postregister(Request $req){
-        $this->validate($req,['email'=>'required|email', 'full_name'=>'required', 'password'=>'required|min:6|max:10', 'phone'=>'required|min:10|max:11', 're_password'=>'required|same:password'
+        $this->validate($req,['email'=>'required|email', 'full_name'=>'required', 'password'=>'required|min:6|max:10', 'phone'=>'numeric|min:10|max:11', 're_password'=>'required|same:password'
             ],['email.required'=>'Vui lòng nhập Email',
                 'email.email'=>'Email không đúng định dạng',
                 'phone.numeric'=>'Điện thoại phải thuộc kiểu số',
