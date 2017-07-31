@@ -16,7 +16,6 @@
 							var soluong=$('.soluong'+val).attr('value');
 							var price=$('.gia'+val).attr('value');
 							var totalPrice=parseInt(totalPrice-price);
-
 							var totalQty=parseInt(totalQty-soluong);
 							alert(totalPrice);
 							alert(totalQty);
@@ -86,9 +85,9 @@
 									<li>
 										
 										<span class="quantity soluong{{$product['item'][0]->idsize}}" value="{{$product['qty']}}" >
-										<button style="border-radius: 6px;"><a href='javascript:void(0)' class='subtruct_itm_qty quantity_change' item_id="{{$product['item'][0]->idsize}}">-</a></button>
+										<a href='javascript:void(0)' class='subtruct_itm_qty quantity_change' item_id="{{$product['item'][0]->idsize}}"><button style="border-radius: 6px;">-</button></a>
 											Số Lượng:{{$product['qty']}}
-										<button style="border-radius: 6px;"><a href='javascript:void(0)' class='add_itm_qty quantity_change' item_id="{{$product['item'][0]->idsize}}">+</a></button>
+										<a href='javascript:void(0)' class='add_itm_qty quantity_change' item_id="{{$product['item'][0]->idsize}}"><button style="border-radius: 6px;">+</button></a>
 										</span>
 										
 										{{$product['item'][0]->size}}
@@ -139,6 +138,7 @@
 			 $('a.subtruct_itm_qty').click(function(e){
 				e.preventDefault(); 
 		        var item_id = $(this).attr("item_id"); 
+		        var soluong=$('.soluong'+item_id).attr('value');
 		        var route = "{{route('reduce-to-qty','id_sp')}}";
 		        route=route.replace("id_sp",item_id);   
 		        $.getJSON( route, function(data){ 
@@ -146,6 +146,11 @@
 		           	$(".cart_qty").html(data.totalQty.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" Sản Phẩm"); 
 		           	$("#update").load("{{route('Update_Cart')}}");
            		});
+           			if(soluong==1)
+		        {
+		        	route="{{route('cart-detail')}}";
+		        	window.location.replace(route);
+		        }
 
 		});
 		</script>

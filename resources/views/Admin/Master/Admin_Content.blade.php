@@ -11,7 +11,7 @@
 					</div>
 					 <div class="col-md-8 market-update-left">
 					 <h4>Visitors</h4>
-					<h3>13,500</h3>
+					<h3>{{number_format($All_View)}}</h3>
 					<p>Other hand, we denounce</p>
 				  </div>
 				  <div class="clearfix"> </div>
@@ -24,7 +24,7 @@
 					</div>
 					<div class="col-md-8 market-update-left">
 					<h4>Users</h4>
-						<h3>1,250</h3>
+						<h3>{{number_format($Count_User)}}</h3>
 						<p>Other hand, we denounce</p>
 					</div>
 				  <div class="clearfix"> </div>
@@ -37,7 +37,7 @@
 					</div>
 					<div class="col-md-8 market-update-left">
 						<h4>Sales</h4>
-						<h3>1,500</h3>
+						<h3>{{number_format($All_Export_Quantity)}}</h3>
 						<p>Other hand, we denounce</p>
 					</div>
 				  <div class="clearfix"> </div>
@@ -48,11 +48,15 @@
 					<div class="col-md-4 market-update-right">
 						<i class="fa fa-shopping-cart" aria-hidden="true"></i>
 					</div>
-					<div class="col-md-8 market-update-left">
-						<h4>Orders</h4>
-						<h3>1,500</h3>
-						<p>Other hand, we denounce</p>
-					</div>
+					<a href="{{route('ViewPageBill_Admin')}}">
+						<div class="col-md-8 market-update-left">
+							
+							<h4>Orders</h4>
+							<h3>{{number_format($Count_Bill)}}</h3>
+							<p>Other hand, we denounce</p>
+							
+						</div>
+					</a>
 				  <div class="clearfix"> </div>
 				</div>
 			</div>
@@ -65,7 +69,7 @@
 					<!--agileinfo-grap-->
 						<div class="agileinfo-grap">
 							<div class="agileits-box">
-								<header class="agileits-box-header clearfix">
+								{{-- <header class="agileits-box-header clearfix">
 									<h3>Visitor Statistics</h3>
 										<div class="toolbar">
 											
@@ -74,7 +78,39 @@
 								</header>
 								<div class="agileits-box-body clearfix">
 									<div id="hero-area"></div>
-								</div>
+								</div> --}}
+								<table id="bill_table" class="table" ui-jq="footable" ui-options='{
+						            "paging": {
+						              "enabled": true
+						            },
+						            "filtering": {
+						              "enabled": true
+						            },
+						            "sorting": {
+						              "enabled": true
+						            }}'>
+						            <thead>
+						              <tr>
+						                <th>id_product</th>
+						                <th data-breakpoints="xs">size</th>
+						                <th>Tiền Lãi/Lỗ</th>
+						              </tr>
+						            </thead>
+						            <tbody>
+						              @foreach($Import_product as $key)
+						                <tr data-expanded="true">
+						                  <td>{{$a[$key->id_product][$key->id_product]}}</td>
+						                  <td>{{$a[$key->id_product][$key->size]['size']}}</td>
+						                  <td>{{number_format($a[$key->id_product][$key->size]['price'])}}</td>
+						                </tr> 
+						              @endforeach
+						            </tbody>
+						        </table>
+						          <script type="text/javascript">
+						          	 $(document).ready(function(){
+						              $('#bill_table').DataTable();
+						            });
+						          </script>
 							</div>
 						</div>
 	<!--//agileinfo-grap-->
@@ -82,7 +118,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="agil-info-calendar">
+{{-- 		<div class="agil-info-calendar">
 		<!-- calendar -->
 		<div class="col-md-6 agile-calendar">
 			<div class="calendar-widget">
@@ -370,7 +406,7 @@
 							</table>
 						</div>
 					</div>
-					<div class="clearfix"> </div>
+					<div class="clearfix"> </div> --}}
 				</div>
 </section>
 @endsection

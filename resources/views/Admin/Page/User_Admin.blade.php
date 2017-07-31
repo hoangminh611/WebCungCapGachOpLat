@@ -70,7 +70,7 @@
                 $('#bill_table').DataTable();
               });
               function editRow($id){
-                  var  route="";
+                  var  route="{{route('ViewPage_Update_User','idtype')}}";
                   route=route.replace('idtype',$id);
                   
                 window.location.replace(route);

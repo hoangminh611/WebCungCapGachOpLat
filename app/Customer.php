@@ -13,4 +13,9 @@ class Customer extends Model
         $user=DB::table('customer')->select();
         return $user;
     }
+    public static function Insert_Customer($full_name,$email,$address,$phone)
+    {
+    	 $user=DB::table('customer')->insertGetId(['full_name'=>$full_name,'email'=>$email,'address'=>$address,'phone'=>$phone]);
+        return $user;	
+    }
 }

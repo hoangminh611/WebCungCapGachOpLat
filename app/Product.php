@@ -85,7 +85,7 @@ class Product extends Model
         $product=DB::table('products')
                     ->where('products.id','=',$id)
                     ->join('export_product','products.id','=','export_product.id_product')
-                    ->select('export_product.id as idsize','products.id','products.id_type','products.view','products.name','products.image','products.description','export_product.size as size','export_product.export_price');
+                    ->select('export_product.id as idsize','products.id','products.id_type','products.view','products.name','products.image','products.description','export_product.size as size','export_product.export_price','export_product.export_quantity');
           
         return $product;
     }
@@ -156,16 +156,11 @@ class Product extends Model
              $pro=DB::table('products')->where('id','=',$id)->update(['name'=>$name,'id_type'=>$type,'description'=>$desc]);
         }
   }
-  //Update sản phẩm
-  //   //Các sản phẩm có lượng view nhiều nhất
-  //   public static function MostViewProduct(){
-  //       $product=array();
-  //       $product_view=DB::table('products')->select()->orderBy('view','DESC')->limit(5)->get();
-  //       $total_view=DB::table('products')->sum('view');
-  //       $product[0]=$product_view;
-  //       $product[1]=$total_view;
-  //       return $product;
-  //   }
+    //All view nhiều nhất
+    public static function All_ViewProduct(){
+        $total_view=DB::table('products')->sum('view');
+        return $total_view;
+    }
 
 
 

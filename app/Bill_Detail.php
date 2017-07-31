@@ -28,7 +28,9 @@ class Bill_Detail extends Model
         if($first_quantity>$quantity)
         {
             $new_quantity=$first_quantity-$quantity;
-            $export_quantity=DB::table('export_product')->whereRaw("id_product ='$id_product' and size REGEXP'$size' ")->select('export_quantity')->get();
+            $export_quantity=DB::table('export_product')->where([
+                    ['id_product','=',$id_product],
+                    ['size','LIKE','%'.$size.'%'],])->select('export_quantity')->get();
             $export_quantity=$export_quantity[0]->export_quantity-$new_quantity;
             $export=DB::table('export_product')->whereRaw("id_product ='$id_product' and size REGEXP'$size' ")->update(['export_quantity'=>$export_quantity]);
         }
@@ -36,9 +38,13 @@ class Bill_Detail extends Model
         else
         {
             $new_quantity=$quantity-$first_quantity;
-            $export_quantity=DB::table('export_product')->whereRaw("id_product ='$id_product' and size REGEXP'$size' ")->select('export_quantity')->get();;
+            $export_quantity=DB::table('export_product')->where([
+                    ['id_product','=',$id_product],
+                    ['size','LIKE','%'.$size.'%'],])->select('export_quantity')->get();;
             $export_quantity=$export_quantity[0]->export_quantity+$new_quantity;
-            $export=DB::table('export_product')->whereRaw("id_product ='$id_product' and size REGEXP'$size' ")->update(['export_quantity'=>$export_quantity]);
+            $export=DB::table('export_product')->where([
+                    ['id_product','=',$id_product],
+                    ['size','LIKE','%'.$size.'%'],])->update(['export_quantity'=>$export_quantity]);
         }
         $bill_detail=DB::table('bill_detail')->where('id',$id)->update(['quantity'=>$quantity]);
 
@@ -64,7 +70,9 @@ class Bill_Detail extends Model
     //khi xóa theo từng sản phẩm và kiểm tra coi sản phẩm đó còn size nào k
     public static function Delete_Bill_Detail($id,$size){
         $pro=DB::table('bill_detail')
-            ->whereRaw("id_product ='$id' and size REGEXP'$size' ")->delete();
+            ->where([
+                    ['id_product','=',$id],
+                    ['size','LIKE','%'.$size.'%'],])->delete();
         $pro=DB::table('bill_detail')
             ->where('id_product','=',$id)->select()->first();
     }
@@ -75,6 +83,26 @@ class Bill_Detail extends Model
             ->where('id_product','=',$id)->delete();
     }
 
+    public static function Insert_Bill_Detail($id_bill,$id_product,$size,$sales_price,$Qty)
+    {
+         $pro=DB::table('bill_detail')->insert(['id_bill'=>$id_bill,'id_product'=>$id_product,'size'=>$size,'sales_price'=>$sales_price,'quantity'=>$Qty]);
+         return $pro;
+    }
 
+    public static function Select_Bill_Detail()
+    {
+        $a=array();
+        $bill=DB::table('bill_detail')->select()->get();
+        foreach ($bill as $bill_detail) {
+            if(isset($a[$bill_detail->id_product][$bill_detail->size]))
+             $a[$bill_detail->id_product][$bill_detail->size]+=$bill_detail->sales_price*$bill_detail->quantity;
+            else
+            {
+            $a[$bill_detail->id_product][$bill_detail->size]=$bill_detail->sales_price*$bill_detail->quantity;
+             $a[$bill_detail->id_product][$bill_detail->id_product]=$bill_detail->id_product;
+            }
 
+        }
+       return $a;
+    }
 }

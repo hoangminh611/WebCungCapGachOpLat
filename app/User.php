@@ -44,17 +44,33 @@ class User extends Authenticatable
             $user=DB::table('users')->select();
             return $user;
     }
-    public static function Edit_User($id, $name, $phone, $address, $group){
-            $user=DB::table('users')->where('id','=',$id)->update(['full_name'=>$name, 'phone'=>$phone, 'address'=>$address,'group'=>$group]);
+    // //edit user
+    public static function Update_User($id,$group){
+            $user=DB::table('users')->where('id','=',$id)->update(['group'=>$group]);
             return $user;
     }
-    public static function Insert_User($name, $email, $password, $phone, $address, $group,$remember_token){
-            $id=DB::table('users')->insertGetId(['full_name'=>$name,'email'=>$email, 'password'=>$password, 'phone'=>$phone, 'address'=>$address,'remember_token'=>$remember_token,'group'=>$group]);
-            return $id;
-    }
-    public static function Delete_User($id){
-        $user=DB::table('users')->where('id','=',$id)->delete();
+    //gọi vào trang update user
+    public static function Select_User_By_Id($id)
+    {
+        $user=DB::table('users')->where('id','=',$id)->select();
         return $user;
+    }
+    // //insert user
+    // public static function Insert_User($name, $email, $password, $phone, $address, $group,$remember_token){
+    //         $id=DB::table('users')->insertGetId(['full_name'=>$name,'email'=>$email, 'password'=>$password, 'phone'=>$phone, 'address'=>$address,'remember_token'=>$remember_token,'group'=>$group]);
+    //         return $id;
+    // }
+    // //delete user
+    // public static function Delete_User($id){
+    //     $user=DB::table('users')->where('id','=',$id)->delete();
+    //     return $user;
+    // }
+    //đếm số lượng user
+    public static function Count_All_User()
+    {  
+         $user=DB::table('users')->count('id');
+        return $user; 
+
     }
 
 }

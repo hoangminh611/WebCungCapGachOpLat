@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Input;
 use App\Bill;
 use App\Bill_Detail;
 use Session;
+use App\Import_product;
 class Admin_Bill_Controller extends Controller
 {
    public function ViewPageBill_Admin()
@@ -61,4 +62,5 @@ class Admin_Bill_Controller extends Controller
       $bill=Bill::Update_Bill($id,$method);
       return redirect()->route('ViewPageBill_Admin');
    }
+
 }

@@ -50,15 +50,23 @@
 						<h2>{{$product[0]->name}}</h2>
 						{{-- vote sao --}}
 							<div class="star-on">
-								<ul class="star-footer">
+{{-- 								<ul class="star-footer">
 										<li><a href="#"><i> </i></a></li>
 										<li><a href="#"><i> </i></a></li>
 										<li><a href="#"><i> </i></a></li>
 										<li><a href="#"><i> </i></a></li>
 										<li><a href="#"><i> </i></a></li>
-									</ul>
+									</ul> --}}
 								<div class="review">
-									<a href="javascript:void(0)">{{$product[0]->view}}View </a>
+									<a href="javascript:void(0)">View: {{$product[0]->view}} Lượt Xem </a>
+									<br>
+									<a href="javascript:void(0)">Số Lượng hàng đã bán ra :
+									<br>
+										@foreach($product as $pro)
+												{{$pro->size}}:{{$pro->export_quantity}} Viên
+												<br>
+										@endforeach
+									</a>
 								</div>
 								<div class="fb-like" data-href="http://localhost/webcungcapgachoplat/public/index.php/Detail/{{$product[0]->id}}" data-width="500" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
 								<div class="clearfix"> </div>
@@ -151,11 +159,6 @@
 												<h3>{{$samePro->name}}</h3>
 												<p>Tìm Hiểu Thêm</p>
 										</a>
-										<h4>
-														<a class="item_add" href="#"><i></i>
-															<em><span class=" item_price">{{number_format($samePro->unit_price)}}VNĐ</span></em>
-														</a>
-												</h4>
 											</div>
 									</div>
 								</div>

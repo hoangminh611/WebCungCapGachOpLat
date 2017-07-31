@@ -53,6 +53,13 @@ Route::get('ViewPage_User_Admin',[
 Route::get('ViewPage_Customer_Admin',[
 	'as'=>'ViewPage_Customer_Admin',
 	'uses'=>'Admin_Controller@ViewPage_Customer_Admin']);
+
+Route::get('ViewPage_Update_User/{id}',[
+	'as'=>'ViewPage_Update_User',
+	'uses'=>'Admin_Controller@ViewPage_Update_User']);
+Route::post('Update_User',[
+	'as'=>'Update_User',
+	'uses'=>'Admin_Controller@Update_User']);
 //-------------------------------Sản phẩm Admin--------------------------
 Route::get('Admin_All_Product',[
 	'as'=>'Admin_All_Product',
@@ -165,6 +172,10 @@ Route::post('Update_Bill',
 	['as'=>'Update_Bill',
 	'uses'=>'Admin_Bill_Controller@Update_Bill']);
 
+Route::get('laygiabill',
+	['as'=>'laygiabill',
+	'uses'=>'Admin_Bill_Controller@laygiabill']);
+
 // ------------------------------ADMIN------------------------------------
 });
 //------------------------------Trang Giao Diện------------------------------------
@@ -247,6 +258,14 @@ Route::get('reduce-to-qty/{id}',
 Route::get('Update_Cart',[
 	'as'=>'Update_Cart',
 	'uses'=>'Home_Controller@Update_Cart']);
+
+Route::get('Payment',[
+	'as'=>'Payment',
+	'uses'=>'Home_Controller@Payment']);
+
+Route::post('Customer_Edit',[
+	'as'=>'Customer_Edit',
+	'uses'=>'Home_Controller@Customer_Edit']);
 //------------------------------Giỏ Hàng------------------------------------
 
 //------------------------------Trang Giao Diện------------------------------------

@@ -7,18 +7,18 @@
 					<div class="drop">
 						<div class="box">
 							<select tabindex="4" class="dropdown drop">
-								<option value="" class="label">Dollar :</option>
-								<option value="1">Dollar</option>
-								<option value="2">Euro</option>
+								<option value="" class="label">VNĐ :</option>
+				{{-- 				<option value="1">Dollar</option>
+								<option value="2">Euro</option> --}}
 							</select>
 						</div>
 						<br>
 						<div class="box1">
-							<select >
-								<option value="" class="label">English :</option>
-								<option value="1">English</option>
+							<select tabindex="4" class="dropdown drop">
+								<option value="" class="label">Vietnamese :</option>
+							{{-- 	<option value="1">English</option>
 								<option value="2">French</option>
-								<option value="3">German</option>
+								<option value="3">German</option> --}}
 							</select>
 						</div>
 						<div class="clearfix"></div>

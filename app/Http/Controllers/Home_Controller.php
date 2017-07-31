@@ -13,6 +13,10 @@ use App\Product;
 use App\Cart;
 use Session;
 use App\Export_product;
+use App\Import_product;
+use App\Customer;
+use App\Bill;
+use App\Bill_Detail;
 class Home_Controller extends Controller
 {
    public function getIndex()
@@ -92,7 +96,9 @@ class Home_Controller extends Controller
         $cart = new Cart($oldCart);
         $cart->reduceByOne($id);
         if(count($cart->items)<=0)
+        {
             Session::forget('cart');
+        }
         else
             Session::put('cart',$cart);
         return json_encode($cart);
@@ -115,9 +121,56 @@ class Home_Controller extends Controller
 
 
 
-   // public function info(){
-   // 	return view('page.gioithieu');
-   // }
+   public function Payment(){
+   	return view('Page.Payment');
+   }
+   public function Customer_Edit(Request $req)
+   {
+      $a=array();
+      $i=0;
+      $oldCart = Session('cart')?Session::get('cart'):null;
+      $cart = new Cart($oldCart);
+      foreach ($cart->items as $key) {
+        $id=$key['item'][0]->id;
+        $size=$key['item'][0]->size;
+        $name=$key['item'][0]->name;
+        $Qty=$key['qty'];
+        $export_quantity=Export_product::FindOneExportProduct($id,$size)->get();
+        $import_quantity=Import_product::FindOneImportProduct($id,$size)->sum('import_quantity');
+        $quantity=$import_quantity-$export_quantity[0]->export_quantity;
+        if($quantity<$Qty)
+        $a[$i++]=$name." - ".$size." : hàng không đủ hàng trong kho chỉ còn : ".$quantity;
+        # code...
+      }
+        if($a==null)
+        {
+          $full_name=$req->name;
+          $phone=$req->phone;
+          $email=$req->email;
+          $address=$req->address;
+          $note=$req->note;
+
+          $id_customer=Customer::Insert_Customer($full_name,$email,$address,$phone);
+          $id_bill=Bill::Insert_Bill($id_customer,$note);
+           foreach ($cart->items as $key) 
+            {
+
+              $id_product=$key['item'][0]->id;
+              $size=$key['item'][0]->size;
+              $sales_price=$key['item'][0]->export_price;
+              $quantity=$key['qty'];
+              $bill_detail=Bill_Detail::Insert_Bill_Detail($id_bill,$id_product,$size,$sales_price,$quantity);
+              $export_product=Export_product:: Insert_Export_Product($id_product,$size,$quantity);
+            }
+          Session::forget('cart');
+          return redirect()->route('index')->with('thanhcong','mua hàng thành công');
+
+        }
+        else
+        {
+        return redirect()->route('cart-detail')->with('hangkhongdu',$a);;
+        }
+   }
    // public function news_All(){
    //    $news=News::Load_ALL_News()->orderBy('created_at','DESC')->paginate(5);
    //    $typeidtintuc=0;

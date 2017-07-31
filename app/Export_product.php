@@ -22,7 +22,9 @@ class Export_product extends Model
     public static function Delete_Export_Product($id,$size)
     {
         $pro=DB::table('export_product')
-        		->whereRaw("id_product ='$id' and size REGEXP'$size' ")->delete();
+        		->where([
+                    ['id_product','=',$id],
+                    ['size','LIKE','%'.$size.'%'],])->delete();
         $pro=DB::table('export_product')
         		->where('id_product','=',$id)->select()->first();
         return $pro;
@@ -31,7 +33,9 @@ class Export_product extends Model
     public static function FindOneExportProduct($id,$size)
     {
         $pro=DB::table('export_product')
-                ->where('id_product','=',$id)->select();
+                ->where([
+                    ['id_product','=',$id],
+                    ['size','LIKE','%'.$size.'%'],])->select();
         return $pro;
     }
     //xòa sản phẩm khi loại sản phẩm bị xóa
@@ -44,19 +48,44 @@ class Export_product extends Model
     public static function  Update_Insert_Export_Product($id,$size,$export_price)
     {
         $pro=DB::table('export_product')
-                ->whereRaw("id_product ='$id' and size REGEXP'$size' ")->first();
+               ->where([
+                    ['id_product','=',$id],
+                    ['size','LIKE','%'.$size.'%'],])->first();
         if(!isset($pro))
             $pro=DB::table('export_product')->insert(['id_product'=>$id,'size'=>$size,'export_price'=>$export_price]);
         else
             $pro=DB::table('export_product')
-                ->whereRaw("id_product ='$id' and size REGEXP'$size' ")->update(['export_price'=>$export_price]);
+                ->where([
+                    ['id_product','=',$id],
+                    ['size','LIKE','%'.$size.'%'],])->update(['export_price'=>$export_price]);
 
     }
     //lúc sửa lại mọi thứ trong sản phẩm
     public static function Update_Export_Product($id,$first_size,$size,$export_price)
     {
         $pro=DB::table('export_product')
-                ->whereRaw("id_product ='$id' and size REGEXP'$first_size' ")->update(['size'=>$size,'export_price'=>$export_price]);
+                ->where([
+                    ['id_product','=',$id],
+                    ['size','LIKE','%'.$size.'%'],])->update(['size'=>$size,'export_price'=>$export_price]);
     }
 
+    public static function Insert_Export_Product($id,$size,$quantity)
+    {
+        $pro=DB::table('export_product')
+                ->where([
+                    ['id_product','=',$id],
+                    ['size','LIKE','%'.$size.'%'],])->select('export_quantity')->get();
+        $export_quantity=$pro[0]->export_quantity + $quantity;
+         $pro=DB::table('export_product')
+                ->where([
+                    ['id_product','=',$id],
+                    ['size','LIKE','%'.$size.'%'],])->update(['export_quantity'=>$export_quantity]);
+        return $pro;
+    }
+    //tìm tổng lượng đã bán
+    public static function ALl_Sale_Quantity()
+    {
+          $pro=DB::table('export_product')->sum('export_quantity');
+          return $pro;
+    }
 }
