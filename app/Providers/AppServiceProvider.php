@@ -75,7 +75,7 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('size_gach',$size_gach);
             });
 
-            view()->composer(['Master.Top_header','Page.Cart_Detail','Page.Cart_Detail_Update'],function($view)
+            view()->composer(['Master.Top_header','Page.Cart_Detail','Page.Cart_Detail_Update','Page.Payment'],function($view)
             {
               if(Session('cart'))
               {

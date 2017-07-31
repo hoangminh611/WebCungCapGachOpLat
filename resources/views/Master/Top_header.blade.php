@@ -15,7 +15,7 @@
 						<br>
 						<div class="box1">
 							<select tabindex="4" class="dropdown drop">
-								<option value="" class="label">Vietnamese :</option>
+								<option value="" class="label ">Vietnam</option>
 							{{-- 	<option value="1">English</option>
 								<option value="2">French</option>
 								<option value="3">German</option> --}}

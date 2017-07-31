@@ -150,7 +150,7 @@
 		        {
 		        	route="{{route('cart-detail')}}";
 		        	window.location.replace(route);
-		        }
+		        }	
 
 		});
 		</script>

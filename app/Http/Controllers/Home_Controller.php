@@ -163,7 +163,7 @@ class Home_Controller extends Controller
               $export_product=Export_product:: Insert_Export_Product($id_product,$size,$quantity);
             }
           Session::forget('cart');
-          return redirect()->route('index')->with('thanhcong','mua hàng thành công');
+          return redirect()->route('index')->with('thanhcong','mua hàng thành công,chúng tôi sẽ liên hệ bạn sớm nhất');
 
         }
         else

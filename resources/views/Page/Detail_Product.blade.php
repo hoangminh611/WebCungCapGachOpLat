@@ -156,7 +156,7 @@
 										<a href="{{route('Detail',$samePro->id)}}" class="mask">
 											<img class="img-responsive zoom-img" src="images/{{$samePro->image}}" alt="" style=" width:200px;height: 200px;" />
 											<div class="product-bottom">
-												<h3>{{$samePro->name}}</h3>
+												<h3 style="height: 30px;">{{$samePro->name}}</h3>
 												<p>Tìm Hiểu Thêm</p>
 										</a>
 											</div>

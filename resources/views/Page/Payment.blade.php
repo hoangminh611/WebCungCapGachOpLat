@@ -18,7 +18,7 @@
 			</div>
 				<div class="contact-text">
 					<form method="post" action="{{route('Customer_Edit')}}">
-					<div class="col-md-9 contact-right">
+					<div class="col-md-8 contact-right">
 							<input type="hidden" name="_token" value="{{csrf_token()}}">
 							<span>Name:</span>
 							<span id="name_edit"><input type="text" name="name" placeholder="Name" value="" style="width: 100%; margin-left: 0px;" required></span>
@@ -43,15 +43,17 @@
 
 
 					</div>	
-					<div class="col-md-3 contact-left">
-						<div class="address">
-							<h5>Address</h5>
-							<p style="color: black;">Hùng Minh, 
-								<span>22 Lê Trung Nghĩa</span>
-								<span>Tel:1115550001</span>
-								<span>Fax:190-4509-494</span>
-								<span>Email:<a href="mailto:example@email.com">manhhoangminh1010@gmail.com</a></span>
-							</p>
+					<div class="col-md-4 contact-left">
+						<div>
+						@if(Session::has('cart'))
+							@foreach($product_cart as $product)
+								<img src="images/{{$product['item'][0]->image}} " class="img-responsive" alt="" style="width: 50px; height: 50px;">
+								Số Lượng:{{$product['qty']}} Giá: {{number_format($product['price'])}}
+							@endforeach
+							<br>
+							Tổng sản phẩm:{{$totalQty}}
+							Tổng Tiền:{{$totalPrice}}
+						@endif
 						</div>
 					</div>
 					</form>

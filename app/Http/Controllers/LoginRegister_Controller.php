@@ -40,6 +40,15 @@ class LoginRegister_Controller extends Controller
    {
    		return view('Master.Register');
    }
+
+      public function CheckEmail($email)
+      {
+          $user=User::where('email',$email)->first();
+          if($user)
+            return 'Email đã tồn tại vui lòng chọn email khác';
+          else
+            return 'Email hợp lệ';
+      }
    //Đăng kí
     public function postregister(Request $req){
         $this->validate($req,['email'=>'required|email', 'full_name'=>'required', 'password'=>'required|min:6|max:10', 'phone'=>'required|min:10|max:11', 're_password'=>'required|same:password'

@@ -213,6 +213,9 @@ Route::get('logout',[
 Route::post('register',[
 	'as'=>'register',
 	'uses'=>'LoginRegister_Controller@postregister']);
+Route::get('checkEmail/{email}',[
+		'as'=>'checkEmail',
+	'uses'=>'LoginRegister_Controller@CheckEmail']);
 Route::get('getregister',[
 	'as'=>'getregister',
 	'uses'=>'LoginRegister_Controller@Register']);
