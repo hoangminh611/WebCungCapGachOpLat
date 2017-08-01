@@ -5,8 +5,13 @@
 		<div class="table-agile-info">
      <div class="panel panel-default">
         <div class="panel-heading">
-         Basic table
+         Bill_Detail
+         <br>
         </div>
+            Họ Tên:<b>{{$customer[0]->full_name}}</b>
+            <br> Địa Chỉ:<b>{{$customer[0]->address}}</b>
+            <br> Điện thoại:<b>{{$customer[0]->phone}}</b> 
+            <br>Email:<b>{{$customer[0]->email}}</b>
           <div>
           {{--   <button id="addRow" onclick="addRow({{$name_parent[0]->id}})"  class=" btn btn-info btn-lg glyphicon glyphicon-plus-sign" style=" border-radius: 10px;"></button> --}}
         </div> 

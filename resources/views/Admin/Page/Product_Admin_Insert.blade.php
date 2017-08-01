@@ -51,7 +51,7 @@
                                     <div class="form-group">
                                         <label class=" col-sm-3 control-label ">Description</label>
                                         <div class="col-sm-6">
-                                             <textarea name="description" class="form-control" style="resize: none; height: 12.7em;outline: none;border-top: 1px solid black;" required="">
+                                             <textarea name="description"  id="ckeditor" class="form-control" style="resize: none; height: 12.7em;outline: none;border-top: 1px solid black;" required="">
                                              </textarea>
                                         </div>
                                     </div>
@@ -70,7 +70,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Giá Nhập Hàng:</label>
                                         <div class="col-sm-6">
-                                             <input type="text" value="" name="import_price" class="form-control" style="border-top: 1px solid black;"  pattern="[0-9]*" maxlength='10'  required required title=" nhập từ 0 tới 10 chữ số" >>
+                                             <input type="text" value="" name="import_price" class="form-control" style="border-top: 1px solid black;"  pattern="[0-9]*" maxlength='10'  required required title=" nhập từ 0 tới 10 chữ số" >
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -83,6 +83,9 @@
                                     <button type="submit" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">Save</button>           
                                 </form>
                             </div>
+                            <script>
+                                        CKEDITOR.replace( 'ckeditor');
+                            </script>
                     @else
                          <div class="panel-body">
                                 <form class="form-horizontal bucket-form" enctype="multipart/form-data"  id="add-form" method="post" action="{{route('Update_Product')}}">
@@ -126,7 +129,7 @@
                                     <div class="form-group">
                                         <label class=" col-sm-3 control-label ">Description</label>
                                         <div class="col-sm-6">
-                                             <textarea name="description" class="form-control" style="resize: none; height: 12.7em;outline: none;border-top: 1px solid black;" required="">
+                                             <textarea name="description" id="ckeditor" class="form-control" style="resize: none; height: 12.7em;outline: none;border-top: 1px solid black;" required="">
                                              {{$product[0]->description}}
                                              </textarea>
                                         </div>
@@ -159,6 +162,9 @@
                                     <button type="submit" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">Save</button>           
                                 </form>
                             </div>
+                            <script>
+                                        CKEDITOR.replace( 'ckeditor');
+                            </script>
                         @endif
                 </section>
 

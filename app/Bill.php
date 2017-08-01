@@ -16,9 +16,8 @@ class Bill extends Model
     public static function All_Bill()
     {
     	$Bill=DB::table('bills')
-                // ->join('users','bills.id_user','=','users.id')
-                // ->select('users.full_name','bills.id','bills.id_user','bills.id_customer','bills.method','bills.note','bills.created_at','bills.updated_at');
-                ->select();
+                ->join('customer','bills.id_customer','=','customer.id')
+                ->select('customer.full_name','customer.phone','customer.address','customer.email','bills.id','bills.id_customer','bills.method','bills.note','bills.created_at','bills.updated_at');
     	return $Bill;
     }
     //lay bill theo di
@@ -35,7 +34,7 @@ class Bill extends Model
     //Insert customer vào bill
     public static function Insert_Bill($idcustomer,$note)
     {
-         $Bill=DB::table('bills')->insertGetId(['id_customer'=>$idcustomer,'method'=>'chua xac nhan','note'=>$note]);
+         $Bill=DB::table('bills')->insertGetId(['id_customer'=>$idcustomer,'method'=>'Chưa Xác Nhận','note'=>$note]);
          return $Bill;
     }
 

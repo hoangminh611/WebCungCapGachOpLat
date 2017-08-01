@@ -156,7 +156,7 @@ Route::get('ViewPageBill_Admin',
 	['as'=>'ViewPageBill_Admin',
 	'uses'=>'Admin_Bill_Controller@ViewPageBill_Admin']);
 
-Route::get('ViewPageBill_Detail_Admin/{id}',
+Route::get('ViewPageBill_Detail_Admin/{id}/{idcustomer}',
 	['as'=>'ViewPageBill_Detail_Admin',
 	'uses'=>'Admin_Bill_Controller@ViewPageBill_Detail_Admin']);
 Route::get('ViewPageBill_Detail_Admin_Insert/{id}/{quantity}/{name_product}',
@@ -165,7 +165,7 @@ Route::get('ViewPageBill_Detail_Admin_Insert/{id}/{quantity}/{name_product}',
 Route::post('Update_Bill_Detail',
 	['as'=>'Update_Bill_Detail',
 	'uses'=>'Admin_Bill_Controller@Update_Bill_Detail']);
-Route::get('ViewPageBill_Admin_Insert/{id}/{user}/',
+Route::get('ViewPageBill_Admin_Insert/{id}/{customer}/',
 	['as'=>'ViewPageBill_Admin_Insert',
 	'uses'=>'Admin_Bill_Controller@ViewPageBill_Admin_Insert']);
 Route::post('Update_Bill',

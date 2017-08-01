@@ -29,6 +29,14 @@ class Export_product extends Model
         		->where('id_product','=',$id)->select()->first();
         return $pro;
     }
+    //cho status no bang 1
+      public static function Update_Delete_Export_Product($id,$size)
+    {
+        $pro=DB::table('export_product')
+                ->where([
+                    ['id_product','=',$id],
+                    ['size','LIKE','%'.$size.'%'],])->update(['status'=>1]);
+    }
     //tìm sản phẩm 
     public static function FindOneExportProduct($id,$size)
     {

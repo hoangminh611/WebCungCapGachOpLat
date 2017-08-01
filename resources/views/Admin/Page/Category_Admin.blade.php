@@ -38,7 +38,7 @@
                 <tr data-expanded="true">
                   <td>{{$type_pro->id}}</td>
                   <td>{{$type_pro->name}}</td>
-                  <td>{{$type_pro->description}}</td>
+                  <td>{!!$type_pro->description!!}</td>
                   <td>{{$name_parent[0]->name}}</td>
                   <td><img src="images/{{$type_pro->image}}" alt="{{$type_pro->image}}" style="width: 50px; height: 50px;"></td>
                   <td>{{$type_pro->created_at}}</td>

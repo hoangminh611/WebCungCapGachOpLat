@@ -39,7 +39,7 @@
                                 <div class="form-group">
                                     <label class=" col-sm-3 control-label ">Description</label>
                                     <div class="col-sm-6">
-                                         <textarea name="description" class="form-control" style="resize: none; height: 12.7em;outline: none;border-top: 1px solid black;" required="">
+                                         <textarea name="description" id="ckeditor" class="form-control" style="resize: none; height: 12.7em;outline: none;border-top: 1px solid black;" required="">
                                          </textarea>
                                     </div>
                                 </div>
@@ -65,6 +65,9 @@
                                 <button type="submit" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">  Save</button>           
                             </form>
                         </div>
+                        <script>
+                                        CKEDITOR.replace( 'ckeditor');
+                        </script>
                     @else
                          <div class="panel-body">
                             <form class="form-horizontal bucket-form" enctype="multipart/form-data"  id="add-form" method="post" action="{{route('Update_Category',"id=$id")}}">
@@ -91,7 +94,7 @@
                                 <div class="form-group">
                                     <label class=" col-sm-3 control-label ">Description</label>
                                     <div class="col-sm-6">
-                                         <textarea name="description" class="form-control" style="resize: none; height: 12.7em;outline: none;border-top: 1px solid black;" required="">
+                                         <textarea name="description"  id="ckeditor" class="form-control" style="resize: none; height: 12.7em;outline: none;border-top: 1px solid black;" required="">
                                           {{$type_detail[0]->description}}
                                          </textarea>
                                     </div>
@@ -118,6 +121,9 @@
                                 <button type="submit" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">  Save</button>           
                             </form>
                         </div>
+                        <script>
+                                        CKEDITOR.replace( 'ckeditor');
+                        </script>
                     @endif
                 </section>
 

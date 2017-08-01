@@ -13,6 +13,7 @@ class TypeProduct extends Model
     public function products(){
     	return $this->hasMany('App\Product','id_type','id');
     }
+    //hiện loại cha
     public static function Show_All_Type_Product_Parent(){
 		$Type_product=DB::table('category')->where([
                                     ['type', '=', '1'],
@@ -20,7 +21,7 @@ class TypeProduct extends Model
                                     ])->select();
 		return $Type_product;
 	}
-
+  //hiện loại con của cha
 	public static function Show_All_Type_Product_By_Id_Parent($id){
 		$Type_product=DB::table('category')
 						->where([

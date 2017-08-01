@@ -25,7 +25,6 @@
               <tr>
                 <th>Chi Tiết</th>
                 <th data-breakpoints="xs">ID</th>
-                <th>User</th>
                 <th>Customer</th>
                 <th data-breakpoints="xs">Tình Trang</th>
                 <th>Ghi chú</th>
@@ -37,16 +36,15 @@
             <tbody>
               @foreach($Bill as $bill)
                 <tr data-expanded="true">
-                  <td><a href="{{route('ViewPageBill_Detail_Admin',$bill->id)}}">Xem Chi Tiết</a></td>
+                  <td><a href="{{route('ViewPageBill_Detail_Admin',[$bill->id,$bill->id_customer])}}">Xem Chi Tiết</a></td>
                   <td>{{$bill->id}}</td>
-                  <td>{{$bill->id_user}}</td>
-                  <td>{{$bill->id_customer}}</td>
+                  <td>{{$bill->full_name}}</td>
                   <td>{{$bill->method}}</td>
                   <td>{{$bill->note}}</td>
                   <td>{{$bill->created_at}}</td>
                   <td>{{$bill->updated_at}}</td>
                   <td>
-                    <button class="btn btn-info btn-lg glyphicon glyphicon-hand-right" style="border-radius: 10px;" onclick="editRow({{ $bill->id }},'{{$bill->id_user}}')"></button>
+                    <button class="btn btn-info btn-lg glyphicon glyphicon-hand-right" style="border-radius: 10px;" onclick="editRow({{ $bill->id }},'{{$bill->full_name}}')"></button>
                      {{-- <button class="btn btn-warning btn-lg glyphicon glyphicon-trash" style="border-radius: 10px" id="delete_button{{ $type_pro->id  }}" onclick="delete_row('{{ $type_pro->id}}');"></button> --}}
                   </td>
                 </tr> 

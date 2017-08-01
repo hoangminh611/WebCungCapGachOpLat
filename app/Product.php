@@ -17,8 +17,12 @@ class Product extends Model
     }
     public static function Top4Product()// tim san pham NHIỀU VIEW NHẤT
     {
-    	$hotPro = DB::table('products')
-    				->orderBy('view','DESC')->limit(4);
+    	$hotPro = DB::table('products')             
+              ->join('export_product','products.id','=','export_product.id_product')
+              ->where([
+                    ['status',0],
+                    ])
+    				->orderBy('view','DESC')->select('products.id','products.id_type','products.view','products.name','products.image','products.description')->limit(4);
             return $hotPro;
 
     }
@@ -26,7 +30,11 @@ class Product extends Model
     public static function Top8NewsProduct()
     {
       $newPro = DB::table('products')
-            ->orderBy('id','DESC')->limit(8);
+             ->join('export_product','products.id','=','export_product.id_product')
+              ->where([
+                    ['status',0],
+                    ])
+            ->orderBy('id','DESC')->select('products.id','products.id_type','products.view','products.name','products.image','products.description')->limit(8);
             return $newPro;
 
     }
@@ -54,8 +62,9 @@ class Product extends Model
                   ->where([
                     ['id_type','=',$id],
                     ['size','=',$size],
+                    ['status',0],
                     ])
-                  ->select('export_product.id as idsize','products.id','products.id_type','products.view','products.name','products.image','products.description','export_product.size as size','export_product.export_price','products.unit_price');
+                  ->select('export_product.id as idsize','products.id','products.id_type','products.view','products.name','products.image','products.description','export_product.size as size','export_product.export_price');
             return $product;
     }
 
@@ -64,8 +73,8 @@ class Product extends Model
     {
       $product=DB::table('products')
                   ->join('export_product','products.id','=','export_product.id_product')
-                  ->where('size',$size)
-                  ->select('export_product.id as idsize','products.id','products.id_type','products.view','products.name','products.image','products.description','export_product.size as size','export_product.export_price','products.unit_price');
+                  ->where([['size',$size],['status',0],])
+                  ->select('export_product.id as idsize','products.id','products.id_type','products.view','products.name','products.image','products.description','export_product.size as size','export_product.export_price');
             return $product;
     }
 
@@ -85,6 +94,7 @@ class Product extends Model
         $product=DB::table('products')
                     ->where('products.id','=',$id)
                     ->join('export_product','products.id','=','export_product.id_product')
+                    ->where('status',0)
                     ->select('export_product.id as idsize','products.id','products.id_type','products.view','products.name','products.image','products.description','export_product.size as size','export_product.export_price','export_product.export_quantity');
           
         return $product;
@@ -106,9 +116,9 @@ class Product extends Model
             $product=DB::table('products')
                         ->join('category','products.id_type','=','category.id')
                         ->join('export_product','products.id','=','export_product.id_product')
-                        ->join('import_product','products.id','=','import_product.id_product')
+                        ->where('status',0)
                         ->select('category.name as type_name','products.id','products.name','products.unit_price', 
-                                'products.image','products.description','export_product.size as size','export_product.export_price','export_product.export_quantity','import_product.import_quantity','import_product.import_price','import_product.created_at')
+                                'products.image','products.description','export_product.size as size','export_product.export_price','export_product.export_quantity')
                         ->orderBy('id','DESC');
 
         return $product;
@@ -119,9 +129,9 @@ class Product extends Model
                         ->where('id_type',$id)
                         ->join('category','products.id_type','=','category.id')
                         ->join('export_product','products.id','=','export_product.id_product')
-                        ->join('import_product','products.id','=','import_product.id_product')
+                        ->where('status',0)
                         ->select('category.name as type_name','products.id','products.name','products.unit_price', 
-                                'products.image','products.description','export_product.size as size','export_product.export_price','export_product.export_quantity','import_product.import_quantity','import_product.import_price','import_product.created_at')
+                                'products.image','products.description','export_product.size as size','export_product.export_price','export_product.export_quantity')
                         ->orderBy('id','DESC');
         return $product;
   }
@@ -130,6 +140,8 @@ class Product extends Model
         $pro=DB::table('products')->where('id','=',$id)->delete();
         return $pro;
   }
+
+
   //Insert san phẩm mới
   public static function Insert_Product($name, $type, $desc,$image){
             $id=DB::table('products')->insertGetId(['name'=>$name,'id_type'=>$type,'description'=>$desc,'image'=>$image]);
@@ -166,22 +178,5 @@ class Product extends Model
 
 
 
-  //     public static function findProductBestSale() // tim san pham ban chay
-  //       {
-  //           $bestsale = DB::table('bill_detail')->join('products','bill_detail.id_product','=','products.id')
-  //                           ->select(DB::raw('sum(quantity) as quan'),'products.id','products.name','products.unit_price','products.promotion_price','products.image')
-  //                           ->groupBy('products.name','products.id','products.unit_price','products.promotion_price','products.image')
-  //                           ->orderBy('quantity','DESC')
-  //                           ->limit(2);
-
-  //           return $bestsale;
-  //       }
-
-
-  //   public static function findProductPromotion()
-  //   {
-  //       $products = DB::table('products')->where('promotion_price','>','0')
-  //                                       ->limit(10);
-  //       return $products;
-  //   }
+  
 }

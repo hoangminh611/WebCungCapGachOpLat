@@ -10,26 +10,27 @@ use Auth;
 use Illuminate\Support\Facades\Input;
 use App\Bill;
 use App\Bill_Detail;
+use App\Customer;
 use Session;
 use App\Import_product;
 class Admin_Bill_Controller extends Controller
 {
    public function ViewPageBill_Admin()
    {
-   	$Bill=Bill::All_Bill()->get();
+   	$Bill=Bill::All_Bill()->orderBy('bills.id','DESC')->get();
    	return view('Admin.Page.Bill_Admin',compact('Bill'));
    }
 
-   public function ViewPageBill_Detail_Admin($id)
+   public function ViewPageBill_Detail_Admin($id,$id_customer)
    {
    	$Bill_Detail=Bill_Detail::View_All($id)->get();
-   	return view('Admin.Page.Bill_Detail_Admin',compact('Bill_Detail'));
+      $customer=Customer::Customer_ByID($id_customer)->get();
+   	return view('Admin.Page.Bill_Detail_Admin',compact('Bill_Detail','customer'));
    }
 
    public function ViewPageBill_Admin_Insert(Request $req)
    {
       $id=$req->id;
-      $user=$req->user;
       $customer=$req->customer;
       $bill=Bill::View_bill_byId($id)->get();
       return view('Admin.Page.Bill_Admin_Insert',compact('bill','user','customer','id'));
@@ -40,7 +41,9 @@ class Admin_Bill_Controller extends Controller
    	$quantity=$req->quantity;
    	$name_pro=$req->name_product;
    	$Bill_Detail=DB::table('bill_detail')->where('id',$id_bill_detail)->select()->get();
-   	return view('Admin.Page.Bill_Detail_Admin_Insert',compact('Bill_Detail','quantity','name_pro'));
+      $Bill=DB::table('bill_detail')->where('id',$id_bill_detail)->select('id_bill')->get();
+      $customer=DB::table('bills')->where('id',$Bill[0]->id_bill)->select('id_customer')->get();
+   	return view('Admin.Page.Bill_Detail_Admin_Insert',compact('Bill_Detail','quantity','name_pro','customer'));
    }
 
    public function Update_Bill_Detail(Request $req)
@@ -51,13 +54,15 @@ class Admin_Bill_Controller extends Controller
    	$id_product=$req->id_product;
    	$size=$req->size;
    	$id_bill=$req->id_bill;
+      $id_customer=$req->id_customer;
    	$bill_detail=Bill_Detail::Update_Bill_Detail($id,$first_quantity,$quantity,$id_product,$size);
-   	return redirect()->route('ViewPageBill_Detail_Admin',$id_bill);
+   	return redirect()->route('ViewPageBill_Detail_Admin',[$id_bill,$id_customer]);
    }
 
    public function Update_Bill(Request $req)
    {
       $id=$req->id;
+
       $method=$req->method;
       $bill=Bill::Update_Bill($id,$method);
       return redirect()->route('ViewPageBill_Admin');

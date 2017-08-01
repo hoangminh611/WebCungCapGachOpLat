@@ -34,10 +34,7 @@
                 <th>Giá theo kích thước</th>
                 <th>Size</th>
                 <th>Số Lượng Bán</th>
-                <th>Giá Nhập</th>
-                <th>Số Lượng Nhập</th>
                 <th>Image</th>
-                <th>Ngày tạo</th>
                 <th data-breakpoints="xs sm md" data-title="DOB">Nhập hàng,thêm kích thước/Edit/Delete</th>
               </tr>
             </thead>
@@ -47,14 +44,11 @@
                   <td>{{$pro->id}}</td>
                   <td>{{$pro->name}}</td>
                   <td>{{$pro->type_name}}</td>
-                  <td>{{$pro->description}}</td>
+                  <td>{!!$pro->description!!}</td>
                   <td>{{number_format($pro->export_price)}}</td>
                   <td><span id="size{{$pro->id}}" value="{{$pro->size}}">{{$pro->size}}</span></td>
                   <td>{{$pro->export_quantity}}</td>
-                  <td>{{number_format($pro->import_price)}}</td>
-                  <td>{{$pro->import_quantity}}</td>
                   <td><img id="img{{ $pro->id }}" src="images/{{$pro->image}}" style="width: 50px; height: 50px;"></td>
-                  <td>{{$pro->created_at}}</td>
                   <td>
                     <button style="border-radius: 10px;" id="edit_button{{ $pro->id  }}" onclick="importRow({{ $pro->id }},'{{$pro->name}}','{{$pro->type_name}}','{{$pro->size}}')">Nhập Hàng hoặc thêm kích thước</button>
                     <button class="btn btn-info btn-lg glyphicon glyphicon-hand-right" style="border-radius: 10px;" id="edit_button{{ $pro->id  }}" onclick="editRow({{ $pro->id }},'{{$pro->size}}')"></button>

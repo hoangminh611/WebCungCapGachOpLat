@@ -95,6 +95,17 @@
 											<button  type="button" id="minus" style="margin-left: 3%;"><i class="fa fa-minus" aria-hidden="true"></i></button>
 											<input type="text" name="quantity" id="quantity"  value="1" pattern="[0-9]{1,4}" maxlength='4' required title=" nhâp 1 to 4 chữ số">
 											<button   type="button" id="plus"><i class="fa fa-plus" aria-hidden="true"></i></button>
+										<script type="text/javascript">
+											$('#quantity').keypress(function()
+											{
+												if($('#quantity').val()<=1)
+											{
+												$("#quantity").val(1);
+											}
+											})
+											
+
+										</script>
 									</li>
 									
 									<div class="clearfix"> </div>

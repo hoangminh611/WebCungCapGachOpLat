@@ -8,7 +8,12 @@ class Customer extends Model
 {
     protected $table='customer';
     public $timestamps = true;
-    public static function Customer_All()
+    public static function Customer_ByID($idcustomer)
+    {
+        $user=DB::table('customer')->where('id',$idcustomer)->select();
+        return $user;
+    }
+      public static function Customer_All()
     {
         $user=DB::table('customer')->select();
         return $user;

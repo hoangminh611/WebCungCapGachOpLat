@@ -16,13 +16,13 @@ class Admin_Product_Controller extends Controller
 {
    public function Admin_All_Product()
    {
-   	$product=Product::Show_Product_All()->orderBy('created_at','DESC')->get();
+   	$product=Product::Show_Product_All()->get();
    	return view('Admin.Page.Product_Admin',compact('product'));
    }
 
    public function Admin_All_Product_By_Type(Request $req)
    {
-   	$product=Product::Show_Product_All_By_Type($req->id)->orderBy('created_at','DESC')->get();
+   	$product=Product::Show_Product_All_By_Type($req->id)->get();
    	$typepro=$req->id;
    	return view('Admin.Page.Product_Admin',compact('product','typepro'));
    }
@@ -123,12 +123,12 @@ class Admin_Product_Controller extends Controller
       $size=$req->size;
       $image = $req->imageFile;
       //chua xoa dc cai hinh nay
-      File::delete('images/'.$image);
-      $import_product=Import_product::Delete_Import_Product($id,$size);
-      $export_product=Export_product::Delete_Export_Product($id,$size);
-      $bill_detail=Bill_Detail::Delete_Bill_Detail($id,$size);
-      if(!isset($import_product)&&!isset($export_product)&&!isset($bill_detail))
-         $pro=Product::Delete_Product($id);
+      // File::delete('images/'.$image);
+      // $import_product=Import_product::Delete_Import_Product($id,$size);
+      $export_product=Export_product::Update_Delete_Export_Product($id,$size);
+      // $bill_detail=Bill_Detail::Delete_Bill_Detail($id,$size);
+      // if(!isset($import_product)&&!isset($export_product)&&!isset($bill_detail))
+      //    $pro=Product::Delete_Product($id);
    }
    //--------------------------------Loại sản phẩm ----------------------------------------------------------------------------------------------
    public function Admin_All_Type()

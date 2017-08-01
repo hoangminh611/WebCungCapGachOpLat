@@ -17,13 +17,6 @@
                             <form class="form-horizontal bucket-form" enctype="multipart/form-data"  id="add-form" method="post" action="{{route('Update_Bill')}}">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                  <input type="hidden" name="id" value="{{ $id }}">
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">User</label>
-                                    <div class="col-sm-6">
-                                        <input type="text" value="{{$user}}" name="user" class="form-control" style="border-top: 1px solid black;" disabled="">
-                                    </div>
-
-                                </div>
                                  <div class="form-group">
                                     <label class="col-sm-3 control-label">Customer</label>
                                     <div class="col-sm-6">
@@ -34,14 +27,27 @@
                                 <div class="form-group">
                                     <label class=" col-sm-3 control-label ">Tinh Trạng</label>
                                     <div class="col-sm-6">
-                                        <input type="text" name="method" value="{{$bill[0]->method}}">
-                                        <span class="help-block">Nhập tình là đã xac nhân hay chưa và đã thanh toán hay chưa </span>
+                                          <select class="form-control m-bot15" id="method" name ="method">
+                                            <option id="1" value="{{$bill[0]->method}}" checked>{{$bill[0]->method}}</option>
+                                            <option id="2" value="Chưa Xác Nhận">Chưa Xác Nhận</option>
+                                            <option id="3" value="Đã Xác Nhận Chưa Thanh Toán">Đã Xác Nhận Chưa Thanh Toán</option>
+                                            <option id="4" value="Đã Thanh Toán" >Đã Thanh Toán</option>
+                                        </select>
+                                        <script type="text/javascript">
+                                            var val= $('#1').val();
+                                            if(val=="Chưa Xác Nhận")
+                                                $('#2').hide();
+                                            if(val=="Đã Xác Nhận Chưa Thanh Toán")
+                                                $('#3').hide();
+                                            if(val=="Đã Thanh Toán")
+                                                $('#4').hide();
+                                        </script>
                                     </div>
                                 </div>
                                  <div class="form-group">
                                     <label class=" col-sm-3 control-label ">Ghi Chú</label>
                                     <div class="col-sm-6">
-                                        <input type="text" name="quantity" value="{{$bill[0]->note}}" disabled="">
+                                        <textarea   disabled=""  style="resize: none; width:30em; height: 12.7em;outline: none;border-top: 1px solid black;" >{{$bill[0]->note}}</textarea> 
                                     </div>
                                 </div>
                                 <button type="submit" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">  Save</button>           

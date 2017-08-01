@@ -70,6 +70,7 @@ class Admin_Controller extends Controller
    public function Update_User(Request $req)
    {
       $id=$req->id;
+      dd($id);
       $group=$req->group;
       $user=User::Update_User($id,$group);
       return redirect()->route('ViewPage_User_Admin');
