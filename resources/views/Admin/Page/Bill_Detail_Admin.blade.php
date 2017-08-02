@@ -37,12 +37,12 @@
                 <th>Giá Tổng</th>
                 <th>Ngày tạo</th>
                 <th>Ngày update</th>
-                <th data-breakpoints="xs sm md" data-title="DOB">Edit</th>
+                <th data-breakpoints="xs sm md" data-title="Edit/Delete">Edit</th>
               </tr>
             </thead>
             <tbody>
               @foreach($Bill_Detail as $bill_detail)
-                <tr data-expanded="true">
+                <tr data-expanded="true" id="row{{$bill_detail->id}}">
                 	<td>{{$bill_detail->id_bill}}</td>
                   <td>{{$bill_detail->id}}</td>
                   <td>{{$bill_detail->name}}</td>
@@ -53,8 +53,8 @@
                   <td>{{$bill_detail->created_at}}</td>
                   <td>{{$bill_detail->updated_at}}</td>
                   <td>
-                    <button class="btn btn-info btn-lg glyphicon glyphicon-hand-right" style="border-radius: 10px;" onclick="editRow({{ $bill_detail->id }},{{$bill_detail->quantity}},'{{$bill_detail->name}}')"></button>
-                     {{-- <button class="btn btn-warning btn-lg glyphicon glyphicon-trash" style="border-radius: 10px" id="delete_button{{ $type_pro->id  }}" onclick="delete_row('{{ $type_pro->id}}');"></button> --}}
+                    <button class="btn btn-info btn-lg glyphicon glyphicon-hand-right edit_button" style="border-radius: 10px;" onclick="editRow({{ $bill_detail->id }},{{$bill_detail->quantity}},'{{$bill_detail->name}}')"></button>
+                     <button class="btn btn-warning btn-lg glyphicon glyphicon-trash delete_button" style="border-radius: 10px" id="delete_button{{ $bill_detail->id  }}" onclick="delete_row({{$bill_detail->id}},{{ $bill_detail->id_product}},'{{$bill_detail->size}}',{{$bill_detail->quantity}});"></button>
                   </td>
                 </tr> 
               @endforeach
@@ -71,6 +71,13 @@
             });
             $(document).ready(function(){
               $('#bill_detail_table').DataTable();
+              var method="{{$method}}";
+              if(method=="Đã Xác Nhận Chưa Thanh Toán"||method=="Đã Thanh Toán")
+              {
+                $('.delete_button').attr('disabled','');
+                $('.edit_button').attr('disabled','');
+              }
+
             });
             function editRow(id,quantity,name_product){
                 var  route="{{route('ViewPageBill_Detail_Admin_Insert',['idbill_detail','soluong','name'])}}";
@@ -86,37 +93,40 @@
         
             // }
 
-            // function delete_row(id)
-            // {
-            //     ssi_modal.confirm({
-            //     content: 'Xóa sẽ ảnh hưởng tới bảng product ,bill_detail,export,import product?',
-            //     okBtn: {
-            //     className:'btn btn-primary'
-            //     },
-            //     cancelBtn:{
-            //     className:'btn btn-danger'
-            //     }
-            //     },function (result) {
-            //         if(result)
-            //         {
-            //             var route="{{route('Delete_Category_Child')}}";
-            //             $.ajax({
-            //                 url:route,
-            //                 type:'get',
-            //                 data:{
-            //                     id:id,
-            //                 },
-            //                 success:function() {  
-            //                      $('#row'+id).hide();
-            //                     alert('Xóa thành công');
-            //                 }
-            //             });
-            //         }
-            //         else
-            //             ssi_modal.notify('error', {content: 'Result: ' + result});
-            //     }
-            // );
-            // }
+            function delete_row(id,id_product,size,quantity)
+            {
+                ssi_modal.confirm({
+                content: 'Xóa sẽ ảnh hưởng tới bảng export_product,bill_detail,bill?',
+                okBtn: {
+                className:'btn btn-primary'
+                },
+                cancelBtn:{
+                className:'btn btn-danger'
+                }
+                },function (result) {
+                    if(result)
+                    {
+                        var route="{{route('Delete_Bill_Detail')}}";
+                        $.ajax({
+                            url:route,
+                            type:'get',
+                            data:{
+                                id:id,
+                                id_product:id_product,
+                                size:size,
+                                quantity:quantity,
+                            },
+                            success:function() {  
+                                 $('#row'+id).hide();
+                                alert('Xóa thành công');
+                            }
+                        });
+                    }
+                    else
+                        ssi_modal.notify('error', {content: 'Result: ' + result});
+                }
+            );
+            }
 
     </script>
 </section>

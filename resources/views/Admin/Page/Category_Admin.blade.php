@@ -35,7 +35,7 @@
             </thead>
             <tbody>
               @foreach($Type_Product as $type_pro)
-                <tr data-expanded="true">
+                <tr data-expanded="true" id="row{{$type_pro->id}}">
                   <td>{{$type_pro->id}}</td>
                   <td>{{$type_pro->name}}</td>
                   <td>{!!$type_pro->description!!}</td>

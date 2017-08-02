@@ -64,9 +64,9 @@
                 </li>
                 @endif
                      <li >
-                    <a href="{{route('ViewPage_Customer_Admin')}}">
+                    <a href="{{route('ViewPage_ImportProduct_Admin')}}">
                         <i class="fa fa-user"></i>
-                        <span>Customer</span>
+                        <span>Hàng Nhập Kho</span>
                     </a>
                 </li>
 {{--                     <ul class="sub">

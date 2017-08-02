@@ -50,9 +50,9 @@ Route::get('Logout',[
 Route::get('ViewPage_User_Admin',[
 	'as'=>'ViewPage_User_Admin',
 	'uses'=>'Admin_Controller@ViewPage_User_Admin']);
-Route::get('ViewPage_Customer_Admin',[
-	'as'=>'ViewPage_Customer_Admin',
-	'uses'=>'Admin_Controller@ViewPage_Customer_Admin']);
+Route::get('ViewPage_ImportProduct_Admin',[
+	'as'=>'ViewPage_ImportProduct_Admin',
+	'uses'=>'Admin_Controller@ViewPage_ImportProduct_Admin']);
 
 Route::get('ViewPage_Update_User/{id}',[
 	'as'=>'ViewPage_Update_User',
@@ -156,7 +156,7 @@ Route::get('ViewPageBill_Admin',
 	['as'=>'ViewPageBill_Admin',
 	'uses'=>'Admin_Bill_Controller@ViewPageBill_Admin']);
 
-Route::get('ViewPageBill_Detail_Admin/{id}/{idcustomer}',
+Route::get('ViewPageBill_Detail_Admin/{id}/{idcustomer}/{method}',
 	['as'=>'ViewPageBill_Detail_Admin',
 	'uses'=>'Admin_Bill_Controller@ViewPageBill_Detail_Admin']);
 Route::get('ViewPageBill_Detail_Admin_Insert/{id}/{quantity}/{name_product}',
@@ -172,9 +172,9 @@ Route::post('Update_Bill',
 	['as'=>'Update_Bill',
 	'uses'=>'Admin_Bill_Controller@Update_Bill']);
 
-Route::get('laygiabill',
-	['as'=>'laygiabill',
-	'uses'=>'Admin_Bill_Controller@laygiabill']);
+Route::get('Delete_Bill_Detail',
+	['as'=>'Delete_Bill_Detail',
+	'uses'=>'Admin_Bill_Controller@Delete_Bill_Detail']);
 
 // ------------------------------ADMIN------------------------------------
 });

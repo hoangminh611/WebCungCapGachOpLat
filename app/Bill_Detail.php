@@ -19,7 +19,7 @@ class Bill_Detail extends Model
     {
         $bill_detail=DB::table('bill_detail')
         ->where('id_bill',$id)->join('products','bill_detail.id_product','=','products.id')
-        ->select('products.name','bill_detail.id','bill_detail.id_bill','bill_detail.size','bill_detail.quantity','bill_detail.sales_price','bill_detail.created_at','bill_detail.updated_at');
+        ->select('products.name','bill_detail.id','bill_detail.id_bill','bill_detail.size','bill_detail.quantity','bill_detail.sales_price','bill_detail.created_at','bill_detail.updated_at','bill_detail.id_product');
         return $bill_detail;
     }
     //update lai số lượng mua của khách hàng
@@ -77,22 +77,39 @@ class Bill_Detail extends Model
             ->where('id_product','=',$id)->select()->first();
     }
     // khi xóa loại sản phẩm 
-    public static function Delete_Bill_Detail_By_Id($id)
+    public static function Delete_Bill_Detail_By_Id($id_product)
     {
          $pro=DB::table('bill_detail')
             ->where('id_product','=',$id)->delete();
     }
+    //Khi xóa 1 bill_Detail
+    public static function Delete_One_Bill_Detail($id)
+    {
+        $bill_detail=DB::table('bill_detail')
+            ->where('id','=',$id)->select('id_bill')->get();
+        $Delete_Bill_Detail=DB::table('bill_detail')
+            ->where('id','=',$id)->delete();
+        $bill=DB::table('bill_detail')
+            ->where('id_bill','=',$bill_detail[0]->id_bill)->select()->first();
+        if(!isset($bill))
+        {
+             $bill=DB::table('bills')->where('id',$bill_detail[0]->id_bill)->delete();
+        }
+        
 
+    }
+    //Insert vào bill detail
     public static function Insert_Bill_Detail($id_bill,$id_product,$size,$sales_price,$Qty)
     {
          $pro=DB::table('bill_detail')->insert(['id_bill'=>$id_bill,'id_product'=>$id_product,'size'=>$size,'sales_price'=>$sales_price,'quantity'=>$Qty]);
          return $pro;
     }
-
+    //lấy giá ra để tính lời lãi lỗ
     public static function Select_Bill_Detail()
     {
         $a=array();
-        $bill=DB::table('bill_detail')->select()->get();
+        $bill=DB::table('bill_detail')->join('bills','bill_detail.id_bill','=','bills.id')
+        ->where('bills.method','LIKE','%Đã Thanh Toán%')->select()->get();
         foreach ($bill as $bill_detail) {
             if(isset($a[$bill_detail->id_product][$bill_detail->size]))
              $a[$bill_detail->id_product][$bill_detail->size]+=$bill_detail->sales_price*$bill_detail->quantity;

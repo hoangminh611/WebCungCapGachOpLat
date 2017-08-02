@@ -49,8 +49,10 @@ class Export_product extends Model
     //xòa sản phẩm khi loại sản phẩm bị xóa
     public static function Delete_Export_Product_By_Id($id)
     {
+         // $pro=DB::table('export_product')
+         //        ->where('id_product','=',$id)->delete();
          $pro=DB::table('export_product')
-                ->where('id_product','=',$id)->delete();
+                ->where('id_product','=',$id)->update(['status'=>1]);
     }
     //Lúc nhập hàng hoặc thêm kích thước
     public static function  Update_Insert_Export_Product($id,$size,$export_price)
@@ -95,5 +97,12 @@ class Export_product extends Model
     {
           $pro=DB::table('export_product')->sum('export_quantity');
           return $pro;
+    }
+    //update lai quantity khi xoa 1 bill detail
+    public static function Update_quantity_By_Idproduct($id,$size,$quantity)
+    {
+        $quantity_pro=DB::table('export_product')->where([['id_product',$id],['size','LIKE','%'.$size.'%']])->select('export_quantity')->get();
+        $quantity=$quantity_pro[0]->export_quantity-$quantity;
+        $quantity_pro=DB::table('export_product')->where([['id_product',$id],['size','LIKE','%'.$size.'%']])->update(['export_quantity'=>$quantity]);
     }
 }

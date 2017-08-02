@@ -18,6 +18,7 @@ class TypeProduct extends Model
 		$Type_product=DB::table('category')->where([
                                     ['type', '=', '1'],
                                     ['type_cha', '=', '0'],
+                                    ['status', '=', 0],
                                     ])->select();
 		return $Type_product;
 	}
@@ -27,6 +28,7 @@ class TypeProduct extends Model
 						->where([
                         ['type', '=', '1'],
                         ['type_cha', '=', $id],
+                        ['status', '=',0],
                         ])->select();
 		return $Type_product;
 	}	
@@ -36,6 +38,7 @@ class TypeProduct extends Model
 						->where([
                         ['type', '=', '1'],
                         ['id','=',$id],
+                        ['status', '=', 0],
                         ])->select();
         return $Type_product;               
 	}
@@ -70,28 +73,33 @@ class TypeProduct extends Model
         {
         	$product=DB::table('products')->where('id_type',$type_parent->id)->select('id')->get();
         	foreach ($product as $pro) {
-        		$import_product=Import_product::Delete_Import_Product_By_Id($pro->id);
+        		//$import_product=Import_product::Delete_Import_Product_By_Id($pro->id);
         		$export_product=Export_product::Delete_Export_Product_By_Id($pro->id);
-        		$bill_detail=Bill_Detail::Delete_Bill_Detail_By_Id($pro->id);
+        		// $bill_detail=Bill_Detail::Delete_Bill_Detail_By_Id($pro->id);
         	}
-        	$product=DB::table('products')->where('id_type',$type_parent->id)->delete();
-        	$type=DB::table('category')
-                  ->where('category.id',$type_parent->id)->delete();
+        	//$product=DB::table('products')->where('id_type',$type_parent->id)->delete();
+        	// $type=DB::table('category')
+         //          ->where('category.id',$type_parent->id)->delete();
+          $type=DB::table('category')
+                  ->where('category.id',$type_parent->id)->update(['status'=>1]);
         }
-       	 $type=DB::table('category')
-                  ->where('category.id',$id)->delete();
+       	 // $type=DB::table('category')
+         //          ->where('category.id',$id)->delete();
+        $type=DB::table('category')
+                   ->where('category.id',$id)->update(['status'=>1]);
 
 	}
 	//xóa loại sản phẩm con
 	public static function Delete_Category_Child($id){
 		$product=DB::table('products')->where('id_type',$id)->select('id')->get();
 		foreach ($product as $pro) {
-        		$import_product=Import_product::Delete_Import_Product_By_Id($pro->id);
+        		// $import_product=Import_product::Delete_Import_Product_By_Id($pro->id);
         		$export_product=Export_product::Delete_Export_Product_By_Id($pro->id);
-        		$bill_detail=Bill_Detail::Delete_Bill_Detail_By_Id($pro->id);
+        		//$bill_detail=Bill_Detail::Delete_Bill_Detail_By_Id($pro->id);
         	}
-		$product=DB::table('products')->where('id_type',$id)->delete();
-        $type=DB::table('category')->where('category.id',$id)->delete();
+		//$product=DB::table('products')->where('id_type',$id)->delete();
+       // $type=DB::table('category')->where('category.id',$id)->delete();
+          $type=DB::table('category')->where('category.id',$id)->update(['status'=>1]);
 	}
 	// public static function ALL_Type_product(){
 	// 	$Type_product=DB::table('category')->select();

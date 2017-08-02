@@ -23,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
               $type =  DB::table('category')->select()->where([
                                     ['type', '=', '1'],
                                     ['type_cha', '=', '0'],
+                                    ['status', '=', 0],
                                     ])->get();
               $loaicon=array();
               foreach ($type as $type_cha) {
@@ -30,6 +31,7 @@ class AppServiceProvider extends ServiceProvider
                                     ->where([
                                     ['type','=','1'],
                                     ['type_cha','=',$type_cha->id],
+                                    ['status', '=', 0],
                                     ])->get();
               $loaicon[$type_cha->id]=$type_children;
               }
@@ -42,6 +44,7 @@ class AppServiceProvider extends ServiceProvider
               $typenews =  DB::table('category')->select()->where([
                                     ['type', '=', '2'],
                                     ['type_cha', '=', '0'],
+                                    ['status', '=', 0],
                                     ])->get();
               $view->with('typenews',$typenews);
             });

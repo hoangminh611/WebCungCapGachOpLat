@@ -23,22 +23,27 @@
             }}'>
             <thead>
               <tr>
-                <th data-breakpoints="xs">ID</th>
-                <th data-breakpoints="xs">FullName</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Address</th>
+                <th></th>
+                <th>ID</th>
+                <th>Sản Phẩm</th>          
+                <th >import_price</th>
+                <th>Size</th>
+                <th>import_quantity</th>
+                <th>created_at</th>
                 {{-- <th data-breakpoints="xs sm md" data-title="DOB">Edit</th> --}}
               </tr>
             </thead>
             <tbody>
-              @foreach($customers as $customer)
+              @foreach($product as $pro)
                 <tr data-expanded="true">
-                  <td>{{$customer->id}}</td>
-                  <td>{{$customer->full_name}}</td>
-                  <td>{{$customer->email}}</td>
-                  <td>{{$customer->phone}}</td>
-                  <td>{{$customer->address}}</td>
+                  <th></th>
+                  <td>{{$pro->idsize}}</td>
+                  <td>{{$pro->name}}</td>
+                   
+                  <td>{{$pro->import_price}}</td>
+                  <td>{{$pro->size}}</td>
+                  <td>{{$pro->import_quantity}}</td>
+                   <td>{{$pro->created_at}}</td>
                   {{-- <td>
                     <button class="btn btn-info btn-lg glyphicon glyphicon-hand-right" style="border-radius: 10px;" onclick="editRow({{ $customer->id }})"></button>
                      <button class="btn btn-warning btn-lg glyphicon glyphicon-trash" style="border-radius: 10px" id="delete_button{{ $type_pro->id  }}" onclick="delete_row('{{ $type_pro->id}}');"></button>

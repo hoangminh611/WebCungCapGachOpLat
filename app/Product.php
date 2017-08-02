@@ -116,7 +116,7 @@ class Product extends Model
             $product=DB::table('products')
                         ->join('category','products.id_type','=','category.id')
                         ->join('export_product','products.id','=','export_product.id_product')
-                        ->where('status',0)
+                        ->where('export_product.status',0)
                         ->select('category.name as type_name','products.id','products.name','products.unit_price', 
                                 'products.image','products.description','export_product.size as size','export_product.export_price','export_product.export_quantity')
                         ->orderBy('id','DESC');
@@ -129,7 +129,7 @@ class Product extends Model
                         ->where('id_type',$id)
                         ->join('category','products.id_type','=','category.id')
                         ->join('export_product','products.id','=','export_product.id_product')
-                        ->where('status',0)
+                        ->where('export_product.status',0)
                         ->select('category.name as type_name','products.id','products.name','products.unit_price', 
                                 'products.image','products.description','export_product.size as size','export_product.export_price','export_product.export_quantity')
                         ->orderBy('id','DESC');

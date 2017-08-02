@@ -55,10 +55,10 @@ class Admin_Controller extends Controller
    		$users=User::User_All()->get();
    		return view('Admin.Page.User_Admin',compact('users'));
    }
-   public function ViewPage_Customer_Admin()
+   public function ViewPage_ImportProduct_Admin()
    {
-   		$customers=Customer::Customer_All()->get();
-   		return view('Admin.Page.Customer_Admin',compact('customers'));
+   		$product=Import_product::All_Import_Product()->orderBy('created_at','DESC')->get();
+   		return view('Admin.Page.Import_Product_Admin',compact('product'));
    }
 
    public function ViewPage_Update_User($id)
@@ -70,7 +70,6 @@ class Admin_Controller extends Controller
    public function Update_User(Request $req)
    {
       $id=$req->id;
-      dd($id);
       $group=$req->group;
       $user=User::Update_User($id,$group);
       return redirect()->route('ViewPage_User_Admin');

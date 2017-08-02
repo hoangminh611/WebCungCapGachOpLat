@@ -13,6 +13,7 @@ use App\Bill_Detail;
 use App\Customer;
 use Session;
 use App\Import_product;
+use App\Export_Product;
 class Admin_Bill_Controller extends Controller
 {
    public function ViewPageBill_Admin()
@@ -21,11 +22,11 @@ class Admin_Bill_Controller extends Controller
    	return view('Admin.Page.Bill_Admin',compact('Bill'));
    }
 
-   public function ViewPageBill_Detail_Admin($id,$id_customer)
+   public function ViewPageBill_Detail_Admin($id,$id_customer,$method)
    {
    	$Bill_Detail=Bill_Detail::View_All($id)->get();
       $customer=Customer::Customer_ByID($id_customer)->get();
-   	return view('Admin.Page.Bill_Detail_Admin',compact('Bill_Detail','customer'));
+   	return view('Admin.Page.Bill_Detail_Admin',compact('Bill_Detail','customer','method'));
    }
 
    public function ViewPageBill_Admin_Insert(Request $req)
@@ -42,7 +43,7 @@ class Admin_Bill_Controller extends Controller
    	$name_pro=$req->name_product;
    	$Bill_Detail=DB::table('bill_detail')->where('id',$id_bill_detail)->select()->get();
       $Bill=DB::table('bill_detail')->where('id',$id_bill_detail)->select('id_bill')->get();
-      $customer=DB::table('bills')->where('id',$Bill[0]->id_bill)->select('id_customer')->get();
+      $customer=DB::table('bills')->where('id',$Bill[0]->id_bill)->select('id_customer','method')->get();
    	return view('Admin.Page.Bill_Detail_Admin_Insert',compact('Bill_Detail','quantity','name_pro','customer'));
    }
 
@@ -55,8 +56,9 @@ class Admin_Bill_Controller extends Controller
    	$size=$req->size;
    	$id_bill=$req->id_bill;
       $id_customer=$req->id_customer;
+      $method=$req->method;
    	$bill_detail=Bill_Detail::Update_Bill_Detail($id,$first_quantity,$quantity,$id_product,$size);
-   	return redirect()->route('ViewPageBill_Detail_Admin',[$id_bill,$id_customer]);
+   	return redirect()->route('ViewPageBill_Detail_Admin',[$id_bill,$id_customer,$method]);
    }
 
    public function Update_Bill(Request $req)
@@ -67,5 +69,15 @@ class Admin_Bill_Controller extends Controller
       $bill=Bill::Update_Bill($id,$method);
       return redirect()->route('ViewPageBill_Admin');
    }
-
+   //xóa bill detail theo id,cap nhat lai quantity
+   public function Delete_Bill_Detail(Request $req)
+   {
+      $id=$req->id;
+      var_dump($id);
+      $id_product=$req->id_product;
+      $size=$req->size;
+      $quantity=$req->quantity;
+      $bill_detail=Bill_Detail::Delete_One_Bill_Detail($id);
+      $export_quantity=Export_Product::Update_quantity_By_Idproduct($id_product,$size,$quantity);
+   }
 }

@@ -8,6 +8,13 @@ class Import_product extends Model
 {
     protected $table='import_product';
     public $timestamps = true;
+
+    public static function All_Import_Product()
+    {
+         $pro=DB::table('import_product')->join('products','import_product.id_product','=','products.id')
+         ->select('import_product.id as idsize','products.name','import_product.size','import_product.import_price','import_product.import_quantity','import_product.created_at');
+         return $pro;
+    }
     //xòa sản phẩm theo id product va size doi voi xoa từng sản phẩm,kiểm tra coi san pham do con size nao k
     public static function Delete_Import_Product($id,$size){
         $pro=DB::table('import_product')

@@ -30,13 +30,13 @@
                 <th>Ghi chú</th>
                 <th>Ngày tạo</th>
                 <th>Ngày update</th>
-                <th data-breakpoints="xs sm md" data-title="DOB">Edit</th>
+                <th data-breakpoints="xs sm md" data-title="Edit">Edit</th>
               </tr>
             </thead>
             <tbody>
               @foreach($Bill as $bill)
                 <tr data-expanded="true">
-                  <td><a href="{{route('ViewPageBill_Detail_Admin',[$bill->id,$bill->id_customer])}}">Xem Chi Tiết</a></td>
+                  <td><a href="{{route('ViewPageBill_Detail_Admin',[$bill->id,$bill->id_customer,$bill->method])}}">Xem Chi Tiết</a></td>
                   <td>{{$bill->id}}</td>
                   <td>{{$bill->full_name}}</td>
                   <td>{{$bill->method}}</td>
@@ -44,7 +44,17 @@
                   <td>{{$bill->created_at}}</td>
                   <td>{{$bill->updated_at}}</td>
                   <td>
-                    <button class="btn btn-info btn-lg glyphicon glyphicon-hand-right" style="border-radius: 10px;" onclick="editRow({{ $bill->id }},'{{$bill->full_name}}')"></button>
+                    <button class="btn btn-info btn-lg glyphicon glyphicon-hand-right edit_button" id="{{$bill->id}}" style="border-radius: 10px;" onclick="editRow({{ $bill->id }},'{{$bill->full_name}}')"></button>
+                      @if(Auth::User()->group<2)
+                          <script type="text/javascript">
+                            $(document).ready(function(){
+
+                              var method="{{$bill->method}}";
+                              if(method=="Đã Thanh Toán")
+                                $('#'+{{$bill->id}}).attr('disabled','');
+                            });
+                          </script>
+                      @endif
                      {{-- <button class="btn btn-warning btn-lg glyphicon glyphicon-trash" style="border-radius: 10px" id="delete_button{{ $type_pro->id  }}" onclick="delete_row('{{ $type_pro->id}}');"></button> --}}
                   </td>
                 </tr> 
@@ -55,6 +65,7 @@
       </div>
   </div>
 </div>
+
  <script type="text/javascript">
             $.ajaxSetup({
                 headers: {
@@ -63,6 +74,7 @@
             });
             $(document).ready(function(){
               $('#bill_table').DataTable();
+
             });
             function editRow($id,$user){
                 var  route="{{route('ViewPageBill_Admin_Insert',['idtype','nameuser'])}}";
