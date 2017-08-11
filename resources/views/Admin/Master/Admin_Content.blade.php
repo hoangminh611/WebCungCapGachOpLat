@@ -93,16 +93,27 @@
 						              <tr>
 						                <th>id_product</th>
 						                <th data-breakpoints="xs">size</th>
+						                <th>Tổng lượng nhập</th>
+						                <th>Tổng lượng xuất</th>
 						                <th>Tiền Lãi/Lỗ</th>
 						              </tr>
 						            </thead>
 						            <tbody>
-						              @foreach($Import_product as $key)
+						              @foreach($a as $key)
+						              	@foreach($key as $value)
+							    
 						                <tr data-expanded="true">
-						                  <td>{{$a[$key->id_product][$key->id_product]}}</td>
-						                  <td>{{$a[$key->id_product][$key->size]['size']}}</td>
-						                  <td>{{number_format($a[$key->id_product][$key->size]['price'])}}</td>
+						                  <td>{{$value['name']}}</td>
+						                  <td>{{$value['size']}}</td>
+						                  <td>{{$value['import_quantity']}}</td>
+						                  @if(isset($value['export_quantity']))
+						                  	<td>{{$value['export_quantity']}}</td>
+						                  @else
+						                  	<td>0</td>
+						                  @endif
+						                  <td>{{number_format($value['price'])}}</td>
 						                </tr> 
+						                @endforeach
 						              @endforeach
 						            </tbody>
 						        </table>

@@ -62,11 +62,15 @@ class Import_product extends Model
         $bills=DB::table('import_product')->select()->orderBy('id')->get() ;
         foreach ($bills as $bill) {
             if(isset($a[$bill->id_product][$bill->size]))
-             $a[$bill->id_product][$bill->size]+=$bill->import_price*$bill->import_quantity;
+            {
+             $a[$bill->id_product][$bill->size]['price']+=$bill->import_price*$bill->import_quantity;
+              $a[$bill->id_product][$bill->size]['import_quantity']+=$bill->import_quantity;
+            }
             else
             {
-                $a[$bill->id_product][$bill->size]=$bill->import_price*$bill->import_quantity;
+                $a[$bill->id_product][$bill->size]['price']=$bill->import_price*$bill->import_quantity;
                 $a[$bill->id_product][$bill->id_product]=$bill->id_product;
+                 $a[$bill->id_product][$bill->size]['import_quantity']=$bill->import_quantity;
             }
             
 
