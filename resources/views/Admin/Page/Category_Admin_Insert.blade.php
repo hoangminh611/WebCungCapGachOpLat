@@ -31,10 +31,10 @@
                                  <div class="form-group">
                                     <label class="col-sm-3 control-label">Image</label>
                                     <div class="col-sm-6">
-                                         <input type="file" value="" name="image" id="image" class="form-control" style="border-top: 1px solid black;" required="">
+                                         <input type="file" value="" name="image" id="f" accept="image/*" class="form-control" style="border-top: 1px solid black;" required="" onchange=" file_change(this) ">
+                                          <img style="width: 100px;height: 100px" id="img"  style="display: none;">
                                         <span class="help-block">Chọn Ảnh </span>
                                     </div>
-
                                 </div>
                                 <div class="form-group">
                                     <label class=" col-sm-3 control-label ">Description</label>
@@ -62,7 +62,7 @@
                                             </select>
                                     </div>
                                 </div>
-                                <button type="submit" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">  Save</button>           
+                                <button type="button" onclick="submit_insert_form()" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">  Save</button>           
                             </form>
                         </div>
                         <script>
@@ -70,7 +70,7 @@
                         </script>
                     @else
                          <div class="panel-body">
-                            <form class="form-horizontal bucket-form" enctype="multipart/form-data"  id="add-form" method="post" action="{{route('Update_Category',"id=$id")}}">
+                            <form class="form-horizontal bucket-form" enctype="multipart/form-data"  id="edit-form" method="post" action="{{route('Update_Category',"id=$id")}}">
                                 <input type="hidden" name="type" value="{{$loai}}">
                                 <input type="hidden" name="khongcocha" value="{{$khongcocha}}">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -85,8 +85,8 @@
                                  <div class="form-group">
                                     <label class="col-sm-3 control-label">Image</label>
                                     <div class="col-sm-6">
-                                         <input type="file" value="" name="image" id="image" class="form-control" style="border-top: 1px solid black;" >
-                                          <img  width="100px" height="100px;" src="images/news/{{$type_detail[0]->image}}">
+                                            <input type="file" value="" name="image" id="f" accept="image/*" class="form-control" style="border-top: 1px solid black;"  onchange=" file_change(this) ">
+                                          <img style="width: 100px;height: 100px" id="img"  src="images/news/{{$type_detail[0]->image}}">
                                         <span class="help-block">Chọn Ảnh </span>
                                     </div>
 
@@ -118,7 +118,7 @@
                                             </select>
                                     </div>
                                 </div>
-                                <button type="submit" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">  Save</button>           
+                                <button type="button" onclick="submit_form()" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">  Save</button>           
                             </form>
                         </div>
                         <script>
@@ -129,9 +129,75 @@
 
             </div>
         </div>
-
-
         <!-- page end-->
         </div>
+<script type="text/javascript">
+    function file_change(f){
+
+        var reader = new FileReader();
+        reader.onload = function (e) {
+        var img = document.getElementById("img");
+        img.src = e.target.result;
+        img.style.display = "inline";
+        };
+        var ftype =f.files[0].type;
+        switch(ftype)
+        {
+            case 'image/png':
+            case 'image/gif':
+            case 'image/jpeg':
+            case 'image/pjpeg':
+                reader.readAsDataURL(f.files[0]);
+                break;
+            default:
+                alert(' Bạn chỉ được chọn file ảnh.');
+                $('#f').val(null);
+        }
+    }
+           function submit_insert_form()
+        {
+             var frm=$('#add-form')[0];//cái này tương đương với document.getelementbyid
+                ssi_modal.confirm({
+                content: 'Xin Hãy Kiểm tra kỹ càng trước khi save nếu bi sai sót có thể sẽ gây ra lỗi đáng tiếc',
+                okBtn: {
+                className:'btn btn-primary'
+                },
+                cancelBtn:{
+                className:'btn btn-danger'
+                }
+                },function (result) 
+                    {
+                        if(result)
+                        {
+                            frm.submit();
+                         }
+                        else
+                            ssi_modal.notify('error', {content: 'Result: ' + result});
+                    }
+                );
+        }
+      function submit_form()
+            {
+                var frm=$('#edit-form')[0];//cái này tương đương với document.getelementbyid
+                ssi_modal.confirm({
+                content: 'Xin Hãy Kiểm tra kỹ càng trước khi save nếu bi sai sót có thể sẽ gây ra lỗi đáng tiếc',
+                okBtn: {
+                className:'btn btn-primary'
+                },
+                cancelBtn:{
+                className:'btn btn-danger'
+                }
+                },function (result) 
+                    {
+                        if(result)
+                        {
+                            frm.submit();
+                         }
+                        else
+                            ssi_modal.notify('error', {content: 'Result: ' + result});
+                    }
+                );
+            }   
+</script>
 </section>
 @endsection             

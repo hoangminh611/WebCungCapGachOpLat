@@ -6,7 +6,7 @@
 			<div class="breadcrumbs-main">
 				<ol class="breadcrumb">
 					<li><a href="index.html">Home</a></li>
-					<li class="active">New Products</li>
+					<li class="active">Products</li>
 				</ol>
 			</div>
 		</div>

@@ -8,7 +8,11 @@
          Basic table
         </div>
          <div>
+        @if(isset($idloainew))
+            <button id="addRow" onclick="addRow_ID({{$idloainew}})"  class=" btn btn-info btn-lg glyphicon glyphicon-plus-sign" style=" border-radius: 10px;"></button>
+        @else
             <button id="addRow" onclick="addRow()"  class=" btn btn-info btn-lg glyphicon glyphicon-plus-sign" style=" border-radius: 10px;"></button>
+        @endif
         </div> 
         <div>
           <table id="new_table" class="table" ui-jq="footable" ui-options='{
@@ -46,8 +50,13 @@
                             <td id="category_id{{ $new->id }}">{{$new->type_name}}</td>
                             <td>
                                 <button class="btn btn-info btn-lg glyphicon glyphicon-hand-right" style="border-radius: 10px;" id="edit_button{{ $new->id  }}" onclick="editRow({{ $new->id }})"></button>
-                                <button class="btn btn-warning btn-lg glyphicon glyphicon-trash" style="border-radius: 10px" id="delete_button{{ $new->id  }}" onclick="delete_row('{{ $new->id  }}');"></button>
+                                <button class="btn btn-warning btn-lg glyphicon glyphicon-trash delete_button" style="border-radius: 10px" id="delete_button{{ $new->id  }}" onclick="delete_row('{{ $new->id  }}');"></button>
                             </td>
+                            @if(Auth::User()->group<2)
+                               <script type="text/javascript">
+                                 $('.delete_button').attr('disabled','true');
+                               </script>
+                             @endif
                         </div>
                     </tr>     
                 @endforeach
@@ -76,7 +85,12 @@
               window.location.replace(route);
         
             }
-
+            function addRow_ID(idloainew)
+            {
+                var  route="{{route('InsertNews','idTypenew=idloai')}}";
+                route=route.replace('idloai',idloainew);
+              window.location.replace(route);
+            }
             function delete_row(id)
             {
                 ssi_modal.confirm({

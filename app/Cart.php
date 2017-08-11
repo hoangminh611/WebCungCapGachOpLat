@@ -15,7 +15,7 @@ class Cart
 			$this->totalPrice = $oldCart->totalPrice;
 		}
 	}
-
+	//thêm sản phẩm
 	public function add($item, $id,$quantity){
 		$giohang = ['qty'=>0, 'price' => 0, 'item' => $item];
 		if($this->items){

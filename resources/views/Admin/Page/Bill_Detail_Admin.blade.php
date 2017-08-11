@@ -55,6 +55,20 @@
                   <td>
                     <button class="btn btn-info btn-lg glyphicon glyphicon-hand-right edit_button" style="border-radius: 10px;" onclick="editRow({{ $bill_detail->id }},{{$bill_detail->quantity}},'{{$bill_detail->name}}')"></button>
                      <button class="btn btn-warning btn-lg glyphicon glyphicon-trash delete_button" style="border-radius: 10px" id="delete_button{{ $bill_detail->id  }}" onclick="delete_row({{$bill_detail->id}},{{ $bill_detail->id_product}},'{{$bill_detail->size}}',{{$bill_detail->quantity}});"></button>
+                      @if(Auth::User()->group<2)
+                           <script type="text/javascript">
+                             $(document).ready(function(){
+                                $('#bill_detail_table').DataTable();
+                                var method="{{$method}}";
+                                if(method=="Đã Xác Nhận Chưa Thanh Toán"||method=="Đã Thanh Toán")
+                                {
+                                  $('.delete_button').attr('disabled','');
+                                  $('.edit_button').attr('disabled','');
+                                }
+
+                              });
+                           </script>
+                      @endif
                   </td>
                 </tr> 
               @endforeach
@@ -69,16 +83,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            $(document).ready(function(){
-              $('#bill_detail_table').DataTable();
-              var method="{{$method}}";
-              if(method=="Đã Xác Nhận Chưa Thanh Toán"||method=="Đã Thanh Toán")
-              {
-                $('.delete_button').attr('disabled','');
-                $('.edit_button').attr('disabled','');
-              }
-
-            });
+            
             function editRow(id,quantity,name_product){
                 var  route="{{route('ViewPageBill_Detail_Admin_Insert',['idbill_detail','soluong','name'])}}";
                 route=route.replace('idbill_detail',id);

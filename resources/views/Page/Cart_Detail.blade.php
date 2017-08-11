@@ -58,6 +58,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		  fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));</script>
 		@include('Master.Top_header')
+		@include('Master.Login')
 		@include('Master.Menu')
 	<!--start-breadcrumbs-->
 	<div class="breadcrumbs">

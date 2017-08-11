@@ -47,7 +47,13 @@
                     <td>{{$user->phone}}</td>
                     <td>{{$user->address}}</td>
                     <td>{{$user->active}}</td>
-                    <td>{{$user->group}}</td>
+                    @if($user->group==0)
+                      <td>Khách Hàng</td>
+                    @elseif($user->group==1)
+                      <td>Nhân viên</td>
+                    @elseif($user->group==2)
+                      <td>Admin</td>
+                    @endif
                     <td>
                       <button class="btn btn-info btn-lg glyphicon glyphicon-hand-right" style="border-radius: 10px;" onclick="editRow({{ $user->id }})"></button>
                        {{-- <button class="btn btn-warning btn-lg glyphicon glyphicon-trash" style="border-radius: 10px" id="delete_button{{ $type_pro->id  }}" onclick="delete_row('{{ $type_pro->id}}');"></button> --}}

@@ -14,15 +14,17 @@ use App\Import_product;
 use App\Bill_Detail;
 class Admin_Product_Controller extends Controller
 {
+   //Lấy hết tất cả các sản phẩm
    public function Admin_All_Product()
    {
    	$product=Product::Show_Product_All()->get();
    	return view('Admin.Page.Product_Admin',compact('product'));
    }
-
+   //lấy tất cả các sản phẩm theo loại
    public function Admin_All_Product_By_Type(Request $req)
    {
    	$product=Product::Show_Product_All_By_Type($req->id)->get();
+      //loại này dùng để hiện vào tronng combox nhất định khi gọi trang insert
    	$typepro=$req->id;
    	return view('Admin.Page.Product_Admin',compact('product','typepro'));
    }
@@ -42,7 +44,7 @@ class Admin_Product_Controller extends Controller
             return view('Admin.Page.Product_Admin_Insert',compact('id','typepro'));
          }
    }
-
+   //vào trang import
    public function ViewPageImportProduct(Request $req)
    {
       $nhaphang=$req->nhaphang;
@@ -53,7 +55,7 @@ class Admin_Product_Controller extends Controller
       $id=$req->id;
       return view('Admin.Page.Product_Admin_Import',compact('id','name','type_name','size','nhaphang'));
    }
-
+   //nhập hàng
    public function Insert_Import_product (Request $req)
    {
       $id=$req->id;
@@ -65,6 +67,7 @@ class Admin_Product_Controller extends Controller
       $import_product=Import_product::Insert_Import_Product($id,$size,$import_price,$import_quantity);
       return redirect()->route('Admin_All_Product');
    }
+   //update sản phẩm
    public function Update_Product(Request $req){
          $id=$req->id;
          $first_size=$req->first_size;
@@ -91,9 +94,8 @@ class Admin_Product_Controller extends Controller
             $pro=Product::Update_Product($suaanh,$id,$name, $type,$desc,$image);
          }
          return redirect()->route('Admin_All_Product_By_Type',$type);
-         
    }
-
+   //them sản phẩm
    public function Insert_Product(Request $req){
       $filename="";
       $name = $req->name;
@@ -117,7 +119,7 @@ class Admin_Product_Controller extends Controller
       $import_product=Import_product::Insert_Import_Product($getId,$size,$import_price,$import_quantity);
       return redirect()->route('Admin_All_Product');
    }
-
+   //xóa sản phẩm
    public function Delete_Product(Request $req){
       $id = $req->id;
       $size=$req->size;
@@ -130,21 +132,45 @@ class Admin_Product_Controller extends Controller
       // if(!isset($import_product)&&!isset($export_product)&&!isset($bill_detail))
       //    $pro=Product::Delete_Product($id);
    }
+
+   //xem trang sản phẩm bị lỗi
+   public function ViewPageError_Product()
+   {
+      $export_products=Export_product::All_export_product()->get();
+      return view('Admin.Page.Error_Product_Admin',compact('export_products'));
+   }
+   //xem trang update số lượng lỗi
+   public function ViewPageError_Product_Update($idsize)
+   {
+
+      $export_product=Export_product::FindProductByIdPro_Size($idsize)->get();
+      return view('Admin.Page.Error_Product_Update_Admin',compact('export_product'));
+   }
+
+   //update so luong san pham loi
+   public function Update_Error_Product(Request $req)
+   {
+      $idsize=$req->idsize;
+      $error_quantity=$req->error_quantity;
+      $export_product=Export_product::Update_ErrorProduct($idsize,$error_quantity);
+      return redirect()->route('ViewPageError_Product');
+   }
    //--------------------------------Loại sản phẩm ----------------------------------------------------------------------------------------------
+   //xem trang loại type = 1 là loại sản phẩm với tất cả loại cha
    public function Admin_All_Type()
    {
       $Type_Product=TypeProduct::Show_All_Type_Product_Parent()->orderBy('id','DESC')->get();
       $type=1;
       return view('Admin.Page.Category_Parent_Admin',compact('Type_Product','type'));
    }
-
+   //gọi trang loại sản phẩm với loại con
    public function Admin_All_Type_By_Type(Request $req)
    {
       $Type_Product=TypeProduct::Show_All_Type_Product_By_Id_Parent($req->id)->get();
       $name_parent=DB::table('category')->where('id',$req->id)->select('name','id')->get();
       return view('Admin.Page.Category_Admin',compact('Type_Product','name_parent'));
    }
-
+   //vào trang insert category
    public function ViewPage_InsertCategory(Request $req)
    {
            $id=$req->id;
@@ -163,6 +189,7 @@ class Admin_Product_Controller extends Controller
             return view('Admin.Page.Category_Admin_Insert',compact('id','loai','khongcocha'));
          }
    }
+   //insert category
    public function InsertCategory(Request $req)
    {  
         $name=$req->name;
@@ -186,6 +213,7 @@ class Admin_Product_Controller extends Controller
          return redirect()->route('Admin_All_Type_By_Type',$khongcocha);
       
    }
+   //update category
    public function UpdateCategory(Request $req)
    {
          $id=$req->id;
@@ -195,6 +223,7 @@ class Admin_Product_Controller extends Controller
          $type_cha=$req->type_cha;
          $type=$req->type;
          $khongcocha=$req->khongcocha;
+         //có ảnh thì update cả ảnh
          if ($req->hasFile('image')) 
          {
             $image= $req->file('image')->getClientOriginalName();

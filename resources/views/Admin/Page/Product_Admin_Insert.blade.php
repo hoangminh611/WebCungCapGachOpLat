@@ -12,6 +12,9 @@
                     <header class="panel-heading">
                         Product
                     </header>
+                    @if(Session::has('thatbai'))
+                        <div class="alert alert-danger" id="alert">{{Session::get('thatbai')}}</div>
+                    @endif
                         @if($id==0)
                             <div class="panel-body">
                                 <form class="form-horizontal bucket-form" enctype="multipart/form-data"  id="add-form" method="post" action="{{route('Insert_Product')}}">
@@ -43,7 +46,8 @@
                                      <div class="form-group">
                                         <label class="col-sm-3 control-label">Image</label>
                                         <div class="col-sm-6">
-                                             <input type="file" value="" name="image" id="image" class="form-control" style="border-top: 1px solid black;" required="">
+                                             <input type="file" value="" name="image" id="f" accept="image/*" class="form-control" style="border-top: 1px solid black;" required="" onchange=" file_change(this) ">
+                                          <img style="width: 100px;height: 100px" id="img"  style="display: none;">
                                             <span class="help-block">Chọn Ảnh </span>
                                         </div>
 
@@ -58,29 +62,31 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Size:</label>
                                         <div class="col-sm-6">
-                                             <input type="text" value="" name="size" class="form-control" style="border-top: 1px solid black;" required="">
+                                             <input type="text" value="" name="size" pattern="[0-9x]*" placeholder="Ví dụ 60x30..." maxlength="7" class="form-control" style="border-top: 1px solid black;" required="" title="Nhập dung quy cách ví dụ 60x30">
+                                              <span class="help-block">Nhập kích thước ví dụ 60x30,30x30... </span>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Giá Bán:</label>
+                                        <label class="col-sm-3 control-label">Giá Bán(VNĐ):</label>
                                         <div class="col-sm-6">
-                                             <input type="text" value="" name="export_price" class="form-control" style="border-top: 1px solid black;" required="">
+                                             <input type="text" value="" name="export_price" pattern="[0-9]*" maxlength='10' class="form-control" style="border-top: 1px solid black;" required="" title=" nhập từ 0 tới 10 chữ số">
+                                             <span class="help-block">Nhập Giá Bán </span>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Giá Nhập Hàng:</label>
+                                        <label class="col-sm-3 control-label">Giá Nhập Hàng(VNĐ):</label>
                                         <div class="col-sm-6">
-                                             <input type="text" value="" name="import_price" class="form-control" style="border-top: 1px solid black;"  pattern="[0-9]*" maxlength='10'  required required title=" nhập từ 0 tới 10 chữ số" >
+                                             <input type="text" value="" name="import_price" class="form-control" style="border-top: 1px solid black;"  pattern="[0-9]*" maxlength='10'   required title=" nhập từ 0 tới 10 chữ số" >
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">SỐ lượng Nhập:</label>
+                                        <label class="col-sm-3 control-label">Số lượng Nhập:</label>
                                         <div class="col-sm-6">
-                                             <input type="text" value="" name="import_quantity" class="form-control" style="border-top: 1px solid black;" pattern="[0-9]*" maxlength='9' required required title=" nhập từ 0 tới 9 chữ số" >
+                                             <input type="text" value="" name="import_quantity" class="form-control" style="border-top: 1px solid black;" pattern="[0-9]*" maxlength='10'  required title=" nhập từ 0 tới 10 chữ số" >
                                         </div>
                                     </div>
                                   
-                                    <button type="submit" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">Save</button>           
+                                    <button type="button" onclick="submit_insert_form()" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">Save</button>           
                                 </form>
                             </div>
                             <script>
@@ -88,7 +94,7 @@
                             </script>
                     @else
                          <div class="panel-body">
-                                <form class="form-horizontal bucket-form" enctype="multipart/form-data"  id="add-form" method="post" action="{{route('Update_Product')}}">
+                                <form class="form-horizontal bucket-form" enctype="multipart/form-data"  id="edit-form" method="post" action="{{route('Update_Product')}}">
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                     <input type="hidden" name="first_size" value="{{ $size}}">
                                     <input type="hidden" name="id" value="{{ $product[0]->id}}">
@@ -119,8 +125,8 @@
                                      <div class="form-group">
                                         <label class="col-sm-3 control-label">Image</label>
                                         <div class="col-sm-6">
-                                             <input type="file" value="" name="image" id="image" class="form-control" style="border-top: 1px solid black;">
-                                             <img  width="100px" height="100px;" src="images/{{$product[0]->image}}">
+                                             <input type="file" value="" name="image" id="f" accept="image/*" class="form-control" style="border-top: 1px solid black;"  onchange=" file_change(this) ">
+                                          <img style="width: 100px;height: 100px" id="img" src="images/{{$product[0]->image}}">
                                             <span class="help-block">Chọn Ảnh </span>
 
                                         </div>
@@ -137,29 +143,31 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Size:</label>
                                         <div class="col-sm-6">
-                                             <input type="text" value="{{$size}}" name="size" class="form-control" style="border-top: 1px solid black;" required="">
+                                             <input type="text" value="{{$size}}" name="size" pattern="[0-9x]*" title="Nhập dung quy cách ví dụ 60x30" class="form-control"  maxlength="7" style="border-top: 1px solid black;" required=""   >
+                                              <span class="help-block">Nhập kích thước ví dụ 60x30,30x30... </span>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Giá Bán:</label>
+                                        <label class="col-sm-3 control-label">Giá Bán(VNĐ):</label>
                                         <div class="col-sm-6">
-                                             <input type="text" value="{{$export_product->export_price}}" name="export_price" class="form-control" style="border-top: 1px solid black;" required="">
+                                             <input type="text" value="{{$export_product->export_price}}" name="export_price" pattern="[0-9]*" maxlength='10' class="form-control" style="border-top: 1px solid black;" required="">
+                                             <span class="help-block">Nhập giá bán </span>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Giá Nhập Hàng:</label>
+                                        <label class="col-sm-3 control-label">Giá Nhập Hàng(VNĐ):</label>
                                         <div class="col-sm-6">
-                                             <input type="text" value="{{$import_product->import_price}}" name="import_price" class="form-control" style="border-top: 1px solid black;" required="">
+                                             <input type="text" value="{{$import_product->import_price}}" pattern="[0-9]*" maxlength='10' name="import_price" class="form-control" style="border-top: 1px solid black;" required="" title=" nhập từ 0 tới 10 chữ số" >
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">SỐ lượng Nhập:</label>
+                                        <label class="col-sm-3 control-label">Số lượng Nhập:</label>
                                         <div class="col-sm-6">
-                                             <input type="text" value="{{$import_product->import_quantity}}" name="import_quantity" class="form-control" style="border-top: 1px solid black;" required="">
+                                             <input type="text" value="{{$import_product->import_quantity}}" pattern="[0-9]*" maxlength='10' required="" title=" nhập từ 0 tới 10 chữ số" name="import_quantity" class="form-control" style="border-top: 1px solid black;" >
                                         </div>
                                     </div>
                                   
-                                    <button type="submit" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">Save</button>           
+                                    <button type="button" onclick="submit_form()" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">Save</button>           
                                 </form>
                             </div>
                             <script>
@@ -174,5 +182,73 @@
 
         <!-- page end-->
         </div>
+<script type="text/javascript">
+    function file_change(f){
+
+        var reader = new FileReader();
+        reader.onload = function (e) {
+        var img = document.getElementById("img");
+        img.src = e.target.result;
+        img.style.display = "inline";
+        };
+        var ftype =f.files[0].type;
+        switch(ftype)
+        {
+            case 'image/png':
+            case 'image/gif':
+            case 'image/jpeg':
+            case 'image/pjpeg':
+                reader.readAsDataURL(f.files[0]);
+                break;
+            default:
+                alert(' Bạn chỉ được chọn file ảnh.');
+                $('#f').val(null);
+        }
+    } 
+        function submit_insert_form()
+        {
+             var frm=$('#add-form')[0];//cái này tương đương với document.getelementbyid
+                ssi_modal.confirm({
+                content: 'Xin Hãy Kiểm tra kỹ càng trước khi save nếu bi sai sót có thể sẽ gây ra lỗi đáng tiếc',
+                okBtn: {
+                className:'btn btn-primary'
+                },
+                cancelBtn:{
+                className:'btn btn-danger'
+                }
+                },function (result) 
+                    {
+                        if(result)
+                        {
+                            frm.submit();
+                         }
+                        else
+                            ssi_modal.notify('error', {content: 'Result: ' + result});
+                    }
+                );
+        }
+      function submit_form()
+            {
+                var frm=$('#edit-form')[0];//cái này tương đương với document.getelementbyid
+                ssi_modal.confirm({
+                content: 'Xin Hãy Kiểm tra kỹ càng trước khi save nếu bi sai sót có thể sẽ gây ra lỗi đáng tiếc',
+                okBtn: {
+                className:'btn btn-primary'
+                },
+                cancelBtn:{
+                className:'btn btn-danger'
+                }
+                },function (result) 
+                    {
+                        if(result)
+                        {
+                            frm.submit();
+                         }
+                        else
+                            ssi_modal.notify('error', {content: 'Result: ' + result});
+                    }
+                );
+            }   
+</script>
 </section>
 @endsection             

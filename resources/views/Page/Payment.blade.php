@@ -58,6 +58,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		  fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));</script>
 		@include('Master.Top_header')
+		@include('Master.Login')
 		@include('Master.Menu')
 	<!--start-breadcrumbs-->
 	<div class="breadcrumbs">
@@ -80,9 +81,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					@if(Auth::check())
 						<div class="col-md-8 contact-right">
 								<input type="hidden" name="_token" value="{{csrf_token()}}">
-								<span>Name:</span>
+								<span>Họ Tên:</span>
 								<span id="name_edit"><input type="text" name="name" placeholder="Name" value="{{Auth::User()->full_name}}" style="width: 100%; margin-left: 0px;" required></span>
-								<span>Phone:</span>
+								<span>Số Điện Thoại:</span>
 								<span>
 									<input type="text" placeholder="Phone"  name="phone" value="{{Auth::User()->phone}}"  style="width: 100%;margin-left: 0px;" pattern="[0-9]{10,11}"  tabindex="3" required title=" nhâp số điện thoại 10 hoặc 11 chữ số">
 								</span>

@@ -20,15 +20,15 @@
 			</div>
 				<div class="contact-text">
 				<div class="col-md-3 contact-left">
-					{{-- <div class="address">
+					<div class="address">
 						<h5>Address</h5>
 						<p style="color: black;">Hùng Minh, 
-							<span>22 Lê Trung Nghĩa</span>
-							<span>Tel:1115550001</span>
-							<span>Fax:190-4509-494</span>
+							<span>22 Lê Trung Nghĩa Phường 12 Quận Tân Bình</span>
+							{{-- <span>Tel:1115550001</span>
+							<span>Fax:190-4509-494</span> --}}
 							<span>Email:<a href="mailto:example@email.com">manhhoangminh611@gmail.com</a></span>
 						</p>
-					</div> --}}
+					</div>
 				</div>
 					<div class="col-md-9 contact-right">
 						{{-- <form>
@@ -40,15 +40,14 @@
 								<input type="submit" value="SUBMIT">
 							</div>
 						</form> --}}
-						<div class="address">
-						<h5>Address</h5>
-						<p style="color: black;">Hùng Minh, 
-							<span>22 Lê Trung Nghĩa</span>
-							<span>Tel:1115550001</span>
-							<span>Fax:190-4509-494</span>
-							<span>Email:<a href="mailto:example@email.com">manhhoangminh611@gmail.com</a></span>
-						</p>
-					</div>
+					<iframe
+					  width="100%"
+					  height="450"
+					  frameborder="1" style="border:0"
+					  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyApiFmiXRLtPQSZWp1G9A41mOfbunjNToM
+					    &q=22+Lê+Trung+Nghĩa,+Phường+12,+Tân+Bình,+Hồ+Chí+Minh,+Việt+Nam" allowfullscreen>
+					</iframe>
+					
 					</div>	
 					<div class="clearfix"></div>
 				</div>

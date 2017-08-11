@@ -27,19 +27,11 @@
 				<div class="col-md-6 top-header-left">
 					<div class="cart box_1" style="text-align: center;">
 							@if(Auth::check())
-								@if(Auth::User()->provider_id==null)
 									<div>
 										<a href="{{route('ViewPage_User_Edit')}}"><i class="fa fa-user"></i>Chào bạn {{Auth::User()->full_name}}</a>
 										|
 										<a href="{{route('logout')}}">Đăng xuất</a>
 									</div>
-								@else
-									<div>
-										<i class="fa fa-user"></i>Chào bạn {{Auth::User()->full_name}}
-										|
-										<a href="{{route('logout')}}">Đăng xuất</a>
-									</div>
-								@endif
 							@else
 								<div><a  href="#login-box" class="login-window">Đăng Nhập</a></div>
 							@endif

@@ -28,7 +28,7 @@
 						<input placeholder="Email" type="text" tabindex="3" title="Email Address" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$" data-validation="email" required="" value="" name="email">
 						<input placeholder="Password" type="password" name="password" tabindex="4" required>
 						<div class="address">
-							<a class="forgot" href="#">Forgot Your Password?</a>
+							<a class="forgot" href="{{route('Forget_Password')}}">Forgot Your Password?</a>
 							<input type="submit" value="Login">
 						</div>
 					</form>

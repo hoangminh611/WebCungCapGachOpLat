@@ -40,12 +40,17 @@
                   <td>{{$type_pro->name}}</td>
                   <td>{!!$type_pro->description!!}</td>
                   <td>{{$name_parent[0]->name}}</td>
-                  <td><img src="images/{{$type_pro->image}}" alt="{{$type_pro->image}}" style="width: 50px; height: 50px;"></td>
+                  <td><img src="images/category/{{$type_pro->image}}" alt="{{$type_pro->image}}" style="width: 50px; height: 50px;"></td>
                   <td>{{$type_pro->created_at}}</td>
                   <td>{{$type_pro->updated_at}}</td>
                   <td>
                     <button class="btn btn-info btn-lg glyphicon glyphicon-hand-right" style="border-radius: 10px;" id="edit_button{{ $type_pro->id  }}" onclick="editRow({{ $type_pro->id }},{{$name_parent[0]->id}})"></button>
-                    <button class="btn btn-warning btn-lg glyphicon glyphicon-trash" style="border-radius: 10px" id="delete_button{{ $type_pro->id  }}" onclick="delete_row('{{ $type_pro->id}}');"></button>
+                        <button class="btn btn-warning btn-lg glyphicon glyphicon-trash delete_button" style="border-radius: 10px" id="delete_button{{ $type_pro->id  }}" onclick="delete_row('{{ $type_pro->id}}');"></button>
+                         @if(Auth::User()->group<2)
+                           <script type="text/javascript">
+                             $('.delete_button').attr('disabled','true');
+                           </script>
+                         @endif
                   </td>
                 </tr>
               @endforeach
@@ -79,7 +84,7 @@
             function delete_row(id)
             {
                 ssi_modal.confirm({
-                content: 'Xóa sẽ ảnh hưởng tới bảng product ,bill_detail,export,import product?',
+                content: 'Xóa có thể sẽ mất vĩnh viễn bạn có cắc muốn xóa?',
                 okBtn: {
                 className:'btn btn-primary'
                 },
@@ -107,7 +112,6 @@
                 }
             );
             }
-
     </script>
 </section>
 @endsection

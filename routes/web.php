@@ -86,6 +86,17 @@ Route::get('Delete_Product',
 Route::post('Insert_Import_Product',
 	['as'=>'Insert_Import_Product',
 	 'uses'=>'Admin_Product_Controller@Insert_Import_product']);
+
+Route::get('ViewPageError_Product',
+	['as'=>'ViewPageError_Product',
+	 'uses'=>'Admin_Product_Controller@ViewPageError_Product']);
+Route::get('ViewPageError_Product_Update/{idsize}',
+	['as'=>'ViewPageError_Product_Update',
+	 'uses'=>'Admin_Product_Controller@ViewPageError_Product_Update']);
+Route::post('Update_Error_Product',
+	['as'=>'Update_Error_Product',
+	 'uses'=>'Admin_Product_Controller@Update_Error_Product']);
+
 //-------------------------------Sản phẩm Admin--------------------------
 //-------------------------------Loại Admin--------------------------
 Route::get('Admin_All_Type',[
@@ -175,6 +186,9 @@ Route::post('Update_Bill',
 Route::get('Delete_Bill_Detail',
 	['as'=>'Delete_Bill_Detail',
 	'uses'=>'Admin_Bill_Controller@Delete_Bill_Detail']);
+Route::get('Count_Bill',
+	['as'=>'Count_Bill',
+	'uses'=>'Admin_Bill_Controller@Count_Bill']);
 
 // ------------------------------ADMIN------------------------------------
 });
@@ -230,10 +244,26 @@ Route::get('loginfacebook/{provider}/callback', [
 	'as'=>'provider_login_callback',
 	'uses'=>'LoginRegister_Controller@handleProviderCallback'
 ]);
-
+Route::get('Forget_Password',[
+	'as'=>'Forget_Password',
+	'uses'=>'LoginRegister_Controller@Forget_Password'
+]);
+Route::get('getlogin/{password}/{email}',[
+	'as'=>'getlogin',
+	'uses'=>'LoginRegister_Controller@getLogin']);
+Route::post('PostForgetPassword',[
+	'as'=>'PostForgetPassword',
+	'uses'=>'LoginRegister_Controller@PostForgetPassword'
+]);
 Route::get('ViewPage_User_Edit',
 	['as'=>'ViewPage_User_Edit',
 	'uses'=>'LoginRegister_Controller@ViewPage_User_Edit']);
+Route::get('ViewPage_User_Bill',
+	['as'=>'ViewPage_User_Bill',
+	'uses'=>'LoginRegister_Controller@ViewPage_User_Bill']);
+Route::get('ViewPage_User_Bill_Detail/{id}',
+	['as'=>'ViewPage_User_Bill_Detail',
+	'uses'=>'LoginRegister_Controller@ViewPage_User_Bill_Detail']);
 Route::post('User_Edit',
 	['as'=>'User_Edit',
 	'uses'=>'LoginRegister_Controller@User_Edit']);

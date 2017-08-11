@@ -1,11 +1,11 @@
-@extends('Admin.Master.Admin_Master')
+  @extends('Admin.Master.Admin_Master')
 @section('body')
 <section id="main-content" style="overflow: scroll;">
 	<section class="wrapper">
 		<div class="table-agile-info">
      <div class="panel panel-default">
         <div class="panel-heading">
-         Basic table
+         SẢN PHẨM
         </div>
         <div>
           @if(isset($typepro))
@@ -35,12 +35,12 @@
                 <th>Size</th>
                 <th>Số Lượng Bán</th>
                 <th>Image</th>
-                <th data-breakpoints="xs sm md" data-title="DOB">Nhập hàng,thêm kích thước/Edit/Delete</th>
+                <th data-breakpoints="xs sm md" data-title="Edit/Nhập Hàng/Delete">Nhập hàng,thêm kích thước/Edit/Delete</th>
               </tr>
             </thead>
             <tbody>
               @foreach($product as $pro)
-                <tr data-expanded="true" id="row{{$pro->id}}">
+                <tr data-expanded="true" id="row{{$pro->id}}{{$pro->size}}">
                   <td>{{$pro->id}}</td>
                   <td>{{$pro->name}}</td>
                   <td>{{$pro->type_name}}</td>
@@ -52,9 +52,13 @@
                   <td>
                     <button style="border-radius: 10px;" id="edit_button{{ $pro->id  }}" onclick="importRow({{ $pro->id }},'{{$pro->name}}','{{$pro->type_name}}','{{$pro->size}}')">Nhập Hàng hoặc thêm kích thước</button>
                     <button class="btn btn-info btn-lg glyphicon glyphicon-hand-right" style="border-radius: 10px;" id="edit_button{{ $pro->id  }}" onclick="editRow({{ $pro->id }},'{{$pro->size}}')"></button>
-                    <button class="btn btn-warning btn-lg glyphicon glyphicon-trash" style="border-radius: 10px" id="delete_button{{ $pro->id  }}" onclick="delete_row({{ $pro->id}},'{{$pro->size}}');"></button>
-                   
+                    <button class="btn btn-warning btn-lg glyphicon glyphicon-trash delete_button" style="border-radius: 10px" id="delete_button{{ $pro->id  }}" onclick="delete_row({{ $pro->id}},'{{$pro->size}}');"></button>
                   </td>
+                    @if(Auth::User()->group<2)
+                           <script type="text/javascript">
+                             $('.delete_button').attr('disabled','true');
+                           </script>
+                    @endif
                 </tr>
               @endforeach
             </tbody>
@@ -97,7 +101,7 @@ $(document).ready(function(){
     function delete_row(id,size)
             {
                 ssi_modal.confirm({
-                content: 'Bạn có muốn xóa? Nếu xóa sẽ ảnh hưởng tới các bảng sau :import_product,export_product,bill_detail??',
+                content: 'Bạn có muốn xóa? Nếu xóa hàng sẽ mất luôn nếu muốn khôi phục phãi vào database để sửa',
                 okBtn: {
                 className:'btn btn-primary'
                 },
@@ -120,7 +124,7 @@ $(document).ready(function(){
                                 imageFile:image,
                             },
                             success:function() {  
-                                 $('#row'+id).hide();
+                                 $('#row'+id+size).hide();
                                 alert('Xóa thành công');
                             }
                             });

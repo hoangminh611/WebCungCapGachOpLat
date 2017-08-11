@@ -17,26 +17,53 @@ class Product extends Model
     }
     public static function Top4Product()// tim san pham NHIỀU VIEW NHẤT
     {
-    	$hotPro = DB::table('products')             
+      $a=array();
+      $i=0;
+    	$newPro = DB::table('products')             
               ->join('export_product','products.id','=','export_product.id_product')
               ->where([
                     ['status',0],
                     ])
-    				->orderBy('view','DESC')->select('products.id','products.id_type','products.view','products.name','products.image','products.description')->limit(4);
-            return $hotPro;
+    				       ->orderBy('view','DESC')->select('products.id','products.id_type','products.view','products.name','products.image','products.description')->get();
+      foreach($newPro as $newpro)
+      {
+        $Pro=DB::table('products')->where('id',$newpro->id)->select()->first();
+                if(!isset($a[$newpro->id]))
+                {
+                      $a[$newpro->id]=$Pro;
+                      $i++;
+                      if($i==4)
+                        break;
+                }
+
+      }
+            return $a;
 
     }
     //8 sản phẩm mới
     public static function Top8NewsProduct()
     {
+      $a=array();
+      $i=0;
       $newPro = DB::table('products')
-             ->join('export_product','products.id','=','export_product.id_product')
+              ->join('export_product','products.id','=','export_product.id_product')
               ->where([
                     ['status',0],
                     ])
-            ->orderBy('id','DESC')->select('products.id','products.id_type','products.view','products.name','products.image','products.description')->limit(8);
-            return $newPro;
+            ->orderBy('id','DESC')->select('products.id','products.id_type','products.view','products.name','products.image','products.description')->get();
+      foreach($newPro as $newpro)
+      {
+        $Pro=DB::table('products')->where('id',$newpro->id)->select()->first();
+                if(!isset($a[$newpro->id]))
+                {
+                      $a[$newpro->id]=$Pro;
+                      $i++;
+                      if($i==8)
+                        break;
+                }
 
+      }
+            return $a;
     }
     //Tất cả sản phẩm cùng loại cha
     public static function All_Product_ById($id)
@@ -117,7 +144,7 @@ class Product extends Model
                         ->join('category','products.id_type','=','category.id')
                         ->join('export_product','products.id','=','export_product.id_product')
                         ->where('export_product.status',0)
-                        ->select('category.name as type_name','products.id','products.name','products.unit_price', 
+                        ->select('category.name as type_name','products.id','products.name', 
                                 'products.image','products.description','export_product.size as size','export_product.export_price','export_product.export_quantity')
                         ->orderBy('id','DESC');
 
@@ -130,7 +157,7 @@ class Product extends Model
                         ->join('category','products.id_type','=','category.id')
                         ->join('export_product','products.id','=','export_product.id_product')
                         ->where('export_product.status',0)
-                        ->select('category.name as type_name','products.id','products.name','products.unit_price', 
+                        ->select('category.name as type_name','products.id','products.name',
                                 'products.image','products.description','export_product.size as size','export_product.export_price','export_product.export_quantity')
                         ->orderBy('id','DESC');
         return $product;

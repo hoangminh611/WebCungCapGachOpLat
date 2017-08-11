@@ -5,7 +5,7 @@
 		<div class="table-agile-info">
      <div class="panel panel-default">
         <div class="panel-heading">
-         Basic table
+         LỊCH SỬ NHẬP KHO
         </div>
           <div>
           {{--   <button id="addRow" onclick="addRow({{$name_parent[0]->id}})"  class=" btn btn-info btn-lg glyphicon glyphicon-plus-sign" style=" border-radius: 10px;"></button> --}}

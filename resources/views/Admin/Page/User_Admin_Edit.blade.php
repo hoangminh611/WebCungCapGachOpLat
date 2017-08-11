@@ -14,7 +14,7 @@
                         Update User
                     </header>
                     <div class="panel-body">
-                            <form class="form-horizontal bucket-form" enctype="multipart/form-data"  id="add-form" method="post" action="{{route('Update_User')}}">
+                            <form class="form-horizontal bucket-form" enctype="multipart/form-data"  id="edit-form" method="post" action="{{route('Update_User')}}">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                  <input type="hidden" name="id" value="{{ $user[0]->id }}">
                                 <div class="form-group">
@@ -52,11 +52,19 @@
                                  <div class="form-group">
                                     <label class=" col-sm-3 control-label ">Group</label>
                                     <div class="col-sm-6">
-                                        <input type="text" name="group" value="{{$user[0]->group}}" pattern="[0-2]" required=""
-                                        title="Nhập quyền hạn 0 1 2 ">
+                                        <select  name="group">
+                                            <option id="0" value="0">Khách Hàng</option>
+                                            <option id="1" value="1">Nhân Viên</option>
+                                            <option id="2" value="2">Admin</option>
+                                        </select>
+                                        <script type="text/javascript">
+                                            var group={{$user[0]->group}};
+                                            $('#'+group).attr('selected','selected');
+                                        </script>
+                                        
                                     </div>
                                 </div>
-                                <button type="submit" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">  Save</button>           
+                                <button type="button"  onclick="submit_form()" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">  Save</button>           
                             </form>
                     </div>
             
@@ -66,7 +74,30 @@
             </div>
         </div>
 
-
+<script type="text/javascript">
+      function submit_form()
+            {
+                var frm=$('#edit-form')[0];//cái này tương đương với document.getelementbyid
+                ssi_modal.confirm({
+                content: 'Xin Hãy Kiểm tra kỹ càng trước khi save nếu bi sai sót có thể sẽ gây ra lỗi đáng tiếc',
+                okBtn: {
+                className:'btn btn-primary'
+                },
+                cancelBtn:{
+                className:'btn btn-danger'
+                }
+                },function (result) 
+                    {
+                        if(result)
+                        {
+                            frm.submit();
+                         }
+                        else
+                            ssi_modal.notify('error', {content: 'Result: ' + result});
+                    }
+                );
+            }   
+</script>
         <!-- page end-->
         </div>
 </section>

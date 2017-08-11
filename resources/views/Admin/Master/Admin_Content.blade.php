@@ -10,7 +10,7 @@
 						<i class="fa fa-eye"> </i>
 					</div>
 					 <div class="col-md-8 market-update-left">
-					 <h4>Visitors</h4>
+					 <h4>View</h4>
 					<h3>{{number_format($All_View)}}</h3>
 					<p>Other hand, we denounce</p>
 				  </div>

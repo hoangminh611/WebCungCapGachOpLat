@@ -12,6 +12,7 @@ use App\News;
 use App\Product;
 class Product_Controller extends Controller
 {
+   //vào trnag home
    public function getIndex()
    {
    	return view('Master.home');
@@ -39,7 +40,7 @@ class Product_Controller extends Controller
       
    	return view('Page.Detail_Product',compact('product','product_same_type'));
    }
-
+   //search product theo loại sản phẩm hoặc kích thước
    public function Search_Product(Request $req)
    {
       $type=$req->type;
@@ -54,12 +55,13 @@ class Product_Controller extends Controller
          $product=Product::Search_Product_By_Type_Size($type,$size)->get();
       return view('Page.Search_Product',compact('product'));
    }
-
+   //search theo tên sản phẩm
    public function Search_Detail(Request $req)
    {
       $product=DB::table('products')->whereRaw("match(name) against('$req->search')")->orWhere('name','Like','%'.$req->search.'%')->get();
      return view('Page.Search_Product',compact('product'));
    }
+   //cái này dùng để hiện ajax các gợi ý
    public function autocomplete(Request $req){
       $term = $req->term;
       $results = array();

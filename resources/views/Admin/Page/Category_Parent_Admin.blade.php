@@ -44,18 +44,23 @@
                   <td>{{$type_pro->name}}</td>
                   <td>{!!$type_pro->description!!}</td>
                   <td>{{$type_pro->type}}</td>
-                  <td><img src="images/news/{{$type_pro->image}}" alt="{{$type_pro->image}}" style="width: 50px; height: 50px;"></td>
+                  <td><img src="images/category/{{$type_pro->image}}" alt="{{$type_pro->image}}" style="width: 50px; height: 50px;"></td>
                   <td>{{$type_pro->created_at}}</td>
                   <td>{{$type_pro->updated_at}}</td>
                   <td>
                   @if($type==2)
                     <button class="btn btn-info btn-lg glyphicon glyphicon-hand-right" style="border-radius: 10px;" id="edit_button{{ $type_pro->id  }}" onclick="editRow({{ $type_pro->id }})"></button>
-                    <button class="btn btn-warning btn-lg glyphicon glyphicon-trash" style="border-radius: 10px" id="delete_button{{ $type_pro->id  }}" onclick="delete_row('{{ $type_pro->id}}');"></button>
+                    <button class="btn btn-warning btn-lg glyphicon glyphicon-trash delete_button" style="border-radius: 10px" id="delete_button{{ $type_pro->id  }}" onclick="delete_row('{{ $type_pro->id}}');"></button>
                   @else
                     <button class="btn btn-info btn-lg glyphicon glyphicon-hand-right" style="border-radius: 10px;" id="edit_button{{ $type_pro->id  }}" onclick="editRow_category({{ $type_pro->id }})"></button>
-                    <button class="btn btn-warning btn-lg glyphicon glyphicon-trash" style="border-radius: 10px" id="delete_button{{ $type_pro->id  }}" onclick="delete_row_category('{{ $type_pro->id}}');"></button>
+                    <button class="btn btn-warning btn-lg glyphicon glyphicon-trash delete_button" style="border-radius: 10px" id="delete_button{{ $type_pro->id  }}" onclick="delete_row_category('{{ $type_pro->id}}');"></button>
                   @endif
                   </td>
+                    @if(Auth::User()->group<2)
+                           <script type="text/javascript">
+                             $('.delete_button').attr('disabled','true');
+                           </script>
+                    @endif
                 </tr>
               @endforeach
             </tbody>
@@ -130,7 +135,7 @@
             {
 
                 ssi_modal.confirm({
-                content: 'Bạn có muốn xóa loại này nếu xóa loại này sẽ ảnh hưởng tới bảng product?',
+                content: 'Bạn có muốn xóa loại cha sẽ làm mất tất cả các loại con cùng các product?',
                 okBtn: {
                 className:'btn btn-primary'
                 },

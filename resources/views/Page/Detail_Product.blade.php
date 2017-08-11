@@ -57,6 +57,11 @@
 										<li><a href="#"><i> </i></a></li>
 										<li><a href="#"><i> </i></a></li>
 									</ul> --}}
+							@if(Session::has('khongdu'))
+								<div class="alert alert-danger">
+										{{Session::get('khongdu')}}		
+								</div>
+							@endif
 								<div class="review">
 									<a href="javascript:void(0)">View: {{$product[0]->view}} Lượt Xem </a>
 									<br>
@@ -96,13 +101,15 @@
 											<input type="text" name="quantity" id="quantity"  value="1" pattern="[0-9]{1,4}" maxlength='4' required title=" nhâp 1 to 4 chữ số">
 											<button   type="button" id="plus"><i class="fa fa-plus" aria-hidden="true"></i></button>
 										<script type="text/javascript">
-											$('#quantity').keypress(function()
+											$('#quantity').keyup(function()
 											{
-												if($('#quantity').val()<=1)
+												if($('#quantity').val()<1||isNaN($('#quantity').val()))
 											{
+
 												$("#quantity").val(1);
 											}
 											})
+											
 											
 
 										</script>
@@ -112,6 +119,7 @@
 								</ul>
 							</div>
 							<button type="submit" name="" class="add-cart item_add">ADD TO CART</button>
+
 							</form>
 							{{-- <ul class="tag-men">
 								<li><span>TAG</span>
@@ -129,7 +137,7 @@
 					<ul class="menu_drop">
 				<li class="item1"><a href="javascript:void(0)"><img src="images/arrow.png" alt="">Description</a>
 					<ul style="background-color: white;">
-						<li class="subitem2" ><a href="javascript:void(0)">{{$product[0]->description}}</a></li>
+						<li class="subitem2" ><a href="javascript:void(0)">{!!$product[0]->description!!}</a></li>
 					</ul>
 				</li>
 {{-- 				<li class="item2"><a href="#"><img src="images/arrow.png" alt="">Additional information</a>

@@ -111,7 +111,7 @@
 								<div class="clearfix"> </div>
 							</ul>
 						<ul>
-									<li style="float: right"><a href="" class="add-cart btn btn-success">Thanh Toán</a></li>
+									<li style="float: right"><a href="{{route('Payment')}}" class="add-cart btn btn-success">Thanh Toán</a></li>
 									<li  style="float:left;"><a href="{{route('delete-cart')}}" class=" add-cart btn btn-warning">Xóa Cart</a></li>
 									
 									<div class="clearfix"> </div>

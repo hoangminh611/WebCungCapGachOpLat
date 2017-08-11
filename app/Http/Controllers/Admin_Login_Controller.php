@@ -13,11 +13,12 @@ use App\News;
 use Session;
 class Admin_Login_Controller extends Controller
 {
+  //view trang login admin
    public function Login_Admin()
    {
    	return view('Admin.Page.Login_Admin');
    }
-
+   //ĐĂNG NHẬP ADMIN
    public function postLogin_Admin(Request $req)
    {    
         
@@ -32,6 +33,7 @@ class Admin_Login_Controller extends Controller
             return redirect()->back()->with('thatbai','Sai thông tin đăng nhập');
         }
     }
+    //log out admin
      public function getLogout()
     {
         Auth::logout();

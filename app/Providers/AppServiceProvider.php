@@ -52,16 +52,15 @@ class AppServiceProvider extends ServiceProvider
             view()->composer('Master.Banner',function($view)
             {
               $Slide =Slide::Top5Slide()->get();
-              $hotPro=Product::Top4Product()->get();
+              $hotPro=Product::Top4Product();
               $view->with(['Slide'=>$Slide,'hotPro'=>$hotPro]);
             });
 
             view()->composer(['Page.Product','Page.Detail_Product','Page.Search_Product'],function($view)
             {
-               $size=DB::table('export_product')->select()->get();
+               $size=DB::table('export_product')->where('status',0)->select()->get();
                $size_gach=array();
                $size_gach[0]=$size[0]->size;
-               $sizedaco="0";
                 for($i=0;$i<count($size);$i++){
                     for($j=0;$j<=count($size_gach);$j++)
                     {
@@ -88,6 +87,11 @@ class AppServiceProvider extends ServiceProvider
               }
             });
 
+             view()->composer('Admin.Master.Admin_Header',function($view)
+            {
+              $count_bill=DB::table('bills')->where('bills.method','LIKE','%Chưa Xác Nhận%')->count();
+              $view->with('count_bill',$count_bill);
+            });
 
     }
 

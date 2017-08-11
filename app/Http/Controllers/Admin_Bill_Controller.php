@@ -16,19 +16,20 @@ use App\Import_product;
 use App\Export_Product;
 class Admin_Bill_Controller extends Controller
 {
+   //xem trang bill admin
    public function ViewPageBill_Admin()
    {
-   	$Bill=Bill::All_Bill()->orderBy('bills.id','DESC')->get();
+   	$Bill=Bill::All_Bill()->orderBy('bills.method')->orderBy('bills.id','DESC')->get();
    	return view('Admin.Page.Bill_Admin',compact('Bill'));
    }
-
+   //xem trang bill detail admin
    public function ViewPageBill_Detail_Admin($id,$id_customer,$method)
    {
    	$Bill_Detail=Bill_Detail::View_All($id)->get();
       $customer=Customer::Customer_ByID($id_customer)->get();
    	return view('Admin.Page.Bill_Detail_Admin',compact('Bill_Detail','customer','method'));
    }
-
+   //xem trang bill  insert admin
    public function ViewPageBill_Admin_Insert(Request $req)
    {
       $id=$req->id;
@@ -36,6 +37,7 @@ class Admin_Bill_Controller extends Controller
       $bill=Bill::View_bill_byId($id)->get();
       return view('Admin.Page.Bill_Admin_Insert',compact('bill','user','customer','id'));
    }
+    //xem trang bill detail  insert admin
    public function ViewPageBill_Detail_Admin_Insert(Request $req)
    {
    	$id_bill_detail=$req->id;
@@ -46,7 +48,7 @@ class Admin_Bill_Controller extends Controller
       $customer=DB::table('bills')->where('id',$Bill[0]->id_bill)->select('id_customer','method')->get();
    	return view('Admin.Page.Bill_Detail_Admin_Insert',compact('Bill_Detail','quantity','name_pro','customer'));
    }
-
+   //update bill detail
    public function Update_Bill_Detail(Request $req)
    {
    	$id=$req->id;
@@ -60,7 +62,7 @@ class Admin_Bill_Controller extends Controller
    	$bill_detail=Bill_Detail::Update_Bill_Detail($id,$first_quantity,$quantity,$id_product,$size);
    	return redirect()->route('ViewPageBill_Detail_Admin',[$id_bill,$id_customer,$method]);
    }
-
+   //update bill
    public function Update_Bill(Request $req)
    {
       $id=$req->id;
@@ -79,5 +81,12 @@ class Admin_Bill_Controller extends Controller
       $quantity=$req->quantity;
       $bill_detail=Bill_Detail::Delete_One_Bill_Detail($id);
       $export_quantity=Export_Product::Update_quantity_By_Idproduct($id_product,$size,$quantity);
+   }
+   //đếm số bill chưa xác nhận
+   public function Count_Bill()
+   {
+      $count_bill=DB::table('bills')->where('bills.method','LIKE','%Chưa Xác Nhận%')->count();
+
+      return  $count_bill;
    }
 }

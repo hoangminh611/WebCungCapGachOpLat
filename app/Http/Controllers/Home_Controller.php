@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ProductEditRequest;
 use DB;
 use File;
+use Auth;
 use Illuminate\Support\Facades\Input;
 use App\TypeProduct;
 use App\News;
@@ -19,12 +20,13 @@ use App\Bill;
 use App\Bill_Detail;
 class Home_Controller extends Controller
 {
+  //Lấy 8 sản phẩm mới
    public function getIndex()
    {
-      $new8Pro=Product::Top8NewsProduct()->get();
+      $new8Pro=Product::Top8NewsProduct();
    	return view('Master.home',compact('new8Pro'));
    }
-
+   //lấy trang news
    public function getNews()
    {
       $new_post=News::ShowNewPost()->get();
@@ -32,6 +34,7 @@ class Home_Controller extends Controller
       $category=News::CategoryNews()->get();
       return view('Page.News',compact('new_post','All_news','category'));
    }
+   //lấy trang news theo loại news
    public function getNews_By_Type(Request $req)
    {
       $new_post=News::ShowNewPost()->get();
@@ -39,7 +42,7 @@ class Home_Controller extends Controller
       $category=News::CategoryNews()->get();
       return view('Page.News',compact('new_post','All_news','category'));
    }
-
+   //Lấy tin tức
    public function getNew_Detail($id)
    { 
      $new_post=News::ShowNewPost()->get();
@@ -48,20 +51,24 @@ class Home_Controller extends Controller
      return view('Page.News_Detail',compact('new_post','new_detail','category'));
 
    }
+   //vào trang contact
    public function getContact()
    {
       return view('Page.Contact');
    }
-
+   //----------------------------------CART--------------------------------
+   //thêm san pham vao giỏ
    public function AddCart(Request $req)
    {  
 
       $product=Export_product::FindProductByIdPro_Size($req->idsize)->get();
+
       $oldcart=Session('cart')?Session::get('cart'):null;
       $cart=new Cart($oldcart);
       $cart->add($product,$req->idsize,$req->quantity);
       $req->session()->put('cart',$cart);
       return redirect()->back();
+      
    }
    //Hiện ra trang cart-detail
    public function DetailCart()
@@ -78,7 +85,7 @@ class Home_Controller extends Controller
        Session::forget('cart');
        return redirect()->route('index');
    }
-
+   //xóa 1 sản phẩm trong cart
    public function getDelItemCart(Request $req)
    {
         $oldCart=Session('cart')?Session::get('cart'):null;
@@ -89,7 +96,7 @@ class Home_Controller extends Controller
         else
             Session::put('cart',$cart);
     }
-
+    //giảm 1 sản phẩm
     public function reduceByOne($id)
     {
         $oldCart = Session('cart')?Session::get('cart'):null;
@@ -103,7 +110,7 @@ class Home_Controller extends Controller
             Session::put('cart',$cart);
         return json_encode($cart);
     }
-
+    //tnag8 1 sản phẩm
     public function riseByOne($id)
     {
 
@@ -120,10 +127,11 @@ class Home_Controller extends Controller
 
 
 
-
+    //gọi trang thanh toán
    public function Payment(){
    	return view('Page.Payment');
    }
+   //Insert vào bảng customer khi thanh toán
    public function Customer_Edit(Request $req)
    {
       $a=array();
@@ -135,6 +143,7 @@ class Home_Controller extends Controller
         $size=$key['item'][0]->size;
         $name=$key['item'][0]->name;
         $Qty=$key['qty'];
+
         $export_quantity=Export_product::FindOneExportProduct($id,$size)->get();
         $import_quantity=Import_product::FindOneImportProduct($id,$size)->sum('import_quantity');
         $quantity=$import_quantity-$export_quantity[0]->export_quantity;
@@ -149,8 +158,11 @@ class Home_Controller extends Controller
           $email=$req->email;
           $address=$req->address;
           $note=$req->note;
-
-          $id_customer=Customer::Insert_Customer($full_name,$email,$address,$phone);
+          if(Auth::check())
+            $id_user=Auth::User()->id;
+          else
+            $id_user=null;
+          $id_customer=Customer::Insert_Customer($id_user,$full_name,$email,$address,$phone);
           $id_bill=Bill::Insert_Bill($id_customer,$note);
            foreach ($cart->items as $key) 
             {

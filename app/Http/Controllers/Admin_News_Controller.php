@@ -11,14 +11,16 @@ use App\News;
 use Auth;
 class Admin_News_Controller extends Controller
 {
-
+   //xem trang news
       public function ViewAllNews(){
          $news=News::Load_ALL_News()->get();
          return view('Admin.Page.News_Admin',compact('news'));
       }
+      //xem trang news theo từng loại
       public function ViewAllNewsBy_id($id){
          $news=News::Load_ALL_News_By_Id($id)->get();
-         return view('Admin.Page.News_Admin',compact('news'));
+         $idloainew=$id;
+         return view('Admin.Page.News_Admin',compact('news','idloainew'));
       }
       //---------------------------------News-------------------------
        //neu co id nghia la update con khong co la insert 
@@ -30,11 +32,15 @@ class Admin_News_Controller extends Controller
          }
          else{
             $id=0;
-            return view('Admin.Page.News_Admin_Insert',compact('id'));
+            $idtypenew=$req->idTypenew;
+            if($idtypenew==null)
+               return view('Admin.Page.News_Admin_Insert',compact('id'));
+            else
+                return view('Admin.Page.News_Admin_Insert',compact('id','idtypenew'));
          }
          
       }
-      
+      //Update news
       public function UpdateNews(Request $req){
          $id=$req->id;
          $id_user=Auth::User()->id;
@@ -87,13 +93,14 @@ class Admin_News_Controller extends Controller
       }
       //----------------------------News------------------------
       //----------------------------Loại News-------------------
+      //lấy tất cả các loại news
       public function AllTypeNews()
       {
          $Type_Product=News::Show_All_Type_News()->get();
          $type=2;
          return view ('Admin.Page.Category_Parent_Admin',compact('Type_Product','type'));
       }
-
+      //gọi trang de insert hoac update loại news
       public function View_Insert_Type_News(Request $req)
       {
            $id=$req->id;
@@ -108,14 +115,14 @@ class Admin_News_Controller extends Controller
             return view('Admin.Page.News_Admin_Category_Insert',compact('id','type','khongcocha'));
          }
       }
-
+      //insert type news
       public function Insert_Type_News(Request $req)
       {
          $name=$req->name;
          if ($req->hasFile('image')) 
          {
             $image= $req->file('image')->getClientOriginalName();
-            $req->file('image')->move('images/news',$image);
+            $req->file('image')->move('images/category',$image);
          }
          else
          {
@@ -127,7 +134,7 @@ class Admin_News_Controller extends Controller
          $type_news=News::InsertTypeNews($name,$description,$image,$type_cha,$type);
           return redirect()->route('TypeNews');
       }
-
+      //update type news
       public function Update_Type_News(Request $req)
       {
          $id=$req->id;
@@ -151,7 +158,7 @@ class Admin_News_Controller extends Controller
          
           return redirect()->route('TypeNews');
       }
-     
+     //Xóa loại news
       public function Delete_Type_News(Request $req)
       {
          $id=$req->id;

@@ -25,12 +25,13 @@ class Import_product extends Model
         		->where('id_product','=',$id)->select()->first();
         return $pro;
     }
+    //tìm 1 sản phẩm import product để update sản phẩm
      public static function FindOneImportProduct($id,$size)
     {
         $pro=DB::table('import_product')
                 ->where([
                     ['id_product','=',$id],
-                    ['size','LIKE','%'.$size.'%'],])->select();
+                    ['size','LIKE','%'.$size.'%'],])->orderBy('id','DESC')->select();
         return $pro;
     }
     //xòa sản phẩm khi loại sản phẩm bị xóa
@@ -50,9 +51,11 @@ class Import_product extends Model
         $pro=DB::table('import_product')
                 ->where([
                     ['id_product','=',$id],
-                    ['size','LIKE','%'.$size.'%'],])->update(['size'=>$size,'import_price'=>$import_price,'import_quantity'=>$import_quantity]);
+                    ['size','LIKE','%'.$first_size.'%'],])->orderBy('id','DESC')->select('id')->first();
+         $pro=DB::table('import_product')
+                ->where('id',$pro->id)->update(['size'=>$size,'import_price'=>$import_price,'import_quantity'=>$import_quantity]);   
     }
-
+    //chọn cái import product để lấy lãi lỗ
      public static function Select_Import_Product()
     {
         $a=array();
