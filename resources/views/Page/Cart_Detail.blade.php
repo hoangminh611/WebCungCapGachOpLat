@@ -67,7 +67,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 				<ol class="breadcrumb">
 					<li><a href="index.html">Home</a></li>
-					<li class="active">Checkout</li>
+					<li class="active">Giỏ Hàng</li>
 				</ol>
 			</div>
 		</div>
@@ -78,7 +78,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="ckeckout">
 		<div class="container">
 			<div class="ckeck-top heading">
-				<h2>CHECKOUT</h2>
+				<h2>Kiểm Tra Giỏ Hàng</h2>
 			</div>
 			<div class="ckeckout-top">
 				@if(Session::has('hangkhongdu'))
@@ -90,7 +90,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 				@endif
 			<div class="cart-items">
-			 <h3>My Shopping Bag</h3>
+			 <h3>Giỏ Hàng của tôi</h3>
 				<script>
 				$(document).ready(function(c) {
 					$('.close1').on('click', function(c){
@@ -149,10 +149,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				
 			<div class="in-check" >
 				<ul class="unit" style="border:solid 1px black;">
-					<li><span>Item</span></li>
-					<li><span>Product Name</span></li>
-					<li><span>Quantity/Size</span></li>
-					<li><span>Price/Unit_Price</span></li>
+					<li><span>Hình Ảnh</span></li>
+					<li><span>Tên Sản Phẩm</span></li>
+					<li><span>Số Lượng/Kích thước</span></li>
+					<li><span>Giá/Đơn Giá</span></li>
 					<div class="clearfix"> </div>
 				</ul>
 				@if(Session::has('cart'))
@@ -197,7 +197,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</ul>
 					<ul>
 								<li style="float: right"><a href="{{route('Payment')}}" class="add-cart btn btn-success">Thanh Toán</a></li>
-								<li  style="float:left;"><a href="{{route('delete-cart')}}" class=" add-cart btn btn-warning">Xóa Cart</a></li>
+								<li  style="float:left;"><a href="{{route('delete-cart')}}" class=" add-cart btn btn-warning">Xóa Giỏ Hàng</a></li>
 								
 								<div class="clearfix"> </div>
 					</ul>

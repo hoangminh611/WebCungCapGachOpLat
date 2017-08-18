@@ -25,12 +25,12 @@
               <tr>
                 <th>Chi Tiết</th>
                 <th data-breakpoints="xs">ID</th>
-                <th>Customer</th>
-                <th data-breakpoints="xs">Tình Trang</th>
+                <th>Khách hàng</th>
+                <th data-breakpoints="xs">Tình Trạng</th>
                 <th>Ghi chú</th>
                 <th>Ngày tạo</th>
                 <th>Ngày update</th>
-                <th data-breakpoints="xs sm md" data-title="Edit">Edit</th>
+                <th data-breakpoints="xs sm md" data-title="Sửa">Sửa</th>
               </tr>
             </thead>
             <tbody>
@@ -88,38 +88,6 @@
             //      route=route.replace('idcha',$idtype);
             //       window.location.replace(route);
         
-            // }
-
-            // function delete_row(id)
-            // {
-            //     ssi_modal.confirm({
-            //     content: 'Xóa sẽ ảnh hưởng tới bảng product ,bill_detail,export,import product?',
-            //     okBtn: {
-            //     className:'btn btn-primary'
-            //     },
-            //     cancelBtn:{
-            //     className:'btn btn-danger'
-            //     }
-            //     },function (result) {
-            //         if(result)
-            //         {
-            //             var route="{{route('Delete_Category_Child')}}";
-            //             $.ajax({
-            //                 url:route,
-            //                 type:'get',
-            //                 data:{
-            //                     id:id,
-            //                 },
-            //                 success:function() {  
-            //                      $('#row'+id).hide();
-            //                     alert('Xóa thành công');
-            //                 }
-            //             });
-            //         }
-            //         else
-            //             ssi_modal.notify('error', {content: 'Result: ' + result});
-            //     }
-            // );
             // }
 
     </script>

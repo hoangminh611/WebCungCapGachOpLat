@@ -7,13 +7,13 @@
                 <li>
                     <a class="active" href="{{route('Content_Admin')}}">
                         <i class="fa fa-dashboard"></i>
-                        <span>Dashboard</span>
+                        <span>Trang chủ</span>
                     </a>
                 </li>
                 <li class="sub-menu">
                     <a href="javascript:void(0);">
                         <i class="fa fa-book"></i>
-                        <span>Product</span>
+                        <span>Sản Phẩm</span>
                     </a>
                     <ul class="sub">
                         <li> <a href="{{route('Admin_All_Product')}}">Tất cả sản phẩm</a>
@@ -27,7 +27,7 @@
                  <li class="sub-menu">
                     <a href="javascript:void(0);">
                         <i class="fa fa-book"></i>
-                        <span>Category</span>
+                        <span>Loại sản phẩm</span>
                     </a>
                     <ul class="sub">
                         <li> <a href="{{route('Admin_All_Type')}}">Tất cả loại cha</a>
@@ -39,7 +39,7 @@
                 <li class="sub-menu">
                     <a href="javascript:void(0)">
                             <i class="fa fa-newspaper-o"></i>
-                            <span>News</span>
+                            <span>Tin Tức</span>
                     </a>
                     <ul class="sub">
                         <li><a href="{{route('ViewNews')}}"> Tất cả tin</a></li>
@@ -52,14 +52,14 @@
                 <li>
                     <a href="{{route('ViewPageBill_Admin')}}">
                         <i class="fa fa-bullhorn"></i>
-                        <span>Bill </span>
+                        <span>Hóa Đơn</span>
                     </a>
                 </li>
                 @if(Auth::User()->group==2)
                 <li >
                     <a href="{{route('ViewPage_User_Admin')}}">
                         <i class="fa fa-user"></i>
-                        <span>User</span>
+                        <span>Người dùng</span>
                     </a>
                 </li>
                 @endif

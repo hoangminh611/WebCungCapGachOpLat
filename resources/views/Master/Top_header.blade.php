@@ -50,7 +50,7 @@
 								<img src="images/cart-1.png" alt="" />
 							</div>
 							</a>
-							<p><a href="javascript:void(0)" class="simpleCart_empty">Empty Cart</a></p>
+							<p><a href="javascript:void(0)" class="simpleCart_empty">Giỏ hàng rỗng</a></p>
 						@endif
 						<div class="clearfix"> </div>
 					</div>
@@ -76,7 +76,7 @@
 							 <div class="total">
 								<span class="simpleCart_total"></span>
 								<img src="images/cart-1.png" alt="" />
-								<p><a href="javascript" class="simpleCart_empty">Empty Cart</a></p>
+								<p><a href="javascript" class="simpleCart_empty">Giỏ hàng rỗng</a></p>
 							</div>
 						</a>
 						<div class="clearfix"> </div>

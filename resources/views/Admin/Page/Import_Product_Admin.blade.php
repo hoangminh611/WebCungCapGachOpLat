@@ -26,10 +26,10 @@
                 <th></th>
                 <th>ID</th>
                 <th>Sản Phẩm</th>          
-                <th >import_price</th>
-                <th>Size</th>
-                <th>import_quantity</th>
-                <th>created_at</th>
+                <th >Giá Nhập</th>
+                <th>Kích thước</th>
+                <th>Số lượng nhập</th>
+                <th>Ngày tạo</th>
                 {{-- <th data-breakpoints="xs sm md" data-title="DOB">Edit</th> --}}
               </tr>
             </thead>

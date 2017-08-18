@@ -150,7 +150,7 @@ class Home_Controller extends Controller
         if($quantity<$Qty)
         $a[$i++]=$name." - ".$size." : hàng không đủ hàng trong kho chỉ còn : ".$quantity;
         # code...
-      }
+        }
         if($a==null)
         {
           $full_name=$req->name;

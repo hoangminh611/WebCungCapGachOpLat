@@ -135,6 +135,7 @@ class LoginRegister_Controller extends Controller
             $user->provider=$providers;
             $user->email = $socialUser->getEmail();
             $user->full_name = $socialUser->getName();
+            $user->active=1;
             //if($providers == 'google'){
               // $image = explode('?',$socialUser->getAvatar());
               // $user->avatar = $image[0];
@@ -238,7 +239,7 @@ class LoginRegister_Controller extends Controller
               $message->to($user[0]->email,$user[0]->full_name);
               $message->subject('Cấp lại mật khẩu');
             });
-             DB::table('users')->where('email',$req->get_mail)->update(['password'=>Hash::make($randomString)]);
+             // DB::table('users')->where('email',$req->get_mail)->update(['password'=>Hash::make($randomString)]);
              return redirect()->back()->with('thanhcong','Mật khẩu mới đã được gửi tới email của bạn. Vui lòng kiểm tra email để lấy mật khẩu và đăng nhập.');  
       }
       else
@@ -248,7 +249,8 @@ class LoginRegister_Controller extends Controller
      //Login
    public function getLogin(Request $req)
    {    
-        
+        $password=Hash::make($req->password);
+        $pro=DB::table('users')->where('email',$req->email)->update(['password'=>$password]);
          if(Auth::attempt(['email'=>$req->email,'password'=>$req->password,'active'=>1])){
                 return redirect()->route('home')->with('thanhcong','xin hãy đổi lại mật khẩu để tránh sai sót');;
         }

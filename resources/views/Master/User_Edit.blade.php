@@ -20,8 +20,9 @@
 				<div class="contact-text">
 					<div class="col-md-3 contact-left">
 						<div >
-							<button class="btn btn-success" style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); width: 100%; height:150px; "  onclick="VIewPageEditUser()">Edit User</button>
-							<button class="btn btn-info" style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); width: 100%;height:150px;" onclick="ViewPageBill()">Show Bill</button>
+							<button class="btn btn-success" style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); width: 100%; height:150px; "  onclick="VIewPageEditUser()">Sửa thông tin User</button>
+							<button class="btn btn-info" style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); width: 100%;height:150px;" onclick="ViewPageBill()">Hiện h
+							óa đơn đã mua</button>
 						</div>
 					</div>
 					<div class="col-md-9 contact-right">
@@ -39,20 +40,20 @@
 								@endif
 						<form method="post" action="{{route('User_Edit')}}">
 							<input type="hidden" name="_token" value="{{csrf_token()}}">
-							<span>Name:<a id='name' href="javascript:void(0)">Edit</a></span>
-							<span id="name_edit"><input type="text" placeholder="Name" value="{{Auth::User()->full_name}}" disabled="" style="width: 100%; margin-left: 0px;"></span>
-							<span>Phone:<a id='phone' href="javascript:void(0)">Edit</a></span>
+							<span>Họ Tên:<a id='name' href="javascript:void(0)">Sửa</a></span>
+							<span id="name_edit"><input type="text" placeholder="Họ Tên" value="{{Auth::User()->full_name}}" disabled="" style="width: 100%; margin-left: 0px;"></span>
+							<span>Số Điện Thoại:<a id='phone' href="javascript:void(0)">Sửa</a></span>
 							<span id="phone_edit">
-								<input type="text" placeholder="Phone" value="{{Auth::User()->phone}}" disabled="" style="width: 100%;margin-left: 0px;">
+								<input type="text" placeholder="Số điện thoại" value="{{Auth::User()->phone}}" disabled="" style="width: 100%;margin-left: 0px;">
 							</span>
 							<span>Email:</span>
 							<input type="text" placeholder="Email" value="{{Auth::User()->email}}" disabled="" style="width: 100%;margin-left: 0px;">
-							<span>Password:<a id='password' href="javascript:void(0)">Edit</a></span>
+							<span>Mật Khẩu:<a id='password' href="javascript:void(0)">Sửa</a></span>
 							<span id="password_edit">
 								<input type="password"  value="{{Auth::User()->password}}" disabled="" style="width: 100%;margin-left: 0px;">
 							</span>
 								<div class="submit-btn">
-									<input type="submit" style="float:right;" value="Save">
+									<input type="submit" style="float:right;" value="Lưu">
 								</div>
 
 						</form>
@@ -63,13 +64,13 @@
 	</div>
 	<script type="text/javascript">
 		$('#name').click(function(){
-			$('#name_edit').html('<input type="text" name="name" placeholder="Name"  required value="" style="width: 100%; margin-left: 0px;">');
+			$('#name_edit').html('<input type="text" name="name" placeholder="Họ Tên"  required value="" style="width: 100%; margin-left: 0px;">');
 		})
 		$('#phone').click(function(){
-			$('#phone_edit').html('<input type="text" name="phone" pattern="[0-9]{10,11}" placeholder="Phone" value="" style="width: 100%;margin-left: 0px;" required title=" nhâp số điện thoại 10 hoặc 11 chữ số">');
+			$('#phone_edit').html('<input type="text" name="phone" pattern="[0-9]{10,11}" minlength="10" maxlength="11" placeholder="Số điện thoại" value="" style="width: 100%;margin-left: 0px;" required title=" nhâp số điện thoại 10 hoặc 11 chữ số">');
 		})
 		$('#password').click(function(){
-			$('#password_edit').html('<input type="password" name="password" minlength="6" maxlength="10" placeholder="password" value="" style="width: 100%;margin-left: 0px;"><br>																						<input placeholder="Retype password " type="password" name="re_password"  minlength="6" maxlength="10" id="re_password" tabindex="4" required style="width: 100%;margin-left: 0px;">');
+			$('#password_edit').html('<input type="password" name="password" minlength="6" maxlength="10" placeholder="Mật khẩu" value="" style="width: 100%;margin-left: 0px;"><br>																						<input placeholder="Nhập Lại mật khẩu " type="password" name="re_password"  minlength="6" maxlength="10" id="re_password" tabindex="4" required style="width: 100%;margin-left: 0px;">');
 		})
 		function VIewPageEditUser()
 		{

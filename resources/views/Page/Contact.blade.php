@@ -6,7 +6,7 @@
 			<div class="breadcrumbs-main">
 				<ol class="breadcrumb">
 					<li><a href="{{route('index')}}">Home</a></li>
-					<li class="active">Contact</li>
+					<li class="active">Liên Hệ</li>
 				</ol>
 			</div>
 		</div>
@@ -16,12 +16,12 @@
 	<div class="contact">
 		<div class="container">
 			<div class="contact-top heading">
-				<h2>CONTACT</h2>
+				<h2>Liên Hệ</h2>
 			</div>
 				<div class="contact-text">
 				<div class="col-md-3 contact-left">
 					<div class="address">
-						<h5>Address</h5>
+						<h5>Địa Chỉ Liên Hệ</h5>
 						<p style="color: black;">Hùng Minh, 
 							<span>22 Lê Trung Nghĩa Phường 12 Quận Tân Bình</span>
 							{{-- <span>Tel:1115550001</span>

@@ -18,7 +18,7 @@
             <a  href="{{route('ViewPageBill_Admin')}}">
                 <i class="fa fa-tasks"></i>
                 <span class="badge bg-success number_Bill_Detail">{{$count_bill}}</span>
-                <span>Bill</span>
+                <span>Hóa Đơn</span>
                 <script type="text/javascript">
                     $(document).ready(function(){
                         var route="{{route('Count_Bill')}}";
@@ -62,7 +62,7 @@
             <ul class="dropdown-menu extended logout">
                {{--  <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
                 <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li> --}}
-                <li><a href="{{route('Logout')}}"><i class="fa fa-key"></i> Log Out</a></li>
+                <li><a href="{{route('Logout')}}"><i class="fa fa-key"></i> Đăng Xuất</a></li>
             </ul>
         </li>
         <!-- user login dropdown end -->

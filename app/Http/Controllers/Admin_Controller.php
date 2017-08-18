@@ -27,31 +27,40 @@ class Admin_Controller extends Controller
       $bill_detail=Bill_Detail::Select_Bill_Detail();
 
       $import=Import_product::Select_Import_Product();
+       $tongtiennhap= $import['tongtiennhap'];
+         $tongtienxuat= $bill_detail['tongtienxuat'];
       $Import_product=DB::table('import_product')
       ->join('products','import_product.id_product','=','products.id')->select()->get();
+     
       foreach ( $Import_product as $key) {
 
          if(!isset($bill_detail[$key->id_product][$key->size]))
          {
             $a[$key->id_product][$key->size]['price']=-$import[$key->id_product][$key->size]['price'];
+             $a[$key->id_product][$key->size]['import_price']=$import[$key->id_product][$key->size]['price'];
             $a[$key->id_product][$key->size]['size']=$key->size;
             $a[$key->id_product][$key->size]['name']=$key->name;
             $a[$key->id_product][$key->size]['import_quantity']=$import[$key->id_product][$key->size]['import_quantity'];
+            // $tongtiennhap+=$import[$key->id_product][$key->size]['price'];
          }
          else
          {
             $a[$key->id_product][$key->size]['price']=$bill_detail[$key->id_product][$key->size]['price']-$import[$key->id_product][$key->size]['price'];
+             $a[$key->id_product][$key->size]['import_price']=$import[$key->id_product][$key->size]['price'];
+               $a[$key->id_product][$key->size]['export_price']=$bill_detail[$key->id_product][$key->size]['price'];
             $a[$key->id_product][$key->size]['size']=$key->size;
             $a[$key->id_product][$key->size]['name']=$key->name;
             $a[$key->id_product][$key->size]['import_quantity']=$import[$key->id_product][$key->size]['import_quantity'];
             $a[$key->id_product][$key->size]['export_quantity']=$bill_detail[$key->id_product][$key->size]['quantity'];
+            // $tongtiennhap=$tongtiennhap+$import[$key->id_product][$key->size]['price'];
+            // $tongtienxuat=$tongtienxuat+$bill_detail[$key->id_product][$key->size]['price'];
          }
       }
       $All_View=Product::All_ViewProduct();
       $Count_User=User::Count_All_User();
       $Count_Bill=Bill::Count_All_Bill();
       $All_Export_Quantity=Export_product:: ALl_Sale_Quantity();
-     return view('Admin.Master.Admin_Content',compact('Import_product','a','All_View','Count_User','Count_Bill','All_Export_Quantity'));
+     return view('Admin.Master.Admin_Content',compact('tongtiennhap','tongtienxuat','a','All_View','Count_User','Count_Bill','All_Export_Quantity'));
    }
    //xem trang user admin
    public function ViewPage_User_Admin()

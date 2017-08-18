@@ -5,7 +5,7 @@
 			<div class="breadcrumbs-main">
 				<ol class="breadcrumb">
 					<li><a href="index.html">Home</a></li>
-					<li class="active">Single</li>
+					<li class="active">Sản Phẩm Chi tiết</li>
 				</ol>
 			</div>
 		</div>
@@ -88,7 +88,7 @@
 							<div class="available">
 								<ul>
 									<li>
-										<span>Size</span>
+										<span>Kích Thước</span>
 										<select name="idsize">
 											@foreach($product as $pro)
 												<option value="{{$pro->idsize}}">{{$pro->size}}</option>
@@ -118,7 +118,7 @@
 									<div class="clearfix"> </div>
 								</ul>
 							</div>
-							<button type="submit" name="" class="add-cart item_add">ADD TO CART</button>
+							<button type="submit" name="" class="add-cart item_add">Thêm vào giỏ</button>
 
 							</form>
 							{{-- <ul class="tag-men">
@@ -135,14 +135,14 @@
 				</div>
 				<div class="tabs">
 					<ul class="menu_drop">
-				<li class="item1"><a href="javascript:void(0)"><img src="images/arrow.png" alt="">Description</a>
+				<li class="item1"><a href="javascript:void(0)"><img src="images/arrow.png" alt="">Mô Tả</a>
 					<ul style="background-color: white;">
 						<li class="subitem2" ><a href="javascript:void(0)">{!!$product[0]->description!!}</a></li>
 					</ul>
 				</li>
 {{-- 				<li class="item2"><a href="#"><img src="images/arrow.png" alt="">Additional information</a>
 				</li> --}}
-				<li class="item3"><a href="#"><img src="images/arrow.png" alt="">Comment</a>
+				<li class="item3"><a href="#"><img src="images/arrow.png" alt="">Bình Luận</a>
 					<ul style="background-color: white;">
 					    <li class="subitem3">
 					    	<div class="fb-comments" data-href="http://localhost/webcungcapgachoplat/public/index.php/Detail//{{$product[0]->id}}" data-width="560" data-numposts="5"></div>
@@ -192,7 +192,7 @@
 							<div class="w_sidebar">
 								<section  class="sky-form">
 								
-									<h4>Catogories</h4>
+									<h4>Loại Sản Phẩm</h4>
 									<div class="row1 scroll-pane">
 										<div class="col col-4">
 											<label><input type="radio" name="type" checked="" value="khong"><i></i>Tất Cả Sản Phẩm</a></label>
@@ -208,7 +208,7 @@
 									</div>
 								</section>
 								<section class="sky-form">
-									<h4>Size</h4>
+									<h4>Kích Thước</h4>
 										<div class="col col-4">
 											<label><input type="radio" name="size" checked="" value="khong"><i></i>Tất Cả Kích Thước</label>
 										</div>

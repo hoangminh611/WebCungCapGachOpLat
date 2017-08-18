@@ -32,10 +32,10 @@
                 <th>Loại sản phẩm</th>
                 <th data-breakpoints="xs">Mô Tả</th>
                 <th>Giá theo kích thước</th>
-                <th>Size</th>
+                <th>Kích thước</th>
                 <th>Số Lượng Bán</th>
-                <th>Image</th>
-                <th data-breakpoints="xs sm md" data-title="Edit/Nhập Hàng/Delete">Nhập hàng,thêm kích thước/Edit/Delete</th>
+                <th>Hình ảnh</th>
+                <th data-breakpoints="xs sm md" data-title="Nhập Hàng/Sửa/Xóa">Nhập hàng,thêm kích thước/Sửa/Xóa</th>
               </tr>
             </thead>
             <tbody>

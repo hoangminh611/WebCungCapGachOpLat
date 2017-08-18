@@ -1,21 +1,20 @@
-<IfModule mod_php4.c>
-  php_flag engine Off
-</IfModule>
-<IfModule mod_php5.c>
-  php_flag engine Off
-</IfModule>
-<IfModule mod_php6.c>
-  php_flag engine Off
-</IfModule>
-<IfModule mod_cgi.c>
-  Options -ExecCGI
-</IfModule>
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
 
-RemoveHandler .cgi .pl .py .pyc .pyo .phtml .php .php3 .php4 .php5 .php6 .pcgi .pcgi3 .pcgi4 .pcgi5 .pchi6 .inc
-RemoveType .cgi .pl .py .pyc .pyo .phtml .php .php3 .php4 .php5 .php6 .pcgi .pcgi3 .pcgi4 .pcgi5 .pchi6 .inc
-SetHandler None
-SetHandler default-handler
+    RewriteEngine On
 
-# Remove both lines below if you want to render HTML files from the upload folder
-AddType text/plain .html
-AddType text/plain .htm
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+</IfModule>

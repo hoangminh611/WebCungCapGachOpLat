@@ -18,15 +18,15 @@
                             <form class="form-horizontal bucket-form" enctype="multipart/form-data"  id="add-form" method="post" action="{{route('InsertNews')}}">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">Title</label>
+                                    <label class="col-sm-3 control-label">Tiêu đề</label>
                                     <div class="col-sm-6">
-                                        <input type="text" value="" name="title" class="form-control" style="border-top: 1px solid black;" required="">
-                                        <span class="help-block">Nhập Title </span>
+                                        <input type="text" value="" name="title" id="title" class="form-control" style="border-top: 1px solid black;" required="">
+                                        <span class="help-block">Nhập tiêu đề</span>
                                     </div>
 
                                 </div>
                                  <div class="form-group">
-                                    <label class="col-sm-3 control-label">Image</label>
+                                    <label class="col-sm-3 control-label">Hình ảnh</label>
                                     <div class="col-sm-6">
                                            <input type="file" value="" name="image" id="f" accept="image/*" class="form-control" style="border-top: 1px solid black;" required="" onchange=" file_change(this) ">
                                           <img style="width: 100px;height: 100px" id="img"  style="display: none;">
@@ -35,21 +35,16 @@
 
                                 </div>
                                 <div class="form-group">
-                                    <label class=" col-sm-3 control-label ">Description</label>
+                                    <label class=" col-sm-3 control-label ">Mô tả</label>
                                     <div class="col-sm-6">
-                                         <textarea name="description" class="form-control" style="resize: none; height: 12.7em;outline: none;border-top: 1px solid black;" required="">
-                                         </textarea>
+                                         <textarea name="description" id="description" class="form-control" style="resize: none; height: 12.7em;outline: none;border-top: 1px solid black;" required="" title="Hãy nhập mô tả"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">Content:</label>
+                                    <label class="col-sm-3 control-label">Nội dung:</label>
                                     <div class="col-sm-6">
-                                         <textarea name="content"  id="ckeditor" class="form-control" style="resize: none; height: 12.7em;outline: none;border-top: 1px solid black;" required="" >
-                                         </textarea>
+                                         <textarea name="content"  id="ckeditor"  class="noidung" class="form-control" style="resize: none; height: 12.7em;outline: none;border-top: 1px solid black;" required="" ></textarea>
                                     </div>
-                                    <script>
-                                        CKEDITOR.replace( 'ckeditor');
-                                    </script>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Loại Tin</label>
@@ -74,15 +69,15 @@
                             <form class="form-horizontal bucket-form" enctype="multipart/form-data"  id="edit-form" method="post" action="{{route('UpdateNews',"id=$id")}}">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">Title</label>
+                                    <label class="col-sm-3 control-label">Tiêu đề</label>
                                     <div class="col-sm-6">
-                                        <input type="text" value="{{$news[0]->title}}" name="title" class="form-control" style="border-top: 1px solid black;" required="">
+                                        <input type="text" value="{{$news[0]->title}}" name="title"  id="title" class="form-control" style="border-top: 1px solid black;" required="">
                                         <span class="help-block">Nhập Title </span>
                                     </div>
 
                                 </div>
                                  <div class="form-group">
-                                    <label class="col-sm-3 control-label">Image</label>
+                                    <label class="col-sm-3 control-label">Hình ảnh</label>
                                     <div class="col-sm-6">
                                           <input type="file" value="" name="image" id="f" accept="image/*" class="form-control" style="border-top: 1px solid black;"  onchange=" file_change(this) ">
                                           <img style="width: 100px;height: 100px" id="img"   src="images/news/{{$news[0]->image}}">
@@ -91,23 +86,16 @@
 
                                 </div>
                                 <div class="form-group">
-                                    <label class=" col-sm-3 control-label ">Description</label>
+                                    <label class=" col-sm-3 control-label ">Mô tả</label>
                                     <div class="col-sm-6">
-                                         <textarea name="description" class="form-control" style="resize: none; height: 12.7em;outline: none;border-top: 1px solid black;" required="">
-                                            {{$news[0]->description}}
-                                         </textarea>
+                                         <textarea name="description" id="description" class="form-control" style="resize: none; height: 12.7em;outline: none;border-top: 1px solid black;" required="" title="Hãy nhập mô tả">{{$news[0]->description}}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">Content:</label>
+                                    <label class="col-sm-3 control-label">Nội dung:</label>
                                     <div class="col-sm-6">
-                                         <textarea name="content"  id="ckeditor" class="form-control" style="resize: none; height: 12.7em;outline: none;border-top: 1px solid black;" required="" >
-                                            {{$news[0]->content}}
-                                         </textarea>
+                                         <textarea name="content"  id="ckeditor"  class="form-control" style="resize: none; height: 12.7em;outline: none;border-top: 1px solid black;" required="true" >{{$news[0]->content}}</textarea>
                                     </div>
-                                    <script>
-                                        CKEDITOR.replace( 'ckeditor');
-                                    </script>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Loại Tin</label>
@@ -123,10 +111,20 @@
                                             $('#'+id).attr('selected','selected');
                                     </script>
                                 </div>
-                                <button type="button"  onclick="submit_form()" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">  Save</button>           
+                                <button type="button" onclick="submit_form()" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">  Save</button>           
                             </form>
                         </div>
                     @endif
+                <script>
+                     CKEDITOR.replace( 'ckeditor',{
+                        filebrowserBrowseUrl : '../public/ckeditor/ckfinder/ckfinder.html',
+                        filebrowserImageBrowseUrl : '../public/ckeditor/ckfinder/ckfinder.html',
+                        filebrowserFlashBrowseUrl : '../public/ckeditor/ckfinder/ckfinder.html?type=Flash',
+                        filebrowserUploadUrl : '../public/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+                        filebrowserImageUploadUrl : '../public/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+                        filebrowserFlashUploadUrl : '../public/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
+                    });
+                </script>
                 </section>
 
             </div>
@@ -173,8 +171,15 @@
                     {
                         if(result)
                         {
+                            var noidung=CKEDITOR.instances.ckeditor.getData();
+                          if($('#title').val()&&$('#f').val()&&noidung&&$.trim($('#description').val()))
+                          {
                             frm.submit();
-                         }
+                          }
+                          else 
+                            
+                        alert('Bạn chưa nhập đủ nội dung');
+                        } 
                         else
                             ssi_modal.notify('error', {content: 'Result: ' + result});
                     }
@@ -195,7 +200,13 @@
                     {
                         if(result)
                         {
+                              var noidung=CKEDITOR.instances.ckeditor.getData();
+                          if($('#title').val()&&noidung&&$.trim($('#description').val()))
+                          {
                             frm.submit();
+                          }
+                          else 
+                            alert('Bạn chưa nhập đủ nội dung');
                          }
                         else
                             ssi_modal.notify('error', {content: 'Result: ' + result});

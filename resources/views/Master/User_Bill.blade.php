@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Luxury Watches A Ecommerce Category Flat Bootstrap Resposive Website Template | Home :: w3layouts</title>
+<title>Gạch Ốp Lát Cao Cấp</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <base href="{{asset('')}}">
@@ -65,8 +65,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="breadcrumbs-main">
 
 				<ol class="breadcrumb">
-					<li><a href="{{route('index')}}">Home</a></li>
-					<li class="active"><a href="{{route('ViewPage_User_Bill')}}">Bill</a></li>
+					<li><a href="{{route('index')}}">Trang chủ</a></li>
+					<li class="active"><a href="{{route('ViewPage_User_Bill')}}">Hóa Đơn</a></li>
 				</ol>
 			</div>
 		</div>
@@ -99,9 +99,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="in-check" >
 				<ul class="unit" style="border:solid 1px black;">
 					<li><span>Xem chi tiết</span></li>
-					<li><span>ID</span></li>
-					<li><span>method</span></li>
-					<li><span>note</span></li>
+					<li><span>Số hóa đơn đã mua</span></li>
+					<li><span>Tình trạng</span></li>
+					<li><span>Ghi chú</span></li>
 					<div class="clearfix"> </div>
 				</ul>
 				@if($bills!=null)

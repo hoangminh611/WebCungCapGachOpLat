@@ -3,7 +3,7 @@
 			<div class="header">
 				<div class="col-md-9 header-left" style="font-family: Time New Roman; ">
 				<div class="top-nav">
-					<ul class="memenu skyblue"><li class="active"><a href="{{route('index')}}">Home</a></li>
+					<ul class="memenu skyblue"><li class="active"><a href="{{route('index')}}">Trang chủ</a></li>
 						<li class="grid"><a href="javascript:void(0)">Sản Phẩm</a>
 							<div class="mepanel" >
 								<div class="row">
@@ -21,9 +21,9 @@
 								</div>
 							</div>
 						</li>
-						<li class="grid"><a href="{{route('News')}}">News</a>
+						<li class="grid"><a href="{{route('News')}}">Tin tức</a>
 						</li>
-						<li class="grid"><a href="{{route('Contact')}}">Contact</a>
+						<li class="grid"><a href="{{route('Contact')}}">Liên Hệ</a>
 						</li>
 					</ul>
 				</div>

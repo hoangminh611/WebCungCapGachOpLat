@@ -24,7 +24,7 @@ class Export_product extends Model
         $pro=DB::table('export_product')
         		->where([
                     ['id_product','=',$id],
-                    ['size','LIKE','%'.$size.'%'],])->delete();
+                    ['size',$size],])->delete();
         $pro=DB::table('export_product')
         		->where('id_product','=',$id)->select()->first();
         return $pro;
@@ -35,7 +35,7 @@ class Export_product extends Model
         $pro=DB::table('export_product')
                 ->where([
                     ['id_product','=',$id],
-                    ['size','LIKE','%'.$size.'%'],])->update(['status'=>1]);
+                    ['size',$size],])->update(['status'=>1]);
     }
     //tìm sản phẩm 
     public static function FindOneExportProduct($id,$size)
@@ -43,7 +43,7 @@ class Export_product extends Model
         $pro=DB::table('export_product')
                 ->where([
                     ['id_product','=',$id],
-                    ['size','LIKE','%'.$size.'%'],])->select();
+                    ['size',$size],])->select()->get();
         return $pro;
     }
     //xòa sản phẩm khi loại sản phẩm bị xóa
@@ -60,14 +60,14 @@ class Export_product extends Model
         $pro=DB::table('export_product')
                ->where([
                     ['id_product','=',$id],
-                    ['size','LIKE','%'.$size.'%'],])->first();
+                    ['size',$size],])->first();
         if(!isset($pro))
             $pro=DB::table('export_product')->insert(['id_product'=>$id,'size'=>$size,'export_price'=>$export_price]);
         else
             $pro=DB::table('export_product')
                 ->where([
                     ['id_product','=',$id],
-                    ['size','LIKE','%'.$size.'%'],])->update(['export_price'=>$export_price]);
+                    ['size',$size],])->update(['export_price'=>$export_price]);
 
     }
     //lúc sửa lại mọi thứ trong sản phẩm
@@ -80,7 +80,8 @@ class Export_product extends Model
              $pro=DB::table('export_product')
                     ->where([
                         ['id_product','=',$id],
-                        ['size','LIKE','%'.$size.'%'],])->select()->first();
+                        ['size',$size],
+                        ['status',0]])->select()->first();
                 if(!isset($pro))
                 {
                 //kiểm tra xem trong bảng import product có hơn 2 lần nhập hàng hay không nếu hơn 2 lần thì thêm kích thước vô bảng export do nếu thay đổi size sẽ gây ra mất hàng bán ra
@@ -88,7 +89,7 @@ class Export_product extends Model
                     $import=DB::table('import_product')
                                     ->where([
                                     ['id_product','=',$id],
-                                    ['size','LIKE','%'.$first_size.'%'],])->select()->get();
+                                    ['size',$first_size],])->select()->get();
                     if(isset($import[1]))
                     {
 
@@ -99,7 +100,7 @@ class Export_product extends Model
                                 $pro=DB::table('export_product')
                                 ->where([
                                     ['id_product','=',$id],
-                                    ['size','LIKE','%'.$first_size.'%'],])->update(['size'=>$size,'export_price'=>$export_price]);
+                                    ['size',$first_size],])->update(['size'=>$size,'export_price'=>$export_price]);
                             }
                 }
                 else
@@ -108,10 +109,30 @@ class Export_product extends Model
                     $pro=DB::table('export_product')
                             ->where([
                                 ['id_product','=',$id],
-                                ['size','LIKE','%'.$size.'%'],])->update(['export_price'=>$export_price]);
-
-
+                                ['size',$size],])->update(['export_price'=>$export_price]);
+                    $import=DB::table('import_product')
+                                    ->where([
+                                    ['id_product','=',$id],
+                                    ['size',$first_size],])->select()->get();
+                     if(isset($import[1]))
+                    {
+                    }
+                    //nếu như trong bảng import chỉ có 1 lần nhập hàng thì sau khi sửa giá cho price mới thì sau đó sẽ xóa product cũ đi
+                    elseif(isset($import[0]))
+                    {
+                                $pro=DB::table('export_product')
+                                ->where([
+                                    ['id_product','=',$id],
+                                    ['size',$first_size],])->update(['status'=>1]);
+                    }
                    }
+            }
+            else
+            {
+                                $pro=DB::table('export_product')
+                                ->where([
+                                    ['id_product','=',$id],
+                                    ['size',$first_size],])->update(['size'=>$size,'export_price'=>$export_price]);
             }
         
     }
@@ -121,12 +142,12 @@ class Export_product extends Model
         $pro=DB::table('export_product')
                 ->where([
                     ['id_product','=',$id],
-                    ['size','LIKE','%'.$size.'%'],])->select('export_quantity')->get();
+                    ['size',$size],])->select('export_quantity')->get();
         $export_quantity=$pro[0]->export_quantity + $quantity;
          $pro=DB::table('export_product')
                 ->where([
                     ['id_product','=',$id],
-                    ['size','LIKE','%'.$size.'%'],])->update(['export_quantity'=>$export_quantity]);
+                    ['size',$size],])->update(['export_quantity'=>$export_quantity]);
         return $pro;
     }
     //tìm tổng lượng đã bán
@@ -138,9 +159,9 @@ class Export_product extends Model
     //update lai quantity khi xoa 1 bill detail
     public static function Update_quantity_By_Idproduct($id,$size,$quantity)
     {
-        $quantity_pro=DB::table('export_product')->where([['id_product',$id],['size','LIKE','%'.$size.'%']])->select('export_quantity')->get();
+        $quantity_pro=DB::table('export_product')->where([['id_product',$id],['size',$size]])->select('export_quantity')->get();
         $quantity=$quantity_pro[0]->export_quantity-$quantity;
-        $quantity_pro=DB::table('export_product')->where([['id_product',$id],['size','LIKE','%'.$size.'%']])->update(['export_quantity'=>$quantity]);
+        $quantity_pro=DB::table('export_product')->where([['id_product',$id],['size',$size]])->update(['export_quantity'=>$quantity]);
     }
 
 

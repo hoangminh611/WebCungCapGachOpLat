@@ -108,6 +108,7 @@ class Bill_Detail extends Model
     public static function Select_Bill_Detail()
     {
         $a=array();
+        $a['tongtienxuat']=0;
         $bill=DB::table('bill_detail')->join('bills','bill_detail.id_bill','=','bills.id')
         ->where('bills.method','LIKE','%Đã Thanh Toán%')->select()->get();
         foreach ($bill as $bill_detail) {
@@ -115,12 +116,14 @@ class Bill_Detail extends Model
             {
              $a[$bill_detail->id_product][$bill_detail->size]['price']+=$bill_detail->sales_price*$bill_detail->quantity;
              $a[$bill_detail->id_product][$bill_detail->size]['quantity']+=$bill_detail->quantity;
+             $a['tongtienxuat']+=$bill_detail->sales_price*$bill_detail->quantity;
             }
             else
             {
             $a[$bill_detail->id_product][$bill_detail->size]['price']=$bill_detail->sales_price*$bill_detail->quantity;
              $a[$bill_detail->id_product][$bill_detail->id_product]=$bill_detail->id_product;
              $a[$bill_detail->id_product][$bill_detail->size]['quantity']=$bill_detail->quantity;
+            $a['tongtienxuat']+=$bill_detail->sales_price*$bill_detail->quantity;
             }
 
         }

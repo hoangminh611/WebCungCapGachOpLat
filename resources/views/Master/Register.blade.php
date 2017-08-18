@@ -7,7 +7,7 @@
 			<div class="breadcrumbs-main">
 				<ol class="breadcrumb">
 					<li><a href="index.html">Home</a></li>
-					<li class="active">Register</li>
+					<li class="active">Đăng Ký	</li>
 				</ol>
 			</div>
 		</div>
@@ -18,7 +18,7 @@
 	<div class="register" style="max-height: 550px;">
 		<div class="container">
 			<div class="register-top heading"  >
-				<h2>REGISTER</h2>
+				<h2>TÀI KHOẢN</h2>
 			</div>
 			@if(count($errors)>0)
 				<div class="alert alert-danger">
@@ -40,20 +40,34 @@
 				<div class="register-main">
 					<div class="col-md-6 account-left">
 						<input type="hidden" name="_token" value="{{csrf_token()}}">
+						HỌ TÊN:
 						<input placeholder="Full name" type="text" name="full_name" id="full_name" tabindex="1" required>
-						<input placeholder="Email address" type="text"  name="email" id="email" tabindex="3" required  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$" data-validation="email">
+						<BR>
+						EMAIL:
+						<BR>
+						<input placeholder="Email" type="text"  name="email" id="email" tabindex="3" required  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$" data-validation="email">
 						<div  class=" thongbao" style="display: none;"></div>
-						<input placeholder="Mobile" type="text"  name="phone" id="phone" pattern="[0-9]*" minlength="10" maxlength="11" tabindex="3" required required title=" nhâp số điện thoại 10 hoặc 11 chữ số">
-						<input placeholder="Address" type="text" name="address" id="address" tabindex="2" required>
+						<BR>
+						SỐ ĐIỆN THOẠI
+						<BR>
+						<input placeholder="số điện thoại" type="text"  name="phone" id="phone" pattern="[0-9]*" minlength="10" maxlength="11" tabindex="3" required required title=" nhâp số điện thoại 10 hoặc 11 chữ số">
+						<br>
+						ĐỊA CHỈ
+						<br>
+						<input placeholder="Địa chỉ" type="text" name="address" id="address" tabindex="2" required>
 					</div>
 					<div class="col-md-6 account-right account-left">
-						<input placeholder="Password" type="password" minlength="6" maxlength="10" name="password" id="password" tabindex="4" required>
-						<input placeholder="Retype password " type="password" name="re_password" id="re_password" tabindex="4" required>
+						MẬT KHẨU:
+						<input placeholder="mât khẩu" type="password" minlength="6" maxlength="10" name="password" id="password" tabindex="4" required>
+						<br>
+						NHẬP LẠI MẬT KHẨU:
+						<br>
+						<input placeholder="Nhập lại mật khẩu " type="password" name="re_password" id="re_password" tabindex="4" minlength="6" maxlength="10" required>
 					</div>
 					<div class="clearfix"></div>
 				</div>
 				<div class="address submit">
-					<input type="submit" value="Submit">
+					<input type="submit" value="Đăng Ký">
 				</div>
 			</form>
 			@else
@@ -61,11 +75,12 @@
 					<div class="register-main">
 						<div class="col-md-12 account-left">
 							<input type="hidden" name="_token" value="{{csrf_token()}}">
-							<input placeholder="Email address" type="text"  name="get_mail" id="email" tabindex="3" required  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$" data-validation="email">
+							EMAIL:	
+							<input placeholder="Email" type="text"  name="get_mail" id="email" tabindex="3" required  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$" data-validation="email">
 						<div class="clearfix"></div>
 					</div>
 					<div class="address submit" >
-						<input type="submit" value="Submit">
+						<input type="submit" value="Lấy lại mật khẩu">
 					</div>
 				</form>
 			@endif

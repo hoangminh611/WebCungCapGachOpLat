@@ -28,13 +28,13 @@
             <thead>
               <tr>
                 <th data-breakpoints="xs">ID</th>
-                <th>USER</th>
-                <th data-breakpoints="xs">IMAGE</th>
-                <th>TITLE</th>
-                <th>DESCRIPTION</th>
-                <th>CONTENT</th>
-                <th>CATEGORY ID NEWS</th>
-                <th data-breakpoints="xs sm md" data-title="DOB">Edit/Delete</th>
+                <th>Người đăng tin</th>
+                <th data-breakpoints="xs">Hình ãnh</th>
+                <th>Tiêu đề</th>
+                <th>Mô tả</th>
+                <th>Nội dung</th>
+                <th>Loại tin tức</th>
+                <th data-breakpoints="xs sm md" data-title="Sửa/Xóa">Sửa/Xóa</th>
               </tr>
             </thead>
            <tbody>
@@ -94,7 +94,7 @@
             function delete_row(id)
             {
                 ssi_modal.confirm({
-                content: 'Are you sure you want to exit?',
+                content: 'Bạn có chắc chắn xóa tin.Hãy kiểm tra kỹ để tránh sai sót?',
                 okBtn: {
                 className:'btn btn-primary'
                 },

@@ -32,7 +32,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Size:</label>
+                                        <label class="col-sm-3 control-label">Kích thước:</label>
                                         <div class="col-sm-6">
 													<input type="text" name="size" value="{{$size}}"  maxlength="7" class="form-control" style="border-top: 1px solid black;"  pattern="[0-9x]*" title="Nhập dung quy cách ví dụ 60x30" >
                                                       <span class="help-block">Nhập kích thước ví dụ 60x30,30x30... </span>
@@ -57,7 +57,7 @@
                                         </div>
                                     </div>
                                   
-                                    <button type="button" onclick="submit_form()" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">Save</button>           
+                                    <button type="submit"  class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">Save</button>           
                                 </form>
                             </div>
                 </section>
@@ -69,28 +69,28 @@
         <!-- page end-->
         </div>
 <script type="text/javascript">
-      function submit_form()
-            {
-                var frm=$('#edit-form')[0];//cái này tương đương với document.getelementbyid
-                ssi_modal.confirm({
-                content: 'Xin Hãy Kiểm tra kỹ càng trước khi save nếu bi sai sót có thể sẽ gây ra lỗi đáng tiếc',
-                okBtn: {
-                className:'btn btn-primary'
-                },
-                cancelBtn:{
-                className:'btn btn-danger'
-                }
-                },function (result) 
-                    {
-                        if(result)
-                        {
-                            frm.submit();
-                         }
-                        else
-                            ssi_modal.notify('error', {content: 'Result: ' + result});
-                    }
-                );
-            }   
+      // function submit_form()
+      //       {
+      //           var frm=$('#edit-form')[0];//cái này tương đương với document.getelementbyid
+      //           ssi_modal.confirm({
+      //           content: 'Xin Hãy Kiểm tra kỹ càng trước khi save nếu bi sai sót có thể sẽ gây ra lỗi đáng tiếc',
+      //           okBtn: {
+      //           className:'btn btn-primary'
+      //           },
+      //           cancelBtn:{
+      //           className:'btn btn-danger'
+      //           }
+      //           },function (result) 
+      //               {
+      //                   if(result)
+      //                   {
+      //                       frm.submit();
+      //                    }
+      //                   else
+      //                       ssi_modal.notify('error', {content: 'Result: ' + result});
+      //               }
+      //           );
+      //       }   
 </script>
 </section>
 @endsection             

@@ -6,7 +6,7 @@
 			<div class="breadcrumbs-main">
 				<ol class="breadcrumb">
 					<li><a href="index.html">Home</a></li>
-					<li class="active">New Products</li>
+					<li class="active">Sản Phẩm</li>
 				</ol>
 			</div>
 		</div>
@@ -45,7 +45,7 @@
 							<div class="w_sidebar">
 								<section  class="sky-form">
 								
-									<h4>Catogories</h4>
+									<h4>Loại Sản Phẩm</h4>
 									<div class="row1 scroll-pane">
 										<div class="col col-4">
 											<label><input type="radio" name="type" checked="" value="khong"><i></i>Tất Cả Sản Phẩm</a></label>
@@ -61,7 +61,7 @@
 									</div>
 								</section>
 								<section class="sky-form">
-									<h4>Size</h4>
+									<h4>Kích Thước</h4>
 										<div class="col col-4">
 											<label><input type="radio" name="size" checked="" class="size" value="khong"><i></i>Tất Cả Kích Thước</label>
 										</div>

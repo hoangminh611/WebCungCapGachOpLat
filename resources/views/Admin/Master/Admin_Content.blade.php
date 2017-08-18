@@ -10,7 +10,7 @@
 						<i class="fa fa-eye"> </i>
 					</div>
 					 <div class="col-md-8 market-update-left">
-					 <h4>View</h4>
+					 <h4>Lượt Xem</h4>
 					<h3>{{number_format($All_View)}}</h3>
 					<p>Other hand, we denounce</p>
 				  </div>
@@ -23,7 +23,7 @@
 						<i class="fa fa-users" ></i>
 					</div>
 					<div class="col-md-8 market-update-left">
-					<h4>Users</h4>
+					<h4>Người dùng</h4>
 						<h3>{{number_format($Count_User)}}</h3>
 						<p>Other hand, we denounce</p>
 					</div>
@@ -36,7 +36,7 @@
 						<i class="fa fa-usd"></i>
 					</div>
 					<div class="col-md-8 market-update-left">
-						<h4>Sales</h4>
+						<h4>Tổng lượng bán</h4>
 						<h3>{{number_format($All_Export_Quantity)}}</h3>
 						<p>Other hand, we denounce</p>
 					</div>
@@ -51,7 +51,7 @@
 					<a href="{{route('ViewPageBill_Admin')}}">
 						<div class="col-md-8 market-update-left">
 							
-							<h4>Orders</h4>
+							<h4>Tổng số đơn hàng</h4>
 							<h3>{{number_format($Count_Bill)}}</h3>
 							<p>Other hand, we denounce</p>
 							
@@ -91,10 +91,12 @@
 						            }}'>
 						            <thead>
 						              <tr>
-						                <th>id_product</th>
-						                <th data-breakpoints="xs">size</th>
+						                <th>Tên sản phẩm</th>
+						                <th data-breakpoints="xs">Kích thước</th>
 						                <th>Tổng lượng nhập</th>
+						                <th>Tổng tiền nhập</th>
 						                <th>Tổng lượng xuất</th>
+						                <th>Tổng tiền xuất</th>
 						                <th>Tiền Lãi/Lỗ</th>
 						              </tr>
 						            </thead>
@@ -105,18 +107,28 @@
 						                <tr data-expanded="true">
 						                  <td>{{$value['name']}}</td>
 						                  <td>{{$value['size']}}</td>
-						                  <td>{{$value['import_quantity']}}</td>
+						                  <td>{{number_format($value['import_quantity'])}}</td>
+
+						                    <td>{{number_format($value['import_price'])}}</td>
 						                  @if(isset($value['export_quantity']))
-						                  	<td>{{$value['export_quantity']}}</td>
+						                  	<td>{{number_format($value['export_quantity'])}}</td>
+						                  	<td>{{number_format($value['export_price'])}}</td>
+
 						                  @else
+						                  	<td>0</td>
 						                  	<td>0</td>
 						                  @endif
 						                  <td>{{number_format($value['price'])}}</td>
 						                </tr> 
 						                @endforeach
 						              @endforeach
+						               
 						            </tbody>
 						        </table>
+						         <div style="float: left">TỔNG TIỀN NHẬP: {{number_format($tongtiennhap)}} VNĐ</div>
+						         <div style="float: right;">TỔNG TIỀN BÁN RA(đơn đã thanh toán): {{number_format($tongtienxuat)}}VNĐ</div>
+						{{--         <div>Tông Tiền Nhập:{{number_format($tongtiennhap)}}</div>
+						         <div>Tông Tiền Xuất:{{number_format($tongtienxuat)}}</div> --}}
 						          <script type="text/javascript">
 						          	 $(document).ready(function(){
 						              $('#bill_table').DataTable();

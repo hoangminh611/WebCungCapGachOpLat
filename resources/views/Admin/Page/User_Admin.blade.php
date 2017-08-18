@@ -27,12 +27,12 @@
                   <th data-breakpoints="xs">ID</th>
                   <th>Provider_id</th>
                   <th>Provider</th>
-                  <th data-breakpoints="xs">FullName</th>
+                  <th data-breakpoints="xs">Họ Tên</th>
                   <th>Email</th>
-                  <th>Phone</th>
-                  <th>Address</th>
-                  <th>Active</th>
-                  <th>Group</th>
+                  <th>Số điện thoại</th>
+                  <th>Địa chỉ</th>
+                  <th>Kích họat</th>
+                  <th>Phân quyền</th>
                   <th data-breakpoints="xs sm md" data-title="DOB">Edit</th>
                 </tr>
               </thead>

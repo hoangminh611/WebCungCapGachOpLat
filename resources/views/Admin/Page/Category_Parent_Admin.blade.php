@@ -34,7 +34,7 @@
                 <th>Image</th>
                 <th>Ngày tạo</th>
                 <th>Ngày update</th>
-                <th data-breakpoints="xs sm md" data-title="DOB">Edit/Delete</th>
+                <th data-breakpoints="xs sm md" data-title="Sửa/Xóa">Sửa/Xóa</th>
               </tr>
             </thead>
             <tbody>

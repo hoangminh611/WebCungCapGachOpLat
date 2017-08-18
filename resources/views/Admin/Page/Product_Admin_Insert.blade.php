@@ -20,7 +20,7 @@
                                 <form class="form-horizontal bucket-form" enctype="multipart/form-data"  id="add-form" method="post" action="{{route('Insert_Product')}}">
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Tên sản phẩm</label>
+                                        <label class="col-sm-3 control-label">Tên sản phẩm*</label>
                                         <div class="col-sm-6">
                                             <input type="text" value="" name="name" class="form-control" style="border-top: 1px solid black;" required="">
                                             <span class="help-block">Nhập tên sản phẩm </span>
@@ -28,7 +28,7 @@
 
                                     </div>
                                       <div class="form-group">
-                                        <label class="col-sm-3 control-label">Loại Sản phẩm</label>
+                                        <label class="col-sm-3 control-label">Loại Sản phẩm*</label>
                                         <div class="col-sm-6">
                                                 <select class="form-control m-bot15" id="category_id" name ="category_id">
                                                     @foreach($type as $type_parent)
@@ -44,7 +44,7 @@
                                         </div>
                                     </div>
                                      <div class="form-group">
-                                        <label class="col-sm-3 control-label">Image</label>
+                                        <label class="col-sm-3 control-label">Hình ảnh*</label>
                                         <div class="col-sm-6">
                                              <input type="file" value="" name="image" id="f" accept="image/*" class="form-control" style="border-top: 1px solid black;" required="" onchange=" file_change(this) ">
                                           <img style="width: 100px;height: 100px" id="img"  style="display: none;">
@@ -53,45 +53,42 @@
 
                                     </div>
                                     <div class="form-group">
-                                        <label class=" col-sm-3 control-label ">Description</label>
+                                        <label class=" col-sm-3 control-label ">Mô tả</label>
                                         <div class="col-sm-6">
-                                             <textarea name="description"  id="ckeditor" class="form-control" style="resize: none; height: 12.7em;outline: none;border-top: 1px solid black;" required="">
-                                             </textarea>
+                                    <textarea name="description"  class="form-control" id="ckeditor" style="resize: none; height: 12.7em;outline: none;border-top: 1px solid black;" required="true"></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Size:</label>
+                                        <label class="col-sm-3 control-label">Kích thước*:</label>
                                         <div class="col-sm-6">
                                              <input type="text" value="" name="size" pattern="[0-9x]*" placeholder="Ví dụ 60x30..." maxlength="7" class="form-control" style="border-top: 1px solid black;" required="" title="Nhập dung quy cách ví dụ 60x30">
                                               <span class="help-block">Nhập kích thước ví dụ 60x30,30x30... </span>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Giá Bán(VNĐ):</label>
+                                        <label class="col-sm-3 control-label">Giá Bán(VNĐ)*:</label>
                                         <div class="col-sm-6">
                                              <input type="text" value="" name="export_price" pattern="[0-9]*" maxlength='10' class="form-control" style="border-top: 1px solid black;" required="" title=" nhập từ 0 tới 10 chữ số">
                                              <span class="help-block">Nhập Giá Bán </span>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Giá Nhập Hàng(VNĐ):</label>
+                                        <label class="col-sm-3 control-label">Giá Nhập Hàng(VNĐ)*:</label>
                                         <div class="col-sm-6">
-                                             <input type="text" value="" name="import_price" class="form-control" style="border-top: 1px solid black;"  pattern="[0-9]*" maxlength='10'   required title=" nhập từ 0 tới 10 chữ số" >
+                                             <input type="text" value="" name="import_price" class="form-control" style="border-top: 1px solid black;"  pattern="[0-9]*" maxlength='10' required title=" nhập từ 0 tới 10 chữ số" >
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Số lượng Nhập:</label>
+                                        <label class="col-sm-3 control-label">Số lượng Nhập*:</label>
                                         <div class="col-sm-6">
                                              <input type="text" value="" name="import_quantity" class="form-control" style="border-top: 1px solid black;" pattern="[0-9]*" maxlength='10'  required title=" nhập từ 0 tới 10 chữ số" >
                                         </div>
                                     </div>
                                   
-                                    <button type="button" onclick="submit_insert_form()" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">Save</button>           
+                                    <button type="submit"  class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">Save</button>           
                                 </form>
                             </div>
-                            <script>
-                                        CKEDITOR.replace( 'ckeditor');
-                            </script>
+                           
                     @else
                          <div class="panel-body">
                                 <form class="form-horizontal bucket-form" enctype="multipart/form-data"  id="edit-form" method="post" action="{{route('Update_Product')}}">
@@ -99,7 +96,7 @@
                                     <input type="hidden" name="first_size" value="{{ $size}}">
                                     <input type="hidden" name="id" value="{{ $product[0]->id}}">
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Tên sản phẩm</label>
+                                        <label class="col-sm-3 control-label">Tên sản phẩm*</label>
                                         <div class="col-sm-6">
                                             <input type="text" value="{{$product[0]->name}}" name="name" class="form-control" style="border-top: 1px solid black;" required="">
                                             <span class="help-block">Nhập tên sản phẩm </span>
@@ -107,7 +104,7 @@
 
                                     </div>
                                       <div class="form-group">
-                                        <label class="col-sm-3 control-label">Loại Sản phẩm</label>
+                                        <label class="col-sm-3 control-label">Loại Sản phẩm*</label>
                                         <div class="col-sm-6">
                                                 <select class="form-control m-bot15" id="category_id" name ="category_id">
                                                     @foreach($type as $type_parent)
@@ -123,7 +120,7 @@
                                         </div>
                                     </div>
                                      <div class="form-group">
-                                        <label class="col-sm-3 control-label">Image</label>
+                                        <label class="col-sm-3 control-label">Hình ảnh*</label>
                                         <div class="col-sm-6">
                                              <input type="file" value="" name="image" id="f" accept="image/*" class="form-control" style="border-top: 1px solid black;"  onchange=" file_change(this) ">
                                           <img style="width: 100px;height: 100px" id="img" src="images/{{$product[0]->image}}">
@@ -133,49 +130,53 @@
 
                                     </div>
                                     <div class="form-group">
-                                        <label class=" col-sm-3 control-label ">Description</label>
+                                        <label class=" col-sm-3 control-label ">Mô tả</label>
                                         <div class="col-sm-6">
-                                             <textarea name="description" id="ckeditor" class="form-control" style="resize: none; height: 12.7em;outline: none;border-top: 1px solid black;" required="">
-                                             {{$product[0]->description}}
-                                             </textarea>
+                                             <textarea name="description" id="ckeditor" class="form-control" style="resize: none; height: 12.7em;outline: none;border-top: 1px solid black;" required="">{{$product[0]->description}}</textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Size:</label>
+                                        <label class="col-sm-3 control-label">Kích thước*:</label>
                                         <div class="col-sm-6">
                                              <input type="text" value="{{$size}}" name="size" pattern="[0-9x]*" title="Nhập dung quy cách ví dụ 60x30" class="form-control"  maxlength="7" style="border-top: 1px solid black;" required=""   >
                                               <span class="help-block">Nhập kích thước ví dụ 60x30,30x30... </span>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Giá Bán(VNĐ):</label>
+                                        <label class="col-sm-3 control-label">Giá Bán(VNĐ)*:</label>
                                         <div class="col-sm-6">
-                                             <input type="text" value="{{$export_product->export_price}}" name="export_price" pattern="[0-9]*" maxlength='10' class="form-control" style="border-top: 1px solid black;" required="">
+                                             <input type="text" value="{{$export_product->export_price}}" name="export_price" pattern="[0-9]*" maxlength='10' class="form-control" style="border-top: 1px solid black;" required="" title=" nhập từ 0 tới 10 chữ số">
                                              <span class="help-block">Nhập giá bán </span>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Giá Nhập Hàng(VNĐ):</label>
+                                        <label class="col-sm-3 control-label">Giá Nhập Hàng(VNĐ)*:</label>
                                         <div class="col-sm-6">
                                              <input type="text" value="{{$import_product->import_price}}" pattern="[0-9]*" maxlength='10' name="import_price" class="form-control" style="border-top: 1px solid black;" required="" title=" nhập từ 0 tới 10 chữ số" >
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Số lượng Nhập:</label>
+                                        <label class="col-sm-3 control-label">Số lượng Nhập*:</label>
                                         <div class="col-sm-6">
                                              <input type="text" value="{{$import_product->import_quantity}}" pattern="[0-9]*" maxlength='10' required="" title=" nhập từ 0 tới 10 chữ số" name="import_quantity" class="form-control" style="border-top: 1px solid black;" >
                                         </div>
                                     </div>
                                   
-                                    <button type="button" onclick="submit_form()" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">Save</button>           
+                                    <button type="submit" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">Save</button>           
                                 </form>
                             </div>
-                            <script>
-                                        CKEDITOR.replace( 'ckeditor');
-                            </script>
                         @endif
                 </section>
-
+                 <script>
+                     CKEDITOR.replace( 'ckeditor',{
+                        filebrowserBrowseUrl : '../public/ckeditor/ckfinder/ckfinder.html',
+                        filebrowserImageBrowseUrl : '../public/ckeditor/ckfinder/ckfinder.html',
+                        filebrowserFlashBrowseUrl : '../public/ckeditor/ckfinder/ckfinder.html?type=Flash',
+                        filebrowserUploadUrl : '../public/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+                        filebrowserImageUploadUrl : '../public/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+                        filebrowserFlashUploadUrl : '../public/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
+                    });
+                </script>
             </div>
         </div>
 
@@ -204,7 +205,54 @@
                 alert(' Bạn chỉ được chọn file ảnh.');
                 $('#f').val(null);
         }
-    } 
+    }
+
+     // $(document).ready(function(){
+
+     //    $("#edit-form").validate(
+     //        {
+     //            ignore: [],
+     //            debug: false,
+     //            rules: { 
+
+     //                description:{
+     //                    required: function() 
+     //                        {
+     //                            CKEDITOR.instances.ckeditor.updateElement();
+     //                        },
+     //                    }
+     //                },
+     //            messages:
+     //                {
+     //                    description:{
+     //                            required:"Hãy Nhập vào mô tả",
+                                                         
+     //                        }
+     //                    }
+     //                });
+       //  $("#add-form").validate(
+       //      {
+       //          ignore: [],
+       //          debug: false,
+       //          rules: { 
+
+       //              description:{
+       //                  required: function() 
+       //                      {
+       //                          CKEDITOR.instances.ckeditor.updateElement();
+       //                      },
+       //                  }
+       //              },
+       //          messages:
+       //              {
+       //                  description:{
+       //                          required:"Hãy Nhập vào mô tả",
+                                
+                                                           
+       //                      }
+       //                  }
+       //              });
+       // });
         function submit_insert_form()
         {
              var frm=$('#add-form')[0];//cái này tương đương với document.getelementbyid

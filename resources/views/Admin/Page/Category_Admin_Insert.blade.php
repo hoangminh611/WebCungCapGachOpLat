@@ -21,15 +21,15 @@
                                 <input type="hidden" name="khongcocha" value="{{$khongcocha}}">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">name</label>
+                                    <label class="col-sm-3 control-label">Tên Loại*</label>
                                     <div class="col-sm-6">
                                         <input type="text" value="" name="name" class="form-control" style="border-top: 1px solid black;" required="">
-                                        <span class="help-block">Nhập name </span>
+                                        <span class="help-block">Nhập tên </span>
                                     </div>
 
                                 </div>
                                  <div class="form-group">
-                                    <label class="col-sm-3 control-label">Image</label>
+                                    <label class="col-sm-3 control-label">Hình ảnh*</label>
                                     <div class="col-sm-6">
                                          <input type="file" value="" name="image" id="f" accept="image/*" class="form-control" style="border-top: 1px solid black;" required="" onchange=" file_change(this) ">
                                           <img style="width: 100px;height: 100px" id="img"  style="display: none;">
@@ -37,14 +37,14 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class=" col-sm-3 control-label ">Description</label>
+                                    <label class=" col-sm-3 control-label ">Mô tả</label>
                                     <div class="col-sm-6">
                                          <textarea name="description" id="ckeditor" class="form-control" style="resize: none; height: 12.7em;outline: none;border-top: 1px solid black;" required="">
                                          </textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">Loại cha</label>
+                                    <label class="col-sm-3 control-label">Loại cha*</label>
                                     <div class="col-sm-6">
                                             <select class="form-control m-bot15" id="type_cha" name ="type_cha">
                                             @if($khongcocha==0)
@@ -62,12 +62,9 @@
                                             </select>
                                     </div>
                                 </div>
-                                <button type="button" onclick="submit_insert_form()" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">  Save</button>           
+                                <button type="submit" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">Lưu</button>           
                             </form>
                         </div>
-                        <script>
-                                        CKEDITOR.replace( 'ckeditor');
-                        </script>
                     @else
                          <div class="panel-body">
                             <form class="form-horizontal bucket-form" enctype="multipart/form-data"  id="edit-form" method="post" action="{{route('Update_Category',"id=$id")}}">
@@ -75,24 +72,24 @@
                                 <input type="hidden" name="khongcocha" value="{{$khongcocha}}">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">name</label>
+                                    <label class="col-sm-3 control-label">Tên Loại*</label>
                                     <div class="col-sm-6">
                                         <input type="text" value="{{$type_detail[0]->name}}" name= "name" class="form-control" style="border-top: 1px solid black;" required="">
-                                        <span class="help-block">Nhập name </span>
+                                        <span class="help-block">Nhập tên </span>
                                     </div>
 
                                 </div>
                                  <div class="form-group">
-                                    <label class="col-sm-3 control-label">Image</label>
+                                    <label class="col-sm-3 control-label">Hình ảnh*</label>
                                     <div class="col-sm-6">
                                             <input type="file" value="" name="image" id="f" accept="image/*" class="form-control" style="border-top: 1px solid black;"  onchange=" file_change(this) ">
-                                          <img style="width: 100px;height: 100px" id="img"  src="images/news/{{$type_detail[0]->image}}">
+                                          <img style="width: 100px;height: 100px" id="img"  src="images/category/{{$type_detail[0]->image}}">
                                         <span class="help-block">Chọn Ảnh </span>
                                     </div>
 
                                 </div>
                                 <div class="form-group">
-                                    <label class=" col-sm-3 control-label ">Description</label>
+                                    <label class=" col-sm-3 control-label ">Mô tả</label>
                                     <div class="col-sm-6">
                                          <textarea name="description"  id="ckeditor" class="form-control" style="resize: none; height: 12.7em;outline: none;border-top: 1px solid black;" required="">
                                           {{$type_detail[0]->description}}
@@ -100,7 +97,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">Loại cha</label>
+                                    <label class="col-sm-3 control-label">Loại cha*</label>
                                     <div class="col-sm-6">
                                             <select class="form-control m-bot15" id="type_cha" name ="type_cha">
                                              @if($khongcocha==0)
@@ -118,15 +115,21 @@
                                             </select>
                                     </div>
                                 </div>
-                                <button type="button" onclick="submit_form()" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">  Save</button>           
+                                <button type="submit"  class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">Lưu</button>           
                             </form>
                         </div>
-                        <script>
-                                        CKEDITOR.replace( 'ckeditor');
-                        </script>
                     @endif
                 </section>
-
+                <script>
+                     CKEDITOR.replace( 'ckeditor',{
+                        filebrowserBrowseUrl : '../public/ckeditor/ckfinder/ckfinder.html',
+                        filebrowserImageBrowseUrl : '../public/ckeditor/ckfinder/ckfinder.html',
+                        filebrowserFlashBrowseUrl : '../public/ckeditor/ckfinder/ckfinder.html?type=Flash',
+                        filebrowserUploadUrl : '../public/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+                        filebrowserImageUploadUrl : '../public/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+                        filebrowserFlashUploadUrl : '../public/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
+                    });
+                </script>
             </div>
         </div>
         <!-- page end-->
@@ -154,50 +157,95 @@
                 $('#f').val(null);
         }
     }
-           function submit_insert_form()
-        {
-             var frm=$('#add-form')[0];//cái này tương đương với document.getelementbyid
-                ssi_modal.confirm({
-                content: 'Xin Hãy Kiểm tra kỹ càng trước khi save nếu bi sai sót có thể sẽ gây ra lỗi đáng tiếc',
-                okBtn: {
-                className:'btn btn-primary'
-                },
-                cancelBtn:{
-                className:'btn btn-danger'
-                }
-                },function (result) 
-                    {
-                        if(result)
-                        {
-                            frm.submit();
-                         }
-                        else
-                            ssi_modal.notify('error', {content: 'Result: ' + result});
-                    }
-                );
-        }
-      function submit_form()
-            {
-                var frm=$('#edit-form')[0];//cái này tương đương với document.getelementbyid
-                ssi_modal.confirm({
-                content: 'Xin Hãy Kiểm tra kỹ càng trước khi save nếu bi sai sót có thể sẽ gây ra lỗi đáng tiếc',
-                okBtn: {
-                className:'btn btn-primary'
-                },
-                cancelBtn:{
-                className:'btn btn-danger'
-                }
-                },function (result) 
-                    {
-                        if(result)
-                        {
-                            frm.submit();
-                         }
-                        else
-                            ssi_modal.notify('error', {content: 'Result: ' + result});
-                    }
-                );
-            }   
+     // $(document).ready(function(){
+
+       //  $("#edit-form").validate(
+       //      {
+       //          ignore: [],
+       //          debug: false,
+       //          rules: { 
+
+       //              description:{
+       //                  required: function() 
+       //                      {
+       //                          CKEDITOR.instances.ckeditor.updateElement();
+       //                      },
+       //                  }
+       //              },
+       //          messages:
+       //              {
+       //                  description:{
+       //                          required:"Hãy Nhập vào mô tả",
+                                                           
+       //                      }
+       //                  }
+       //              });
+       //  $("#add-form").validate(
+       //      {
+       //          ignore: [],
+       //          debug: false,
+       //          rules: { 
+
+       //              description:{
+       //                  required: function() 
+       //                      {
+       //                          CKEDITOR.instances.ckeditor.updateElement();
+       //                      },
+       //                  }
+       //              },
+       //          messages:
+       //              {
+       //                  description:{
+       //                          required:"Hãy Nhập vào mô tả",
+                                                           
+       //                      }
+       //                  }
+       //              });
+       // });
+      //      function submit_insert_form()
+      //   {
+      //        var frm=$('#add-form')[0];//cái này tương đương với document.getelementbyid
+      //           ssi_modal.confirm({
+      //           content: 'Xin Hãy Kiểm tra kỹ càng trước khi save nếu bi sai sót có thể sẽ gây ra lỗi đáng tiếc',
+      //           okBtn: {
+      //           className:'btn btn-primary'
+      //           },
+      //           cancelBtn:{
+      //           className:'btn btn-danger'
+      //           }
+      //           },function (result) 
+      //               {
+      //                   if(result)
+      //                   {
+      //                       frm.submit();
+      //                    }
+      //                   else
+      //                       ssi_modal.notify('error', {content: 'Result: ' + result});
+      //               }
+      //           );
+      //   }
+      // function submit_form()
+      //       {
+      //           var frm=$('#edit-form')[0];//cái này tương đương với document.getelementbyid
+      //           ssi_modal.confirm({
+      //           content: 'Xin Hãy Kiểm tra kỹ càng trước khi save nếu bi sai sót có thể sẽ gây ra lỗi đáng tiếc',
+      //           okBtn: {
+      //           className:'btn btn-primary'
+      //           },
+      //           cancelBtn:{
+      //           className:'btn btn-danger'
+      //           }
+      //           },function (result) 
+      //               {
+      //                   if(result)
+      //                   {
+      //                       frm.submit();
+      //                    }
+      //                   else
+      //                       ssi_modal.notify('error', {content: 'Result: ' + result});
+      //               }
+      //           );
+      //       }   
 </script>
 </section>
 @endsection             

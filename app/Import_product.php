@@ -20,7 +20,7 @@ class Import_product extends Model
         $pro=DB::table('import_product')
         			->where([
                     ['id_product','=',$id],
-                    ['size','LIKE','%'.$size.'%'],])->delete();
+                    ['size',$size],])->delete();
         $pro=DB::table('import_product')
         		->where('id_product','=',$id)->select()->first();
         return $pro;
@@ -31,7 +31,7 @@ class Import_product extends Model
         $pro=DB::table('import_product')
                 ->where([
                     ['id_product','=',$id],
-                    ['size','LIKE','%'.$size.'%'],])->orderBy('id','DESC')->select();
+                    ['size',$size],])->select();
         return $pro;
     }
     //xòa sản phẩm khi loại sản phẩm bị xóa
@@ -51,7 +51,7 @@ class Import_product extends Model
         $pro=DB::table('import_product')
                 ->where([
                     ['id_product','=',$id],
-                    ['size','LIKE','%'.$first_size.'%'],])->orderBy('id','DESC')->select('id')->first();
+                    ['size',$first_size],])->orderBy('id','DESC')->select('id')->first();
          $pro=DB::table('import_product')
                 ->where('id',$pro->id)->update(['size'=>$size,'import_price'=>$import_price,'import_quantity'=>$import_quantity]);   
     }
@@ -59,18 +59,21 @@ class Import_product extends Model
      public static function Select_Import_Product()
     {
         $a=array();
+        $a['tongtiennhap']=0;
         $bills=DB::table('import_product')->select()->orderBy('id')->get() ;
         foreach ($bills as $bill) {
             if(isset($a[$bill->id_product][$bill->size]))
             {
              $a[$bill->id_product][$bill->size]['price']+=$bill->import_price*$bill->import_quantity;
               $a[$bill->id_product][$bill->size]['import_quantity']+=$bill->import_quantity;
+              $a['tongtiennhap']+=$bill->import_price*$bill->import_quantity;
             }
             else
             {
                 $a[$bill->id_product][$bill->size]['price']=$bill->import_price*$bill->import_quantity;
                 $a[$bill->id_product][$bill->id_product]=$bill->id_product;
-                 $a[$bill->id_product][$bill->size]['import_quantity']=$bill->import_quantity;
+                $a[$bill->id_product][$bill->size]['import_quantity']=$bill->import_quantity;
+                $a['tongtiennhap']+=$bill->import_price*$bill->import_quantity;;
             }
             
 

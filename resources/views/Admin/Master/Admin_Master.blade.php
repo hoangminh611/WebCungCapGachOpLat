@@ -8,7 +8,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
   @if(Auth::check())
     @if(Auth::User()->group>=1)
 		<head>
-			<title>Visitors an Admin Panel Category Bootstrap Responsive Website Template | Home :: w3layouts</title>
+			<title>Trang Quản Trị Werbsite</title>
 			<meta name="viewport" content="width=device-width, initial-scale=1">
 			<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 			<meta name="keywords" content="Visitors Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -43,6 +43,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			{{--ckeditor--}}
 			<script src="ckeditor/ckeditor.js"></script>
 			<script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js" ></script>
+			<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 			
 		</head>
 		<body>
@@ -58,7 +59,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			 <!-- footer -->
 					  <div class="footer">
 						<div class="wthree-copyright">
-						  <p>© 2017 Visitors. All rights reserved | Design by <a href="http://w3layouts.com">W3layouts</a></p>
+						  <p>© 2017 Visitors. All rights reserved </a></p>
 						</div>
 					  </div>
 		  <!-- / footer -->

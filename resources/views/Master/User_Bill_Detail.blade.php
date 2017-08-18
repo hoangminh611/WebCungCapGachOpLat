@@ -66,9 +66,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 				<ol class="breadcrumb">
 					<ol class="breadcrumb">
-					<li><a href="{{route('index')}}">Home</a></li>
-					<li class="active"><a href="{{route('ViewPage_User_Bill')}}">Bill</a></li>
-					<li class="active">Bill_Detail</li>
+					<li><a href="{{route('index')}}">Trang chủ</a></li>
+					<li class="active"><a href="{{route('ViewPage_User_Bill')}}">Hóa Đơn</a></li>
+					<li class="active">Chi Tiết Hóa Đơn</li>
 				</ol>
 				</ol>
 			</div>
@@ -101,11 +101,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				  <table border="1">
             <thead>
               <tr>
-                <th >ID_bill</th>
-                <th>ID</th>
-                <th>Product</th>
-                <th>Size</th>
-                <th>Quantity</th>
+                <th >ID_hóa đơn</th>
+                <th>ID_chi tiết hóa đơn</th>
+                <th>Tên Sản Phẩm</th>
+                <th>Kích thước</th>
+                <th>Số Lượng</th>
                 <th>Giá Bán</th>
                 <th>Giá Tổng</th>
                 <th>Ngày tạo</th>
@@ -116,7 +116,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
               @foreach($bill_details as $bill_detail)
                 <tr>
                 	<td>{{$bill_detail->id_bill}}</td>
-                  <td>{{$bill_detail->id}}</td>
+					<td>{{$bill_detail->id}}</td>
                   <td>{{$bill_detail->name}}</td>
                   <td>{{$bill_detail->size}}</td>
                   <td>{{number_format($bill_detail->quantity)}}</td>

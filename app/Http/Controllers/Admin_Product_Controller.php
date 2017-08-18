@@ -36,7 +36,7 @@ class Admin_Product_Controller extends Controller
             $product=Product::findOneProduct($req->id)->get();
             $size=$req->size;
             $export_product=Export_product::FindOneExportProduct($id,$size)->first();
-            $import_product=Import_product::FindOneImportProduct($id,$size)->first();
+            $import_product=Import_product::FindOneImportProduct($id,$size)->orderBy('id','DESC')->first();
             return view('Admin.Page.Product_Admin_Insert',compact('id','product','typepro','export_product','import_product','size'));
          }
          else{

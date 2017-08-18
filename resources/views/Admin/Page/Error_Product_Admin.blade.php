@@ -24,13 +24,13 @@
             <thead>
               <tr>
                 <th></th>
-                <th>ID_export_product</th>
+                <th>ID(export_product)</th>
                 <th>Sản Phẩm</th>          
-                <th>Size</th>
+                <th>Kích thước</th>
                 <th>Giá Bán</th>
                 <th>Số Lượng Bán</th>
                 <th>Số Lượng Lỗi</th>
-                <th data-breakpoints="xs sm md" data-title="Edit">Edit</th>
+                <th data-breakpoints="xs sm md" data-title="Sửa">Sửa</th>
               </tr>
             </thead>
             <tbody>

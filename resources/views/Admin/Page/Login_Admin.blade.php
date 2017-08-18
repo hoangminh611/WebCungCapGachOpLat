@@ -34,14 +34,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	@if(Session::has('thatbai'))
 		<div class="alert alert-danger them " id="alert">{{Session::get('thatbai')}}</div>
 	@endif
-	<h2>Sign In Now</h2>
+	<h2>Đăng Nhập Admin</h2>
 		<form  accept-charset="UTF-8" action="{{route('Login')}}"  method="post">
 			<input type="hidden" name="_token" value="{{csrf_token()}}">
 			<input placeholder="Email"  class="ggg" type="text" tabindex="3" title="Email Address" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$" data-validation="email" required="" value="" name="email">
-			<input placeholder="Password"  class="ggg" type="password" name="password" tabindex="4" required>
+			<input placeholder="Mật Khẩu"  class="ggg" type="password" name="password" tabindex="4" required>
 		{{-- 	<h6><a href="#">Forgot Password?</a></h6> --}}
 				<div class="clearfix"></div>
-				<input type="submit" value="Sign In" name="login">
+				<input type="submit" value="Đăng Nhập" name="login">
 		</form>
 		{{-- <p>Don't Have an Account ?<a href="registration.html">Create an account</a></p> --}}
 </div>

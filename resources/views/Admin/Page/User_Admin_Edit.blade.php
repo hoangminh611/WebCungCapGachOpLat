@@ -18,7 +18,7 @@
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                  <input type="hidden" name="id" value="{{ $user[0]->id }}">
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">Name</label>
+                                    <label class="col-sm-3 control-label">Họ Tên</label>
                                     <div class="col-sm-6">
                                         <input type="text" value="{{$user[0]->full_name}}" name="user" class="form-control" style="border-top: 1px solid black;" disabled="">
                                     </div>
@@ -32,7 +32,7 @@
 
                                 </div>
                                 <div class="form-group">
-                                    <label class=" col-sm-3 control-label ">Phone</label>
+                                    <label class=" col-sm-3 control-label ">Điện thoại</label>
                                     <div class="col-sm-6">
                                         <input type="text" name="phone" value="{{$user[0]->phone}}" disabled="">
                                     </div>
@@ -44,13 +44,13 @@
                                     </div>
                                 </div>
                                  <div class="form-group">
-                                    <label class=" col-sm-3 control-label ">Active</label>
+                                    <label class=" col-sm-3 control-label ">Kích hoạt</label>
                                     <div class="col-sm-6">
                                         <input type="text" name="active" value="{{$user[0]->active}}" disabled="">
                                     </div>
                                 </div>
                                  <div class="form-group">
-                                    <label class=" col-sm-3 control-label ">Group</label>
+                                    <label class=" col-sm-3 control-label ">Phân quyền</label>
                                     <div class="col-sm-6">
                                         <select  name="group">
                                             <option id="0" value="0">Khách Hàng</option>
@@ -64,7 +64,7 @@
                                         
                                     </div>
                                 </div>
-                                <button type="button"  onclick="submit_form()" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">  Save</button>           
+                                <button type="submit"  class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">  Save</button>           
                             </form>
                     </div>
             
@@ -75,28 +75,28 @@
         </div>
 
 <script type="text/javascript">
-      function submit_form()
-            {
-                var frm=$('#edit-form')[0];//cái này tương đương với document.getelementbyid
-                ssi_modal.confirm({
-                content: 'Xin Hãy Kiểm tra kỹ càng trước khi save nếu bi sai sót có thể sẽ gây ra lỗi đáng tiếc',
-                okBtn: {
-                className:'btn btn-primary'
-                },
-                cancelBtn:{
-                className:'btn btn-danger'
-                }
-                },function (result) 
-                    {
-                        if(result)
-                        {
-                            frm.submit();
-                         }
-                        else
-                            ssi_modal.notify('error', {content: 'Result: ' + result});
-                    }
-                );
-            }   
+      // function submit_form()
+      //       {
+      //           var frm=$('#edit-form')[0];//cái này tương đương với document.getelementbyid
+      //           ssi_modal.confirm({
+      //           content: 'Xin Hãy Kiểm tra kỹ càng trước khi save nếu bi sai sót có thể sẽ gây ra lỗi đáng tiếc',
+      //           okBtn: {
+      //           className:'btn btn-primary'
+      //           },
+      //           cancelBtn:{
+      //           className:'btn btn-danger'
+      //           }
+      //           },function (result) 
+      //               {
+      //                   if(result)
+      //                   {
+      //                       frm.submit();
+      //                    }
+      //                   else
+      //                       ssi_modal.notify('error', {content: 'Result: ' + result});
+      //               }
+      //           );
+      //       }   
 </script>
         <!-- page end-->
         </div>

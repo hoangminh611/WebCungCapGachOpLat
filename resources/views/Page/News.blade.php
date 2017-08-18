@@ -19,7 +19,7 @@
       <div class="col-lg-3 col-md-3 col-sm-4">
         <div class="left_sidebar">
           <div class="single_widget">
-            <h2>New Post</h2>
+            <h2>Bài Viết Mới</h2>
             <ul class="ppost_nav wow fadeInDown">
             	@foreach($new_post as $new)
               		<li>
@@ -56,7 +56,7 @@
       <div class="col-lg-3 col-md-3 col-sm-12">
         <div class="right_sidebar">
           <div class="single_widget">
-            <h2>Categories</h2>
+            <h2>Loại Tin</h2>
             <ul>
             	@foreach($category as $type_news)
               	<li class="cat-item"><a href="{{route('News_By_Type',$type_news->id)}}">{{$type_news->name}}</a></li>

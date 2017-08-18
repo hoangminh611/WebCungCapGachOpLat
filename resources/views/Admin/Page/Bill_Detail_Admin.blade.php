@@ -30,14 +30,14 @@
               <tr>
                 <th data-breakpoints="xs">ID_bill</th>
                 <th>ID</th>
-                <th>Product</th>
-                <th>Size</th>
-                <th data-breakpoints="xs">Quantity</th>
+                <th>Tên sản phẩm</th>
+                <th>Kích thước</th>
+                <th data-breakpoints="xs">Số Lượng</th>
                 <th>Giá Bán</th>
                 <th>Giá Tổng</th>
                 <th>Ngày tạo</th>
                 <th>Ngày update</th>
-                <th data-breakpoints="xs sm md" data-title="Edit/Delete">Edit</th>
+                <th data-breakpoints="xs sm md" data-title="Sửa/Xóa">Sửa/Xóa</th>
               </tr>
             </thead>
             <tbody>

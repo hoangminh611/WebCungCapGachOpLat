@@ -59,7 +59,7 @@
 					<div class="col-md-3 prdt-right">
 							<div class="w_sidebar">
 								<section  class="sky-form">					
-									<h4>Catogories</h4>
+									<h4>Loại Sản Phẩm</h4>
 									<div class="row1 scroll-pane">
 										<div class="col col-4">
 											<label><input type="radio" name="type" class="type" checked="" value="khong"><i></i>Tất Cả Sản Phẩm</a></label>
@@ -75,7 +75,7 @@
 									</div>
 								</section>
 								<section class="sky-form">
-									<h4>Size</h4>
+									<h4>Kích Thước</h4>
 										<div class="col col-4">
 											<label><input type="radio" name="size" checked="" value="khong"><i></i>Tất Cả Kích Thước</label>
 										</div>
@@ -88,7 +88,7 @@
 								</section>
 							</div>
 							
-							<button type="submit" name="" style="width:100%">search<i class="fa fa-search" aria-hidden="true" style="float: right"></i></button>
+							<button type="submit" name="" style="width:100%">Tìm Kiếm<i class="fa fa-search" aria-hidden="true" style="float: right"></i></button>
 					</div>
 					
 				</form>
