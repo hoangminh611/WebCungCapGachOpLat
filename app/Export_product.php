@@ -43,7 +43,7 @@ class Export_product extends Model
         $pro=DB::table('export_product')
                 ->where([
                     ['id_product','=',$id],
-                    ['size',$size],])->select()->get();
+                    ['size',$size],])->select();
         return $pro;
     }
     //xòa sản phẩm khi loại sản phẩm bị xóa
@@ -60,7 +60,8 @@ class Export_product extends Model
         $pro=DB::table('export_product')
                ->where([
                     ['id_product','=',$id],
-                    ['size',$size],])->first();
+                    ['size',$size],
+                    ['status',0]])->first();
         if(!isset($pro))
             $pro=DB::table('export_product')->insert(['id_product'=>$id,'size'=>$size,'export_price'=>$export_price]);
         else

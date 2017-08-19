@@ -231,12 +231,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	           	$(".cart_qty").html(data.totalQty.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" Sản Phẩm"); 
 	           	 $("#update").load("{{route('Update_Cart')}}");
 	        });
-	       	if(soluong==1)
-		        {
-		        	route="{{route('cart-detail')}}";
-		        	window.location.replace(route);
-		        }
-
 		});
 	</script>
 </div>

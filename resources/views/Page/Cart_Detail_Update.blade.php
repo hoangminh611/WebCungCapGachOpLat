@@ -2,11 +2,11 @@
 		<div class="ckeckout">
 			<div class="container">
 				<div class="ckeck-top heading">
-					<h2>CHECKOUT</h2>
+					<h2>Kiểm Tra Giỏ Hàng</h2>
 				</div>
 				<div class="ckeckout-top">
 				<div class="cart-items">
-				 <h3>My Shopping Bag</h3>
+				 <h3>Giỏ Hàng của tôi</h3>
 					<script>
 					$(document).ready(function(c) {
 						$('.close1').on('click', function(c){
