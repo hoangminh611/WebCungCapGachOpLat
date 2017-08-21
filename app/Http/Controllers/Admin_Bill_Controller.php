@@ -14,6 +14,7 @@ use App\Customer;
 use Session;
 use App\Import_product;
 use App\Export_Product;
+use PDF;
 class Admin_Bill_Controller extends Controller
 {
    //xem trang bill admin
@@ -25,9 +26,10 @@ class Admin_Bill_Controller extends Controller
    //xem trang bill detail admin
    public function ViewPageBill_Detail_Admin($id,$id_customer,$method)
    {
+      $idhoadon=$id;
    	$Bill_Detail=Bill_Detail::View_All($id)->get();
       $customer=Customer::Customer_ByID($id_customer)->get();
-   	return view('Admin.Page.Bill_Detail_Admin',compact('Bill_Detail','customer','method'));
+   	return view('Admin.Page.Bill_Detail_Admin',compact('Bill_Detail','customer','method','idhoadon'));
    }
    //xem trang bill  insert admin
    public function ViewPageBill_Admin_Insert(Request $req)
@@ -88,5 +90,15 @@ class Admin_Bill_Controller extends Controller
       $count_bill=DB::table('bills')->where('bills.method','LIKE','%Chưa Xác Nhận%')->count();
 
       return  $count_bill;
+   }
+   //xem file PDF
+    public function downloadPDF(Request $req){
+
+     $Bill_Detail=Bill_Detail::View_All($req->idbill)->get();
+      $customer=Customer::Customer_ByID($req->idcustomer)->get();
+         $pdf =PDF::loadView('Admin.Page.Bill_Detail_Admin_PDF',compact('customer','Bill_Detail'))->setPaper('a4', 'landscape');//Load view
+        //Tạo file xem trước pdf
+         // return view('Admin.Page.Bill_Detail_Admin_PDF',compact('customer','Bill_Detail'));
+        return $pdf->stream();
    }
 }

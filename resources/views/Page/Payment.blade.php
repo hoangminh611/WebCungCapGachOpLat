@@ -133,8 +133,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								Số Lượng:{{$product['qty']}} Giá: {{number_format($product['price'])}}
 							@endforeach
 							<br>
-							Tổng sản phẩm:{{number_format($totalQty)}} VNĐ
-							Tổng Tiền:{{number_format($totalPrice)}} VNĐ
+							<b>Phí vận Chuyển:{{number_format(40000)}}VNĐ
+							<br>
+							<b>Tổng sản phẩm:</b>{{number_format($totalQty)}} Sản Phẩm
+							<br>
+							<b>Tổng Tiền:</b>{{number_format($totalPrice+40000)}} VNĐ
 						@endif
 						</div>
 					</div>

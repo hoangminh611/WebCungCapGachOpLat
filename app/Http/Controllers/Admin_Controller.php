@@ -17,7 +17,7 @@ use App\Import_product;
 use App\Export_product;
 use App\Product;
 use App\Bill;
-
+use PDF;
 class Admin_Controller extends Controller
 {
    //lấy lãi lỗ
@@ -88,4 +88,5 @@ class Admin_Controller extends Controller
       $user=User::Update_User($id,$group);
       return redirect()->route('ViewPage_User_Admin');
    }
+     
 }

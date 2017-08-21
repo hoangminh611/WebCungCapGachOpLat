@@ -74,6 +74,7 @@
               @endforeach
             </tbody>
           </table>
+          <a href="{{route('downloadPDF',[$customer[0]->id,$idhoadon])}}">Xuất file PDF</a>
       </div>
   </div>
 </div>

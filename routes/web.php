@@ -189,7 +189,9 @@ Route::get('Delete_Bill_Detail',
 Route::get('Count_Bill',
 	['as'=>'Count_Bill',
 	'uses'=>'Admin_Bill_Controller@Count_Bill']);
-
+Route::get('downloadPDF/{idcustomer}/{idbill}',
+	['as'=>'downloadPDF',
+	'uses'=>'Admin_Bill_Controller@downloadPDF']);
 // ------------------------------ADMIN------------------------------------
 });
 //------------------------------Trang Giao Diện------------------------------------
