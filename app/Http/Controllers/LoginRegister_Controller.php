@@ -194,6 +194,7 @@ class LoginRegister_Controller extends Controller
         {
           foreach($id_customer as $id)
           {
+
             $bill=DB::table('bills')->where('id_customer',$id->id)->select()->get();
             $bills[$i++]=$bill;
           }
@@ -211,6 +212,7 @@ class LoginRegister_Controller extends Controller
       if(Auth::check())
       {
         $bill_details=Bill_Detail::View_All($id)->get();
+
         return view('Master.User_Bill_Detail',compact('bill_details'));
       }
       else

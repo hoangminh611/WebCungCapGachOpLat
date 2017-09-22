@@ -48,11 +48,11 @@ class Admin_Product_Controller extends Controller
    public function ViewPageImportProduct(Request $req)
    {
       $nhaphang=$req->nhaphang;
-      
       $name=$req->name;
       $size=$req->size;
       $type_name=$req->type_name;
       $id=$req->id;
+
       return view('Admin.Page.Product_Admin_Import',compact('id','name','type_name','size','nhaphang'));
    }
    //nhập hàng
@@ -105,6 +105,7 @@ class Admin_Product_Controller extends Controller
       $export_price = $req->export_price;
       $import_price=$req->import_price;
       $import_quantity=$req->import_quantity;
+
       if ($req->hasFile('image')) 
       {
          $filename= $req->file('image')->getClientOriginalName();
@@ -114,14 +115,17 @@ class Admin_Product_Controller extends Controller
       {
          $filename=null;
       }
+
       $getId=Product::Insert_Product($name, $type, $desc,$filename);
       $export_product=Export_product::Update_Insert_Export_Product($getId,$size,$export_price);
       $import_product=Import_product::Insert_Import_Product($getId,$size,$import_price,$import_quantity);
       return redirect()->route('Admin_All_Product');
    }
+
    //xóa sản phẩm
    public function Delete_Product(Request $req){
       $id = $req->id;
+
       $size=$req->size;
       $image = $req->imageFile;
       //chua xoa dc cai hinh nay
@@ -134,8 +138,7 @@ class Admin_Product_Controller extends Controller
    }
 
    //xem trang sản phẩm bị lỗi
-   public function ViewPageError_Product()
-   {
+   public function ViewPageError_Product(){
       $export_products=Export_product::All_export_product()->get();
       return view('Admin.Page.Error_Product_Admin',compact('export_products'));
    }

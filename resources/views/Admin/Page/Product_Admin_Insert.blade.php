@@ -1,3 +1,4 @@
+@if(Auth::User()->group==5||Auth::User()->group==2)
 @extends('Admin.Master.Admin_Master')
 @section('body')
 <section id="main-content">
@@ -35,11 +36,14 @@
                                                         @foreach( $loaicon[$type_parent->id] as $type_child )
                                                             <option  id="{{$type_child->id}}" value="{{$type_child->id}}">{{$type_child->name}}</option>
                                                         @endforeach
+                                                    @endforeach
+
+                                                    @if(isset($typepro))
                                                         <script type="text/javascript">
                                                          var id={{$typepro}};
                                                         $('#'+id).attr('selected','selected');
                                                         </script>
-                                                    @endforeach
+                                                    @endif
                                                 </select>
                                         </div>
                                     </div>
@@ -107,6 +111,7 @@
                                         <label class="col-sm-3 control-label">Loại Sản phẩm*</label>
                                         <div class="col-sm-6">
                                                 <select class="form-control m-bot15" id="category_id" name ="category_id">
+
                                                     @foreach($type as $type_parent)
                                                         @foreach( $loaicon[$type_parent->id] as $type_child )
                                                             <option  id="{{$type_child->id}}" value="{{$type_child->id}}">{{$type_child->name}}</option>
@@ -300,3 +305,9 @@
 </script>
 </section>
 @endsection             
+@else
+  <script type="text/javascript">
+            alert("Bạn không có quyền truy cập")
+            window.location.href = "{{route('Content_Admin')}}";
+            </script>
+@endif

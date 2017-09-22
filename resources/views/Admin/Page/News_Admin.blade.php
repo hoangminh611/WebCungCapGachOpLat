@@ -1,3 +1,4 @@
+@if(Auth::User()->group>0&&Auth::User()->group!=2)
 @extends('Admin.Master.Admin_Master')
 @section('body')
 <section id="main-content" style="overflow: scroll;">
@@ -43,20 +44,30 @@
                         <div id="row1{{$new->id }}">
                             <td id="id{{$new->id }}">{{$new->id }}</td>
                             <td id="id_user{{$new->id }}">{{$new->full_name }}</td>
-                            <td id="image{{$new->id}}"><img id="img{{$new->id}}" src="images/news/{{$new->image}}" style="width: 100px; height: 100px"></td>
+                            <td id="image{{ $new->id }}"><img id="img{{ $new->id }}" src="images/news/{{ $new->image }}" style="width: 100px; height: 100px"></td>
                             <td id="title{{ $new->id }}">{{ $new->title }}</td>
-                            <td id="description{{ $new->id }}"><div>{{$new->description}}</div></td>
-                       	    <td id="content{{ $new->id }}">{!!html_entity_decode($new->content)!!}</td>
-                            <td id="category_id{{ $new->id }}">{{$new->type_name}}</td>
+                            <td id="description{{ $new->id }}"><div>{{ $new->description }}</div></td>
+                       	    <td id="content{{ $new->id }}">{!!html_entity_decode( $new->content)!!}</td>
+                            <td id="category_id{{ $new->id }}">{{ $new->type_name }}</td>
                             <td>
-                                <button class="btn btn-info btn-lg glyphicon glyphicon-hand-right" style="border-radius: 10px;" id="edit_button{{ $new->id  }}" onclick="editRow({{ $new->id }})"></button>
-                                <button class="btn btn-warning btn-lg glyphicon glyphicon-trash delete_button" style="border-radius: 10px" id="delete_button{{ $new->id  }}" onclick="delete_row('{{ $new->id  }}');"></button>
+                                <form id="form{{ $new->id }}" method="post">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                    <input type="hidden" name="id" value="{{ $new->id }}">
+                                    <button type="button" class="btn btn-info btn-lg glyphicon glyphicon-hand-right edit_button" style="border-radius: 10px;" id="edit_button{{ $new->id  }}" onclick="editRow({{ $new->id }})"></button>
+                                    <button type="button" class="btn btn-warning btn-lg glyphicon glyphicon-trash delete_button" style="border-radius: 10px" id="delete_button{{ $new->id  }}" onclick="delete_row('{{ $new->id  }}');"></button>
+                                </form>
                             </td>
+
                             @if(Auth::User()->group<2)
-                               <script type="text/javascript">
-                                 $('.delete_button').attr('disabled','true');
-                               </script>
-                             @endif
+                              <script type="text/javascript">
+                                $('.delete_button').attr('disabled','true');
+                                $('.edit_button').attr('disabled','true');
+                              </script>
+                            @elseif(Auth::User()->group==2)
+                              <script type="text/javascript">
+                                $('.delete_button').attr('disabled','true');
+                              </script>
+                            @endif
                         </div>
                     </tr>     
                 @endforeach
@@ -85,14 +96,15 @@
               window.location.replace(route);
         
             }
-            function addRow_ID(idloainew)
-            {
+            function addRow_ID(idloainew){
+
                 var  route="{{route('InsertNews','idTypenew=idloai')}}";
                 route=route.replace('idloai',idloainew);
               window.location.replace(route);
             }
-            function delete_row(id)
-            {
+
+            function delete_row(id){
+
                 ssi_modal.confirm({
                 content: 'Bạn có chắc chắn xóa tin.Hãy kiểm tra kỹ để tránh sai sót?',
                 okBtn: {
@@ -108,11 +120,8 @@
                         var route="{{ route('DeleteNews') }}";
                         $.ajax({
                             url:route,
-                            type:'get',
-                            data:{
-                                id:id,
-                                // imageFile:image,
-                            },
+                            type:'post',
+                           data:$('#form'+id).serialize(),
                             success:function() {  
                                  $('#row'+id).hide();
                                 alert('Xóa thành công');
@@ -127,3 +136,10 @@
 
     </script>
 @endsection
+
+@else
+  <script type="text/javascript">
+          alert('Bạn không có quyền truy cập');
+          window.location.href = "{{route('Content_Admin')}}";
+  </script>
+@endif

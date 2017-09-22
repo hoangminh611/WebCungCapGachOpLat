@@ -1,4 +1,4 @@
-  @extends('Admin.Master.Admin_Master')
+@extends('Admin.Master.Admin_Master')
 @section('body')
 <section id="main-content" style="overflow: scroll;">
 	<section class="wrapper">
@@ -39,6 +39,7 @@
               </tr>
             </thead>
             <tbody>
+
               @foreach($product as $pro)
                 <tr data-expanded="true" id="row{{$pro->id}}{{$pro->size}}">
                   <td>{{$pro->id}}</td>
@@ -50,17 +51,37 @@
                   <td>{{$pro->export_quantity}}</td>
                   <td><img id="img{{ $pro->id }}" src="images/{{$pro->image}}" style="width: 50px; height: 50px;"></td>
                   <td>
-                    <button style="border-radius: 10px;" id="edit_button{{ $pro->id  }}" onclick="importRow({{ $pro->id }},'{{$pro->name}}','{{$pro->type_name}}','{{$pro->size}}')">Nhập Hàng hoặc thêm kích thước</button>
-                    <button class="btn btn-info btn-lg glyphicon glyphicon-hand-right" style="border-radius: 10px;" id="edit_button{{ $pro->id  }}" onclick="editRow({{ $pro->id }},'{{$pro->size}}')"></button>
-                    <button class="btn btn-warning btn-lg glyphicon glyphicon-trash delete_button" style="border-radius: 10px" id="delete_button{{ $pro->id  }}" onclick="delete_row({{ $pro->id}},'{{$pro->size}}');"></button>
+
+                    <form method="post"  id="form{{$pro->id}}{{$pro->size}}" action="{{route('ViewPage_ImportProduct')}}">
+                      <input type="hidden" name="_token" value="{{csrf_token()}}">
+                      <input type="hidden" name="nhaphang" value="1">
+                      <input type="hidden" name="id" value="{{$pro->id}}">
+                      <input type="hidden" name="name" value="{{$pro->name}}">
+                      <input type="hidden" name="type_name" value="{{$pro->type_name}}">
+                      <input type="hidden" name="size" value="{{$pro->size}}">
+                      <button style="border-radius: 10px;"  class="edit_button" id="edit_button{{ $pro->id  }}" type="submit">Nhập Hàng hoặc thêm kích thước</button>
+                    </form>
+
+                      <button  class="btn btn-info btn-lg glyphicon glyphicon-hand-right edit_button" style="border-radius: 10px;" id="edit_button{{ $pro->id  }}" onclick="editRow({{ $pro->id}},'{{$pro->size}}')"></button>
+
+                      <button  type="button" class="btn btn-warning btn-lg glyphicon glyphicon-trash delete_button" style="border-radius: 10px" id="delete_button{{ $pro->id  }}" onclick="delete_row({{ $pro->id}},'{{$pro->size}}');"></button>
                   </td>
+
                     @if(Auth::User()->group<2)
                            <script type="text/javascript">
+                             $('#addRow').attr('disabled','true');
+                             $('.delete_button').attr('disabled','true');
+                             $('.edit_button').attr('disabled','true');
+                           </script>
+                    @elseif(Auth::User()->group==2)
+                            <script type="text/javascript">
+                             $('#addRow').attr('disabled','true');
                              $('.delete_button').attr('disabled','true');
                            </script>
                     @endif
                 </tr>
               @endforeach
+
             </tbody>
           </table>
       </div>
@@ -71,8 +92,7 @@ $(document).ready(function(){
   $('#product_table').DataTable();
 });
             
-    function editRow(id,size)
-            {
+    function editRow(id,size){
               var  route="{!!route('ViewPage_InsertProduct','id=idloai&size=kichthuoc')!!}";
                 route=route.replace('idloai',id);
                 route=route.replace('kichthuoc',size);;
@@ -89,17 +109,9 @@ $(document).ready(function(){
               window.location.replace(route);
         
             }
-    function importRow(id,name,type_name,size)
-            {
-             var  route="{!!route('ViewPage_ImportProduct','nhaphang=1&id=idname&name=ten&type_name=loai&size=kichthuoc')!!}";
-             route=route.replace('idname',id);
-              route=route.replace('ten',name);
-             route=route.replace('loai',type_name);
-             route=route.replace('kichthuoc',size);
-              window.location.replace(route);
-            }
-    function delete_row(id,size)
-            {
+    function delete_row(id,size){
+                var form=$('#form'+id+size).serialize();
+
                 ssi_modal.confirm({
                 content: 'Bạn có muốn xóa? Nếu xóa hàng sẽ mất luôn nếu muốn khôi phục phãi vào database để sửa',
                 okBtn: {
@@ -113,19 +125,14 @@ $(document).ready(function(){
                         if(result)
                         {
                             var image = $('#img'+id).attr("src");
-                            var route="{{ route('Delete_Product') }}";
-
+                            var route="{{route('Delete_Product')}}";
                             $.ajax({
                             url:route,
-                            type:'get',
-                            data:{
-                                id:id,
-                                size:size,
-                                imageFile:image,
-                            },
-                            success:function() {  
+                            type:'post',
+                            data: form,
+                            success:function(result) {  
                                  $('#row'+id+size).hide();
-                                alert('Xóa thành công');
+                                alert("Xóa thành công");
                             }
                             });
                             

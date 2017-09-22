@@ -50,8 +50,27 @@
                             $(document).ready(function(){
 
                               var method="{{$bill->method}}";
+                              if(method=="Đã Xác Nhận Chưa Thanh Toán")
+                                $('#'+{{$bill->id}}).attr('disabled','');
+                              if(method=="Đang Xử Lý")
+                                $('#'+{{$bill->id}}).attr('disabled','');
                               if(method=="Đã Thanh Toán")
                                 $('#'+{{$bill->id}}).attr('disabled','');
+                            });
+                          </script>
+                      @endif
+                       @if(Auth::User()->group==2)
+                          <script type="text/javascript">
+                            $(document).ready(function(){
+
+                              var method="{{$bill->method}}";
+                              if(method=="Đang vận chuyển")
+                                $('#'+{{$bill->id}}).attr('disabled','');
+                              if(method=="Đã Thanh Toán")
+                                $('#'+{{$bill->id}}).attr('disabled','');
+                              if(method=="Chưa Xác Nhận")
+                                $('#'+{{$bill->id}}).attr('disabled','');
+                              
                             });
                           </script>
                       @endif

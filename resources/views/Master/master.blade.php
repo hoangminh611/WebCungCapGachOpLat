@@ -22,6 +22,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" />	
 <meta name="keywords" content="Luxury Watches Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+<meta property="fb:app_id" content="{2033544113598636}" />
+<meta property="fb:admins" content="{100002071676386}"/>
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!--start-menu-->
 <script src="js/simpleCart.min.js"> </script>

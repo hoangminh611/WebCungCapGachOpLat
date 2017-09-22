@@ -77,12 +77,13 @@ class Admin_Bill_Controller extends Controller
    public function Delete_Bill_Detail(Request $req)
    {
       $id=$req->id;
-      var_dump($id);
       $id_product=$req->id_product;
       $size=$req->size;
       $quantity=$req->quantity;
       $bill_detail=Bill_Detail::Delete_One_Bill_Detail($id);
+      dd($bill_detail);
       $export_quantity=Export_Product::Update_quantity_By_Idproduct($id_product,$size,$quantity);
+
    }
    //đếm số bill chưa xác nhận
    public function Count_Bill()

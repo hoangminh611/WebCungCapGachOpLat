@@ -1,3 +1,4 @@
+@if(Auth::User()->group==5))
 @extends('Admin.Master.Admin_Master')
 @section('body')
 <section id="main-content">
@@ -197,3 +198,10 @@
 </script>
 </section>
 @endsection             
+
+@else
+  <script type="text/javascript">
+          alert('Bạn không có quyền truy cập');
+          window.location.href = "{{route('Content_Admin')}}";
+  </script>
+@endif

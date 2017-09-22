@@ -36,6 +36,7 @@
                         @endforeach
                     </ul>
                 </li>
+                @if(Auth::User()->group!=2)
                 <li class="sub-menu">
                     <a href="javascript:void(0)">
                             <i class="fa fa-newspaper-o"></i>
@@ -49,13 +50,14 @@
                         @endforeach
                     </ul>
                 </li>
+                @endif
                 <li>
                     <a href="{{route('ViewPageBill_Admin')}}">
                         <i class="fa fa-bullhorn"></i>
                         <span>Hóa Đơn</span>
                     </a>
                 </li>
-                @if(Auth::User()->group==2)
+                @if(Auth::User()->group==5)
                 <li >
                     <a href="{{route('ViewPage_User_Admin')}}">
                         <i class="fa fa-user"></i>

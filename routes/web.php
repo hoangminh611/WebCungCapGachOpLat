@@ -67,7 +67,8 @@ Route::get('Admin_All_Product',[
 Route::get('Admin_All_Product_By_Type/{id}',[
 	'as'=>'Admin_All_Product_By_Type',
 	'uses'=>'Admin_Product_Controller@Admin_All_Product_By_Type']);
-Route::get('ViewPage_ImportProduct',[
+
+Route::post('ViewPage_ImportProduct',[
 	'as'=>'ViewPage_ImportProduct',
 	'uses'=>'Admin_Product_Controller@ViewPageImportProduct']);
 
@@ -80,7 +81,7 @@ Route::post('Update_Product',
 Route::post('Insert_Product',
 	['as'=>'Insert_Product',
 	 'uses'=>'Admin_Product_Controller@Insert_Product']);
-Route::get('Delete_Product',
+Route::post('Delete_Product',
 	['as'=>'Delete_Product',
 	 'uses'=>'Admin_Product_Controller@Delete_Product']);
 Route::post('Insert_Import_Product',
@@ -114,11 +115,11 @@ Route::post('Insert_Category',[
 Route::post('Update_Category',[
 	'as'=>'Update_Category',
 	'uses'=>'Admin_Product_Controller@UpdateCategory']);
-Route::get('Delete_Category_Parent',
+Route::post('Delete_Category_Parent',
 	['as'=>'Delete_Category_Parent',
 	'uses'=>'Admin_Product_Controller@DeleteCategory_Parent']);
 
-Route::get('Delete_Category_Child',
+Route::post('Delete_Category_Child',
 	['as'=>'Delete_Category_Child',
 	'uses'=>'Admin_Product_Controller@DeleteCategory_Child']);
 
@@ -140,7 +141,7 @@ Route::post('InsertNews',
 Route::get('InsertNews',
 	['as'=>'InsertNews',
 	'uses'=>'Admin_News_Controller@ViewPageInsertNews']);
-Route::get('DeleteNews',
+Route::post('DeleteNews',
 	['as'=>'DeleteNews',
 	'uses'=>'Admin_News_Controller@DeleteNews']);
 
@@ -152,7 +153,7 @@ Route::get('Insert_Type_News',
 	['as'=>'Insert_Type_News',
 	'uses'=>'Admin_News_Controller@View_Insert_Type_News']);
 
-Route::get('DeleteTypeNews',
+Route::post('DeleteTypeNews',
 	['as'=>'DeleteTypeNews',
 	'uses'=>'Admin_News_Controller@Delete_Type_News']);
 Route::post('Insert_Type_News',
@@ -183,7 +184,7 @@ Route::post('Update_Bill',
 	['as'=>'Update_Bill',
 	'uses'=>'Admin_Bill_Controller@Update_Bill']);
 
-Route::get('Delete_Bill_Detail',
+Route::post('Delete_Bill_Detail',
 	['as'=>'Delete_Bill_Detail',
 	'uses'=>'Admin_Bill_Controller@Delete_Bill_Detail']);
 Route::get('Count_Bill',

@@ -32,10 +32,15 @@
                                             <option id="2" value="Chưa Xác Nhận">Chưa Xác Nhận</option>
                                             <option id="3" value="Đã Xác Nhận Chưa Thanh Toán">Đã Xác Nhận Chưa Thanh Toán</option>
                                             <option id="4" value="Đã Thanh Toán" >Đã Thanh Toán</option>
+                                            <option id="5" value="Đang Xử Lý" >Đang Xử Lý</option>
+                                            <option id="6" value="Đang vận chuyển" >Đang vận chuyển</option>
                                         </select>
+                                        @if(Auth::User()->group<2)
                                         <script type="text/javascript">
+                                            $('#5').hide();
+                                            $('#6').hide();
                                             var val= $('#1').val();
-                                            if(val=="Chưa Xác Nhận")
+                                            if(val=="Chưa Xác Nhận"||val=="Đang vận chuyển")
                                                 $('#2').hide();
                                             if(val=="Đã Xác Nhận Chưa Thanh Toán")
                                             {
@@ -47,6 +52,20 @@
                                             if(val=="Đã Thanh Toán")
                                                 $('#4').hide();
                                         </script>
+                                        @endif
+                                        @if(Auth::User()->group==2)
+                                          <script type="text/javascript">
+                                             $('#2').hide();
+                                             $('#3').hide();
+                                             $('#4').hide();
+
+                                             var val= $('#1').val();
+                                             if(val=="Đang Xử Lý")
+                                                $('#5').hide();
+                                             if(val=="Đang vận chuyển")
+                                                $('#6').hide();
+                                          </script>
+                                        @endif
                                     </div>
                                 </div>
                                  <div class="form-group">

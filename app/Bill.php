@@ -20,7 +20,7 @@ class Bill extends Model
                 ->select('customer.full_name','customer.phone','customer.address','customer.email','bills.id','bills.id_customer','bills.method','bills.note','bills.created_at','bills.updated_at');
     	return $Bill;
     }
-    //lay bill theo di
+    //lay bill theo id
     public static function View_bill_byId($id)
     {
         $Bill=DB::table('bills')->where('id',$id)->select();
@@ -43,5 +43,10 @@ class Bill extends Model
     {
          $Bill=DB::table('bills')->count('id');
          return $Bill;
+    }
+    //Xóa bill
+    public static function Delete_Bill($id){
+         $bill=DB::table('bills')->where('id',$id)->delete();
+         return $bill;
     }
 }

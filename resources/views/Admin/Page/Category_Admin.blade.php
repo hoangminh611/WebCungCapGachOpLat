@@ -35,6 +35,7 @@
             </thead>
             <tbody>
               @foreach($Type_Product as $type_pro)
+
                 <tr data-expanded="true" id="row{{$type_pro->id}}">
                   <td>{{$type_pro->id}}</td>
                   <td>{{$type_pro->name}}</td>
@@ -44,15 +45,31 @@
                   <td>{{$type_pro->created_at}}</td>
                   <td>{{$type_pro->updated_at}}</td>
                   <td>
-                    <button class="btn btn-info btn-lg glyphicon glyphicon-hand-right" style="border-radius: 10px;" id="edit_button{{ $type_pro->id  }}" onclick="editRow({{ $type_pro->id }},{{$name_parent[0]->id}})"></button>
-                        <button class="btn btn-warning btn-lg glyphicon glyphicon-trash delete_button" style="border-radius: 10px" id="delete_button{{ $type_pro->id  }}" onclick="delete_row('{{ $type_pro->id}}');"></button>
-                         @if(Auth::User()->group<2)
-                           <script type="text/javascript">
-                             $('.delete_button').attr('disabled','true');
-                           </script>
-                         @endif
+                    <form method="post" action="" id="form{{ $type_pro->id}}">
+                      <input type="hidden" name="_token" value="{{csrf_token()}}">
+                      <input type="hidden" name="id" value="{{ $type_pro->id}}">
+
+                      <button type="button" class="btn btn-info btn-lg glyphicon glyphicon-hand-right edit_button" style="border-radius: 10px;" id="edit_button{{ $type_pro->id  }}" onclick="editRow({{ $type_pro->id }},{{$name_parent[0]->id}})"></button>
+
+                      <button type="button" class="btn btn-warning btn-lg glyphicon glyphicon-trash delete_button" style="border-radius: 10px" id="delete_button{{ $type_pro->id  }}" onclick="delete_row('{{ $type_pro->id}}');"></button>
+                    </form>
+
+                    @if(Auth::User()->group<2)
+                      <script type="text/javascript">
+                        $('#addRow').attr('disabled','true');
+                        $('.delete_button').attr('disabled','true');
+                        $('.edit_button').attr('disabled','true');
+                      </script>
+                    @elseif(Auth::User()->group==2)
+                      <script type="text/javascript">
+                        $('#addRow').attr('disabled','true');
+                        $('.delete_button').attr('disabled','true');
+                      </script>
+                    @endif
+
                   </td>
                 </tr>
+
               @endforeach
             </tbody>
           </table>
@@ -97,10 +114,8 @@
                         var route="{{route('Delete_Category_Child')}}";
                         $.ajax({
                             url:route,
-                            type:'get',
-                            data:{
-                                id:id,
-                            },
+                            type:'post',
+                            data:$('#form'+id).serialize(),
                             success:function() {  
                                  $('#row'+id).hide();
                                 alert('Xóa thành công');

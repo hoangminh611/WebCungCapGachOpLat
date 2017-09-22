@@ -48,18 +48,33 @@
                   <td>{{$type_pro->created_at}}</td>
                   <td>{{$type_pro->updated_at}}</td>
                   <td>
-                  @if($type==2)
-                    <button class="btn btn-info btn-lg glyphicon glyphicon-hand-right" style="border-radius: 10px;" id="edit_button{{ $type_pro->id  }}" onclick="editRow({{ $type_pro->id }})"></button>
-                    <button class="btn btn-warning btn-lg glyphicon glyphicon-trash delete_button" style="border-radius: 10px" id="delete_button{{ $type_pro->id  }}" onclick="delete_row('{{ $type_pro->id}}');"></button>
-                  @else
-                    <button class="btn btn-info btn-lg glyphicon glyphicon-hand-right" style="border-radius: 10px;" id="edit_button{{ $type_pro->id  }}" onclick="editRow_category({{ $type_pro->id }})"></button>
-                    <button class="btn btn-warning btn-lg glyphicon glyphicon-trash delete_button" style="border-radius: 10px" id="delete_button{{ $type_pro->id  }}" onclick="delete_row_category('{{ $type_pro->id}}');"></button>
-                  @endif
+                   <form action="" method="post" id="form{{$type_pro->id}}">
+                      <input type="hidden" name="_token" value="{{csrf_token()}}">
+                      <input type="hidden" name="id" value="{{$type_pro->id}}"> 
+                      @if($type==2)
+                        <button type="button" class="btn btn-info btn-lg glyphicon glyphicon-hand-right edit_button" style="border-radius: 10px;" id="edit_button{{ $type_pro->id  }}" onclick="editRow({{ $type_pro->id }})"></button>
+
+                        <button type="button" class="btn btn-warning btn-lg glyphicon glyphicon-trash delete_button" style="border-radius: 10px" id="delete_button{{ $type_pro->id  }}" onclick="delete_row('{{ $type_pro->id}}');"></button>
+                      @else
+                        <button type="button" class="btn btn-info btn-lg glyphicon glyphicon-hand-right edit_button" style="border-radius: 10px;" id="edit_button{{ $type_pro->id  }}" onclick="editRow_category({{ $type_pro->id }})"></button>
+                       
+                        <button  type="button" class="btn btn-warning btn-lg glyphicon glyphicon-trash delete_button" style="border-radius: 10px" id="delete_button{{ $type_pro->id  }}" onclick="delete_row_category('{{ $type_pro->id}}');"></button>
+                        
+                      @endif
+                  </form>
                   </td>
+                    
                     @if(Auth::User()->group<2)
-                           <script type="text/javascript">
-                             $('.delete_button').attr('disabled','true');
-                           </script>
+                      <script type="text/javascript">
+                        $('#addRow').attr('disabled','true');
+                        $('.delete_button').attr('disabled','true');
+                        $('.edit_button').attr('disabled','true');
+                      </script>
+                    @elseif(Auth::User()->group==2)
+                      <script type="text/javascript">
+                        $('#addRow').attr('disabled','true');
+                        $('.delete_button').attr('disabled','true');
+                      </script>
                     @endif
                 </tr>
               @endforeach
@@ -115,11 +130,8 @@
                         var route="{{ route('DeleteTypeNews') }}";
                         $.ajax({
                             url:route,
-                            type:'get',
-                            data:{
-                                id:id,
-                                // imageFile:image,
-                            },
+                            type:'post',
+                            data:$('#form'+id).serialize(),
                             success:function() {  
                                  $('#row'+id).hide();
                                 alert('Xóa thành công');
@@ -149,11 +161,8 @@
                         var route="{{ route('Delete_Category_Parent') }}";
                         $.ajax({
                             url:route,
-                            type:'get',
-                            data:{
-                                id:id,
-                                // imageFile:image,
-                            },
+                            type:'post',
+                            data:$('#form'+id).serialize(),
                             success:function() {  
                                  $('#row'+id).hide();
                                 alert('Xóa thành công');

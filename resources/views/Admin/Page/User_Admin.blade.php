@@ -1,4 +1,4 @@
-@if(Auth::User()->group==2)
+@if(Auth::User()->group==5)
   @extends('Admin.Master.Admin_Master')
   @section('body')
   <section id="main-content" style="overflow: scroll;">
@@ -52,6 +52,8 @@
                     @elseif($user->group==1)
                       <td>Nhân viên</td>
                     @elseif($user->group==2)
+                      <td>Quản Lý Kho</td>
+                    @elseif($user->group==5)
                       <td>Admin</td>
                     @endif
                     <td>
@@ -125,6 +127,7 @@
   @endsection
 @else
   <script type="text/javascript">
+            alert('Bạn không có quyền truy cập');
             window.location.href = "{{route('Content_Admin')}}";
-            </script>
+  </script>
 @endif

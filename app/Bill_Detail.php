@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use DB;
+use App\Bill;
+use App\Customer;
 class Bill_Detail extends Model
 {
 	protected $table='bill_detail';
@@ -85,15 +87,18 @@ class Bill_Detail extends Model
     //Khi xóa 1 bill_Detail
     public static function Delete_One_Bill_Detail($id)
     {
-        $bill_detail=DB::table('bill_detail')
+        $id_bill_detail=DB::table('bill_detail')
             ->where('id','=',$id)->select('id_bill')->get();
+
         $Delete_Bill_Detail=DB::table('bill_detail')
             ->where('id','=',$id)->delete();
         $bill=DB::table('bill_detail')
-            ->where('id_bill','=',$bill_detail[0]->id_bill)->select()->first();
+            ->where('id_bill','=',$id_bill_detail[0]->id_bill)->select()->first();
         if(!isset($bill))
         {
-             $bill=DB::table('bills')->where('id',$bill_detail[0]->id_bill)->delete();
+            $Id_Customer=Bill::View_bill_byId($id_bill_detail[0]->id_bill)->select()->get();
+             $Delete_Bill=Bill::Delete_Bill($id_bill_detail[0]->id_bill);
+             $Delete_Customer=Customer::Delete_Customer($Id_Customer[0]->id_customer);
         }
         
 
