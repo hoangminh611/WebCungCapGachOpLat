@@ -84,7 +84,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				@if(Session::has('hangkhongdu'))
 					<div class="alert alert-danger them " id="alert">
 					@for($i=0;$i<count(Session::get('hangkhongdu'));$i++)
-					{{Session::get('hangkhongdu')[$i]}}
+						{{Session::get('hangkhongdu')[$i]}}
 					<br>
 					@endfor
 					</div>

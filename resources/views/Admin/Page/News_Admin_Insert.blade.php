@@ -86,18 +86,21 @@
                                     </div>
 
                                 </div>
+
                                 <div class="form-group">
                                     <label class=" col-sm-3 control-label ">Mô tả</label>
                                     <div class="col-sm-6">
                                          <textarea name="description" id="description" class="form-control" style="resize: none; height: 12.7em;outline: none;border-top: 1px solid black;" required="" title="Hãy nhập mô tả">{{$news[0]->description}}</textarea>
                                     </div>
                                 </div>
+
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Nội dung:</label>
                                     <div class="col-sm-6">
                                          <textarea name="content"  id="ckeditor"  class="form-control" style="resize: none; height: 12.7em;outline: none;border-top: 1px solid black;" required="true" >{{$news[0]->content}}</textarea>
                                     </div>
                                 </div>
+
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Loại Tin</label>
                                     <div class="col-sm-6">
@@ -112,7 +115,17 @@
                                             $('#'+id).attr('selected','selected');
                                     </script>
                                 </div>
-                                <button type="button" onclick="submit_form()" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">  Save</button>           
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Hiện Tin</label>
+                                    <div class="col-sm-6">
+                                            <select class="form-control m-bot15" id="show_new" name ="show_new">
+                                                <option  id="0" value="0">Kiểm Tra</option>
+                                                <option  id="1" value="1">Hiện Tin</option>
+                                            </select>
+                                    </div>
+                                </div>
+                                <button type="button" onclick="submit_form()" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">Save</button>           
                             </form>
                         </div>
                     @endif

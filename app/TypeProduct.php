@@ -43,25 +43,15 @@ class TypeProduct extends Model
                         ])->select();
         return $Type_product;               
 	}
-	 public static function Insert_Category($name, $desc, $image,$type_cha,$type){
-            $id=DB::table('category')->insertGetId(['name'=>$name,'description'=>$desc,'image'=>$image,'type_cha'=>$type_cha,'type'=>$type]);
+	 public static function Insert_Category($name, $desc,$type_cha,$type){
+            $id=DB::table('category')->insertGetId(['name'=>$name,'description'=>$desc,'type_cha'=>$type_cha,'type'=>$type]);
             return $id;
   	}
-	public static function Update_Category($anhthemmoi_suaAnh,$id,$name,$description,$type_cha,$type,$image){
-       if($anhthemmoi_suaAnh==1)
-            {
+	public static function Update_Category($id,$name,$description,$type_cha,$type){
                $News=DB::table('category')
-                        ->where('id',$id)
-                        ->update(['name'=>$name,'image'=>$image,'description'=>$description,'type_cha'=>$type_cha,'type'=>$type]);
-                return $News;
-            }
-            else
-            {
-                 $News=DB::table('category')
                         ->where('id',$id)
                         ->update(['name'=>$name,'description'=>$description,'type_cha'=>$type_cha,'type'=>$type]);
                 return $News;
-            }
   	}
   	//xóa loại sãn phẩm cha
 	public static function Delete_Category_Parent($id){

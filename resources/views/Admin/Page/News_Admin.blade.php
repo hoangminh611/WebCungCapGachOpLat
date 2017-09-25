@@ -35,6 +35,7 @@
                 <th>Mô tả</th>
                 <th>Nội dung</th>
                 <th>Loại tin tức</th>
+                <th>Tình Trạng</th>
                 <th data-breakpoints="xs sm md" data-title="Sửa/Xóa">Sửa/Xóa</th>
               </tr>
             </thead>
@@ -50,6 +51,13 @@
                        	    <td id="content{{ $new->id }}">{!!html_entity_decode( $new->content)!!}</td>
                             <td id="category_id{{ $new->id }}">{{ $new->type_name }}</td>
                             <td>
+                              @if($new->show==0)
+                                Kiểm Tra
+                              @elseif($new->show==1)
+                                Hiện Tin
+                              @endif
+                            </td>
+                            <td>
                                 <form id="form{{ $new->id }}" method="post">
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                     <input type="hidden" name="id" value="{{ $new->id }}">
@@ -59,11 +67,6 @@
                             </td>
 
                             @if(Auth::User()->group<2)
-                              <script type="text/javascript">
-                                $('.delete_button').attr('disabled','true');
-                                $('.edit_button').attr('disabled','true');
-                              </script>
-                            @elseif(Auth::User()->group==2)
                               <script type="text/javascript">
                                 $('.delete_button').attr('disabled','true');
                               </script>

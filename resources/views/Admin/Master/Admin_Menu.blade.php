@@ -77,6 +77,14 @@
                         <span>Hàng Lỗi</span>
                     </a>
                 </li>
+                @if(Auth::User()->group==5)
+                 <li >
+                    <a href="#">
+                        <i class="fa fa-user"></i>
+                        <span>Giảm Giá</span>
+                    </a>
+                </li>
+                @endif
 {{--                     <ul class="sub">
                         <li><a href="basic_table.html">Basic Table</a></li>
                         <li><a href="responsive_table.html">Responsive Table</a></li>

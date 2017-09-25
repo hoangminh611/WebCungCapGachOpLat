@@ -31,7 +31,7 @@
                 <th>Tên Loại</th>
                 <th data-breakpoints="xs">Mô Tả</th>
                 <th>Type</th>
-                <th>Image</th>
+{{--                 <th>Image</th> --}}
                 <th>Ngày tạo</th>
                 <th>Ngày update</th>
                 <th data-breakpoints="xs sm md" data-title="Sửa/Xóa">Sửa/Xóa</th>
@@ -44,7 +44,7 @@
                   <td>{{$type_pro->name}}</td>
                   <td>{!!$type_pro->description!!}</td>
                   <td>{{$type_pro->type}}</td>
-                  <td><img src="images/category/{{$type_pro->image}}" alt="{{$type_pro->image}}" style="width: 50px; height: 50px;"></td>
+                 {{--  <td><img src="images/category/{{$type_pro->image}}" alt="{{$type_pro->image}}" style="width: 50px; height: 50px;"></td> --}}
                   <td>{{$type_pro->created_at}}</td>
                   <td>{{$type_pro->updated_at}}</td>
                   <td>

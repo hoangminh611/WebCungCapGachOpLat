@@ -4,7 +4,7 @@
 		<div class="container">
 			<div class="breadcrumbs-main">
 				<ol class="breadcrumb">
-					<li><a href="index.html">Home</a></li>
+					<li><a href="{{route('index')}}">Home</a></li>
 					<li class="active">Sản Phẩm Chi tiết</li>
 				</ol>
 			</div>
@@ -82,16 +82,21 @@
 									{{$pro->size}}:{{number_format($pro->export_price)}}VNĐ
 								@endforeach
 							</h5>
-
+							<div class="available">
+								<h6 style="float: left"><b><i>Gợi ý số lượng gạch : </i></b></h6>
+								<input type="text" name="" pattern="[0-9]{1,4}" maxlength='4' required title=" nhâp 1 to 4 chữ số" id="square" placeholder="Nhập diện tích m2">
+								<input type="button" name="" id="calculator" value="Tính">
+							</div>
+							<div style="clear: both"></div>
 							{{-- <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p> --}}
 							<form method="get" action="{{route('add-cart')}}">
 							<div class="available">
 								<ul>
 									<li>
 										<span>Kích Thước</span>
-										<select name="idsize">
+										<select name="idsize" id="size">
 											@foreach($product as $pro)
-												<option value="{{$pro->idsize}}">{{$pro->size}}</option>
+												<option value="{{$pro->idsize}}" size="{{$pro->size}}">{{$pro->size}}</option>
 											@endforeach
 										</select>
 									</li>
@@ -239,6 +244,7 @@
 				$("#quantity").val(quantity);
 
 		});
+
 		$('#plus').click(function()
 		{
 			var quantity=parseInt($("#quantity").val())+1;
@@ -246,7 +252,28 @@
 				$("#quantity").val(quantity);
 
 		});
-		
+
+		$('#calculator').click(function(){
+			var size=$('#size option:selected').attr('size');
+			var str=size.split('x');
+			var s=$('#square').val();
+			if(isNaN(s)){
+
+				alert('Không thể nhập chữ ')
+				$('#square').val(1);
+			}
+
+			else if(s<0){
+				alert('Không thể nhập số < 0')
+				$('#square').val(1);
+			}
+			else{
+
+				s=s*10000;
+				s=Math.ceil(s/(str[0]*str[1]));
+				$("#quantity").val(s);
+			}
+		})
 	</script>
 	<!--end-single-->
 @endsection

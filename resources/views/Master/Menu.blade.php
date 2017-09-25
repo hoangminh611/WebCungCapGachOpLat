@@ -9,10 +9,15 @@
 								<div class="row">
 									@foreach($type as $typepro)
 									<div class="col1 me-one" style="width: 20% ;margin:0px; float:left; " >
-										<h4 style="width: 20%"><a href="{{route('ViewAll_Product',$typepro->id)}}">{{$typepro->name}}</a></h4>
+										<h4 style="width: 20%">
+											<a href="{{route('ViewAll_Product',$typepro->id)}}" class="toggle" data-toggle="tooltip"  title="{{$typepro->description}}">{{$typepro->name}}</a></h4>
 										<ul>
 											@foreach($loaicon[$typepro->id] as $type_child)
-												<li><a href="{{route('ViewAll_Product_By_Type',$type_child->id)}}">{{$type_child->name}}</a></li>
+												<li>
+													<a href="{{route('ViewAll_Product_By_Type',$type_child->id)}}" data-toggle="tooltip" data-placement="top" title="{{$type_child->description}}">
+													{{$type_child->name}}
+													</a>
+												</li>
 											@endforeach
 										</ul>
 									</div>
@@ -51,16 +56,18 @@
         }
     </style>
 	<script type="text/javascript">
-  $( function() {
-    $( "#search" ).autocomplete({
+	  $( function() {
+	    $( "#search" ).autocomplete({
 
-      source: "{{route('autosearch')}}",
-      minLength: 1,
-      autoFocus: true,
-	  select: function(event, ui) {
-	  		$('#search').val(ui.item.value);
-	  		// $('#idSearch').val(ui.item.id);
-	  	}
-	});
-    });
+	      source: "{{route('autosearch')}}",
+	      minLength: 1,
+	      autoFocus: true,
+		  select: function(event, ui) {
+		  		$('#search').val(ui.item.value);
+		  		// $('#idSearch').val(ui.item.id);
+		  	}
+		});
+	    });
+	  
+    	 
   </script>

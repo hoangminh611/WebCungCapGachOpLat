@@ -162,8 +162,12 @@ class Home_Controller extends Controller
             $id_user=Auth::User()->id;
           else
             $id_user=null;
+          if($cart->totalPrice>5000000&&Auth::check())
+            $discount=10;
+          else
+            $discount=0;
           $id_customer=Customer::Insert_Customer($id_user,$full_name,$email,$address,$phone);
-          $id_bill=Bill::Insert_Bill($id_customer,$note);
+          $id_bill=Bill::Insert_Bill($id_customer,$note,$discount);
            foreach ($cart->items as $key) 
             {
 

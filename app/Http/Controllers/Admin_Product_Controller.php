@@ -196,20 +196,20 @@ class Admin_Product_Controller extends Controller
    public function InsertCategory(Request $req)
    {  
         $name=$req->name;
-         if ($req->hasFile('image')) 
-         {
-            $image= $req->file('image')->getClientOriginalName();
-            $req->file('image')->move('images/category',$image);
-         }
-         else
-         {
-            $image=null;
-         }
+         // if ($req->hasFile('image')) 
+         // {
+         //    $image= $req->file('image')->getClientOriginalName();
+         //    $req->file('image')->move('images/category',$image);
+         // }
+         // else
+         // {
+         //    $image=null;
+         // }
          $description=$req->description;
          $type_cha=$req->type_cha;
          $type=$req->type;
          $khongcocha=$req->khongcocha;
-         $category=TypeProduct::Insert_Category($name, $description, $image,$type_cha,$type);
+         $category=TypeProduct::Insert_Category($name, $description,$type_cha,$type);
          if($khongcocha==0)
           return redirect()->route('Admin_All_Type');
          else
@@ -226,21 +226,8 @@ class Admin_Product_Controller extends Controller
          $type_cha=$req->type_cha;
          $type=$req->type;
          $khongcocha=$req->khongcocha;
-         //có ảnh thì update cả ảnh
-         if ($req->hasFile('image')) 
-         {
-            $image= $req->file('image')->getClientOriginalName();
-            $req->file('image')->move('images/category',$image);
-            $suaanh=1;
-            $type=TypeProduct::Update_Category($suaanh,$id,$name,$description,$type_cha,$type,$image);
-         }
-         else
-         {
-            $image=null;
-            $suaanh=0;
-            $type=TypeProduct::Update_Category($suaanh,$id,$name,$description,$type_cha,$type,$image);
-         }
-         
+         $type=TypeProduct::Update_Category($id,$name,$description,$type_cha,$type);
+
          if($khongcocha==0)
             return redirect()->route('Admin_All_Type');
          else

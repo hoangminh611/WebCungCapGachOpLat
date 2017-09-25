@@ -6,7 +6,7 @@
   		<div class="table-agile-info">
        <div class="panel panel-default">
           <div class="panel-heading">
-           Basic table
+           Bảng Người DÙng
           </div>
             <div>
             {{--   <button id="addRow" onclick="addRow({{$name_parent[0]->id}})"  class=" btn btn-info btn-lg glyphicon glyphicon-plus-sign" style=" border-radius: 10px;"></button> --}}
@@ -24,7 +24,9 @@
               }}'>
               <thead>
                 <tr>
-                  <th data-breakpoints="xs">ID</th>
+
+                  <th data-breakpoints="xs"></th>
+                  <th>ID</th>
                   <th>Provider_id</th>
                   <th>Provider</th>
                   <th data-breakpoints="xs">Họ Tên</th>
@@ -33,12 +35,13 @@
                   <th>Địa chỉ</th>
                   <th>Kích họat</th>
                   <th>Phân quyền</th>
-                  <th data-breakpoints="xs sm md" data-title="DOB">Edit</th>
+                  <th data-breakpoints="xs sm md" data-title="Edit">< /th>
                 </tr>
               </thead>
               <tbody>
                 @foreach($users as $user)
                   <tr data-expanded="true">
+                    <td></td>
                     <td>{{$user->id}}</td>
                     <td>{{$user->provider_id}}</td>
                     <td>{{$user->provider}}</td>

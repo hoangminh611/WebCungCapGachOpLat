@@ -11,32 +11,27 @@
 <![endif]-->
 </head>
 <body>
-<div id="preloader">
-  <div id="status">&nbsp;</div>
-</div>
-<a class="scrollToTop" href="#"><i class="fa fa-angle-up"></i></a>
+  <div id="preloader">
+    <div id="status">&nbsp;</div>
+  <div class="breadcrumbs">
+      <div class="container">
+        <div class="breadcrumbs-main">
+          <ol class="breadcrumb">
+            <li><a href="{{route('News')}}">Tin tức</a></li>
+            <li><a href="{{route('News_By_Type',$new_detail[0]->type_new)}}">{{$new_detail[0]->name}}</a></li>
+            <li class="active">Tin Chi tiết</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  <a class="scrollToTop" href="#"><i class="fa fa-angle-up"></i></a>
 
 <section id="content">
   
   <div class="container">
     <div class="row">
-      <div class="col-lg-3 col-md-3 col-sm-4">
-        <div class="left_sidebar">
-          <div class="single_widget">
-            <h2>Bài Viết Mới</h2>
-            <ul class="ppost_nav wow fadeInDown">
-            	@foreach($new_post as $new)
-              		<li>
-	                	<a href="{{route('New_Detail',$new->id)}}"><div class="media"><img src="images/news/{{$new->image}}"  style="width: 50px; height: 50px;" alt="">
-	                  <div class="media-body">{!!$new->title!!}</div></a>
-	                </div>
-              		</li>
-              	@endforeach
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-6 col-md-6 col-sm-8">
+
+      <div class="col-lg-9 col-md-9 col-sm-8">
         <div class="middle_content">
 				            <h1>{{$new_detail[0]->title}}</h1>
             <div class="post_commentbox"><i class="fa fa-user"></i> {{$new_detail[0]->full_name}}<span><i class="fa fa-calendar"></i>{{$new_detail[0]->created_at}}</span><i class="fa fa-tags"></i></div>

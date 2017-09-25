@@ -133,11 +133,39 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								Số Lượng:{{$product['qty']}} Giá: {{number_format($product['price'])}}
 							@endforeach
 							<br>
-							<b>Phí vận Chuyển:{{number_format(40000)}}VNĐ
-							<br>
-							<b>Tổng sản phẩm:</b>{{number_format($totalQty)}} Sản Phẩm
-							<br>
-							<b>Tổng Tiền:</b>{{number_format($totalPrice+40000)}} VNĐ
+							@if(!Auth::check())
+								@if($totalPrice<5000000)
+									<b>Phí vận Chuyển:{{number_format(40000)}}VNĐ
+									<br>
+									<b>Tổng sản phẩm:</b>{{number_format($totalQty)}} Sản Phẩm
+									<br>
+									<b>Tổng Tiền:</b>{{number_format($totalPrice+40000)}} VNĐ
+								@else
+									<b>Phí vận Chuyển:0 VNĐ
+									<br>
+									<b>Tổng sản phẩm:</b>{{number_format($totalQty)}} Sản Phẩm
+									<br>
+									<b>Tổng Tiền:</b>{{number_format($totalPrice)}} VNĐ
+								@endif
+							@elseif($totalPrice<5000000&&Auth::check())
+								<b>Phí vận Chuyển:{{number_format(40000)}}VNĐ
+								<br>
+								<b>Tổng sản phẩm:</b>{{number_format($totalQty)}} Sản Phẩm
+								<br>
+								<b>Tổng Tiền:</b>{{number_format($totalPrice+40000)}} VNĐ
+							@elseif($totalPrice>=5000000&&$totalPrice<8000000&&Auth::check())
+								<b>Phí vận Chuyển:0 VNĐ
+								<br>
+								<b>Tổng sản phẩm:</b>{{number_format($totalQty)}} Sản Phẩm
+								<br>
+								<b>Tổng Tiền:</b>{{number_format($totalPrice*90/100)}} VNĐ(Giảm 10%)
+							@elseif($totalPrice>=8000000&&Auth::check())
+								<b>Tổng sản phẩm:</b>{{number_format($totalQty)}} Sản Phẩm
+								<br>
+								<b>Tổng Tiền:</b>{{number_format($totalPrice*90/100)}} VNĐ(Giảm 10%)
+								<br>
+								<b>Tặng: 1 Móc chìa khóa</b>
+							@endif
 						@endif
 						</div>
 					</div>

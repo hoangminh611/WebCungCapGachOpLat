@@ -27,14 +27,14 @@ class Bill extends Model
         return $Bill;
     }
     //update bill update lai cai phuong thuc
-    public static function Update_Bill($id,$method)
+    public static function Update_Bill($id,$method,$discount)
     {
-        $Bill=DB::table('bills')->where('id',$id)->update(['method'=>$method]);
+        $Bill=DB::table('bills')->where('id',$id)->update(['method'=>$method,'discount'=>$discount]);
     }
     //Insert customer vào bill
-    public static function Insert_Bill($idcustomer,$note)
+    public static function Insert_Bill($idcustomer,$note,$discount)
     {
-         $Bill=DB::table('bills')->insertGetId(['id_customer'=>$idcustomer,'method'=>'Chưa Xác Nhận','note'=>$note]);
+         $Bill=DB::table('bills')->insertGetId(['id_customer'=>$idcustomer,'method'=>'Chưa Xác Nhận','note'=>$note,'discount'=>$discount]);
          return $Bill;
     }
 
@@ -48,5 +48,11 @@ class Bill extends Model
     public static function Delete_Bill($id){
          $bill=DB::table('bills')->where('id',$id)->delete();
          return $bill;
+    }
+    //tìm tổng giá để update lại discount
+    public static function Sum_Price($id){
+        $Bill=DB::table('bill_detail')->where('id_bill',$id)->select(DB::raw('sum(sales_price*quantity)as total'));
+        return $Bill;
+
     }
 }

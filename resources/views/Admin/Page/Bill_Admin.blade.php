@@ -39,7 +39,17 @@
                   <td><a href="{{route('ViewPageBill_Detail_Admin',[$bill->id,$bill->id_customer,$bill->method])}}">Xem Chi Tiết</a></td>
                   <td>{{$bill->id}}</td>
                   <td>{{$bill->full_name}}</td>
-                  <td>{{$bill->method}}</td>
+                  @if($bill->method=="Chưa Xác Nhận")
+                    <td style="color: red">{{$bill->method}}</td>
+                  @elseif($bill->method=="Đã Xác Nhận Chưa Thanh Toán")
+                    <td style="color: blue">{{$bill->method}}</td>
+                  @elseif($bill->method=="Đang Xử Lý")
+                     <td style="color: green">{{$bill->method}}</td>
+                  @elseif($bill->method=="Đang vận chuyển")
+                     <td style="color: yellow">{{$bill->method}}</td>
+                  @elseif($bill->method=="Đã Thanh Toán")
+                       <td>{{$bill->method}}</td>
+                  @endif
                   <td>{{$bill->note}}</td>
                   <td>{{$bill->created_at}}</td>
                   <td>{{$bill->updated_at}}</td>

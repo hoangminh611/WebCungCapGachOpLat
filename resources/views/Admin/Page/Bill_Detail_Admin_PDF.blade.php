@@ -50,19 +50,45 @@
   <center>
       <table class="sumary-table" style="padding-left: 380px; float: right" >
 
-     
-        <tr>
-           <th style="">=> Tạm Tính:</th>
-            <td width="152px"  style="color: red">{{number_format($tong)}} VND</td>
-        </tr>
-        <tr>
-           <th style="">=> Phí vận chuyển:</th>
-            <td width="152px"  style="color: red">40,000  VND</td>
-        </tr>
-        <tr>
-           <td style=""><h1>Tổng cộng:</h1> </td>
-            <td width="152px"  style="color: red;"><h3 style="">{{number_format($tong+40000)}}VND</h3></td>
-        </tr>
+      @if(($bill[0]->discount)!=0)
+            @if($tong>=5000000)
+                <tr>
+                   <th style="">=> Tạm Tính:</th>
+                    <td width="152px"  style="color: red">{{number_format($tong*(100-$bill[0]->discount)/100)}} VNĐ(Giảm {{$bill[0]->discount}}) %</td>
+                </tr>
+                <tr>
+                   <th style="">=> Phí vận chuyển:</th>
+                    <td width="152px"  style="color: red">0  VND</td>
+                </tr>
+                @if($tong>=8000000)
+                  <tr>
+                     <th style="">=> 1 Móc Chìa khóa(Free)</th>
+                  </tr>
+                @endif
+                <tr>
+                  <td style=""><h1>Tổng cộng:</h1> </td>
+                  <td width="152px"  style="color: red;"><h3 style="">{{number_format($tong)}}VND</h3></td>
+                </tr>
+            @endif
+          @else
+            <tr>
+              <th style="">=> Tạm Tính:</th>
+              <td width="152px"  style="color: red">{{number_format($tong)}} VND</td>
+            </tr>
+            <tr>
+              <th style="">=> Phí vận chuyển:</th>
+              @if($tong<5000000)
+                <td width="152px"  style="color: red">40,000  VNĐ</td>
+              @else
+                <td width="152px"  style="color: red">0  VNĐ</td>
+              @endif
+            </tr>
+            <tr>
+              <td style=""><h1>Tổng cộng:</h1> </td>
+              <td width="152px"  style="color: red;"><h3 style="">{{number_format($tong+40000)}}VND</h3></td>
+            </tr>
+          @endif
+        
       
       </table><br>
 

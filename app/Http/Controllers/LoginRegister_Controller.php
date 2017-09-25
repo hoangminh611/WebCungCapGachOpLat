@@ -13,6 +13,7 @@ use Socialite;
 use App\User;
 use Mail;
 use App\Bill_Detail;
+use Session;
 class LoginRegister_Controller extends Controller
 {
   //Login
@@ -20,7 +21,7 @@ class LoginRegister_Controller extends Controller
    {    
         
         if(Auth::attempt(['email'=>$req->email,'password'=>$req->password,'active'=>1])){
-                return redirect()->route('home');
+                return redirect()->back()->with('thanhcong','Đăng nhập thành công');
         }
         else
         {  
@@ -39,7 +40,14 @@ class LoginRegister_Controller extends Controller
     //Gọi trang register
        public function Register()
    {
-   		return view('Master.Register');
+            $characters ='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $charactersLength = strlen($characters);
+            $randomString = '';
+            for ($i = 0; $i <6 ; $i++) {
+                 $randomString .= $characters[rand(0, $charactersLength - 1)];
+             }
+            Session::put('code',$randomString);
+   		 return view('Master.Register',compact('randomString'));
    }
 
       public function CheckEmail($email)
@@ -64,7 +72,12 @@ class LoginRegister_Controller extends Controller
         // DB::table('users')->insert([
         // 		'full_name'=>'lam'
         // 	]);
+        $code=$req->captcha;
+        if(Session::get('code')!=$code)
+          return redirect()->back()->with('thatbai','Mã captcha bị sai');
+
         $user=User::where('email',$req->email)->first();
+
         if($user)
         	return redirect()->back()->with('thatbai','Email đã tồn tại');
         else

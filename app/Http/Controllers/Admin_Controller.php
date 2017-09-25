@@ -65,7 +65,7 @@ class Admin_Controller extends Controller
    //xem trang user admin
    public function ViewPage_User_Admin()
    {
-   		$users=User::User_All()->get();
+   		$users=User::User_All()->orderBy('group','DESC')->get();
    		return view('Admin.Page.User_Admin',compact('users'));
    }
    //xem trang import_product admin

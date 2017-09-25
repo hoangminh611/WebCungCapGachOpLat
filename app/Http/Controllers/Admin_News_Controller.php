@@ -48,18 +48,18 @@ class Admin_News_Controller extends Controller
          $description=($req->description);
          $content=($req->content);
          $category_id_news=$req->category_id_news;
-         if ($req->hasFile('image')) 
-         {
+         $show_new=$req->show_new;
+
+         if ($req->hasFile('image')) {
             $image= $req->file('image')->getClientOriginalName();
             $req->file('image')->move('images/news',$image);
             $suaanh=1;
-            $news=News::UpdateNews($suaanh,$id,$id_user,$title,$image,$description,$content,$category_id_news);
+            $news=News::UpdateNews($suaanh,$id,$id_user,$title,$image,$description,$content,$category_id_news,$show_new);
          }
-         else
-         {
+         else{
             $image=null;
             $suaanh=0;
-            $news=News::UpdateNews($suaanh,$id,$id_user,$title,$image,$description,$content,$category_id_news);
+            $news=News::UpdateNews($suaanh,$id,$id_user,$title,$image,$description,$content,$category_id_news,$show_new);
          }
          
           return redirect()->route('ViewNews');
@@ -70,15 +70,15 @@ class Admin_News_Controller extends Controller
          //Chưa kiểm tra đươc image và description
          $id_user=Auth::User()->id;
          $title=$req->title;
-         if ($req->hasFile('image')) 
-         {
+
+         if ($req->hasFile('image')) {
             $image= $req->file('image')->getClientOriginalName();
             $req->file('image')->move('images/news',$image);
          }
-         else
-         {
+         else{
             $image=null;
          }
+
          $description=($req->description);
          $content=($req->content);
          $category_id_news=$req->category_id_news;
@@ -119,19 +119,19 @@ class Admin_News_Controller extends Controller
       public function Insert_Type_News(Request $req)
       {
          $name=$req->name;
-         if ($req->hasFile('image')) 
-         {
-            $image= $req->file('image')->getClientOriginalName();
-            $req->file('image')->move('images/category',$image);
-         }
-         else
-         {
-            $image=null;
-         }
+         // if ($req->hasFile('image')) 
+         // {
+         //    $image= $req->file('image')->getClientOriginalName();
+         //    $req->file('image')->move('images/category',$image);
+         // }
+         // else
+         // {
+         //    $image=null;
+         // }
          $description=($req->description);
          $type_cha=($req->type_cha);
          $type=$req->type;
-         $type_news=News::InsertTypeNews($name,$description,$image,$type_cha,$type);
+         $type_news=News::InsertTypeNews($name,$description,$type_cha,$type);
           return redirect()->route('TypeNews');
       }
       //update type news
@@ -142,20 +142,9 @@ class Admin_News_Controller extends Controller
          $description=$req->description;
          $type_cha=$req->type_cha;
          $type=$req->type;
-         if ($req->hasFile('image')) 
-         {
-            $image= $req->file('image')->getClientOriginalName();
-            $req->file('image')->move('images/news',$image);
-            $suaanh=1;
-            $news=News::Update_Type_News($suaanh,$id,$name,$description,$type_cha,$type,$image);
-         }
-         else
-         {
-            $image=null;
-            $suaanh=0;
-            $news=News::Update_Type_News($suaanh,$id,$name,$description,$type_cha,$type,$image);
-         }
-         
+
+            $news=News::Update_Type_News($id,$name,$description,$type_cha,$type);
+
           return redirect()->route('TypeNews');
       }
      //Xóa loại news

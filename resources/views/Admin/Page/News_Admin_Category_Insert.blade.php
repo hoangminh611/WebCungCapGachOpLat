@@ -1,4 +1,4 @@
-@if(Auth::User()->group==5))
+@if(Auth::User()->group==5)
 @extends('Admin.Master.Admin_Master')
 @section('body')
 <section id="main-content">
@@ -28,7 +28,7 @@
                                     </div>
 
                                 </div>
-                                 <div class="form-group">
+                                 {{-- <div class="form-group">
                                     <label class="col-sm-3 control-label">Hình ảnh*</label>
                                     <div class="col-sm-6">
                                          <input type="file" value="" name="image" id="f" accept="image/*" class="form-control" style="border-top: 1px solid black;" required="" onchange=" file_change(this) ">
@@ -36,7 +36,7 @@
                                         <span class="help-block">Chọn Ảnh </span>
                                     </div>
 
-                                </div>
+                                </div> --}}
                                 <div class="form-group">
                                     <label class=" col-sm-3 control-label ">Mô tả</label>
                                     <div class="col-sm-6">
@@ -53,7 +53,7 @@
                                             </select>
                                     </div>
                                 </div>
-                                <button type="button" onclick="submit_insert_form()" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">  Save</button>           
+                                <button type="submit" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">  Save</button>           
                             </form>
                         </div>
                     @else
@@ -94,11 +94,11 @@
                                             </select>
                                     </div>
                                 </div>
-                                <button type="button" onclick="submit_form()" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">  Save</button>           
+                                <button type="submit" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">  Save</button>           
                             </form>
                         </div>
                     @endif
-                    <script>
+                   {{--  <script>
                      CKEDITOR.replace( 'ckeditor',{
                         filebrowserBrowseUrl : '../public/ckeditor/ckfinder/ckfinder.html',
                         filebrowserImageBrowseUrl : '../public/ckeditor/ckfinder/ckfinder.html',
@@ -107,7 +107,7 @@
                         filebrowserImageUploadUrl : '../public/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
                         filebrowserFlashUploadUrl : '../public/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
                     });
-                </script>
+                </script> --}}
                 </section>
 
             </div>
@@ -117,28 +117,28 @@
         <!-- page end-->
         </div>
 <script type="text/javascript">
-    function file_change(f){
+    // function file_change(f){
 
-        var reader = new FileReader();
-        reader.onload = function (e) {
-        var img = document.getElementById("img");
-        img.src = e.target.result;
-        img.style.display = "inline";
-        };
-        var ftype =f.files[0].type;
-        switch(ftype)
-        {
-            case 'image/png':
-            case 'image/gif':
-            case 'image/jpeg':
-            case 'image/pjpeg':
-                reader.readAsDataURL(f.files[0]);
-                break;
-            default:
-                alert(' Bạn chỉ được chọn file ảnh.');
-                $('#f').val(null);
-        }
-    }
+    //     var reader = new FileReader();
+    //     reader.onload = function (e) {
+    //     var img = document.getElementById("img");
+    //     img.src = e.target.result;
+    //     img.style.display = "inline";
+    //     };
+    //     var ftype =f.files[0].type;
+    //     switch(ftype)
+    //     {
+    //         case 'image/png':
+    //         case 'image/gif':
+    //         case 'image/jpeg':
+    //         case 'image/pjpeg':
+    //             reader.readAsDataURL(f.files[0]);
+    //             break;
+    //         default:
+    //             alert(' Bạn chỉ được chọn file ảnh.');
+    //             $('#f').val(null);
+    //     }
+    // }
        function submit_insert_form()
         {
              var frm=$('#add-form')[0];//cái này tương đương với document.getelementbyid
@@ -167,34 +167,34 @@
                     }
                 );
         }
-      function submit_form()
-            {
-                var frm=$('#edit-form')[0];//cái này tương đương với document.getelementbyid
-                ssi_modal.confirm({
-                content: 'Xin Hãy Kiểm tra kỹ càng trước khi save nếu bi sai sót có thể sẽ gây ra lỗi đáng tiếc',
-                okBtn: {
-                className:'btn btn-primary'
-                },
-                cancelBtn:{
-                className:'btn btn-danger'
-                }
-                },function (result) 
-                    {
-                        if(result)
-                        {
-                                 var noidung=CKEDITOR.instances.ckeditor.getData();
-                          if($('#name').val()&&noidung)
-                          {
-                            frm.submit();
-                          }
-                          else 
-                            alert('Bạn chưa nhập đủ nội dung');
-                         }
-                        else
-                            ssi_modal.notify('error', {content: 'Result: ' + result});
-                    }
-                );
-            }   
+      // function submit_form()
+      //       {
+      //           var frm=$('#edit-form')[0];//cái này tương đương với document.getelementbyid
+      //           ssi_modal.confirm({
+      //           content: 'Xin Hãy Kiểm tra kỹ càng trước khi save nếu bi sai sót có thể sẽ gây ra lỗi đáng tiếc',
+      //           okBtn: {
+      //           className:'btn btn-primary'
+      //           },
+      //           cancelBtn:{
+      //           className:'btn btn-danger'
+      //           }
+      //           },function (result) 
+      //               {
+      //                   if(result)
+      //                   {
+      //                            var noidung=CKEDITOR.instances.ckeditor.getData();
+      //                     if($('#name').val()&&noidung)
+      //                     {
+      //                       frm.submit();
+      //                     }
+      //                     else 
+      //                       alert('Bạn chưa nhập đủ nội dung');
+      //                    }
+      //                   else
+      //                       ssi_modal.notify('error', {content: 'Result: ' + result});
+      //               }
+      //           );
+      //       }   
 </script>
 </section>
 @endsection             

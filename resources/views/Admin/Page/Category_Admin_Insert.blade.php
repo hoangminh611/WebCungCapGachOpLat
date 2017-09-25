@@ -29,19 +29,18 @@
                                     </div>
 
                                 </div>
-                                 <div class="form-group">
+{{--                                  <div class="form-group">
                                     <label class="col-sm-3 control-label">Hình ảnh*</label>
                                     <div class="col-sm-6">
                                          <input type="file" value="" name="image" id="f" accept="image/*" class="form-control" style="border-top: 1px solid black;" required="" onchange=" file_change(this) ">
                                           <img style="width: 100px;height: 100px" id="img"  style="display: none;">
                                         <span class="help-block">Chọn Ảnh </span>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="form-group">
                                     <label class=" col-sm-3 control-label ">Mô tả</label>
                                     <div class="col-sm-6">
-                                         <textarea name="description" id="ckeditor" class="form-control" style="resize: none; height: 12.7em;outline: none;border-top: 1px solid black;" required="">
-                                         </textarea>
+                                         <textarea name="description" id="ckeditor" class="form-control" style="resize: none; height: 12.7em;outline: none;border-top: 1px solid black;" required=""></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -80,7 +79,7 @@
                                     </div>
 
                                 </div>
-                                 <div class="form-group">
+{{--                                  <div class="form-group">
                                     <label class="col-sm-3 control-label">Hình ảnh*</label>
                                     <div class="col-sm-6">
                                             <input type="file" value="" name="image" id="f" accept="image/*" class="form-control" style="border-top: 1px solid black;"  onchange=" file_change(this) ">
@@ -88,13 +87,11 @@
                                         <span class="help-block">Chọn Ảnh </span>
                                     </div>
 
-                                </div>
+                                </div> --}}
                                 <div class="form-group">
                                     <label class=" col-sm-3 control-label ">Mô tả</label>
                                     <div class="col-sm-6">
-                                         <textarea name="description"  id="ckeditor" class="form-control" style="resize: none; height: 12.7em;outline: none;border-top: 1px solid black;" required="">
-                                          {{$type_detail[0]->description}}
-                                         </textarea>
+                                         <textarea name="description"  id="ckeditor" class="form-control" style="resize: none; height: 12.7em;outline: none;border-top: 1px solid black;" required="">{{$type_detail[0]->description}}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -121,7 +118,7 @@
                         </div>
                     @endif
                 </section>
-                <script>
+              {{--   <script>
                      CKEDITOR.replace( 'ckeditor',{
                         filebrowserBrowseUrl : '../public/ckeditor/ckfinder/ckfinder.html',
                         filebrowserImageBrowseUrl : '../public/ckeditor/ckfinder/ckfinder.html',
@@ -130,7 +127,7 @@
                         filebrowserImageUploadUrl : '../public/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
                         filebrowserFlashUploadUrl : '../public/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
                     });
-                </script>
+                </script> --}}
             </div>
         </div>
         <!-- page end-->

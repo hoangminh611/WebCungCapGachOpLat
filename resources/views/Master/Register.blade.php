@@ -64,9 +64,15 @@
 						<br>
 						<input placeholder="Nhập lại mật khẩu " type="password" name="re_password" id="re_password" tabindex="4" minlength="6" maxlength="10" required>
 					</div>
+					<div class="col-md-6 account-right account-left">
+						Captcha:
+						<br>
+						<input  style="width:50%" placeholder="Captcha" type="text" minlength="6" maxlength="6" name="captcha" id="captcha" tabindex="2" required> 
+						<span style="width: 25%;font-size: 25px; background-color: red; text-align: center">{{$randomString}}</span>
+					</div>
 					<div class="clearfix"></div>
 				</div>
-				<div class="address submit">
+				<div class=" address submit">
 					<input type="submit" value="Đăng Ký">
 				</div>
 			</form>

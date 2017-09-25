@@ -5,7 +5,7 @@
 		<div class="table-agile-info">
      <div class="panel panel-default">
         <div class="panel-heading">
-         Bill_Detail
+         Chi Tiết Hóa Đơn
          <br>
         </div>
             Họ Tên:<b>{{$customer[0]->full_name}}</b>
@@ -41,7 +41,9 @@
               </tr>
             </thead>
             <tbody>
+            <?php $total=0;?>
               @foreach($Bill_Detail as $bill_detail)
+                <?php $total += $bill_detail->quantity*$bill_detail->sales_price ;?>
                 <tr data-expanded="true" id="row{{$bill_detail->id}}">
                 	<td>{{$bill_detail->id_bill}}</td>
                   <td>{{$bill_detail->id}}</td>
@@ -89,6 +91,17 @@
               @endforeach
             </tbody>
           </table>
+          @if(($bill[0]->discount)!=0)
+            @if($total>=5000000)
+              <p>Total:{{number_format($total*(100-$bill[0]->discount)/100)}}(Giảm {{$bill[0]->discount}}%)</p>
+              @if($total>=8000000)
+                <p>1 Móc Chìa khóa</p>
+              @endif
+            @endif
+          @else
+            <p>Total:{{number_format($total*(100-$bill[0]->discount)/100)}}(Giảm {{$bill[0]->discount}}%)</p>
+          @endif
+         
           <a href="{{route('downloadPDF',[$customer[0]->id,$idhoadon])}}">Xuất file PDF</a>
       </div>
   </div>
