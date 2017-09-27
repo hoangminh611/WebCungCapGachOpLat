@@ -14,6 +14,7 @@ use App\Customer;
 use Session;
 use App\Import_product;
 use App\Export_Product;
+use App\Discount;
 use PDF;
 class Admin_Bill_Controller extends Controller
 {
@@ -28,7 +29,7 @@ class Admin_Bill_Controller extends Controller
    {
       $idhoadon=$id;
    	$Bill_Detail=Bill_Detail::View_All($id)->get();
-      $bill=Bill::View_bill_byId($idhoadon)->get();
+      $bill=Bill::View_bill_discountbyId($idhoadon)->get();
       $customer=Customer::Customer_ByID($id_customer)->get();
    	return view('Admin.Page.Bill_Detail_Admin',compact('Bill_Detail','customer','method','idhoadon','bill'));
    }
@@ -72,11 +73,20 @@ class Admin_Bill_Controller extends Controller
 
       $method=$req->method;
       $price=Bill:: Sum_Price($id)->get();
-      if($price[0]->total>=5000000)
-         $discount=10;
-      else
-         $discount=0;
-         $bill=Bill::Update_Bill($id,$method,$discount);
+      $discount=Discount::Get_All()->orderBy('price_discount')->get();
+      
+      for($i=0;$i<=count($discount);$i++){
+            if(!isset($discount[$i]->price_discount)){
+                $id_discount=$discount[$i-1]->id;
+               break;
+            }
+            if($price[0]->total < $discount[$i]->price_discount){
+               $id_discount=$discount[$i-1]->id;
+               break;
+         }
+      }
+
+      $bill=Bill::Update_Bill($id,$method,$id_discount);
       return redirect()->route('ViewPageBill_Admin');
    }
    //xóa bill detail theo id,cap nhat lai quantity
@@ -87,7 +97,6 @@ class Admin_Bill_Controller extends Controller
       $size=$req->size;
       $quantity=$req->quantity;
       $bill_detail=Bill_Detail::Delete_One_Bill_Detail($id);
-      dd($bill_detail);
       $export_quantity=Export_Product::Update_quantity_By_Idproduct($id_product,$size,$quantity);
 
    }
@@ -103,7 +112,7 @@ class Admin_Bill_Controller extends Controller
 
      $Bill_Detail=Bill_Detail::View_All($req->idbill)->get();
       $customer=Customer::Customer_ByID($req->idcustomer)->get();
-      $bill=Bill::View_bill_byId($req->idbill)->get();
+      $bill=Bill::View_bill_discountbyId($req->idbill)->get();
          $pdf =PDF::loadView('Admin.Page.Bill_Detail_Admin_PDF',compact('customer','Bill_Detail','bill'))->setPaper('a4', 'landscape');//Load view
         //Tạo file xem trước pdf
          // return view('Admin.Page.Bill_Detail_Admin_PDF',compact('customer','Bill_Detail'));

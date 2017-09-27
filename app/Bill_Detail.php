@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use DB;
 use App\Bill;
 use App\Customer;
+use App\Discount;
 class Bill_Detail extends Model
 {
 	protected $table='bill_detail';
@@ -117,18 +118,21 @@ class Bill_Detail extends Model
         $bill=DB::table('bill_detail')->join('bills','bill_detail.id_bill','=','bills.id')
         ->where('bills.method','LIKE','%Đã Thanh Toán%')->select()->get();
         foreach ($bill as $bill_detail) {
+
+            $discount=Discount::Get_Discount_By_Id($bill_detail->discount)->first();
+
             if(isset($a[$bill_detail->id_product][$bill_detail->size]))
             {
-             $a[$bill_detail->id_product][$bill_detail->size]['price']+=($bill_detail->sales_price*$bill_detail->quantity)*(100-$bill_detail->discount)/100;
+             $a[$bill_detail->id_product][$bill_detail->size]['price']+=($bill_detail->sales_price*$bill_detail->quantity)*(100-$discount->percent_discount)/100;
              $a[$bill_detail->id_product][$bill_detail->size]['quantity']+=$bill_detail->quantity;
-             $a['tongtienxuat']+=$bill_detail->sales_price*$bill_detail->quantity;
+             $a['tongtienxuat']+=($bill_detail->sales_price*$bill_detail->quantity)*(100-$discount->percent_discount)/100;;
             }
             else
             {
-            $a[$bill_detail->id_product][$bill_detail->size]['price']=($bill_detail->sales_price*$bill_detail->quantity)*(100-$bill_detail->discount)/100;
+            $a[$bill_detail->id_product][$bill_detail->size]['price']=($bill_detail->sales_price*$bill_detail->quantity)*(100-$discount->percent_discount)/100;
              $a[$bill_detail->id_product][$bill_detail->id_product]=$bill_detail->id_product;
              $a[$bill_detail->id_product][$bill_detail->size]['quantity']=$bill_detail->quantity;
-            $a['tongtienxuat']+=$bill_detail->sales_price*$bill_detail->quantity;
+            $a['tongtienxuat']+=($bill_detail->sales_price*$bill_detail->quantity)*(100-$discount->percent_discount)/100;;
             }
 
         }

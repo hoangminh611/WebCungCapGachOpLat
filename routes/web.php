@@ -99,6 +99,25 @@ Route::post('Update_Error_Product',
 	 'uses'=>'Admin_Product_Controller@Update_Error_Product']);
 
 //-------------------------------Sản phẩm Admin--------------------------
+
+//-------------------------------Giảm Giá Admin--------------------------
+Route::get('Discount_Admin',
+	['as'=>'Discount_Admin',
+	 'uses'=>'Admin_Discount_Controller@View_Page_Discount']);
+Route::get('Discount_Insert_Admin',
+	['as'=>'Discount_Insert_Admin',
+	 'uses'=>'Admin_Discount_Controller@View_Page_Insert_Discount']);
+Route::post('Insert_Discount',
+	['as'=>'Insert_Discount',
+	 'uses'=>'Admin_Discount_Controller@Insert_Discount']);
+Route::post('Update_Discount',
+	['as'=>'Update_Discount',
+	 'uses'=>'Admin_Discount_Controller@Update_Discount']);
+Route::post('Delete_Discount',
+	['as'=>'Delete_Discount',
+	 'uses'=>'Admin_Discount_Controller@Delete_Discount']);
+//-------------------------------Giảm Giá Admin--------------------------
+
 //-------------------------------Loại Admin--------------------------
 Route::get('Admin_All_Type',[
 	'as'=>'Admin_All_Type',

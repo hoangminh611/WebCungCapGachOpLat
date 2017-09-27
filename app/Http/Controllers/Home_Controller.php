@@ -18,6 +18,7 @@ use App\Import_product;
 use App\Customer;
 use App\Bill;
 use App\Bill_Detail;
+use App\Discount;
 class Home_Controller extends Controller
 {
   //Lấy 8 sản phẩm mới
@@ -129,47 +130,62 @@ class Home_Controller extends Controller
 
     //gọi trang thanh toán
    public function Payment(){
-   	return view('Page.Payment');
+      $discount=Discount::Get_All()->orderBy('price_discount')->get();
+   	return view('Page.Payment',compact('discount'));
    }
    //Insert vào bảng customer khi thanh toán
    public function Customer_Edit(Request $req)
    {
-      $a=array();
-      $i=0;
-      $oldCart = Session('cart')?Session::get('cart'):null;
-      $cart = new Cart($oldCart);
-      foreach ($cart->items as $key) {
-        $id=$key['item'][0]->id;
-        $size=$key['item'][0]->size;
-        $name=$key['item'][0]->name;
-        $Qty=$key['qty'];
+        $a=array();
+        $i=0;
+        $oldCart = Session('cart')?Session::get('cart'):null;
+        $cart = new Cart($oldCart);
+        foreach ($cart->items as $key) {
+          $id=$key['item'][0]->id;
+          $size=$key['item'][0]->size;
+          $name=$key['item'][0]->name;
+          $Qty=$key['qty'];
 
-        $export_quantity=Export_product::FindOneExportProduct($id,$size)->get();
-        $import_quantity=Import_product::FindOneImportProduct($id,$size)->sum('import_quantity');
-        $quantity=$import_quantity-$export_quantity[0]->export_quantity;
-        if($quantity<$Qty)
-        $a[$i++]=$name." - ".$size." : hàng không đủ hàng trong kho chỉ còn : ".$quantity;
-        # code...
+          $export_quantity=Export_product::FindOneExportProduct($id,$size)->get();
+          $import_quantity=Import_product::FindOneImportProduct($id,$size)->sum('import_quantity');
+          $quantity=$import_quantity-$export_quantity[0]->export_quantity;
+
+          if($quantity<$Qty)
+          $a[$i++]=$name." - ".$size." : hàng không đủ hàng trong kho chỉ còn : ".$quantity;
+          # code...
         }
-        if($a==null)
-        {
+
+        if($a==null){
           $full_name=$req->name;
           $phone=$req->phone;
           $email=$req->email;
           $address=$req->address;
           $note=$req->note;
-          if(Auth::check())
+
+          if(Auth::check()){
             $id_user=Auth::User()->id;
-          else
+            $discount=Discount::Get_All()->orderBy('price_discount')->get();
+
+            for($i=0;$i<=count($discount);$i++){
+                  if(!isset($discount[$i]->price_discount)){
+                      $id_discount=$discount[$i-1]->id;
+                     break;
+                  }
+                  if($cart->totalPrice < $discount[$i]->price_discount){
+                     $id_discount=$discount[$i-1]->id;
+                     break;
+               }
+            }
+          }
+          else{
             $id_user=null;
-          if($cart->totalPrice>5000000&&Auth::check())
-            $discount=10;
-          else
-            $discount=0;
+            $discount=1;
+          } 
+
           $id_customer=Customer::Insert_Customer($id_user,$full_name,$email,$address,$phone);
-          $id_bill=Bill::Insert_Bill($id_customer,$note,$discount);
-           foreach ($cart->items as $key) 
-            {
+          $id_bill=Bill::Insert_Bill($id_customer,$note,$id_discount);
+
+          foreach ($cart->items as $key) {
 
               $id_product=$key['item'][0]->id;
               $size=$key['item'][0]->size;
@@ -178,12 +194,11 @@ class Home_Controller extends Controller
               $bill_detail=Bill_Detail::Insert_Bill_Detail($id_bill,$id_product,$size,$sales_price,$quantity);
               $export_product=Export_product:: Insert_Export_Product($id_product,$size,$quantity);
             }
+
           Session::forget('cart');
           return redirect()->route('index')->with('thanhcong','mua hàng thành công,chúng tôi sẽ liên hệ bạn sớm nhất');
-
         }
-        else
-        {
+        else{
         return redirect()->route('cart-detail')->with('hangkhongdu',$a);;
         }
    }

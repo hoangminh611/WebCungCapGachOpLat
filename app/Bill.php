@@ -55,4 +55,10 @@ class Bill extends Model
         return $Bill;
 
     }
+
+    public static function View_bill_discountbyId($id){
+         $Bill=DB::table('bills')->join('discount','bills.discount','=','discount.id')->where('bills.id',$id)->select();
+        return $Bill;
+    }
+
 }

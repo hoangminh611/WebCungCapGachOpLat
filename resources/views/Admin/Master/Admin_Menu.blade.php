@@ -79,7 +79,7 @@
                 </li>
                 @if(Auth::User()->group==5)
                  <li >
-                    <a href="#">
+                    <a href="{{route('Discount_Admin')}}">
                         <i class="fa fa-user"></i>
                         <span>Giảm Giá</span>
                     </a>

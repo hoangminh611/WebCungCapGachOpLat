@@ -130,41 +130,46 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						@if(Session::has('cart'))
 							@foreach($product_cart as $product)
 								<img src="images/{{$product['item'][0]->image}} " class="img-responsive" alt="" style="width: 50px; height: 50px;">
-								Số Lượng:{{$product['qty']}} Giá: {{number_format($product['price'])}}
+								Số Lượng:{{$product['qty']}}   Giá: {{number_format($product['price'])}}
 							@endforeach
 							<br>
 							@if(!Auth::check())
 								@if($totalPrice<5000000)
-									<b>Phí vận Chuyển:{{number_format(40000)}}VNĐ
+									<b>Phí vận Chuyển:{{number_format($discount[0]->ship_price)}}VNĐ
 									<br>
 									<b>Tổng sản phẩm:</b>{{number_format($totalQty)}} Sản Phẩm
 									<br>
-									<b>Tổng Tiền:</b>{{number_format($totalPrice+40000)}} VNĐ
-								@else
-									<b>Phí vận Chuyển:0 VNĐ
-									<br>
-									<b>Tổng sản phẩm:</b>{{number_format($totalQty)}} Sản Phẩm
-									<br>
-									<b>Tổng Tiền:</b>{{number_format($totalPrice)}} VNĐ
+									<b>Tổng Tiền:</b>{{number_format($totalPrice+$discount[0]->ship_price)}} VNĐ
 								@endif
-							@elseif($totalPrice<5000000&&Auth::check())
-								<b>Phí vận Chuyển:{{number_format(40000)}}VNĐ
+							@elseif(Auth::check())
+								      @for($i=0;$i<=count($discount);$i++)
+								            @if(!isset($discount[$i]->price_discount))
+								                <?php
+								                	$percent_discount=$discount[$i-1]->percent_discount;
+								                	$ship_price=$discount[$i-1]->ship_price;
+								                	$gift=$discount[$i-1]->gift;
+								               		break; 
+								               	?>
+								            @endif
+								            @if($totalPrice < $discount[$i]->price_discount)
+								              <?php 
+								              		$percent_discount=$discount[$i-1]->percent_discount;
+								                	$ship_price=$discount[$i-1]->ship_price;
+								                	$gift=$discount[$i-1]->gift;
+								               		break; 
+								               ?>
+								            @endif
+								      @endfor
+								<b>Phí vận Chuyển:{{number_format($ship_price)}}VNĐ
 								<br>
 								<b>Tổng sản phẩm:</b>{{number_format($totalQty)}} Sản Phẩm
 								<br>
-								<b>Tổng Tiền:</b>{{number_format($totalPrice+40000)}} VNĐ
-							@elseif($totalPrice>=5000000&&$totalPrice<8000000&&Auth::check())
-								<b>Phí vận Chuyển:0 VNĐ
+								<b>Tổng Tiền:</b>{{number_format($totalPrice*(100-$percent_discount)/100)}} VNĐ (Giảm {{$percent_discount}}%)
 								<br>
-								<b>Tổng sản phẩm:</b>{{number_format($totalQty)}} Sản Phẩm
-								<br>
-								<b>Tổng Tiền:</b>{{number_format($totalPrice*90/100)}} VNĐ(Giảm 10%)
-							@elseif($totalPrice>=8000000&&Auth::check())
-								<b>Tổng sản phẩm:</b>{{number_format($totalQty)}} Sản Phẩm
-								<br>
-								<b>Tổng Tiền:</b>{{number_format($totalPrice*90/100)}} VNĐ(Giảm 10%)
-								<br>
-								<b>Tặng: 1 Móc chìa khóa</b>
+								<b>@if($gift!=null)
+									Tặng {{$gift}} (Free)
+									@endif
+								</b>
 							@endif
 						@endif
 						</div>
