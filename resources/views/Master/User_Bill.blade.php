@@ -109,7 +109,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					@foreach($bills as $bill)
 						<ul  class="cart-header product">
 								<li class="ring-in">
-									<span><a href="{{route('ViewPage_User_Bill_Detail',$bill[0]->id)}}">Xem chi tiết</a></span>
+									<span><a href="{{route('ViewPage_User_Bill_Detail',[$bill[0]->id,$bill[0]->percent_discount])}}">Xem chi tiết</a></span>
 								</li>
 								<li>
 									<span class="id">{{$i++}}</span>

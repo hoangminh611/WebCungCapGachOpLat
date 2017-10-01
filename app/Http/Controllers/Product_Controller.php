@@ -56,13 +56,12 @@ class Product_Controller extends Controller
       return view('Page.Search_Product',compact('product'));
    }
    //search theo tên sản phẩm
-   public function Search_Detail(Request $req)
-   {
+   public function Search_Detail(Request $req) {
       $product=DB::table('products')->whereRaw("match(name) against('$req->search')")->orWhere('name','Like','%'.$req->search.'%')->get();
      return view('Page.Search_Product',compact('product'));
    }
    //cái này dùng để hiện ajax các gợi ý
-   public function autocomplete(Request $req){
+   public function autocomplete(Request $req) {
       $term = $req->term;
       $results = array();
       

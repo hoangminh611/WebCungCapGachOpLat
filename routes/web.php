@@ -36,7 +36,7 @@ Route::group(['prefix'=>'admin'],function()
 
 Route::get('Content_Admin',[
 	'as'=>'Content_Admin',
-	'uses'=>'Admin_Controller@Content_Admin']);
+	'uses'=>'Admin_Controller@getContentAdmin']);
 Route::get('Login_Admin',[
 	'as'=>'Login_Admin',
 	'uses'=>'Admin_Login_Controller@Login_Admin']);
@@ -46,6 +46,9 @@ Route::post('Login',[
 Route::get('Logout',[
 	'as'=>'Logout',
 	'uses'=>'Admin_Login_Controller@getLogout']);
+Route::get('GetMonthlyFund',[
+	'as'=>'GetMonthlyFund',
+	'uses'=>'Admin_Controller@getMonthlyFund']);
 //-------------------------------User,Customer Admin------------------------------
 Route::get('ViewPage_User_Admin',[
 	'as'=>'ViewPage_User_Admin',
@@ -283,7 +286,7 @@ Route::get('ViewPage_User_Edit',
 Route::get('ViewPage_User_Bill',
 	['as'=>'ViewPage_User_Bill',
 	'uses'=>'LoginRegister_Controller@ViewPage_User_Bill']);
-Route::get('ViewPage_User_Bill_Detail/{id}',
+Route::get('ViewPage_User_Bill_Detail/{id}&dis={percent_discount}',
 	['as'=>'ViewPage_User_Bill_Detail',
 	'uses'=>'LoginRegister_Controller@ViewPage_User_Bill_Detail']);
 Route::post('User_Edit',

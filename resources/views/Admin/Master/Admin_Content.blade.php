@@ -10,7 +10,7 @@
 						<i class="fa fa-eye"> </i>
 					</div>
 					 <div class="col-md-8 market-update-left">
-					 <h4>Lượt Xem</h4>
+					 <h4>Tổng Số Lượt Xem</h4>
 					<h3>{{number_format($All_View)}}</h3>
 					<p>Other hand, we denounce</p>
 				  </div>
@@ -23,7 +23,7 @@
 						<i class="fa fa-users" ></i>
 					</div>
 					<div class="col-md-8 market-update-left">
-					<h4>Người dùng</h4>
+					<h4>Tổng số Tài Khoản</h4>
 						<h3>{{number_format($Count_User)}}</h3>
 						<p>Other hand, we denounce</p>
 					</div>
@@ -62,6 +62,239 @@
 			</div>
 		   <div class="clearfix"> </div>
 		</div>	
+					<!-- tasks -->
+{{-- 			<div class="agile-last-grids">
+				<div class="col-md-4 agile-last-left">
+					<div class="agile-last-grid">
+						<div class="area-grids-heading">
+							<h3>Monthly</h3>
+						</div>
+						<div id="graph7"></div>
+						<script>
+						// This crosses a DST boundary in the UK.
+						Morris.Area({
+						  element: 'graph7',
+						  data: [
+							{x: '2013-03-30 22:00:00', y: 3, z: 3},
+							{x: '2013-03-31 00:00:00', y: 2, z: 0},
+							{x: '2013-03-31 02:00:00', y: 0, z: 2},
+							{x: '2013-03-31 04:00:00', y: 4, z: 4}
+						  ],
+						  xkey: 'x',
+						  ykeys: ['y', 'z'],
+						  labels: ['Y', 'Z']
+						});
+						</script>
+
+					</div>
+				</div> --}}
+				<div class="col-md-12 agile-last-left agile-last-middle">
+					<div class="agile-last-grid">
+						<div class="area-grids-heading">
+						
+							<h3>Tổng doanh thu bán hàng qua từng tháng trong 1 năm</h3>
+							<form  method="get" id="dateForm">
+								<select name="date" id="date">
+									@for($i=1;$i<=12;$i++)
+										<option id="{{$i}}" value="{{$i}}">Tháng {{$i}}</option>
+									@endfor
+								</select>
+								<button type="button" id="search">Tìm Kiếm</button>
+							
+							</form>
+						</div>
+						<div id="graph8"></div>
+						<script type="text/javascript">
+						/* data stolen from http://howmanyleft.co.uk/vehicle/jaguar_'e'_type */
+						$('#'+{{$getMonth}}).attr('selected','selected');
+						var day_data = [
+						@foreach($Total_By_Month as $total)
+						  @foreach($total as $total_product)
+						  {"product": "{{$total_product['name']}}({{$total_product['size']}})", "Tổng hàng bán": {{$total_product['quantity']}}, "Tổng Tiền": {{$total_product['price']}}},
+						  @endforeach
+						@endforeach
+						  
+						];
+						if(day_data.length > 0){
+							Morris.Bar({
+								element: 'graph8',
+								data: day_data,
+								xkey: 'product',
+								ykeys: ['Tổng hàng bán','Tổng Tiền'],
+								labels: ['Tổng hàng bán', 'Tổng Tiền'],
+								xLabelAngle: 60,
+							});
+						}
+						$("#search").click(function () {
+							var route="{{route('GetMonthlyFund')}}";
+	                        $.ajax({
+	                            url:route,
+	                            type:'get',
+	                            data:$('#dateForm').serialize(),
+	                            dataType:'json',
+	                            success:function(result) {
+	                            	// console.log(result);
+	                            	$('#graph8').html('');
+	                            	var day_data = [];
+	                            	for(var i = 0; i < result.length; i++)
+	                            	{
+                            			day_data.push({'product': result[i].name
+                            									,'Tổng hàng bán':result[i].quantity 
+                            									,'Tổng Tiền': result[i].price
+                            						 });          		
+	                            	}
+	                            	
+	                            	if(day_data.length > 0){
+
+	                            		Morris.Bar({
+											element: 'graph8',
+											data: day_data,
+											xkey: 'product',
+											ykeys: ['Tổng hàng bán','Tổng Tiền'],
+											labels: ['Tổng hàng bán(Sản Phẩm)', 'Tổng Tiền(VNĐ)'],
+											xLabelAngle: 60,
+	                            		})
+									
+									}
+	                            }
+	                        });
+	    
+						});
+						
+						
+						</script>
+					</div>
+				</div>
+{{-- 				<div class="col-md-4 agile-last-left agile-last-right">
+					<div class="agile-last-grid">
+						<div class="area-grids-heading">
+							<h3>Yearly</h3>
+						</div>
+						<div id="graph9"></div>
+						<script>
+						var day_data = [
+						  {"elapsed": "I", "value": 34},
+						  {"elapsed": "II", "value": 24},
+						  {"elapsed": "III", "value": 3},
+						  {"elapsed": "IV", "value": 12},
+						  {"elapsed": "V", "value": 13},
+						  {"elapsed": "VI", "value": 22},
+						  {"elapsed": "VII", "value": 5},
+						  {"elapsed": "VIII", "value": 26},
+						  {"elapsed": "IX", "value": 12},
+						  {"elapsed": "X", "value": 19}
+						];
+						Morris.Line({
+						  element: 'graph9',
+						  data: day_data,
+						  xkey: 'elapsed',
+						  ykeys: ['value'],
+						  labels: ['value'],
+						  parseTime: false
+						});
+						</script>
+
+					</div>
+				</div> --}}
+				<div class="clearfix"> </div>
+			</div>
+		<!-- //tasks -->
+{{-- 		<div class="agileits-w3layouts-stats">
+					<div class="col-md-4 stats-info widget">
+						<div class="stats-info-agileits">
+							<div class="stats-title">
+								<h4 class="title">Browser Stats</h4>
+							</div>
+							<div class="stats-body">
+								<ul class="list-unstyled">
+									<li>GoogleChrome <span class="pull-right">85%</span>  
+										<div class="progress progress-striped active progress-right">
+											<div class="bar green" style="width:85%;"></div> 
+										</div>
+									</li>
+									<li>Firefox <span class="pull-right">35%</span>  
+										<div class="progress progress-striped active progress-right">
+											<div class="bar yellow" style="width:35%;"></div>
+										</div>
+									</li>
+									<li>Internet Explorer <span class="pull-right">78%</span>  
+										<div class="progress progress-striped active progress-right">
+											<div class="bar red" style="width:78%;"></div>
+										</div>
+									</li>
+									<li>Safari <span class="pull-right">50%</span>  
+										<div class="progress progress-striped active progress-right">
+											<div class="bar blue" style="width:50%;"></div>
+										</div>
+									</li>
+									<li>Opera <span class="pull-right">80%</span>  
+										<div class="progress progress-striped active progress-right">
+											<div class="bar light-blue" style="width:80%;"></div>
+										</div>
+									</li>
+									<li class="last">Others <span class="pull-right">60%</span>  
+										<div class="progress progress-striped active progress-right">
+											<div class="bar orange" style="width:60%;"></div>
+										</div>
+									</li> 
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-8 stats-info stats-last widget-shadow">
+						<div class="stats-last-agile">
+							<table class="table stats-table ">
+								<thead>
+									<tr>
+										<th>S.NO</th>
+										<th>PRODUCT</th>
+										<th>STATUS</th>
+										<th>PROGRESS</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row">1</th>
+										<td>Lorem ipsum</td>
+										<td><span class="label label-success">In progress</span></td>
+										<td><h5>85% <i class="fa fa-level-up"></i></h5></td>
+									</tr>
+									<tr>
+										<th scope="row">2</th>
+										<td>Aliquam</td>
+										<td><span class="label label-warning">New</span></td>
+										<td><h5>35% <i class="fa fa-level-up"></i></h5></td>
+									</tr>
+									<tr>
+										<th scope="row">3</th>
+										<td>Lorem ipsum</td>
+										<td><span class="label label-danger">Overdue</span></td>
+										<td><h5 class="down">40% <i class="fa fa-level-down"></i></h5></td>
+									</tr>
+									<tr>
+										<th scope="row">4</th>
+										<td>Aliquam</td>
+										<td><span class="label label-info">Out of stock</span></td>
+										<td><h5>100% <i class="fa fa-level-up"></i></h5></td>
+									</tr>
+									<tr>
+										<th scope="row">5</th>
+										<td>Lorem ipsum</td>
+										<td><span class="label label-success">In progress</span></td>
+										<td><h5 class="down">10% <i class="fa fa-level-down"></i></h5></td>
+									</tr>
+									<tr>
+										<th scope="row">6</th>
+										<td>Aliquam</td>
+										<td><span class="label label-warning">New</span></td>
+										<td><h5>38% <i class="fa fa-level-up"></i></h5></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="clearfix"> </div>
+				</div> --}}
 		<!-- //market-->
 		<div class="row">
 			<div class="panel-body">
@@ -243,193 +476,7 @@
 				</div>
 			</div>
 			<div class="clearfix"> </div>
-		</div>
-			<!-- tasks -->
-			<div class="agile-last-grids">
-				<div class="col-md-4 agile-last-left">
-					<div class="agile-last-grid">
-						<div class="area-grids-heading">
-							<h3>Monthly</h3>
-						</div>
-						<div id="graph7"></div>
-						<script>
-						// This crosses a DST boundary in the UK.
-						Morris.Area({
-						  element: 'graph7',
-						  data: [
-							{x: '2013-03-30 22:00:00', y: 3, z: 3},
-							{x: '2013-03-31 00:00:00', y: 2, z: 0},
-							{x: '2013-03-31 02:00:00', y: 0, z: 2},
-							{x: '2013-03-31 04:00:00', y: 4, z: 4}
-						  ],
-						  xkey: 'x',
-						  ykeys: ['y', 'z'],
-						  labels: ['Y', 'Z']
-						});
-						</script>
+		</div> --}}
 
-					</div>
-				</div>
-				<div class="col-md-4 agile-last-left agile-last-middle">
-					<div class="agile-last-grid">
-						<div class="area-grids-heading">
-							<h3>Daily</h3>
-						</div>
-						<div id="graph8"></div>
-						<script>
-						/* data stolen from http://howmanyleft.co.uk/vehicle/jaguar_'e'_type */
-						var day_data = [
-						  {"period": "2016-10-01", "licensed": 3407, "sorned": 660},
-						  {"period": "2016-09-30", "licensed": 3351, "sorned": 629},
-						  {"period": "2016-09-29", "licensed": 3269, "sorned": 618},
-						  {"period": "2016-09-20", "licensed": 3246, "sorned": 661},
-						  {"period": "2016-09-19", "licensed": 3257, "sorned": 667},
-						  {"period": "2016-09-18", "licensed": 3248, "sorned": 627},
-						  {"period": "2016-09-17", "licensed": 3171, "sorned": 660},
-						  {"period": "2016-09-16", "licensed": 3171, "sorned": 676},
-						  {"period": "2016-09-15", "licensed": 3201, "sorned": 656},
-						  {"period": "2016-09-10", "licensed": 3215, "sorned": 622}
-						];
-						Morris.Bar({
-						  element: 'graph8',
-						  data: day_data,
-						  xkey: 'period',
-						  ykeys: ['licensed', 'sorned'],
-						  labels: ['Licensed', 'SORN'],
-						  xLabelAngle: 60
-						});
-						</script>
-					</div>
-				</div>
-				<div class="col-md-4 agile-last-left agile-last-right">
-					<div class="agile-last-grid">
-						<div class="area-grids-heading">
-							<h3>Yearly</h3>
-						</div>
-						<div id="graph9"></div>
-						<script>
-						var day_data = [
-						  {"elapsed": "I", "value": 34},
-						  {"elapsed": "II", "value": 24},
-						  {"elapsed": "III", "value": 3},
-						  {"elapsed": "IV", "value": 12},
-						  {"elapsed": "V", "value": 13},
-						  {"elapsed": "VI", "value": 22},
-						  {"elapsed": "VII", "value": 5},
-						  {"elapsed": "VIII", "value": 26},
-						  {"elapsed": "IX", "value": 12},
-						  {"elapsed": "X", "value": 19}
-						];
-						Morris.Line({
-						  element: 'graph9',
-						  data: day_data,
-						  xkey: 'elapsed',
-						  ykeys: ['value'],
-						  labels: ['value'],
-						  parseTime: false
-						});
-						</script>
-
-					</div>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-		<!-- //tasks -->
-		<div class="agileits-w3layouts-stats">
-					<div class="col-md-4 stats-info widget">
-						<div class="stats-info-agileits">
-							<div class="stats-title">
-								<h4 class="title">Browser Stats</h4>
-							</div>
-							<div class="stats-body">
-								<ul class="list-unstyled">
-									<li>GoogleChrome <span class="pull-right">85%</span>  
-										<div class="progress progress-striped active progress-right">
-											<div class="bar green" style="width:85%;"></div> 
-										</div>
-									</li>
-									<li>Firefox <span class="pull-right">35%</span>  
-										<div class="progress progress-striped active progress-right">
-											<div class="bar yellow" style="width:35%;"></div>
-										</div>
-									</li>
-									<li>Internet Explorer <span class="pull-right">78%</span>  
-										<div class="progress progress-striped active progress-right">
-											<div class="bar red" style="width:78%;"></div>
-										</div>
-									</li>
-									<li>Safari <span class="pull-right">50%</span>  
-										<div class="progress progress-striped active progress-right">
-											<div class="bar blue" style="width:50%;"></div>
-										</div>
-									</li>
-									<li>Opera <span class="pull-right">80%</span>  
-										<div class="progress progress-striped active progress-right">
-											<div class="bar light-blue" style="width:80%;"></div>
-										</div>
-									</li>
-									<li class="last">Others <span class="pull-right">60%</span>  
-										<div class="progress progress-striped active progress-right">
-											<div class="bar orange" style="width:60%;"></div>
-										</div>
-									</li> 
-								</ul>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-8 stats-info stats-last widget-shadow">
-						<div class="stats-last-agile">
-							<table class="table stats-table ">
-								<thead>
-									<tr>
-										<th>S.NO</th>
-										<th>PRODUCT</th>
-										<th>STATUS</th>
-										<th>PROGRESS</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<th scope="row">1</th>
-										<td>Lorem ipsum</td>
-										<td><span class="label label-success">In progress</span></td>
-										<td><h5>85% <i class="fa fa-level-up"></i></h5></td>
-									</tr>
-									<tr>
-										<th scope="row">2</th>
-										<td>Aliquam</td>
-										<td><span class="label label-warning">New</span></td>
-										<td><h5>35% <i class="fa fa-level-up"></i></h5></td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td>Lorem ipsum</td>
-										<td><span class="label label-danger">Overdue</span></td>
-										<td><h5 class="down">40% <i class="fa fa-level-down"></i></h5></td>
-									</tr>
-									<tr>
-										<th scope="row">4</th>
-										<td>Aliquam</td>
-										<td><span class="label label-info">Out of stock</span></td>
-										<td><h5>100% <i class="fa fa-level-up"></i></h5></td>
-									</tr>
-									<tr>
-										<th scope="row">5</th>
-										<td>Lorem ipsum</td>
-										<td><span class="label label-success">In progress</span></td>
-										<td><h5 class="down">10% <i class="fa fa-level-down"></i></h5></td>
-									</tr>
-									<tr>
-										<th scope="row">6</th>
-										<td>Aliquam</td>
-										<td><span class="label label-warning">New</span></td>
-										<td><h5>38% <i class="fa fa-level-up"></i></h5></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<div class="clearfix"> </div> --}}
-				</div>
 </section>
 @endsection

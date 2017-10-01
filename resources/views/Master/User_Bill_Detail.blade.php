@@ -113,6 +113,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
               </tr>
             </thead>
             <tbody>
+            <?php $tong=0;
+            		$tongsanpham=0;
+            ?>
               @foreach($bill_details as $bill_detail)
                 <tr>
                 	<td>{{$bill_detail->id_bill}}</td>
@@ -124,10 +127,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                   <td>{{number_format($bill_detail->quantity*$bill_detail->sales_price)}}</td>
                   <td>{{$bill_detail->created_at}}</td>
                   <td>{{$bill_detail->updated_at}}</td>
+                  <?php $tong += ($bill_detail->quantity*$bill_detail->sales_price) ;
+                  		$tongsanpham += ($bill_detail->quantity);
+                  ?>
                 </tr> 
               @endforeach
             </tbody>
           </table>
+          <br>
+          	<h4><b>Tổng Sản Phẩm: {{number_format($tongsanpham)}}</b> Sản Phẩm</h4>
+          	<h4><b>Tổng Tiền: {{number_format($tong*(100-$percent_discount)/100)}}</b>(Giảm {{$percent_discount}}%)</h4>
 			{{-- <div class="in-check" >
 				<ul class="unit" style="border:solid 1px black;">
 					<li><span>ID</span></li>

@@ -117,6 +117,7 @@ class Bill_Detail extends Model
         $a['tongtienxuat']=0;
         $bill=DB::table('bill_detail')->join('bills','bill_detail.id_bill','=','bills.id')
         ->where('bills.method','LIKE','%Đã Thanh Toán%')->select()->get();
+        // dd($bill);
         foreach ($bill as $bill_detail) {
 
             $discount=Discount::Get_Discount_By_Id($bill_detail->discount)->first();
@@ -137,5 +138,42 @@ class Bill_Detail extends Model
 
         }
        return $a;
+    }
+
+    public static function getTotalByMonth($month_start,$month_end){
+            // public static function FindSum_QuantityById($id,$created_at_from,$created_at_to){
+        $a=array();
+        //$a['tongtienxuat']=0;
+        $bill=DB::table('bill_detail')
+                ->join('products','products.id','=','bill_detail.id_product')
+                ->join('bills','bill_detail.id_bill','=','bills.id')
+                ->Select()
+                ->where('bills.method','LIKE','%Đã Thanh Toán%')
+                ->whereRaw("DATE(bill_detail.updated_at)>='$month_start' AND DATE(bill_detail.updated_at)<'$month_end'")
+                ->get();
+        foreach ($bill as $bill_detail) {
+
+            $discount=Discount::Get_Discount_By_Id($bill_detail->discount)->first();
+
+            if(isset($a[$bill_detail->id_product][$bill_detail->size]))
+            {
+             $a[$bill_detail->id_product][$bill_detail->size]['price']+=($bill_detail->sales_price*$bill_detail->quantity)*(100-$discount->percent_discount)/100;
+             $a[$bill_detail->id_product][$bill_detail->size]['quantity']+=$bill_detail->quantity;
+             $a[$bill_detail->id_product][$bill_detail->size]['size']=$bill_detail->size;
+            // $a['tongtienxuat']+=($bill_detail->sales_price*$bill_detail->quantity)*(100-$discount->percent_discount)/100;
+             $a[$bill_detail->id_product][$bill_detail->size]['name']=$bill_detail->name;
+            }
+            else
+            {
+            $a[$bill_detail->id_product][$bill_detail->size]['price']=($bill_detail->sales_price*$bill_detail->quantity)*(100-$discount->percent_discount)/100;
+             $a[$bill_detail->id_product][$bill_detail->size]['quantity']=$bill_detail->quantity;
+             $a[$bill_detail->id_product][$bill_detail->size]['size']=$bill_detail->size;
+            //$a['tongtienxuat']+=($bill_detail->sales_price*$bill_detail->quantity)*(100-$discount->percent_discount)/100;
+             $a[$bill_detail->id_product][$bill_detail->size]['name']=$bill_detail->name;
+            }
+
+        }
+        return $a;   
+        // }
     }
 }

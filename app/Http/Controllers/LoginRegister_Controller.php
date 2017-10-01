@@ -208,7 +208,9 @@ class LoginRegister_Controller extends Controller
           foreach($id_customer as $id)
           {
 
-            $bill=DB::table('bills')->where('id_customer',$id->id)->select()->get();
+            $bill=DB::table('bills')
+                    ->join('discount','bills.discount','=','discount.id')->where('bills.id_customer',$id->id)
+                    ->select('bills.id as id','bills.method','bills..note','discount.percent_discount')->get();
             $bills[$i++]=$bill;
           }
         }
@@ -220,16 +222,17 @@ class LoginRegister_Controller extends Controller
         return redirect()->route('index');
     }
     //vào trang bill detail của từng bill của user đó
-    public function ViewPage_User_Bill_Detail($id)
-    {
-      if(Auth::check())
-      {
+    public function ViewPage_User_Bill_Detail($id,$percent_discount){
+
+      if(Auth::check()) {
+
         $bill_details=Bill_Detail::View_All($id)->get();
 
-        return view('Master.User_Bill_Detail',compact('bill_details'));
+        return view('Master.User_Bill_Detail',compact('bill_details','percent_discount'));
       }
-      else
+      else {
         return redirect()->route('index');
+      }
     }
 
     public function Forget_Password()
