@@ -177,12 +177,12 @@ class Home_Controller extends Controller
 
           foreach ($cart->items as $key) {
 
-              $id_product=$key['item'][0]->id;
+              $id_export_product=$key['item'][0]->idsize;
               $size=$key['item'][0]->size;
               $sales_price=$key['item'][0]->export_price;
               $quantity=$key['qty'];
-              $bill_detail=Bill_Detail::Insert_Bill_Detail($id_bill,$id_product,$size,$sales_price,$quantity);
-              $export_product=Export_product:: Insert_Export_Product($id_product,$size,$quantity);
+              $bill_detail=Bill_Detail::Insert_Bill_Detail($id_bill,$id_export_product,$sales_price,$quantity);
+              $export_product=Export_product:: Insert_Export_Product($id_export_product,$quantity);
             }
 
           Session::forget('cart');

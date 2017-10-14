@@ -44,7 +44,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<script src="ckeditor/ckeditor.js"></script>
 			<script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js" ></script>
 			<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
-			
+			<script src="js/printThis.js"></script>
 		</head>
 		<body>
 			<section id="container">

@@ -55,15 +55,14 @@
                   <td>{{$bill_detail->created_at}}</td>
                   <td>{{$bill_detail->updated_at}}</td>
                   <td>
-                    <form action="" method="post" id="form{{ $bill_detail->id }}{{ $bill_detail->id_product }}{{ $bill_detail->size }}{{ $bill_detail->quantity }}">
+                    <form action="" method="post" id="form{{ $bill_detail->id }}{{ $bill_detail->id_export_product }}{{ $bill_detail->quantity }}">
                      <input type="hidden" name="_token" value="{{csrf_token()}}">
                       <input type="hidden" name="id" value="{{$bill_detail->id}}">
-                      <input type="hidden" name="id_product" value="{{ $bill_detail->id_product}}">
-                      <input type="hidden" name="size" value="{{ $bill_detail->size}}">
+                      <input type="hidden" name="id_export_product" value="{{ $bill_detail->id_export_product}}">
                       <input type="hidden" name="quantity" value="{{ $bill_detail->quantity}}">
                     <button type="button" class="btn btn-info btn-lg glyphicon glyphicon-hand-right edit_button" style="border-radius: 10px;" onclick="editRow({{ $bill_detail->id }},{{$bill_detail->quantity}},'{{$bill_detail->name}}')"></button>
 
-                    <button type="button" class="btn btn-warning btn-lg glyphicon glyphicon-trash delete_button" style="border-radius: 10px" id="delete_button{{ $bill_detail->id  }}" onclick="delete_row({{$bill_detail->id}},{{ $bill_detail->id_product}},'{{$bill_detail->size}}',{{$bill_detail->quantity}});"></button>
+                    <button type="button" class="btn btn-warning btn-lg glyphicon glyphicon-trash delete_button" style="border-radius: 10px" id="delete_button{{ $bill_detail->id  }}" onclick="delete_row({{$bill_detail->id}},{{ $bill_detail->id_export_product}},{{$bill_detail->quantity}});"></button>
                     </form>
                       @if(Auth::User()->group<2)
                            <script type="text/javascript">
@@ -120,7 +119,7 @@
         
             // }
 
-            function delete_row(id,id_product,size,quantity)
+            function delete_row(id,id_export_product,quantity)
             {
                 ssi_modal.confirm({
                 content: 'Xóa sẽ ảnh hưởng tới bảng export_product,bill_detail,bill?',
@@ -137,8 +136,8 @@
                         $.ajax({
                             url:route,
                             type:'post',
-                            data:$('#form'+id+id_product+size+quantity).serialize(),
-                            success:function() {  
+                            data:$('#form'+id+id_export_product+quantity).serialize(),
+                            success:function(result) {
                                  $('#row'+id).hide();
                                 alert('Xóa thành công');
                             }

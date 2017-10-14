@@ -49,6 +49,9 @@ Route::get('Logout',[
 Route::get('GetMonthlyFund',[
 	'as'=>'GetMonthlyFund',
 	'uses'=>'Admin_Controller@getMonthlyFund']);
+Route::get('GetPDF',[
+	'as'=>'GetPDF',
+	'uses'=>'Admin_Controller@GetPDF']);
 //-------------------------------User,Customer Admin------------------------------
 Route::get('ViewPage_User_Admin',[
 	'as'=>'ViewPage_User_Admin',

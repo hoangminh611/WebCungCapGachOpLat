@@ -58,12 +58,11 @@ class Admin_Bill_Controller extends Controller
    	$id=$req->id;
    	$first_quantity=$req->first_quantity;
    	$quantity=$req->quantity;
-   	$id_product=$req->id_product;
-   	$size=$req->size;
+   	$id_export_product=$req->id_export_product;
    	$id_bill=$req->id_bill;
       $id_customer=$req->id_customer;
       $method=$req->method;
-   	$bill_detail=Bill_Detail::Update_Bill_Detail($id,$first_quantity,$quantity,$id_product,$size);
+   	$bill_detail=Bill_Detail::Update_Bill_Detail($id,$first_quantity,$quantity,$id_export_product);
    	return redirect()->route('ViewPageBill_Detail_Admin',[$id_bill,$id_customer,$method]);
    }
    //update bill
@@ -93,11 +92,10 @@ class Admin_Bill_Controller extends Controller
    public function Delete_Bill_Detail(Request $req)
    {
       $id=$req->id;
-      $id_product=$req->id_product;
-      $size=$req->size;
+      $id_export_product=$req->id_export_product;
       $quantity=$req->quantity;
       $bill_detail=Bill_Detail::Delete_One_Bill_Detail($id);
-      $export_quantity=Export_Product::Update_quantity_By_Idproduct($id_product,$size,$quantity);
+      $export_quantity=Export_Product::Update_quantity_By_Idproduct($id_export_product,$quantity);
 
    }
    //đếm số bill chưa xác nhận

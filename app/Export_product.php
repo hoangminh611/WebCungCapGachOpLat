@@ -138,17 +138,17 @@ class Export_product extends Model
         
     }
     //insert vào bảng export
-    public static function Insert_Export_Product($id,$size,$quantity)
+    public static function Insert_Export_Product($idExportProduct,$quantity)
     {
         $pro=DB::table('export_product')
                 ->where([
-                    ['id_product','=',$id],
-                    ['size',$size],])->select('export_quantity')->get();
+                    ['id','=',$idExportProduct],])
+                ->select('export_quantity')->get();
         $export_quantity=$pro[0]->export_quantity + $quantity;
          $pro=DB::table('export_product')
                 ->where([
-                    ['id_product','=',$id],
-                    ['size',$size],])->update(['export_quantity'=>$export_quantity]);
+                    ['id','=',$idExportProduct],])
+                ->update(['export_quantity'=>$export_quantity]);
         return $pro;
     }
     //tìm tổng lượng đã bán
@@ -158,11 +158,11 @@ class Export_product extends Model
           return $pro;
     }
     //update lai quantity khi xoa 1 bill detail
-    public static function Update_quantity_By_Idproduct($id,$size,$quantity)
+    public static function Update_quantity_By_Idproduct($idExportProduct,$quantity)
     {
-        $quantity_pro=DB::table('export_product')->where([['id_product',$id],['size',$size]])->select('export_quantity')->get();
+        $quantity_pro=DB::table('export_product')->where([['id',$idExportProduct],])->select('export_quantity')->get();
         $quantity=$quantity_pro[0]->export_quantity-$quantity;
-        $quantity_pro=DB::table('export_product')->where([['id_product',$id],['size',$size]])->update(['export_quantity'=>$quantity]);
+        $quantity_pro=DB::table('export_product')->where([['id',$idExportProduct],])->update(['export_quantity'=>$quantity]);
     }
 
 

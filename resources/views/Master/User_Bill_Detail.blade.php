@@ -81,7 +81,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="container">
 			<div class="ckeck-top heading">
 			</div>
-			<div class="ckeckout-top">
+			<div class="ckeckout-top" id="printbill">
 			{{-- <script>$(document).ready(function(c) {
 					$('.close2').on('click', function(c){
 						$('.cart-header1').fadeOut('slow', function(c){
@@ -164,9 +164,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</ul>
 					@endforeach
 		 </div> --}}
+		 <button id="btn" style="">Print PDF</button>
 		</div>
 	</div>
+	
 </div>
+<script src="js/printThis.js"></script>
+<script type="text/javascript">
+	$('#btn').click(function(){
+		$('#printbill').printThis();
+	});
+</script>
 	<!--end-ckeckout-->
 @include('Master.Footer')
 </body>

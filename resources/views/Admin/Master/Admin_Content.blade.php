@@ -296,7 +296,7 @@
 					<div class="clearfix"> </div>
 				</div> --}}
 		<!-- //market-->
-		<div class="row">
+		<div class="row" id="printthis">
 			<div class="panel-body">
 				<div class="col-md-12 w3ls-graph">
 					<!--agileinfo-grap-->
@@ -360,6 +360,8 @@
 						        </table>
 						         <div style="float: left">TỔNG TIỀN NHẬP: {{number_format($tongtiennhap)}} VNĐ</div>
 						         <div style="float: right;">TỔNG TIỀN BÁN RA(đơn đã thanh toán): {{number_format($tongtienxuat)}}VNĐ</div>
+						   		<div style="clear: both"></div>
+						   		<a href="{{route('GetPDF')}}">In PDF</a>
 						{{--         <div>Tông Tiền Nhập:{{number_format($tongtiennhap)}}</div>
 						         <div>Tông Tiền Xuất:{{number_format($tongtienxuat)}}</div> --}}
 						          <script type="text/javascript">

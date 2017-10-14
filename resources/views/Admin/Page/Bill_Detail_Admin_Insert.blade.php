@@ -18,8 +18,7 @@
                             <form class="form-horizontal bucket-form" enctype="multipart/form-data"  id="edit-form" method="post" action="{{route('Update_Bill_Detail')}}">
                                 <input type="hidden" name="first_quantity" value="{{$quantity}}">
                                 <input type="hidden" name="id" value="{{$Bill_Detail[0]->id}}">
-                                <input type="hidden" name="id_product" value="{{$Bill_Detail[0]->id_product}}">
-                                <input type="hidden" name="size" value="{{$Bill_Detail[0]->size}}">
+                                <input type="hidden" name="id_export_product" value="{{$Bill_Detail[0]->id_export_product}}">
                                 <input type="hidden" name="id_bill" value="{{$Bill_Detail[0]->id_bill}}">
                                 <input type="hidden" name="id_customer" value="{{$customer[0]->id_customer}}">
                                 <input type="hidden" name="method" value="{{$customer[0]->method}}">

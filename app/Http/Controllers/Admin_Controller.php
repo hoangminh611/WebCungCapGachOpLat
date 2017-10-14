@@ -116,5 +116,43 @@ class Admin_Controller extends Controller
       $user=User::Update_User($id,$group);
       return redirect()->route('ViewPage_User_Admin');
    }
+   
+   public function GetPDF(Request $req){
+      $a=array();
+      $bill_detail=Bill_Detail::Select_Bill_Detail();
+
+      $import=Import_product::Select_Import_Product();
+      $tongtiennhap= $import['tongtiennhap'];
+      $tongtienxuat= $bill_detail['tongtienxuat'];
+      $Import_product=DB::table('import_product')
+                        ->join('products','import_product.id_product','=','products.id')
+                        ->select()->get();
      
+      foreach ( $Import_product as $key) {
+
+         if(!isset($bill_detail[$key->id_product][$key->size])) {
+
+            $a[$key->id_product][$key->size]['price']=-$import[$key->id_product][$key->size]['price'];
+            $a[$key->id_product][$key->size]['import_price']=$import[$key->id_product][$key->size]['price'];
+            $a[$key->id_product][$key->size]['size']=$key->size;
+            $a[$key->id_product][$key->size]['name']=$key->name;
+            $a[$key->id_product][$key->size]['import_quantity']=$import[$key->id_product][$key->size]['import_quantity'];
+         }
+         else{
+
+            $a[$key->id_product][$key->size]['price']=$bill_detail[$key->id_product][$key->size]['price']-$import[$key->id_product][$key->size]['price'];
+            $a[$key->id_product][$key->size]['import_price']=$import[$key->id_product][$key->size]['price'];
+            $a[$key->id_product][$key->size]['export_price']=$bill_detail[$key->id_product][$key->size]['price'];
+            $a[$key->id_product][$key->size]['size']=$key->size;
+            $a[$key->id_product][$key->size]['name']=$key->name;
+            $a[$key->id_product][$key->size]['import_quantity']=$import[$key->id_product][$key->size]['import_quantity'];
+            $a[$key->id_product][$key->size]['export_quantity']=$bill_detail[$key->id_product][$key->size]['quantity'];
+
+         }
+      }
+      $pdf =PDF::loadView('Admin.Master.Admin_GetReport_PDF',compact('a','tongtiennhap','tongtienxuat'))->setPaper('a4', 'landscape');//Load view
+        //Tạo file xem trước pdf
+         // return view('Admin.Page.Bill_Detail_Admin_PDF',compact('customer','Bill_Detail'));
+      return $pdf->stream();
+   }
 }

@@ -21,33 +21,37 @@ class Bill_Detail extends Model
     public static function View_All($id)
     {
         $bill_detail=DB::table('bill_detail')
-        ->where('id_bill',$id)->join('products','bill_detail.id_product','=','products.id')
-        ->select('products.name','bill_detail.id','bill_detail.id_bill','bill_detail.size','bill_detail.quantity','bill_detail.sales_price','bill_detail.created_at','bill_detail.updated_at','bill_detail.id_product');
+        ->where('id_bill',$id)
+        ->join('export_product','bill_detail.id_export_product','=','export_product.id')
+        ->join('products','export_product.id_product','=','products.id')
+        ->select('products.name','bill_detail.id','bill_detail.id_bill','bill_detail.id_export_product','export_product.size','bill_detail.quantity','bill_detail.sales_price','bill_detail.created_at','bill_detail.updated_at','export_product.id_product');
         return $bill_detail;
     }
     //update lai số lượng mua của khách hàng
-    public static function Update_Bill_Detail($id,$first_quantity,$quantity,$id_product,$size)
+    public static function Update_Bill_Detail($id,$first_quantity,$quantity,$idExportProduct)
     {
         if($first_quantity>$quantity)
         {
             $new_quantity=$first_quantity-$quantity;
             $export_quantity=DB::table('export_product')->where([
-                    ['id_product','=',$id_product],
-                    ['size','LIKE','%'.$size.'%'],])->select('export_quantity')->get();
+                    ['id','=',$idExportProduct],
+                    ])->select('export_quantity')->get();
             $export_quantity=$export_quantity[0]->export_quantity-$new_quantity;
-            $export=DB::table('export_product')->whereRaw("id_product ='$id_product' and size REGEXP'$size' ")->update(['export_quantity'=>$export_quantity]);
+            $export=DB::table('export_product')->where([
+                    ['id','=',$idExportProduct],
+                    ])->update(['export_quantity'=>$export_quantity]);
         }
 
         else
         {
             $new_quantity=$quantity-$first_quantity;
             $export_quantity=DB::table('export_product')->where([
-                    ['id_product','=',$id_product],
-                    ['size','LIKE','%'.$size.'%'],])->select('export_quantity')->get();;
+                    ['id','=',$idExportProduct],
+                    ])->select('export_quantity')->get();
             $export_quantity=$export_quantity[0]->export_quantity+$new_quantity;
             $export=DB::table('export_product')->where([
-                    ['id_product','=',$id_product],
-                    ['size','LIKE','%'.$size.'%'],])->update(['export_quantity'=>$export_quantity]);
+                    ['id','=',$idExportProduct],
+                    ])->update(['export_quantity'=>$export_quantity]);
         }
         $bill_detail=DB::table('bill_detail')->where('id',$id)->update(['quantity'=>$quantity]);
 
@@ -70,21 +74,21 @@ class Bill_Detail extends Model
     //    			->get();
     //     return $product;   
     //     }
-    //khi xóa theo từng sản phẩm và kiểm tra coi sản phẩm đó còn size nào k
-    public static function Delete_Bill_Detail($id,$size){
-        $pro=DB::table('bill_detail')
-            ->where([
-                    ['id_product','=',$id],
-                    ['size','LIKE','%'.$size.'%'],])->delete();
-        $pro=DB::table('bill_detail')
-            ->where('id_product','=',$id)->select()->first();
-    }
-    // khi xóa loại sản phẩm 
-    public static function Delete_Bill_Detail_By_Id($id_product)
-    {
-         $pro=DB::table('bill_detail')
-            ->where('id_product','=',$id)->delete();
-    }
+    // //khi xóa theo từng sản phẩm và kiểm tra coi sản phẩm đó còn size nào k(không cần nữa)
+    // public static function Delete_Bill_Detail($id,$size){
+    //     $pro=DB::table('bill_detail')
+    //         ->where([
+    //                 ['id_product','=',$id],
+    //                 ['size','LIKE','%'.$size.'%'],])->delete();
+    //     $pro=DB::table('bill_detail')
+    //         ->where('id_product','=',$id)->select()->first();
+    // }
+    // khi xóa loại sản phẩm (không càn nữa)
+    // public static function Delete_Bill_Detail_By_Id($id_product)
+    // {
+    //      $pro=DB::table('bill_detail')
+    //         ->where('id_product','=',$id)->delete();
+    // }
     //Khi xóa 1 bill_Detail
     public static function Delete_One_Bill_Detail($id)
     {
@@ -104,10 +108,10 @@ class Bill_Detail extends Model
         
 
     }
-    //Insert vào bill detail
-    public static function Insert_Bill_Detail($id_bill,$id_product,$size,$sales_price,$Qty)
+    //Insert vào bill detail(xong)
+    public static function Insert_Bill_Detail($id_bill,$idExportProduct,$sales_price,$Qty)
     {
-         $pro=DB::table('bill_detail')->insert(['id_bill'=>$id_bill,'id_product'=>$id_product,'size'=>$size,'sales_price'=>$sales_price,'quantity'=>$Qty]);
+         $pro=DB::table('bill_detail')->insert(['id_bill'=>$id_bill,'id_export_product'=>$idExportProduct,'sales_price'=>$sales_price,'quantity'=>$Qty]);
          return $pro;
     }
     //lấy giá ra để tính lời lãi lỗ
@@ -116,6 +120,8 @@ class Bill_Detail extends Model
         $a=array();
         $a['tongtienxuat']=0;
         $bill=DB::table('bill_detail')->join('bills','bill_detail.id_bill','=','bills.id')
+        ->join('export_product','bill_detail.id_export_product','=','export_product.id')
+        ->join('products','export_product.id_product','=','products.id')
         ->where('bills.method','LIKE','%Đã Thanh Toán%')->select()->get();
         // dd($bill);
         foreach ($bill as $bill_detail) {
@@ -145,7 +151,8 @@ class Bill_Detail extends Model
         $a=array();
         //$a['tongtienxuat']=0;
         $bill=DB::table('bill_detail')
-                ->join('products','products.id','=','bill_detail.id_product')
+                ->join('export_product','bill_detail.id_export_product','=','export_product.id')
+                ->join('products','export_product.id_product','=','products.id')
                 ->join('bills','bill_detail.id_bill','=','bills.id')
                 ->Select()
                 ->where('bills.method','LIKE','%Đã Thanh Toán%')
