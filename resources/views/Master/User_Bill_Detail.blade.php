@@ -164,8 +164,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</ul>
 					@endforeach
 		 </div> --}}
-		 <button id="btn" style="">Print PDF</button>
+
 		</div>
+				 <button id="btn" style="">Print PDF</button>
 	</div>
 	
 </div>

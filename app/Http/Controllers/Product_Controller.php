@@ -9,7 +9,10 @@ use File;
 use Illuminate\Support\Facades\Input;
 use App\TypeProduct;
 use App\News;
+use Cookie;
+use Auth;
 use App\Product;
+use App\Rating_Product;
 class Product_Controller extends Controller
 {
    //vào trnag home
@@ -36,7 +39,16 @@ class Product_Controller extends Controller
    public function getDetail(Request $req)
    {
    	$product=Product::Find_Product_By_Id($req->id)->get();
-      $product_same_type=Product::Find_Product_By_Same_Type($product[0]->id_type,$product[0]->id)->limit(3)->get();
+      $product_recommend=Product_Controller::getSimilarProduct($req);
+      if($product_recommend!=0){
+         foreach ($product_recommend as $key => $value) {
+            $product_same_type[]=Product::FindSimilarProduct($value)->get();
+         }
+      }
+      else{
+          $product_same_type[]=Product::Find_Product_By_Same_Type($product[0]->id_type,$product[0]->id)->limit(3)->get();
+      }
+     
       
    	return view('Page.Detail_Product',compact('product','product_same_type'));
    }
@@ -73,4 +85,118 @@ class Product_Controller extends Controller
       }
       return response()->json($results);
    }
+
+      public function getSimilarProduct(Request $req){
+      
+      if(Cookie::has('cookieIdWebGach')){
+         $user=Cookie::get('cookieIdWebGach');
+      }
+      if(Auth::check()){
+         $user=Auth::User()->id;
+      }
+      $exitUser=Rating_Product::checkUserExist($user)->first();
+
+      if(isset($exitUser->id)){
+
+         $products=array();
+         $product=Rating_Product::getProduct()->get();
+         foreach($product as $key){
+            $products[$key->id_people_rating][$key->id_product]=$key->rating;
+         }
+         // dd($products);
+         //ý tưởng là nếu như không có sản phẩm nào được gợi ý thì ẽ lấy những thằng sản phẩm cùng loại 
+         
+         $pro=Product_Controller::getRecommendations_Cosine($products,$user);
+         return $pro;
+      }
+      else{
+         return 0;
+      }
+   }
+
+   public function similarityDistance_Cosine($preferences, $person1, $person2){
+        $similar = array();
+        $sum = 0;
+        $multi=0;
+        $s1=0;
+        $s2=0;
+        foreach($preferences[$person1] as $key=>$value) {
+
+            if(array_key_exists($key, $preferences[$person2])){
+                $similar[$key] = 1;
+            }
+            
+        }
+
+        if(count($similar) == 0){
+            return 0;
+        }
+        
+        foreach($preferences[$person1] as $key=>$value){
+
+            if(array_key_exists($key, $preferences[$person2])){
+                $multi=$multi + ($value * $preferences[$person2][$key]);
+            }
+
+            $s1=$s1+pow($value,2);
+        }
+
+        foreach($preferences[$person2] as $key=>$value){
+            $s2=$s2+pow($value,2);
+        }
+
+        return  $multi/(sqrt($s1)*sqrt($s2));     
+    }
+
+   public function getRecommendations_Cosine($preferences, $person){
+        $total = array();
+        $simSums = array();
+        $ranks = array();
+        $sim = 0;
+        
+        foreach($preferences as $otherPerson=>$values)
+        {
+            //Nếu 2 user có trùng nhau 1 sách nào đó 
+            if($otherPerson != $person)
+            {
+                $sim = $this->similarityDistance_Cosine($preferences, $person, $otherPerson);
+            }
+            //Có trùng 
+            if($sim > 0)
+            {
+                foreach($preferences[$otherPerson] as $key=>$value)
+                {
+                    //Tìm ra những sách mà user cần  không có đánh giá
+                    if(!array_key_exists($key, $preferences[$person]))
+                    {
+                        if(!array_key_exists($key, $total)) {
+                            $total[$key] = 0;
+                        }
+                        //Tìm tổng của user có key không trùng với user đưa vào ti lệ thuận với độ tương tự của nó
+                        $total[$key] += $preferences[$otherPerson][$key] * $sim;
+
+                        if(!array_key_exists($key, $simSums)) {
+                            $simSums[$key] = 0;
+                        }
+                        //Tổng các độ tương tự của người dùng với sản phẩm ấy
+                        $simSums[$key] += $sim;
+
+
+                    }
+                }
+                
+            }
+        }
+        
+        foreach($total as $key=>$value)
+        {
+            // $ranks[] = $value / $simSums[$key];
+
+            $ranks[]=$key;
+        }
+        //sort theo value giảm dần
+        arsort($ranks);
+       return $ranks;    
+    }
+
 }

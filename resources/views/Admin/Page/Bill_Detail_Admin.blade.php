@@ -95,6 +95,8 @@
                 <p>{{$bill[0]->gift}}</p>
               @endif
           <a href="{{route('downloadPDF',[$customer[0]->id,$idhoadon])}}">Xuất file PDF</a>
+          <br>
+          <button id="btnback" class="btn-info" style="border-radius: 5px;">Trở lại</button>
       </div>
   </div>
 </div>
@@ -104,7 +106,9 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            
+            $('#btnback').click(function(){
+              window.location.replace("{{route('ViewPageBill_Admin')}}");
+            });
             function editRow(id,quantity,name_product){
                 var  route="{{route('ViewPageBill_Detail_Admin_Insert',['idbill_detail','soluong','name'])}}";
                 route=route.replace('idbill_detail',id);

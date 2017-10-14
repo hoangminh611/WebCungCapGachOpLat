@@ -27,6 +27,15 @@ class Bill_Detail extends Model
         ->select('products.name','bill_detail.id','bill_detail.id_bill','bill_detail.id_export_product','export_product.size','bill_detail.quantity','bill_detail.sales_price','bill_detail.created_at','bill_detail.updated_at','export_product.id_product');
         return $bill_detail;
     }
+    //Lấy chi tiết của 1 bill detail để update 
+    public static function GetDetail_Bill_DeTail($id){
+         $gBillDetail=DB::table('bill_detail')
+                      ->join('export_product','bill_detail.id_export_product','=','export_product.id')
+                       ->join('products','export_product.id_product','=','products.id')
+                       ->where('bill_detail.id',$id)->select('products.name','bill_detail.id','bill_detail.id_bill','bill_detail.id_export_product','export_product.size','bill_detail.quantity','bill_detail.sales_price','bill_detail.created_at','bill_detail.updated_at','export_product.id_product');
+        return $gBillDetail;               
+
+    }
     //update lai số lượng mua của khách hàng
     public static function Update_Bill_Detail($id,$first_quantity,$quantity,$idExportProduct)
     {

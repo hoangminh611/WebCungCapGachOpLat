@@ -127,6 +127,15 @@ class Product extends Model
         return $product;
     }
 
+    public static function FindSimilarProduct($id){
+      $product=DB::table('products')
+                    ->where('products.id','=',$id)
+                    ->join('export_product','products.id','=','export_product.id_product')
+                    ->where('status',0)
+                    ->select('export_product.id as idsize','products.id','products.id_type','products.view','products.name','products.image','products.description','export_product.size as size','export_product.export_price','export_product.export_quantity');
+          
+        return $product;
+    }
     // Gợi Ý Tim sàn phẩm theo cùng loại
     public static function Find_Product_By_Same_Type($id,$idpro){
         $product=DB::table('products')->where([

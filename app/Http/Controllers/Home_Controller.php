@@ -19,11 +19,15 @@ use App\Customer;
 use App\Bill;
 use App\Bill_Detail;
 use App\Discount;
+use Cookie;
 class Home_Controller extends Controller
 {
   //Lấy 8 sản phẩm mới
    public function getIndex() {
       $new8Pro=Product::Top8NewsProduct();
+      if(!Cookie::has('cookieIdWebGach')){
+        Cookie::queue('cookieIdWebGach', 'abc1252', 800000);
+      }
    	return view('Master.home',compact('new8Pro'));
    }
    //lấy trang news
@@ -214,4 +218,5 @@ class Home_Controller extends Controller
    // public function getGiohang(){
    //    return view('page.giohang');
    // }
+
 }

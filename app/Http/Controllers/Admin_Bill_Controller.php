@@ -47,7 +47,8 @@ class Admin_Bill_Controller extends Controller
    	$id_bill_detail=$req->id;
    	$quantity=$req->quantity;
    	$name_pro=$req->name_product;
-   	$Bill_Detail=DB::table('bill_detail')->where('id',$id_bill_detail)->select()->get();
+   	$Bill_Detail=Bill_Detail::GetDetail_Bill_DeTail($id_bill_detail)->get();
+
       $Bill=DB::table('bill_detail')->where('id',$id_bill_detail)->select('id_bill')->get();
       $customer=DB::table('bills')->where('id',$Bill[0]->id_bill)->select('id_customer','method')->get();
    	return view('Admin.Page.Bill_Detail_Admin_Insert',compact('Bill_Detail','quantity','name_pro','customer'));
