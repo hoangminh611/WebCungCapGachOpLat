@@ -13,6 +13,7 @@ use Cookie;
 use Auth;
 use App\Product;
 use App\Rating_Product;
+use App\View_product;
 class Product_Controller extends Controller
 {
    //vào trnag home
@@ -39,17 +40,31 @@ class Product_Controller extends Controller
    public function getDetail(Request $req)
    {
    	$product=Product::Find_Product_By_Id($req->id)->get();
-      $product_recommend=Product_Controller::getSimilarProduct($req);
-      if($product_recommend!=0){
+
+    if(Cookie::has('cookieIdWebGach')){
+      $user=Cookie::get('cookieIdWebGach');
+      $typePeople='CookieID';
+    }
+
+    if(Auth::check()){
+      $user=Auth::User()->id;
+      $typePeople='User';
+    }
+
+    $updateViewSimilarProduct=View_product::InsertVIewOnProductByPeople($req->id,$user,$typePeople);
+    $product_recommend=Product_Controller::getSimilarProduct($req);
+
+      if ( $product_recommend != 0  ) {
          foreach ($product_recommend as $key => $value) {
-            $product_same_type[]=Product::FindSimilarProduct($value)->get();
+            $product_same_type[]=Product::FindSimilarProduct($value)->first();
+            if(isset($product_same_type[2]))
+              break;
          }
       }
-      else{
-          $product_same_type[]=Product::Find_Product_By_Same_Type($product[0]->id_type,$product[0]->id)->limit(3)->get();
+      else {
+          $product_same_type=Product::Find_Product_By_Same_Type($product[0]->id_type,$product[0]->id)->limit(3)->get();
       }
-     
-      
+
    	return view('Page.Detail_Product',compact('product','product_same_type'));
    }
    //search product theo loại sản phẩm hoặc kích thước
@@ -94,25 +109,49 @@ class Product_Controller extends Controller
       if(Auth::check()){
          $user=Auth::User()->id;
       }
-      $exitUser=Rating_Product::checkUserExist($user)->first();
-
+      $exitUser=View_product::checkUserExist($user)->first();
       if(isset($exitUser->id)){
 
          $products=array();
-         $product=Rating_Product::getProduct()->get();
+         $product=View_product::getProduct()->get();
          foreach($product as $key){
-            $products[$key->id_people_rating][$key->id_product]=$key->rating;
+            $products[$key->id_people_view][$key->id_product]=$key->number_view;
          }
          // dd($products);
          //ý tưởng là nếu như không có sản phẩm nào được gợi ý thì ẽ lấy những thằng sản phẩm cùng loại 
-         
          $pro=Product_Controller::getRecommendations_Cosine($products,$user);
-         return $pro;
+
+         if(!$pro){
+          return 0;
+         }
+         else {
+          return $pro;
+         } 
       }
       else{
          return 0;
       }
    }
+
+
+    public function matchItems_Cosine($preferences, $person){
+        $score = array();
+        
+            foreach($preferences as $otherPerson=>$values){
+
+                if($otherPerson != $person) {
+
+                    $sim = $this->similarityDistance_Cosine($preferences, $person, $otherPerson);
+                    if($sim > 0){
+                        $score[$otherPerson] = $sim;
+                    }
+                }
+            }
+            //sort theo value giảm dần
+        arsort($score);
+        return $score;
+    
+    }
 
    public function similarityDistance_Cosine($preferences, $person1, $person2){
         $similar = array();

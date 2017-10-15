@@ -173,9 +173,9 @@
 				</div>
 				<div class="latestproducts">
 					<div class="product-one">	
-						<div style="text-align: center"><h2>SẢN PHẨM GỢI Ý</h2></div>
-						@foreach($product_same_type as $same_Pro)
-						  @foreach($same_Pro as $samePro)
+						<div style="text-align: center"><h2>CÓ THỂ BẠN SẼ THÍCH</h2></div>
+						@foreach($product_same_type as $samePro)
+						 {{--  @foreach($same_Pro as $samePro) --}}
 							@if($samePro->id!=$product[0]->id)
 								<div class="col-md-4 product-left p-left"> 
 									<div class="product-main simpleCart_shelfItem">
@@ -189,7 +189,7 @@
 									</div>
 								</div>
 							@endif
-						  @endforeach	
+						 {{--  @endforeach --}}	
 						@endforeach
 						<div class="clearfix"></div>
 					</div>

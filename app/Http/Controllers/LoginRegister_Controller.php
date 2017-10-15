@@ -14,6 +14,8 @@ use App\User;
 use Mail;
 use App\Bill_Detail;
 use Session;
+use Cookie;
+use App\View_product;
 class LoginRegister_Controller extends Controller
 {
   //Login
@@ -21,6 +23,11 @@ class LoginRegister_Controller extends Controller
    {    
         
         if(Auth::attempt(['email'=>$req->email,'password'=>$req->password,'active'=>1])){
+             if(Cookie::has('cookieIdWebGach')){
+                $user=Cookie::get('cookieIdWebGach');
+                $updateUserViewProduct=View_product:: updateWhenUserLogin($user,Auth::User()->id);
+              }
+                
                 return redirect()->back()->with('thanhcong','Đăng nhập thành công');
         }
         else
@@ -160,7 +167,12 @@ class LoginRegister_Controller extends Controller
       else{
           $user = User::where('email',$socialUser->getEmail())->first();
       }
+      if(Cookie::has('cookieIdWebGach')){
+          $userCookie=Cookie::get('cookieIdWebGach');
+          $updateUserViewProduct=View_product::updateWhenUserLogin($userCookie,$user->id);
+        }
       Auth()->login($user);
+       
       return redirect()->route('home')->with(['flash_level'=>'success','thanhcong'=>"Đăng nhập thành công"]);
     }
     //vào trang của user để edit

@@ -132,7 +132,7 @@ class Product extends Model
                     ->where('products.id','=',$id)
                     ->join('export_product','products.id','=','export_product.id_product')
                     ->where('status',0)
-                    ->select('export_product.id as idsize','products.id','products.id_type','products.view','products.name','products.image','products.description','export_product.size as size','export_product.export_price','export_product.export_quantity');
+                    ->select('export_product.id as idsize','products.id','products.name','products.image');
           
         return $product;
     }
