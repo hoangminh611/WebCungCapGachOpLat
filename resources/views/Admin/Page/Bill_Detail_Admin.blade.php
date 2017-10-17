@@ -90,10 +90,8 @@
               @endforeach
             </tbody>
           </table>
-              <p>Total:{{number_format($total*(100-$bill[0]->percent_discount)/100)}}(Giảm {{$bill[0]->percent_discount}}%)</p>
-              @if($bill[0]->gift!=null)
-                <p>{{$bill[0]->gift}}</p>
-              @endif
+              <p>Total:{{number_format($total*(100-$bill[0]->current_percent_discount)/100)}}(Giảm {{$bill[0]->current_percent_discount}}%)</p>
+                <p>{{$bill[0]->name_gift}}</p>
           <a href="{{route('downloadPDF',[$customer[0]->id,$idhoadon])}}">Xuất file PDF</a>
           <br>
           <button id="btnback" class="btn-info" style="border-radius: 5px;">Trở lại</button>

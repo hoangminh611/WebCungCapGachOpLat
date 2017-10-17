@@ -29,8 +29,12 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Quà Tặng</label>
                                     <div class="col-sm-6">
-                                        <input type="text" value="" name= "gift" class="form-control" style="border-top: 1px solid black;">
-                                         <span class="help-block">Nếu không có thì để trống </span>
+                                     <select name="gift">
+                                        @foreach($gifts as $gift)
+                                          <option id="{{$gift->id}}" value="{{$gift->id}}">{{$gift->name_gift}}</option>
+                                        @endforeach
+                                      </select>
+                                       <span class="help-block">Chọn gift </span>
                                     </div>
 
                                 </div>
@@ -67,8 +71,16 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Quà Tặng</label>
                                     <div class="col-sm-6">
-                                        <input type="text" value="{{$discount[0]->gift}}" name= "gift" class="form-control" style="border-top: 1px solid black;">
-                                         <span class="help-block">Nếu không có thì để trống </span>
+                                      <select name="gift">
+
+                                        @foreach($gifts as $gift)
+                                          <option id="{{$gift->id}}" value="{{$gift->id}}">{{$gift->name_gift}}</option>
+                                        @endforeach
+                                      </select>
+                                     <script type="text/javascript">
+                                              $('#'+{{$discount[0]->idgift}}).attr('selected','selected')
+                                      </script>
+                                         <span class="help-block">Chọn gift </span>
                                     </div>
 
                                 </div>

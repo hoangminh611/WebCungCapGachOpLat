@@ -123,7 +123,22 @@ Route::post('Delete_Discount',
 	['as'=>'Delete_Discount',
 	 'uses'=>'Admin_Discount_Controller@Delete_Discount']);
 //-------------------------------Giảm Giá Admin--------------------------
-
+//-------------------------------Quản Lý quà tăng Admin------------------
+Route::get('Gift_Admin',
+	['as'=>'Gift_Admin',
+	 'uses'=>'Admin_Gift_Controller@viewPageGift']);
+Route::get('Gift_Insert_Admin',
+	['as'=>'Gift_Insert_Admin',
+	 'uses'=>'Admin_Gift_Controller@viewPageInsertGift']);
+Route::post('Insert_Gift',
+	['as'=>'Insert_Gift',
+	 'uses'=>'Admin_Gift_Controller@insertGift']);
+Route::post('Update_Gift',
+	['as'=>'Update_Gift',
+	 'uses'=>'Admin_Gift_Controller@updateGift']);
+Route::post('Delete_Gift',
+	['as'=>'Delete_Gift',
+	 'uses'=>'Admin_Gift_Controller@deleteGift']);
 //-------------------------------Loại Admin--------------------------
 Route::get('Admin_All_Type',[
 	'as'=>'Admin_All_Type',

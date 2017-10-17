@@ -85,8 +85,8 @@ class Admin_Bill_Controller extends Controller
                break;
          }
       }
-
-      $bill=Bill::Update_Bill($id,$method,$id_discount);
+      $discount=Discount::Get_Discount_By_Id($id_discount)->get();
+      $bill=Bill::Update_Bill($id,$method,$id_discount,$discount[0]->percent_discount);
       return redirect()->route('ViewPageBill_Admin');
    }
    //xóa bill detail theo id,cap nhat lai quantity

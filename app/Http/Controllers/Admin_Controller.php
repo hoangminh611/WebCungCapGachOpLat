@@ -57,11 +57,11 @@ class Admin_Controller extends Controller
 
          }
       }
-      $All_View=Product::All_ViewProduct();
-      $Count_User=User::Count_All_User();
-      $Count_Bill=Bill::Count_All_Bill();
-      $All_Export_Quantity=Export_product:: ALl_Sale_Quantity();
-
+      $All_View = Product::All_ViewProduct();
+      $Count_User = User::Count_All_User();
+      $Count_Bill = Bill::Count_All_Bill();
+      $All_Export_Quantity = Export_product:: ALl_Sale_Quantity();
+      $totalPriceGift = Bill::getAllPriceGift();
       $month_end = new DateTime(Carbon::now()->format('Y-m-01'));
       $month_end->add(new DateInterval('P1M'));
       $date = new DateTime(Carbon::now()->format('Y-m-01'));
@@ -69,7 +69,7 @@ class Admin_Controller extends Controller
 
       $Total_By_Month=Bill_Detail::getTotalByMonth($date->format('Y-m-d'), $month_end->format('Y-m-d'));
 
-      return view('Admin.Master.Admin_Content',compact('tongtiennhap','tongtienxuat','a','All_View','Count_User','Count_Bill','All_Export_Quantity','Total_By_Month','getMonth'));
+      return view('Admin.Master.Admin_Content',compact('tongtiennhap','tongtienxuat','a','All_View','Count_User','Count_Bill','All_Export_Quantity','Total_By_Month','getMonth','totalPriceGift'));
    }
 
    //lấy tổng số doanh thu bán hàng theo từng tháng khi ajax

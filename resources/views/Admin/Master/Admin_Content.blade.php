@@ -360,7 +360,10 @@
 						        </table>
 						         <div style="float: left">TỔNG TIỀN NHẬP: {{number_format($tongtiennhap)}} VNĐ</div>
 						         <div style="float: right;">TỔNG TIỀN BÁN RA(đơn đã thanh toán): {{number_format($tongtienxuat)}}VNĐ</div>
-						   		<div style="clear: both"></div>
+						   		 <br>
+						   		 <div style="float: right;">TIỀN QUÀ KHUYẾN MÃI:{{number_format($totalPriceGift)}}VNĐ</div>
+						   		 <div style="clear: both"></div>
+
 						   		<a href="{{route('GetPDF')}}">In PDF</a>
 						{{--         <div>Tông Tiền Nhập:{{number_format($tongtiennhap)}}</div>
 						         <div>Tông Tiền Xuất:{{number_format($tongtienxuat)}}</div> --}}

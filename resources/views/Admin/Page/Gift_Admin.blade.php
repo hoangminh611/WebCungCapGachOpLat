@@ -27,28 +27,24 @@
 
                   <th data-breakpoints="xs"></th>
                   <th>ID</th>
-                  <th>Mức Để Giảm Giá</th>
-                  <th>Quà Tặng</th>
-                  <th data-breakpoints="xs">Phần Trăm Giảm giá</th>
-                  <th>Tiền Vận chuyển</th>
+                  <th>Tên Quà Tặng</th>
+                  <th>Giá Tiền Của Quà</th>
                   <th data-breakpoints="xs sm md" data-title="Edit/Delete"></th>
                 </tr>
               </thead>
               <tbody>
-                @foreach($discounts as $discount)
-                  <tr data-expanded="true" id="row{{$discount->id}}">
+                @foreach($getGifts as $getGift)
+                  <tr data-expanded="true" id="row{{$getGift->id}}">
                     <td></td>
-                    <td>{{$discount->id}}</td>
-                    <td>{{$discount->price_discount}}</td>
-                    <td>{{$discount->name_gift}}</td>
-                    <td>{{$discount->percent_discount}}</td>
-                    <td>{{$discount->ship_price}}</td>
+                    <td>{{$getGift->id}}</td>
+                    <td>{{$getGift->name_gift}}</td>
+                    <td>{{number_format($getGift->price_gift)}}</td>
                     <td>
-                      <button class="btn btn-info btn-lg glyphicon glyphicon-hand-right" style="border-radius: 10px;" onclick="editRow({{$discount->id}})"></button>
-                      <form id="form{{$discount->id}}"  method="post" >
+                      <button class="btn btn-info btn-lg glyphicon glyphicon-hand-right" style="border-radius: 10px;" onclick="editRow({{$getGift->id}})"></button>
+                      <form id="form{{$getGift->id}}"  method="post" >
                       	  	<input type="hidden" name="_token" value="{{ csrf_token() }}">
-	                      <input type="hidden" name="id" value="{{$discount->id}}">
-	                      <button type="button" class="btn btn-warning btn-lg glyphicon glyphicon-trash" style="border-radius: 10px" onclick="delete_row('{{$discount->id}}');"></button>
+	                      <input type="hidden" name="id" value="{{$getGift->id}}">
+	                      <button type="button" class="btn btn-warning btn-lg glyphicon glyphicon-trash" style="border-radius: 10px" onclick="delete_row('{{$getGift->id}}');"></button>
                        </form>
                     </td>
                   </tr> 
@@ -69,21 +65,16 @@
                 $('#bill_table').DataTable();
               });
               function editRow($id){
-                  var  route="{{route('Discount_Insert_Admin','id=idtype')}}";
+                  var  route="{{route('Gift_Insert_Admin','id=idtype')}}";
                   route=route.replace('idtype',$id);
                   
                 window.location.replace(route);
               }
               function addRow(){
-                  var  route="{{route('Discount_Insert_Admin')}}";
+                  var  route="{{route('Gift_Insert_Admin')}}";
                 window.location.replace(route);
               }
-              // function addRow($idtype){
-              //       var  route="";
-              //      route=route.replace('idcha',$idtype);
-              //       window.location.replace(route);
-          
-              // }
+
 
               function delete_row(id)
               {
@@ -98,7 +89,7 @@
                   },function (result) {
                       if(result)
                       {
-                          var route="{{route('Delete_Discount')}}";
+                          var route="{{route('Delete_Gift')}}";
                           $.ajax({
                               url:route,
                               type:'post',

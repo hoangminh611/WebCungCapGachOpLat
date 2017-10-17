@@ -84,6 +84,12 @@
                         <span>Giảm Giá</span>
                     </a>
                 </li>
+                 <li >
+                    <a href="{{route('Gift_Admin')}}">
+                        <i class="fa fa-user"></i>
+                        <span>Quá Tặng Kèm</span>
+                    </a>
+                </li>
                 @endif
 {{--                     <ul class="sub">
                         <li><a href="basic_table.html">Basic Table</a></li>

@@ -9,6 +9,7 @@ use File;
 use Auth; 
 use Illuminate\Support\Facades\Input;
 use App\Discount;
+use App\Gift;
 class Admin_Discount_Controller extends Controller
 {
   //view trang login admin
@@ -23,7 +24,8 @@ class Admin_Discount_Controller extends Controller
    		if($id==null)
    			$id=0;
    		$discount=Discount::Get_Discount_By_Id($id)->get();
-   	return view('Admin.Page.Discount_Admin_Insert',compact('discount','id'));
+         $gifts=Gift::getGift()->get();
+   	return view('Admin.Page.Discount_Admin_Insert',compact('discount','id','gifts'));
    }
 
    public function Insert_Discount(Request $req){

@@ -135,20 +135,20 @@ class Bill_Detail extends Model
         // dd($bill);
         foreach ($bill as $bill_detail) {
 
-            $discount=Discount::Get_Discount_By_Id($bill_detail->discount)->first();
+             $bill_discount=Bill::View_bill_byId($bill_detail->id_bill)->first();
 
             if(isset($a[$bill_detail->id_product][$bill_detail->size]))
             {
-             $a[$bill_detail->id_product][$bill_detail->size]['price']+=($bill_detail->sales_price*$bill_detail->quantity)*(100-$discount->percent_discount)/100;
+             $a[$bill_detail->id_product][$bill_detail->size]['price']+=($bill_detail->sales_price*$bill_detail->quantity)*(100-$bill_discount->current_percent_discount)/100;
              $a[$bill_detail->id_product][$bill_detail->size]['quantity']+=$bill_detail->quantity;
-             $a['tongtienxuat']+=($bill_detail->sales_price*$bill_detail->quantity)*(100-$discount->percent_discount)/100;;
+             $a['tongtienxuat']+=($bill_detail->sales_price*$bill_detail->quantity)*(100-$bill_discount->current_percent_discount)/100;;
             }
             else
             {
-            $a[$bill_detail->id_product][$bill_detail->size]['price']=($bill_detail->sales_price*$bill_detail->quantity)*(100-$discount->percent_discount)/100;
+            $a[$bill_detail->id_product][$bill_detail->size]['price']=($bill_detail->sales_price*$bill_detail->quantity)*(100-$bill_discount->current_percent_discount)/100;
              $a[$bill_detail->id_product][$bill_detail->id_product]=$bill_detail->id_product;
              $a[$bill_detail->id_product][$bill_detail->size]['quantity']=$bill_detail->quantity;
-            $a['tongtienxuat']+=($bill_detail->sales_price*$bill_detail->quantity)*(100-$discount->percent_discount)/100;;
+            $a['tongtienxuat']+=($bill_detail->sales_price*$bill_detail->quantity)*(100-$bill_discount->current_percent_discount)/100;;
             }
 
         }
@@ -169,11 +169,10 @@ class Bill_Detail extends Model
                 ->get();
         foreach ($bill as $bill_detail) {
 
-            $discount=Discount::Get_Discount_By_Id($bill_detail->discount)->first();
-
+            $bill_discount=Bill::View_bill_byId($bill_detail->id_bill)->first();
             if(isset($a[$bill_detail->id_product][$bill_detail->size]))
             {
-             $a[$bill_detail->id_product][$bill_detail->size]['price']+=($bill_detail->sales_price*$bill_detail->quantity)*(100-$discount->percent_discount)/100;
+             $a[$bill_detail->id_product][$bill_detail->size]['price']+=($bill_detail->sales_price*$bill_detail->quantity)*(100-$bill_discount->current_percent_discount)/100;
              $a[$bill_detail->id_product][$bill_detail->size]['quantity']+=$bill_detail->quantity;
              $a[$bill_detail->id_product][$bill_detail->size]['size']=$bill_detail->size;
             // $a['tongtienxuat']+=($bill_detail->sales_price*$bill_detail->quantity)*(100-$discount->percent_discount)/100;
@@ -181,7 +180,7 @@ class Bill_Detail extends Model
             }
             else
             {
-            $a[$bill_detail->id_product][$bill_detail->size]['price']=($bill_detail->sales_price*$bill_detail->quantity)*(100-$discount->percent_discount)/100;
+            $a[$bill_detail->id_product][$bill_detail->size]['price']=($bill_detail->sales_price*$bill_detail->quantity)*(100-$bill_discount->current_percent_discount)/100;
              $a[$bill_detail->id_product][$bill_detail->size]['quantity']=$bill_detail->quantity;
              $a[$bill_detail->id_product][$bill_detail->size]['size']=$bill_detail->size;
             //$a['tongtienxuat']+=($bill_detail->sales_price*$bill_detail->quantity)*(100-$discount->percent_discount)/100;

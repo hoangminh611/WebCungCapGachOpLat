@@ -175,11 +175,12 @@ class Home_Controller extends Controller
           }
           else {
             $id_user=null;
-            $discount=1;
+            $id_discount=1;
           } 
 
           $id_customer=Customer::Insert_Customer($id_user,$full_name,$email,$address,$phone);
-          $id_bill=Bill::Insert_Bill($id_customer,$note,$id_discount);
+          $discount=Discount::Get_Discount_By_Id( $id_discount)->get();
+          $id_bill=Bill::Insert_Bill($id_customer,$note,$id_discount,$discount[0]->price_gift,$discount[0]->percent_discount);
 
           foreach ($cart->items as $key) {
 

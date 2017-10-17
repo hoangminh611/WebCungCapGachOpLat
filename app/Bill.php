@@ -27,15 +27,14 @@ class Bill extends Model
         return $Bill;
     }
     //update bill update lai cai phuong thuc
-    public static function Update_Bill($id,$method,$discount)
+    public static function Update_Bill($id,$method,$discount,$currentPercentDiscount)
     {
-        $Bill=DB::table('bills')->where('id',$id)->update(['method'=>$method,'discount'=>$discount]);
+        $Bill=DB::table('bills')->where('id',$id)->update(['method'=>$method,'discount'=>$discount,'current_percent_discount'=>$currentPercentDiscount]);
     }
     //Insert customer vào bill
-    public static function Insert_Bill($idcustomer,$note,$discount)
+    public static function Insert_Bill($idcustomer,$note,$discount,$currentPriceGift,$currentPercentDiscount)
     {
-         $Bill=DB::table('bills')->insertGetId(['id_customer'=>$idcustomer,'method'=>'Chưa Xác Nhận','note'=>$note,'discount'=>$discount]);
-         return $Bill;
+         $Bill=DB::table('bills')->insertGetId(['id_customer'=>$idcustomer,'method'=>'Chưa Xác Nhận','note'=>$note,'discount'=>$discount,'current_price_gift'=>$currentPriceGift,'current_percent_discount'=>$currentPercentDiscount]);
     }
 
     //count bill
@@ -57,8 +56,18 @@ class Bill extends Model
     }
 
     public static function View_bill_discountbyId($id){
-         $Bill=DB::table('bills')->join('discount','bills.discount','=','discount.id')->where('bills.id',$id)->select();
+         $Bill = DB::table('bills')->join('discount','bills.discount','=','discount.id')
+                                 ->join('gift','gift.id','=','discount.id_gift')->where('bills.id',$id)->select();
         return $Bill;
     }
 
+    public static function getAllPriceGift(){
+        $totalGift = 0;
+        $Bill = DB::table('bills')->where('bills.method','LIKE','%Đã Thanh Toán%')->select()->get();
+
+        foreach ($Bill as $gift) {
+            $totalGift += $gift->current_price_gift;
+        }
+        return $totalGift;
+    }
 }

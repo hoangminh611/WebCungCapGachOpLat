@@ -147,7 +147,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								                <?php
 								                	$percent_discount=$discount[$i-1]->percent_discount;
 								                	$ship_price=$discount[$i-1]->ship_price;
-								                	$gift=$discount[$i-1]->gift;
+								                	$name_gift=$discount[$i-1]->name_gift;
 								               		break; 
 								               	?>
 								            @endif
@@ -155,7 +155,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								              <?php 
 								              		$percent_discount=$discount[$i-1]->percent_discount;
 								                	$ship_price=$discount[$i-1]->ship_price;
-								                	$gift=$discount[$i-1]->gift;
+								                	$name_gift=$discount[$i-1]->name_gift;
 								               		break; 
 								               ?>
 								            @endif
@@ -166,8 +166,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<br>
 								<b>Tổng Tiền:</b>{{number_format($totalPrice*(100-$percent_discount)/100)}} VNĐ (Giảm {{$percent_discount}}%)
 								<br>
-								<b>@if($gift!=null)
-									Tặng {{$gift}} (Free)
+								<b>@if($name_gift!=null)
+									Tặng {{$name_gift}} (Free)
 									@endif
 								</b>
 							@endif
