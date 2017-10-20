@@ -52,6 +52,23 @@ Route::get('GetMonthlyFund',[
 Route::get('GetPDF',[
 	'as'=>'GetPDF',
 	'uses'=>'Admin_Controller@GetPDF']);
+//-------------------------------Banner Admin-------------------------------------
+Route::get('Slide_Admin',[
+	'as'=>'Slide_Admin',
+	'uses'=>'Admin_Slide_Controller@viewPageSlide']);
+Route::get('View_PageSlide_Admin_Insert',[
+	'as'=>'View_PageSlide_Admin_Insert',
+	'uses'=>'Admin_Slide_Controller@viewPageInsertSlide']);
+Route::post('insertSlide',[
+	'as'=>'insertSlide',
+	'uses'=>'Admin_Slide_Controller@insertSlide']);
+Route::post('updateSlide',[
+	'as'=>'updateSlide',
+	'uses'=>'Admin_Slide_Controller@updateSlide']);
+Route::post('deleteSlide',[
+	'as'=>'deleteSlide',
+	'uses'=>'Admin_Slide_Controller@deleteSlide']);
+//-------------------------------Banner Admin-------------------------------------
 //-------------------------------User,Customer Admin------------------------------
 Route::get('ViewPage_User_Admin',[
 	'as'=>'ViewPage_User_Admin',

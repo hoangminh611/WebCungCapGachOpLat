@@ -180,8 +180,8 @@ class Home_Controller extends Controller
 
           $id_customer=Customer::Insert_Customer($id_user,$full_name,$email,$address,$phone);
           $discount=Discount::Get_Discount_By_Id( $id_discount)->get();
-          $id_bill=Bill::Insert_Bill($id_customer,$note,$id_discount,$discount[0]->price_gift,$discount[0]->percent_discount);
-
+          $id_bill=Bill::Insert_Bill($id_customer,$note,$id_discount,$discount[0]->price_gift,$discount[0]->percent_discount,$discount[0]->name_gift);
+          
           foreach ($cart->items as $key) {
 
               $id_export_product=$key['item'][0]->idsize;

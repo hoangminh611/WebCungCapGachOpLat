@@ -4,7 +4,7 @@
 			<ul class="rslides" id="slider4">
 				@foreach($Slide as $slide)
 			    <li>
-					<img src="images/Banner/{{$slide->hinh}}" alt="{{$slide->hinh}}"  style="height:400px;"  />
+					<a href="{{$slide->url}}"><img src="images/Banner/{{$slide->hinh}}" alt="{{$slide->hinh}}"  style="height:400px;"  /></a>
 				</li>
 				@endforeach
 			</ul>

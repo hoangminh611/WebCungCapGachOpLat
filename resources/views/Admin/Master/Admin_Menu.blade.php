@@ -10,6 +10,12 @@
                         <span>Trang chủ</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{route('Slide_Admin')}}">
+                        <i class="fa fa-sliders"></i>
+                        <span>Slide</span>
+                    </a>
+                </li>
                 <li class="sub-menu">
                     <a href="javascript:void(0);">
                         <i class="fa fa-book"></i>
