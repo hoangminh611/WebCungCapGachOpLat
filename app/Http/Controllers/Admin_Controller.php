@@ -106,14 +106,77 @@ class Admin_Controller extends Controller
    //xem trang update user admin
    public function ViewPage_Update_User($id) {
       $user=User::Select_User_By_Id($id)->get();
-      return view('Admin.Page.User_Admin_Edit',compact('user'));
+      $staffPermission=User::getUserPermission($id)->get();
+      return view('Admin.Page.User_Admin_Edit',compact('user','staffPermission'));
    }
 
    //updte lai user admin
    public function Update_User(Request $req) {
       $id=$req->id;
       $group=$req->group;
-      $user=User::Update_User($id,$group);
+      if (isset($req->banner)) {
+         $bannerPermission = 1;
+      }else {
+         $bannerPermission = 0;
+      }
+
+      if (isset($req->product)) {
+         $productPermission = 1;
+      }else {
+         $productPermission = 0;
+      }
+
+      if (isset($req->category)) {
+         $categoryPermission = 1;
+      }else {
+         $categoryPermission = 0;
+      }
+      
+      if (isset($req->user)) {
+         $userPermission = 1;
+      }else {
+         $userPermission = 0;
+      }
+
+      if (isset($req->bill)) {
+         $billPermission = 1;
+      }else {
+         $billPermission = 0;
+      }
+
+      if (isset($req->history)) {
+         $historyPermission = 1;
+      }else {
+         $historyPermission = 0;
+      }
+
+      if (isset($req->errorProduct)) {
+         $errorProductPermission = 1;
+      }else {
+         $errorProductPermission = 0;
+      }
+
+      if (isset($req->discount)) {
+         $discountPermission = 1;
+      }else {
+         $discountPermission = 0;
+      }
+      if (isset($req->gift)) {
+         $giftPermission = 1;
+      }else {
+         $giftPermission = 0;
+      }
+      if (isset($req->news)) {
+         $newsPermission = 1;
+      }else {
+         $newsPermission = 0;
+      }
+      $user = User::Update_User($id,$group);
+      if($group != 0) {
+         $permission = User::updateStaffPermission($id,$bannerPermission, $productPermission
+           , $categoryPermission, $userPermission, $billPermission, $historyPermission
+           , $errorProductPermission, $discountPermission, $giftPermission,$newsPermission);
+      }
       return redirect()->route('ViewPage_User_Admin');
    }
    
