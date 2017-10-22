@@ -51,4 +51,7 @@
 						        </table>
 						         <div style="float: left">TỔNG TIỀN NHẬP: {{number_format($tongtiennhap)}} VNĐ</div>
 						         <div style="float: right;">TỔNG TIỀN BÁN RA(đơn đã thanh toán): {{number_format($tongtienxuat)}}VNĐ</div>
+						         <div style="clear: both"></div>
+						         <div style="float: right;">TIỀN QUÀ KHUYẾN MÃI:{{number_format($totalPriceGift)}}VNĐ</div>
+
 </body>

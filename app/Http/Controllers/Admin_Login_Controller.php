@@ -25,7 +25,7 @@ class Admin_Login_Controller extends Controller
    {    
         
       if(Auth::attempt(['email'=>$req->email,'password'=>$req->password,'active'=>1])){
-            if(Auth::User()->group>=1){
+            if(Auth::User()->group>=1 && Auth::User()->active == 1){
                $_SESSION['group']=true;
                return redirect()->route('Content_Admin');}
              else

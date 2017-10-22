@@ -1,7 +1,7 @@
-@if(Auth::User()->group==5)
-@extends('Admin.Master.Admin_Master')
-@section('body')
-<section id="main-content">
+@if(isset($staff) && $staff->category_permission === 1)
+  @extends('Admin.Master.Admin_Master')
+  @section('body')
+  <section id="main-content">
     <section class="wrapper">
     <div class="form-w3layouts">
         <!-- page start-->
@@ -29,14 +29,6 @@
                                     </div>
 
                                 </div>
-{{--                                  <div class="form-group">
-                                    <label class="col-sm-3 control-label">Hình ảnh*</label>
-                                    <div class="col-sm-6">
-                                         <input type="file" value="" name="image" id="f" accept="image/*" class="form-control" style="border-top: 1px solid black;" required="" onchange=" file_change(this) ">
-                                          <img style="width: 100px;height: 100px" id="img"  style="display: none;">
-                                        <span class="help-block">Chọn Ảnh </span>
-                                    </div>
-                                </div> --}}
                                 <div class="form-group">
                                     <label class=" col-sm-3 control-label ">Mô tả</label>
                                     <div class="col-sm-6">
@@ -79,15 +71,7 @@
                                     </div>
 
                                 </div>
-{{--                                  <div class="form-group">
-                                    <label class="col-sm-3 control-label">Hình ảnh*</label>
-                                    <div class="col-sm-6">
-                                            <input type="file" value="" name="image" id="f" accept="image/*" class="form-control" style="border-top: 1px solid black;"  onchange=" file_change(this) ">
-                                          <img style="width: 100px;height: 100px" id="img"  src="images/category/{{$type_detail[0]->image}}">
-                                        <span class="help-block">Chọn Ảnh </span>
-                                    </div>
 
-                                </div> --}}
                                 <div class="form-group">
                                     <label class=" col-sm-3 control-label ">Mô tả</label>
                                     <div class="col-sm-6">
@@ -118,136 +102,125 @@
                         </div>
                     @endif
                 </section>
-              {{--   <script>
-                     CKEDITOR.replace( 'ckeditor',{
-                        filebrowserBrowseUrl : '../public/ckeditor/ckfinder/ckfinder.html',
-                        filebrowserImageBrowseUrl : '../public/ckeditor/ckfinder/ckfinder.html',
-                        filebrowserFlashBrowseUrl : '../public/ckeditor/ckfinder/ckfinder.html?type=Flash',
-                        filebrowserUploadUrl : '../public/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-                        filebrowserImageUploadUrl : '../public/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-                        filebrowserFlashUploadUrl : '../public/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
-                    });
-                </script> --}}
             </div>
         </div>
         <!-- page end-->
-        </div>
-<script type="text/javascript">
-    function file_change(f){
+      </div>
+    <script type="text/javascript">
+        function file_change(f){
 
-        var reader = new FileReader();
-        reader.onload = function (e) {
-        var img = document.getElementById("img");
-        img.src = e.target.result;
-        img.style.display = "inline";
-        };
-        var ftype =f.files[0].type;
-        switch(ftype)
-        {
-            case 'image/png':
-            case 'image/gif':
-            case 'image/jpeg':
-            case 'image/pjpeg':
-                reader.readAsDataURL(f.files[0]);
-                break;
-            default:
-                alert(' Bạn chỉ được chọn file ảnh.');
-                $('#f').val(null);
+            var reader = new FileReader();
+            reader.onload = function (e) {
+            var img = document.getElementById("img");
+            img.src = e.target.result;
+            img.style.display = "inline";
+            };
+            var ftype =f.files[0].type;
+            switch(ftype)
+            {
+                case 'image/png':
+                case 'image/gif':
+                case 'image/jpeg':
+                case 'image/pjpeg':
+                    reader.readAsDataURL(f.files[0]);
+                    break;
+                default:
+                    alert(' Bạn chỉ được chọn file ảnh.');
+                    $('#f').val(null);
+            }
         }
-    }
-     // $(document).ready(function(){
+         // $(document).ready(function(){
 
-       //  $("#edit-form").validate(
-       //      {
-       //          ignore: [],
-       //          debug: false,
-       //          rules: { 
+           //  $("#edit-form").validate(
+           //      {
+           //          ignore: [],
+           //          debug: false,
+           //          rules: { 
 
-       //              description:{
-       //                  required: function() 
-       //                      {
-       //                          CKEDITOR.instances.ckeditor.updateElement();
-       //                      },
-       //                  }
-       //              },
-       //          messages:
-       //              {
-       //                  description:{
-       //                          required:"Hãy Nhập vào mô tả",
-                                                           
-       //                      }
-       //                  }
-       //              });
-       //  $("#add-form").validate(
-       //      {
-       //          ignore: [],
-       //          debug: false,
-       //          rules: { 
+           //              description:{
+           //                  required: function() 
+           //                      {
+           //                          CKEDITOR.instances.ckeditor.updateElement();
+           //                      },
+           //                  }
+           //              },
+           //          messages:
+           //              {
+           //                  description:{
+           //                          required:"Hãy Nhập vào mô tả",
+                                                               
+           //                      }
+           //                  }
+           //              });
+           //  $("#add-form").validate(
+           //      {
+           //          ignore: [],
+           //          debug: false,
+           //          rules: { 
 
-       //              description:{
-       //                  required: function() 
-       //                      {
-       //                          CKEDITOR.instances.ckeditor.updateElement();
-       //                      },
-       //                  }
-       //              },
-       //          messages:
-       //              {
-       //                  description:{
-       //                          required:"Hãy Nhập vào mô tả",
-                                                           
-       //                      }
-       //                  }
-       //              });
-       // });
-      //      function submit_insert_form()
-      //   {
-      //        var frm=$('#add-form')[0];//cái này tương đương với document.getelementbyid
-      //           ssi_modal.confirm({
-      //           content: 'Xin Hãy Kiểm tra kỹ càng trước khi save nếu bi sai sót có thể sẽ gây ra lỗi đáng tiếc',
-      //           okBtn: {
-      //           className:'btn btn-primary'
-      //           },
-      //           cancelBtn:{
-      //           className:'btn btn-danger'
-      //           }
-      //           },function (result) 
-      //               {
-      //                   if(result)
-      //                   {
-      //                       frm.submit();
-      //                    }
-      //                   else
-      //                       ssi_modal.notify('error', {content: 'Result: ' + result});
-      //               }
-      //           );
-      //   }
-      // function submit_form()
-      //       {
-      //           var frm=$('#edit-form')[0];//cái này tương đương với document.getelementbyid
-      //           ssi_modal.confirm({
-      //           content: 'Xin Hãy Kiểm tra kỹ càng trước khi save nếu bi sai sót có thể sẽ gây ra lỗi đáng tiếc',
-      //           okBtn: {
-      //           className:'btn btn-primary'
-      //           },
-      //           cancelBtn:{
-      //           className:'btn btn-danger'
-      //           }
-      //           },function (result) 
-      //               {
-      //                   if(result)
-      //                   {
-      //                       frm.submit();
-      //                    }
-      //                   else
-      //                       ssi_modal.notify('error', {content: 'Result: ' + result});
-      //               }
-      //           );
-      //       }   
-</script>
-</section>
-@endsection             
-
+           //              description:{
+           //                  required: function() 
+           //                      {
+           //                          CKEDITOR.instances.ckeditor.updateElement();
+           //                      },
+           //                  }
+           //              },
+           //          messages:
+           //              {
+           //                  description:{
+           //                          required:"Hãy Nhập vào mô tả",
+                                                               
+           //                      }
+           //                  }
+           //              });
+           // });
+          //      function submit_insert_form()
+          //   {
+          //        var frm=$('#add-form')[0];//cái này tương đương với document.getelementbyid
+          //           ssi_modal.confirm({
+          //           content: 'Xin Hãy Kiểm tra kỹ càng trước khi save nếu bi sai sót có thể sẽ gây ra lỗi đáng tiếc',
+          //           okBtn: {
+          //           className:'btn btn-primary'
+          //           },
+          //           cancelBtn:{
+          //           className:'btn btn-danger'
+          //           }
+          //           },function (result) 
+          //               {
+          //                   if(result)
+          //                   {
+          //                       frm.submit();
+          //                    }
+          //                   else
+          //                       ssi_modal.notify('error', {content: 'Result: ' + result});
+          //               }
+          //           );
+          //   }
+          // function submit_form()
+          //       {
+          //           var frm=$('#edit-form')[0];//cái này tương đương với document.getelementbyid
+          //           ssi_modal.confirm({
+          //           content: 'Xin Hãy Kiểm tra kỹ càng trước khi save nếu bi sai sót có thể sẽ gây ra lỗi đáng tiếc',
+          //           okBtn: {
+          //           className:'btn btn-primary'
+          //           },
+          //           cancelBtn:{
+          //           className:'btn btn-danger'
+          //           }
+          //           },function (result) 
+          //               {
+          //                   if(result)
+          //                   {
+          //                       frm.submit();
+          //                    }
+          //                   else
+          //                       ssi_modal.notify('error', {content: 'Result: ' + result});
+          //               }
+          //           );
+          //       }   
+    </script>
+  </section>
+  @endsection             
 @else
   <script type="text/javascript">
           alert('Bạn không có quyền truy cập');

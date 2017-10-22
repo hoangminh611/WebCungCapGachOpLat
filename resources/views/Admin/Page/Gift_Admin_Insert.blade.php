@@ -1,7 +1,7 @@
-@if(Auth::User()->group==5)
-@extends('Admin.Master.Admin_Master')
-@section('body')
-<section id="main-content">
+@if(isset($staff) && $staff->gift_permission === 1)
+  @extends('Admin.Master.Admin_Master')
+  @section('body')
+  <section id="main-content">
     <section class="wrapper">
     <div class="form-w3layouts">
         <!-- page start-->
@@ -26,7 +26,7 @@
                                     </div>
 
                                 </div>
-								<div class="form-group">
+  							<div class="form-group">
                                     <label class="col-sm-3 control-label">Giá Quá Tặng</label>
                                     <div class="col-sm-6">
                                         <input type="text" value="" name= "price_gift"  class="form-control" style="border-top: 1px solid black;" >
@@ -49,7 +49,7 @@
                                     </div>
 
                                 </div>
-								<div class="form-group">
+  							<div class="form-group">
                                     <label class="col-sm-3 control-label">Giá Quá Tặng</label>
                                     <div class="col-sm-6">
                                         <input type="text" value="{{$gift[0]->price_gift}}" name= "price_gift"  class="form-control" style="border-top: 1px solid black;" >
@@ -69,37 +69,38 @@
 
         <!-- page end-->
         </div>
-<script type="text/javascript">
+    <script type="text/javascript">
 
-      // function submit_form()
-      //       {
-      //           var frm=$('#edit-form')[0];//cái này tương đương với document.getelementbyid
-      //           ssi_modal.confirm({
-      //           content: 'Xin Hãy Kiểm tra kỹ càng trước khi save nếu bi sai sót có thể sẽ gây ra lỗi đáng tiếc',
-      //           okBtn: {
-      //           className:'btn btn-primary'
-      //           },
-      //           cancelBtn:{
-      //           className:'btn btn-danger'
-      //           }
-      //           },function (result) 
-      //               {
-      //                   if(result)
-      //                   {
-      //                     if(isNaN($('#hangloi').val()))
-      //                       alert('nhập từ 0 tới 10 chữ số');
-      //                     else
-      //                       frm.submit();
+          // function submit_form()
+          //       {
+          //           var frm=$('#edit-form')[0];//cái này tương đương với document.getelementbyid
+          //           ssi_modal.confirm({
+          //           content: 'Xin Hãy Kiểm tra kỹ càng trước khi save nếu bi sai sót có thể sẽ gây ra lỗi đáng tiếc',
+          //           okBtn: {
+          //           className:'btn btn-primary'
+          //           },
+          //           cancelBtn:{
+          //           className:'btn btn-danger'
+          //           }
+          //           },function (result) 
+          //               {
+          //                   if(result)
+          //                   {
+          //                     if(isNaN($('#hangloi').val()))
+          //                       alert('nhập từ 0 tới 10 chữ số');
+          //                     else
+          //                       frm.submit();
 
-      //                    }
-      //                   else
-      //                       ssi_modal.notify('error', {content: 'Result: ' + result});
-      //               }
-      //           );
-      //       } 
-</script>
-</section>
-@endsection             
+          //                    }
+          //                   else
+          //                       ssi_modal.notify('error', {content: 'Result: ' + result});
+          //               }
+          //           );
+          //       } 
+    </script>
+    </section>
+  </section>
+  @endsection             
 @else
   <script type="text/javascript">
             alert('Bạn không có quyền truy cập');

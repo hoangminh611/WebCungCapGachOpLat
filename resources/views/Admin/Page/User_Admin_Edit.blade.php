@@ -1,13 +1,11 @@
-@if(Auth::User()->group==5)
-@extends('Admin.Master.Admin_Master')
-@section('body')
-<section id="main-content">
-    <section class="wrapper">
-    <div class="form-w3layouts">
-        <!-- page start-->
-        <!-- page start-->
-
-
+@if(isset($staff) && $staff->user_permission === 1)
+  @extends('Admin.Master.Admin_Master')
+  @section('body')
+    <section id="main-content">
+      <section class="wrapper">
+      <div class="form-w3layouts">
+          <!-- page start-->
+          <!-- page start-->
         <div class="row">
             <div class="col-lg-12">
                 <section class="panel">
@@ -116,121 +114,118 @@
                                 <button type="submit"  class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">  Save</button>           
                             </form>
                     </div>
-            
-
                 </section>
 
             </div>
         </div>
+          <!-- page end-->
+      </div>
+      <script type="text/javascript">
+        @if($user[0]->group != 0){
+           $('#permission').show();
+        }
+        @endif
+        $('#group').change(function(){
+          $('#banner').attr('checked',false);
+          $('#product').attr('checked',false);
+          $('#category').attr('checked',false);
+          $('#bill').attr('checked',false);
+          $('#user').attr('checked',false);
+          $('#history').attr('checked',false);
+          $('#errorProduct').attr('checked',false);
+          $('#discount').attr('checked',false);
+          $('#gift').attr('checked',false);
+          $('#news').attr('checked',false);
 
-<script type="text/javascript">
-  @if($user[0]->group != 0){
-     $('#permission').show();
-  }
-  @endif
-  $('#group').change(function(){
-    $('#banner').attr('checked',false);
-    $('#product').attr('checked',false);
-    $('#category').attr('checked',false);
-    $('#bill').attr('checked',false);
-    $('#user').attr('checked',false);
-    $('#history').attr('checked',false);
-    $('#errorProduct').attr('checked',false);
-    $('#discount').attr('checked',false);
-    $('#gift').attr('checked',false);
-    $('#news').attr('checked',false);
-
-    if($('#group option:selected').val()!= 0 ) {
-      $('#permission').show();
-    }
-    else {
-      $('#permission').hide();
-    }
-  });
+          if($('#group option:selected').val()!= 0 ) {
+            $('#permission').show();
+          }
+          else {
+            $('#permission').hide();
+          }
+        });
 
 
-  @if(isset($staffPermission[0]->banner_permission) && $staffPermission[0]->banner_permission === 1) {
-    $('#banner').attr('checked','checked');
-  }
-  @endif
+        @if(isset($staffPermission[0]->banner_permission) && $staffPermission[0]->banner_permission === 1) {
+          $('#banner').attr('checked','checked');
+        }
+        @endif
 
-  @if(isset($staffPermission[0]->product_permission) && $staffPermission[0]->product_permission === 1) {
-    $('#product').attr('checked','checked');
-  }
-  @endif
+        @if(isset($staffPermission[0]->product_permission) && $staffPermission[0]->product_permission === 1) {
+          $('#product').attr('checked','checked');
+        }
+        @endif
 
-  @if(isset($staffPermission[0]->category_permission) && $staffPermission[0]->category_permission === 1) {
-    $('#category').attr('checked','checked');
-  }
-  @endif
+        @if(isset($staffPermission[0]->category_permission) && $staffPermission[0]->category_permission === 1) {
+          $('#category').attr('checked','checked');
+        }
+        @endif
 
-  @if(isset($staffPermission[0]->bill_permission) && $staffPermission[0]->bill_permission === 1) {
-    $('#bill').attr('checked','checked');
-  }
-  @endif
+        @if(isset($staffPermission[0]->bill_permission) && $staffPermission[0]->bill_permission === 1) {
+          $('#bill').attr('checked','checked');
+        }
+        @endif
 
-  @if(isset($staffPermission[0]->user_permission) && $staffPermission[0]->user_permission === 1) {
-    $('#user').attr('checked','checked');
-  }
-  @endif
+        @if(isset($staffPermission[0]->user_permission) && $staffPermission[0]->user_permission === 1) {
+          $('#user').attr('checked','checked');
+        }
+        @endif
 
-  @if(isset($staffPermission[0]->import_product_permission) && $staffPermission[0]->import_product_permission === 1) {
-    $('#history').attr('checked','checked');
-  }
-  @endif
+        @if(isset($staffPermission[0]->import_product_permission) && $staffPermission[0]->import_product_permission === 1) {
+          $('#history').attr('checked','checked');
+        }
+        @endif
 
-  @if(isset($staffPermission[0]->error_product_permission) && $staffPermission[0]->error_product_permission === 1) {
-    $('#errorProduct').attr('checked','checked');
-  }
-  @endif
+        @if(isset($staffPermission[0]->error_product_permission) && $staffPermission[0]->error_product_permission === 1) {
+          $('#errorProduct').attr('checked','checked');
+        }
+        @endif
 
-  @if(isset($staffPermission[0]->discount_permission) && $staffPermission[0]->discount_permission === 1) {
-    $('#discount').attr('checked','checked');
-  }
-  @endif
+        @if(isset($staffPermission[0]->discount_permission) && $staffPermission[0]->discount_permission === 1) {
+          $('#discount').attr('checked','checked');
+        }
+        @endif
 
-  @if(isset($staffPermission[0]->gift_permission) && $staffPermission[0]->gift_permission === 1) {
-    $('#gift').attr('checked','checked');
-  }
-  @endif
+        @if(isset($staffPermission[0]->gift_permission) && $staffPermission[0]->gift_permission === 1) {
+          $('#gift').attr('checked','checked');
+        }
+        @endif
 
-  @if(isset($staffPermission[0]->news_permission) && $staffPermission[0]->news_permission === 1) {
-    $('#news').attr('checked','checked');
-  }
-  @endif
+        @if(isset($staffPermission[0]->news_permission) && $staffPermission[0]->news_permission === 1) {
+          $('#news').attr('checked','checked');
+        }
+        @endif
 
-      // function submit_form()
-      //       {
-      //           var frm=$('#edit-form')[0];//cái này tương đương với document.getelementbyid
-      //           ssi_modal.confirm({
-      //           content: 'Xin Hãy Kiểm tra kỹ càng trước khi save nếu bi sai sót có thể sẽ gây ra lỗi đáng tiếc',
-      //           okBtn: {
-      //           className:'btn btn-primary'
-      //           },
-      //           cancelBtn:{
-      //           className:'btn btn-danger'
-      //           }
-      //           },function (result) 
-      //               {
-      //                   if(result)
-      //                   {
-      //                       frm.submit();
-      //                    }
-      //                   else
-      //                       ssi_modal.notify('error', {content: 'Result: ' + result});
-      //               }
-      //           );
-      //       }   
-
-</script>
-        <!-- page end-->
-        </div>
-</section>
-@endsection 
+          // function submit_form()
+          //       {
+          //           var frm=$('#edit-form')[0];//cái này tương đương với document.getelementbyid
+          //           ssi_modal.confirm({
+          //           content: 'Xin Hãy Kiểm tra kỹ càng trước khi save nếu bi sai sót có thể sẽ gây ra lỗi đáng tiếc',
+          //           okBtn: {
+          //           className:'btn btn-primary'
+          //           },
+          //           cancelBtn:{
+          //           className:'btn btn-danger'
+          //           }
+          //           },function (result) 
+          //               {
+          //                   if(result)
+          //                   {
+          //                       frm.submit();
+          //                    }
+          //                   else
+          //                       ssi_modal.notify('error', {content: 'Result: ' + result});
+          //               }
+          //           );
+          //       }   
+      </script>
+      </section>
+    </section>
+  @endsection 
 
 @else
   <script type="text/javascript">
-          alert('Bạn không có quyền truy cập');
-          window.location.href = "{{route('Content_Admin')}}";
+    alert('Bạn không có quyền truy cập');
+    window.location.href = "{{route('Content_Admin')}}";
   </script>
 @endif

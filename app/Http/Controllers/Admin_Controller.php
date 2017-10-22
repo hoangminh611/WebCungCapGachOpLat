@@ -21,6 +21,7 @@ use PDF;
 use DateTime;
 use DateInterval;
 use Carbon\Carbon;
+use App\Staff_permission;
 class Admin_Controller extends Controller
 {
    //lấy lãi lỗ
@@ -173,7 +174,7 @@ class Admin_Controller extends Controller
       }
       $user = User::Update_User($id,$group);
       if($group != 0) {
-         $permission = User::updateStaffPermission($id,$bannerPermission, $productPermission
+         $permission = Staff_permission::updateStaffPermission($id,$bannerPermission, $productPermission
            , $categoryPermission, $userPermission, $billPermission, $historyPermission
            , $errorProductPermission, $discountPermission, $giftPermission,$newsPermission);
       }
@@ -213,7 +214,8 @@ class Admin_Controller extends Controller
 
          }
       }
-      $pdf =PDF::loadView('Admin.Master.Admin_GetReport_PDF',compact('a','tongtiennhap','tongtienxuat'))->setPaper('a4', 'landscape');//Load view
+      $totalPriceGift = Bill::getAllPriceGift();
+      $pdf =PDF::loadView('Admin.Master.Admin_GetReport_PDF',compact('a','tongtiennhap','tongtienxuat','totalPriceGift'))->setPaper('a4', 'landscape');//Load view
         //Tạo file xem trước pdf
          // return view('Admin.Page.Bill_Detail_Admin_PDF',compact('customer','Bill_Detail'));
       return $pdf->stream();

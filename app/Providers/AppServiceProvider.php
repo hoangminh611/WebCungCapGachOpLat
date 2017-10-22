@@ -9,6 +9,8 @@ use App\Product;
 use DB;
 use Session;
 use App\Cart;
+use App\Staff_permission;
+use Auth;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -77,22 +79,43 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('size_gach',$size_gach);
             });
 
-            view()->composer(['Master.Top_header','Page.Cart_Detail','Page.Cart_Detail_Update','Page.Payment'],function($view)
-            {
-              if(Session('cart'))
-              {
+            view()->composer(['Master.Top_header','Page.Cart_Detail','Page.Cart_Detail_Update','Page.Payment'],function($view) {
+              if(Session('cart')) {
                 $oldcart=Session::get('cart');
                 $cart=new Cart($oldcart);
               $view->with(['cart'=>Session::get('cart'),'product_cart'=>$cart->items,'totalPrice'=>$cart->totalPrice,'totalQty'=>$cart->totalQty]);
               }
             });
 
-             view()->composer('Admin.Master.Admin_Header',function($view)
-            {
+            view()->composer('Admin.Master.Admin_Header',function($view) {
               $count_bill=DB::table('bills')->where('bills.method','LIKE','%Chưa Xác Nhận%')->count();
               $view->with('count_bill',$count_bill);
             });
 
+             view()->composer([ 'Admin.Master.Admin_Master', 'Admin.Page.Bill_Admin', 'Admin.Page.Bill_Admin_Insert'
+                              , 'Admin.Page.Bill_Detail_Admin', 'Admin.Page.Bill_Detail_Admin_Insert', 'Admin.Page.Bill_Detail_Admin_PDF'
+                              , 'Admin.Page.Category_Admin', 'Admin.Page.Category_Admin_Insert', 'Admin.Page.Category_Parent_Admin'
+                              , 'Admin.Page.Discount_Admin', 'Admin.Page.Discount_Admin_Insert', 'Admin.Page.Error_Product_Admin'
+                              , 'Admin.Page.Error_Product_Update_Admin', 'Admin.Page.Gift_Admin', 'Admin.Page.Gift_Admin_Insert'
+                              , 'Admin.Page.Import_Product_Admin', 'Admin.Page.News_Admin', 'Admin.Page.News_Admin_Category_Insert'
+                              , 'Admin.Page.News_Admin_Insert', 'Admin.Page.Product_Admin', 'Admin.Page.Product_Admin_Import'
+                              , 'Admin.Page.Product_Admin_Insert', 'Admin.Page.Slide_Admin', 'Admin.Page.Slide_Admin_Insert'
+                              , 'Admin.Page.User_Admin', 'Admin.Page.User_Admin_Edit'
+                              ],function($view) {
+              if(Auth::check()) {
+                if(Auth::User()->group >=1 && Auth::User()->active ==1) {
+                  $staff=Staff_permission::getPermissionById(Auth::User()->id)->first();
+                  $view->with('staff',$staff);
+                }
+                else {
+                return redirect()->route('Login');
+                }
+              }
+              else {
+                return redirect()->route('Login');
+              }
+              
+            });
     }
 
     /**

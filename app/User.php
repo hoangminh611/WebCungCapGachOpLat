@@ -50,41 +50,6 @@ class User extends Authenticatable
             return $user;
     }
 
-    public static function updateStaffPermission($idUser,$bannerPermission, $productPermission
-        , $categoryPermission, $userPermission, $billPermission, $historyPermission
-        , $errorProductPermission, $discountPermission, $giftPermission,$newsPermission) {
-
-        $staff = DB::table('staff_permission')->where('id_staff', $idUser)->select('id_staff')->first();
-        if(isset($staff->id_staff)) {
-
-            $staff = DB::table('staff_permission')->where('id_staff', $idUser)->update([
-                 'banner_permission' => $bannerPermission
-                , 'product_permission' => $productPermission
-                , 'category_permission' => $categoryPermission
-                , 'news_permission' => $newsPermission
-                , 'bill_permission' => $billPermission
-                , 'user_permission' => $userPermission
-                , 'import_product_permission' => $historyPermission
-                , 'error_product_permission' => $errorProductPermission
-                , 'discount_permission' => $discountPermission
-                , 'gift_permission' => $giftPermission
-                ]);
-        }else {
-            $staff = DB::table('staff_permission')->insert([
-                 'id_staff' => $idUser
-                ,'banner_permission' => $bannerPermission
-                , 'product_permission' => $productPermission
-                , 'category_permission' => $categoryPermission
-                , 'news_permission' => $newsPermission
-                , 'bill_permission' => $billPermission
-                , 'user_permission' => $userPermission
-                , 'import_product_permission' => $historyPermission
-                , 'error_product_permission' => $errorProductPermission
-                , 'discount_permission' => $discountPermission
-                , 'gift_permission' => $giftPermission
-                ]);
-        }
-    }
     //gọi vào trang update user
     public static function Select_User_By_Id($id) {
         $user=DB::table('users')->where('id','=',$id)->select();

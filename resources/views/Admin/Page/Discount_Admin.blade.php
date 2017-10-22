@@ -1,10 +1,10 @@
-@if(Auth::User()->group==5)
+@if(isset($staff) && $staff->discount_permission === 1)
   @extends('Admin.Master.Admin_Master')
   @section('body')
   <section id="main-content" style="overflow: scroll;">
   	<section class="wrapper">
   		<div class="table-agile-info">
-       <div class="panel panel-default">
+        <div class="panel panel-default">
           <div class="panel-heading">
            Bảng Chi tiết giảm gía
           </div>
@@ -55,11 +55,10 @@
                 @endforeach
               </tbody>
             </table>
-  {{--  <div>{{$Type_Product->links()}}</div> --}}
+          </div>
         </div>
-    </div>
-  </div>
-   <script type="text/javascript">
+      </div>
+      <script type="text/javascript">
               $.ajaxSetup({
                   headers: {
                       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
