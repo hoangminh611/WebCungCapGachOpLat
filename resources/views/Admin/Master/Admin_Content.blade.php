@@ -88,76 +88,6 @@
 
 					</div>
 				</div> --}}
-						<div class="row" id="printthis">
-			<div class="panel-body">
-				<div class="col-md-12 w3ls-graph">
-					<!--agileinfo-grap-->
-						<div class="agileinfo-grap">
-							<div class="area-grids-heading">
-								<header >
-									<h3 style="">Thống kê số lượng hàng còn</h3>
-								</header>
-								<table id="bill_table" class="table" ui-jq="footable" ui-options='{
-						            "paging": {
-						              "enabled": true
-						            },
-						            "filtering": {
-						              "enabled": true
-						            },
-						            "sorting": {
-						              "enabled": true
-						            }}'>
-						            <thead>
-						              <tr>
-						                <th>Tên sản phẩm</th>
-						                <th data-breakpoints="xs">Kích thước</th>
-						                <th>Tổng lượng nhập</th>
-						                <th>Tổng lượng đã bán/Đặt hàng</th>
-						                <th>Tổng lượng còn lại</th>
-						              </tr>
-						            </thead>
-						            <tbody>
-						              @foreach($a as $key)
-						            
-						              	@foreach($key as $value)
-						             
-							    		 	@if($value['import_quantity']-$value['totalSalesQuantity'] <= 0)
-								                <tr data-expanded="true">
-								                  <td style="color: red;">{{$value['name']}}</td>
-								                  <td style="color: red;">{{$value['size']}}</td>
-								                  <td style="color: red;">{{number_format($value['import_quantity'])}}</td>
-								                  <td style="color: red;">{{number_format($value['totalSalesQuantity'])}}</td>
-												  <td style="color: red;">{{number_format($value['import_quantity']-$value['totalSalesQuantity'])}}</td>
-												</tr> 
-											@else
-												<tr data-expanded="true">
-								                  <td>{{$value['name']}}</td>
-								                  <td>{{$value['size']}}</td>
-								                  <td>{{number_format($value['import_quantity'])}}</td>
-								                  <td>{{number_format($value['totalSalesQuantity'])}}</td>
-												  <td>{{number_format($value['import_quantity']-$value['totalSalesQuantity'])}}</td>
-												</tr>  	
-											@endif
-							                	
-						                @endforeach
-						              @endforeach
-						               
-						            </tbody>
-						        </table>
-						{{--         <div>Tông Tiền Nhập:{{number_format($tongtiennhap)}}</div>
-						         <div>Tông Tiền Xuất:{{number_format($tongtienxuat)}}</div> --}}
-						          <script type="text/javascript">
-						          	 $(document).ready(function(){
-						              $('#bill_table').DataTable();
-						            });
-						          </script>
-							</div>
-						</div>
-	<!--//agileinfo-grap-->
-
-				</div>
-			</div>
-		</div>
 				<div class="col-md-12 agile-last-left agile-last-middle">
 					<div class="agile-last-grid">
 						<div class="area-grids-heading">
@@ -371,10 +301,17 @@
 				<div class="col-md-12 w3ls-graph">
 					<!--agileinfo-grap-->
 						<div class="agileinfo-grap">
-							<div class="area-grids-heading">
-								<header >
-									<h3 style="">Thống kê Lãi Lỗ Của Tất Cả Sản Phẩm</h3>
+							<div class="agileits-box">
+								{{-- <header class="agileits-box-header clearfix">
+									<h3>Visitor Statistics</h3>
+										<div class="toolbar">
+											
+											
+										</div>
 								</header>
+								<div class="agileits-box-body clearfix">
+									<div id="hero-area"></div>
+								</div> --}}
 								<table id="bill_table" class="table" ui-jq="footable" ui-options='{
 						            "paging": {
 						              "enabled": true

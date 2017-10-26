@@ -63,13 +63,10 @@
                                   <div class="form-group">
                                       <label class="col-sm-3 control-label">Mức Để Giảm Giá </label>
                                       <div class="col-sm-6">
-                                          <input type="text" value="{{$discount[0]->price_discount}}" name= "price_discount" pattern="[0-9]*" title="Nhập số" class="form-control" style="border-top: 1px solid black;" required="" id="price_discount">
+                                          <input type="text" value="{{$discount[0]->price_discount}}" name= "price_discount" pattern="[0-9]*" title="Nhập số" class="form-control" style="border-top: 1px solid black;" required="">
+                                          
                                       </div>
-                                      @if($id == 1)
-                                        <script type="text/javascript">
-                                          $('#price_discount').attr('disabled','true');
-                                        </script>
-                                      @endif
+
                                   </div>
                                   <div class="form-group">
                                       <label class="col-sm-3 control-label">Quà Tặng</label>

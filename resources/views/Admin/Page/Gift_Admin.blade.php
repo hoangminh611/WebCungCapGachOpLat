@@ -40,19 +40,13 @@
                     <td>{{$getGift->name_gift}}</td>
                     <td>{{number_format($getGift->price_gift)}}</td>
                     <td>
-                      <button class="btn btn-info btn-lg glyphicon glyphicon-hand-right" style="border-radius: 10px;" onclick="editRow({{$getGift->id}})" id="edit{{$getGift->id}}"></button>
+                      <button class="btn btn-info btn-lg glyphicon glyphicon-hand-right" style="border-radius: 10px;" onclick="editRow({{$getGift->id}})"></button>
                       <form id="form{{$getGift->id}}"  method="post" >
                       	  	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	                      <input type="hidden" name="id" value="{{$getGift->id}}">
-	                      <button type="button" class="btn btn-warning btn-lg glyphicon glyphicon-trash" style="border-radius: 10px" onclick="delete_row('{{$getGift->id}}');" id="delete{{$getGift->id}}"></button>
+	                      <button type="button" class="btn btn-warning btn-lg glyphicon glyphicon-trash" style="border-radius: 10px" onclick="delete_row('{{$getGift->id}}');"></button>
                        </form>
                     </td>
-                    @if ($getGift->id == 1)
-                      <script type="text/javascript">
-                          $('#edit'+{{$getGift->id}}).attr('disabled','true');
-                          $('#delete'+{{$getGift->id}}).attr('disabled','true');
-                      </script>
-                    @endif
                   </tr> 
                 @endforeach
               </tbody>
@@ -66,7 +60,6 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
-
                 $(document).ready(function(){
                   $('#bill_table').DataTable();
                 });
