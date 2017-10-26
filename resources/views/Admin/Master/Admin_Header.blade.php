@@ -19,30 +19,37 @@
                 <i class="fa fa-tasks"></i>
                 <span class="badge bg-success number_Bill_Detail">{{$count_bill}}</span>
                 <span>Hóa Đơn</span>
-                <script type="text/javascript">
+            </a>
+
+        </li>
+        <li class="dropdown">
+            <a  href="{{route('Content_Admin')}}">
+                <span class="badge bg-success numberProductNotEnough"></span>
+                <span>Hết Hàng/Hàng Không Đủ</span>
+            </a>
+            
+        </li>   
+        <!-- settings end -->
+        <script type="text/javascript">
                     $(document).ready(function(){
-                        var route="{{route('Count_Bill')}}";
+                        var route="{{route('countProductNotEnough')}}";
                         setInterval(function(){
                             $.ajax({
-                            url:route,
-                            type:'get',
-                            data:{
-                            },
-                            success:function(data) {  
-                                if(data!=0)
-                                    $('.number_Bill_Detail').html(data);
-                                else
-                                    $('.number_Bill_Detail').html("");
-                               
-                            }
-                        });
-                        },10000);
+                                url:route,
+                                type:'get',
+                                data:{
+                                },
+                                success:function(data) {  
+                                    if(data!=0)
+                                        $('.numberProductNotEnough').html(data);
+                                    else
+                                        $('.numberProductNotEnough').html("");
+                                   
+                                }
+                            });
+                        },10000);  
                     });
                 </script>
-            </a>
-        </li>
-        <!-- settings end -->
-
     </ul>
     <!--  notification end -->
 </div>

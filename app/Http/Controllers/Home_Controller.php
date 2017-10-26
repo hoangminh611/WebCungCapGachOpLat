@@ -140,16 +140,16 @@ class Home_Controller extends Controller
           $name=$key['item'][0]->name;
           $Qty=$key['qty'];
 
-          $export_quantity=Export_product::FindOneExportProduct($id,$size)->get();
-          $import_quantity=Import_product::FindOneImportProduct($id,$size)->sum('import_quantity');
-          $quantity=$import_quantity-$export_quantity[0]->export_quantity;
+          // $export_quantity=Export_product::FindOneExportProduct($id,$size)->get();
+          // $import_quantity=Import_product::FindOneImportProduct($id,$size)->sum('import_quantity');
+          // $quantity=$import_quantity-$export_quantity[0]->export_quantity;
 
-          if($quantity<$Qty)
-          $a[$i++]=$name." - ".$size." : hàng không đủ hàng trong kho chỉ còn : ".$quantity;
-          # code...
+          // if($quantity<$Qty)
+          // $a[$i++]=$name." - ".$size." : hàng không đủ hàng trong kho chỉ còn : ".$quantity;
+          // # code...
         }
 
-        if($a==null) {
+        // if($a==null) {
           $full_name=$req->name;
           $phone=$req->phone;
           $email=$req->email;
@@ -194,11 +194,11 @@ class Home_Controller extends Controller
 
           Session::forget('cart');
           return redirect()->route('index')->with('thanhcong','mua hàng thành công,chúng tôi sẽ liên hệ bạn sớm nhất');
-        }
-        else {
+        // }
+        // else {
 
-        return redirect()->route('cart-detail')->with('hangkhongdu',$a);;
-        }
+        // return redirect()->route('cart-detail')->with('hangkhongdu',$a);;
+        // }
    }
    // public function news_All(){
    //    $news=News::Load_ALL_News()->orderBy('created_at','DESC')->paginate(5);

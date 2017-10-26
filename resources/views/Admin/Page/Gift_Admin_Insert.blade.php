@@ -26,7 +26,7 @@
                                     </div>
 
                                 </div>
-  							<div class="form-group">
+  							                <div class="form-group">
                                     <label class="col-sm-3 control-label">Giá Quá Tặng</label>
                                     <div class="col-sm-6">
                                         <input type="text" value="" name= "price_gift"  class="form-control" style="border-top: 1px solid black;" >
@@ -37,6 +37,7 @@
                             </form>
                         </div>
                       @else
+                       @if($id != 1)
                         <div class="panel-body">
                             <form class="form-horizontal bucket-form" enctype="multipart/form-data"  id="edit-form" method="post" action="{{route('Update_Gift')}}">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -49,7 +50,7 @@
                                     </div>
 
                                 </div>
-  							<div class="form-group">
+  							                <div class="form-group">
                                     <label class="col-sm-3 control-label">Giá Quá Tặng</label>
                                     <div class="col-sm-6">
                                         <input type="text" value="{{$gift[0]->price_gift}}" name= "price_gift"  class="form-control" style="border-top: 1px solid black;" >
@@ -59,6 +60,12 @@
                                 <button type="submit" id="submit" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">Thêm</button>           
                             </form>
                         </div>
+                       @else 
+                          <script type="text/javascript">
+                                alert('Bạn không có quyền truy cập');
+                                window.location.href = "{{route('Content_Admin')}}";
+                          </script>
+                       @endif 
                       @endif
 
                 </section>

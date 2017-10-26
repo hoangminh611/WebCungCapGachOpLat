@@ -32,35 +32,42 @@ class Admin_Controller extends Controller
       $import=Import_product::Select_Import_Product();
       $tongtiennhap= $import['tongtiennhap'];
       $tongtienxuat= $bill_detail['tongtienxuat'];
-      $Import_product=DB::table('import_product')
-                        ->join('products','import_product.id_product','=','products.id')
+      // $Import_product=DB::table('import_product')
+      //                   ->join('products','import_product.id_product','=','products.id')
+      //                   ->select()->get();
+       $exportProduct=DB::table('export_product')
+                        ->join('products','export_product.id_product','=','products.id')
                         ->select()->get();
-     
-      foreach ( $Import_product as $key) {
-
+      foreach ( $exportProduct as $key) {
+         $a[$key->id_product][$key->size]['import_price']=$import[$key->id_product][$key->size]['price'];
+         $a[$key->id_product][$key->size]['size']=$key->size;
+         $a[$key->id_product][$key->size]['name']=$key->name;
+         $a[$key->id_product][$key->size]['import_quantity']=$import[$key->id_product][$key->size]['import_quantity'];
+         $a[$key->id][$key->size]['totalSalesQuantity'] = $key->export_quantity;
          if(!isset($bill_detail[$key->id_product][$key->size])) {
-
             $a[$key->id_product][$key->size]['price']=-$import[$key->id_product][$key->size]['price'];
-            $a[$key->id_product][$key->size]['import_price']=$import[$key->id_product][$key->size]['price'];
-            $a[$key->id_product][$key->size]['size']=$key->size;
-            $a[$key->id_product][$key->size]['name']=$key->name;
-            $a[$key->id_product][$key->size]['import_quantity']=$import[$key->id_product][$key->size]['import_quantity'];
+            // $a[$key->id_product][$key->size]['import_price']=$import[$key->id_product][$key->size]['price'];
+            // $a[$key->id_product][$key->size]['size']=$key->size;
+            // $a[$key->id_product][$key->size]['name']=$key->name;
+            // $a[$key->id_product][$key->size]['import_quantity']=$import[$key->id_product][$key->size]['import_quantity'];
          }
          else{
 
             $a[$key->id_product][$key->size]['price']=$bill_detail[$key->id_product][$key->size]['price']-$import[$key->id_product][$key->size]['price'];
-            $a[$key->id_product][$key->size]['import_price']=$import[$key->id_product][$key->size]['price'];
+            // $a[$key->id_product][$key->size]['import_price']=$import[$key->id_product][$key->size]['price'];
             $a[$key->id_product][$key->size]['export_price']=$bill_detail[$key->id_product][$key->size]['price'];
-            $a[$key->id_product][$key->size]['size']=$key->size;
-            $a[$key->id_product][$key->size]['name']=$key->name;
-            $a[$key->id_product][$key->size]['import_quantity']=$import[$key->id_product][$key->size]['import_quantity'];
+            // $a[$key->id_product][$key->size]['size']=$key->size;
+            // $a[$key->id_product][$key->size]['name']=$key->name;
+            // $a[$key->id_product][$key->size]['import_quantity']=$import[$key->id_product][$key->size]['import_quantity'];
             $a[$key->id_product][$key->size]['export_quantity']=$bill_detail[$key->id_product][$key->size]['quantity'];
 
          }
       }
+
       $All_View = Product::All_ViewProduct();
       $Count_User = User::Count_All_User();
       $Count_Bill = Bill::Count_All_Bill();
+
       $All_Export_Quantity = Export_product:: ALl_Sale_Quantity();
       $totalPriceGift = Bill::getAllPriceGift();
       $month_end = new DateTime(Carbon::now()->format('Y-m-01'));
@@ -71,6 +78,20 @@ class Admin_Controller extends Controller
       $Total_By_Month=Bill_Detail::getTotalByMonth($date->format('Y-m-d'), $month_end->format('Y-m-d'));
 
       return view('Admin.Master.Admin_Content',compact('tongtiennhap','tongtienxuat','a','All_View','Count_User','Count_Bill','All_Export_Quantity','Total_By_Month','getMonth','totalPriceGift'));
+   }
+
+   public function countProductNotEnoughQuantity(){
+      $a = array();
+      $count = 0;
+      $import = Import_product::Select_Import_Product();
+      $exportProduct = DB::table('export_product')
+                        ->join('products','export_product.id_product','=','products.id')
+                        ->select()->get();
+      foreach ( $exportProduct as $key) {
+         if ( ($import[$key->id_product][$key->size]['import_quantity']-$key->export_quantity ) <= 0)
+            $count++;    
+      }
+      return $count ;
    }
 
    //lấy tổng số doanh thu bán hàng theo từng tháng khi ajax
