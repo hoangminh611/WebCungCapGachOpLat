@@ -110,7 +110,6 @@ Route::post('Delete_Product',
 Route::post('Insert_Import_Product',
 	['as'=>'Insert_Import_Product',
 	 'uses'=>'Admin_Product_Controller@Insert_Import_product']);
-
 Route::get('ViewPageError_Product',
 	['as'=>'ViewPageError_Product',
 	 'uses'=>'Admin_Product_Controller@ViewPageError_Product']);
@@ -120,9 +119,10 @@ Route::get('ViewPageError_Product_Update/{idsize}',
 Route::post('Update_Error_Product',
 	['as'=>'Update_Error_Product',
 	 'uses'=>'Admin_Product_Controller@Update_Error_Product']);
-
+Route::get('countProductNotEnough',
+	['as'=>'countProductNotEnough',
+	'uses'=>'Admin_Controller@countProductNotEnoughQuantity']);
 //-------------------------------Sản phẩm Admin--------------------------
-
 //-------------------------------Giảm Giá Admin--------------------------
 Route::get('Discount_Admin',
 	['as'=>'Discount_Admin',
