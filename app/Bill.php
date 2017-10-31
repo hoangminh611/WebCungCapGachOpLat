@@ -17,7 +17,7 @@ class Bill extends Model
     {
     	$Bill=DB::table('bills')
                 ->join('customer','bills.id_customer','=','customer.id')
-                ->select('customer.full_name','customer.phone','customer.address','customer.email','bills.id','bills.id_customer','bills.method','bills.note','bills.created_at','bills.updated_at');
+                ->select('customer.full_name','customer.phone','customer.address','customer.email','bills.id','bills.id_customer','bills.method','bills.note','bills.created_at','bills.updated_at','bills.pay_online');
     	return $Bill;
     }
     //lay bill theo id
@@ -32,9 +32,9 @@ class Bill extends Model
         $Bill=DB::table('bills')->where('id',$id)->update(['method' => $method,'discount' => $discount,'current_percent_discount'=>$currentPercentDiscount,'current_name_gift'=>$currentNameGift,'current_price_gift' => $currentPriceGift]);
     }
     //Insert customer vào bill
-    public static function Insert_Bill($idcustomer,$note,$discount,$currentPriceGift,$currentPercentDiscount,$currentNameGift)
+    public static function Insert_Bill($idcustomer,$note,$discount,$currentPriceGift,$currentPercentDiscount,$currentNameGift,$payOnline = '0')
     {
-         $Bill=DB::table('bills')->insertGetId(['id_customer'=>$idcustomer,'method'=>'Chưa Xác Nhận','note'=>$note,'discount'=>$discount,'current_price_gift'=>$currentPriceGift,'current_percent_discount'=>$currentPercentDiscount,'current_name_gift'=>$currentNameGift]);
+         $Bill=DB::table('bills')->insertGetId(['id_customer'=>$idcustomer,'method'=>'Chưa Xác Nhận','note'=>$note,'discount'=>$discount,'current_price_gift'=>$currentPriceGift,'current_percent_discount'=>$currentPercentDiscount,'current_name_gift'=>$currentNameGift, 'pay_online' => $payOnline]);
          return $Bill;
     }
 

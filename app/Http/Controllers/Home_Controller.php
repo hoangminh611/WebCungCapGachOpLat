@@ -32,6 +32,10 @@ class Home_Controller extends Controller
       }
    	return view('Master.home',compact('new8Pro'));
    }
+   public function getCookie(Request $req) {
+    $information=['name' => $req->name,'phone' => $req->phone,'email' => $req->email,'address' => $req->address,'note' => $req->note];
+    Cookie::queue('information',$information);
+   }
    //lấy trang news
    public function getNews() {
       $new_post=News::ShowNewPost()->get();
@@ -150,15 +154,27 @@ class Home_Controller extends Controller
         }
 
         // if($a==null) {
-          $full_name=$req->name;
-          $phone=$req->phone;
-          $email=$req->email;
-          $address=$req->address;
-          $note=$req->note;
-
+          if(Cookie::has('information')){
+            $customer = Cookie::get('information');
+            $full_name = $customer['name'];
+            $phone = $customer['phone'];
+            $email = $customer['email'];
+            $address = $customer['address'];
+            $note = $customer['note'];
+            Cookie::queue(Cookie::forget('information'));
+            $payOnline = 1;
+          }
+          else {
+            $full_name = $req->name;
+            $phone = $req->phone;
+            $email = $req->email;
+            $address = $req->address;
+            $note = $req->note;
+            $payOnline = 0;
+          }
           if(Auth::check()) {
-            $id_user=Auth::User()->id;
-            $discount=Discount::Get_All()->orderBy('price_discount')->get();
+            $id_user = Auth::User()->id;
+            $discount = Discount::Get_All()->orderBy('price_discount')->get();
 
             for($i=0;$i<=count($discount);$i++){
 
@@ -180,7 +196,7 @@ class Home_Controller extends Controller
 
           $id_customer=Customer::Insert_Customer($id_user,$full_name,$email,$address,$phone);
           $discount=Discount::Get_Discount_By_Id( $id_discount)->get();
-          $id_bill=Bill::Insert_Bill($id_customer,$note,$id_discount,$discount[0]->price_gift,$discount[0]->percent_discount,$discount[0]->name_gift);
+          $id_bill=Bill::Insert_Bill($id_customer,$note,$id_discount,$discount[0]->price_gift,$discount[0]->percent_discount,$discount[0]->name_gift, $payOnline);
           
           foreach ($cart->items as $key) {
 

@@ -29,6 +29,9 @@ Route::get('News_By_Type/{id}',[
 Route::get('New_Detail/{id_new}',[
 		'as'=>'New_Detail',
 	'uses'=>'Home_Controller@getNew_Detail']);
+Route::get('getCookie',[
+		'as'=>'getCookie',
+	'uses'=>'Home_Controller@getCookie']);
 
 // ------------------------------ADMIN------------------------------------
 Route::group(['prefix'=>'admin'],function()
@@ -360,6 +363,9 @@ Route::get('Payment',[
 	'uses'=>'Home_Controller@Payment']);
 
 Route::post('Customer_Edit',[
+	'as'=>'Customer_Edit',
+	'uses'=>'Home_Controller@Customer_Edit']);
+Route::get('Customer_Edit',[
 	'as'=>'Customer_Edit',
 	'uses'=>'Home_Controller@Customer_Edit']);
 //------------------------------Giỏ Hàng------------------------------------

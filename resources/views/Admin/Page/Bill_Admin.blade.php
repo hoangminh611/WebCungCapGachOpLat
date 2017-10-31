@@ -28,6 +28,7 @@
                     <th>Ghi chú</th>
                     <th>Ngày tạo</th>
                     <th>Ngày update</th>
+                    <th>Thanh Toán Trực Tuyến</th>
                     <th data-breakpoints="xs sm md" data-title="Sửa">Sửa</th>
                   </tr>
                 </thead>
@@ -51,6 +52,11 @@
                       <td>{{$bill->note}}</td>
                       <td>{{$bill->created_at}}</td>
                       <td>{{$bill->updated_at}}</td>
+                      @if($bill->pay_online === 1)
+                        <td style="color: red">Đã Thanh Toán Trực Tuyến</td>
+                      @elseif($bill->pay_online === 0)
+                        <td>Gửi Hàng Thanh Toán </td>
+                      @endif
                       <td>
                         <button class="btn btn-info btn-lg glyphicon glyphicon-hand-right edit_button" id="{{$bill->id}}" style="border-radius: 10px;" onclick="editRow({{ $bill->id }},'{{$bill->full_name}}')"></button>
                           @if(Auth::User()->group<2)

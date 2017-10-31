@@ -101,7 +101,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<li><span>Xem chi tiết</span></li>
 					<li><span>Số hóa đơn đã mua</span></li>
 					<li><span>Tình trạng</span></li>
-					<li><span>Ghi chú</span></li>
+					<li><span>Hình Thức Thanh Toán</span></li>
 					<div class="clearfix"> </div>
 				</ul>
 				@if($bills!=null)
@@ -118,7 +118,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<span>{{$bill[0]->method}}</span>
 								</li>
 								<li>
-									<span>{{$bill[0]->note}}</span>
+									@if($bill[0]->pay_online === 1)
+										<span>Đã Thanh Toán Online</span>
+									@elseif($bill[0]->pay_online === 0)
+										<span>Nhận Hàng Rồi Thanh Toán</span>
+									@endif
 								</li>
 							<div class="clearfix"> </div>
 						</ul>

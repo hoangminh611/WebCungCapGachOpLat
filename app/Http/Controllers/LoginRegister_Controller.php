@@ -33,6 +33,7 @@ class LoginRegister_Controller extends Controller
         else
         {  
             $active=DB::table('users')->where('email',$req->email)->select('active')->get();
+              if(isset($active[0]->active)) {
                 if($active[0]->active==0)
                 {
                     $thatbai="Email chưa kích hoạt";
@@ -41,6 +42,10 @@ class LoginRegister_Controller extends Controller
                 {
                     $thatbai="Sai thông tn đăng nhập";
                 }
+              }
+              else {
+                 $thatbai="Sai thông tn đăng nhập";
+              }
             return redirect()->back()->with('thatbai',$thatbai);
         }
     }
@@ -222,7 +227,7 @@ class LoginRegister_Controller extends Controller
 
             $bill=DB::table('bills')
                     ->join('discount','bills.discount','=','discount.id')->where('bills.id_customer',$id->id)
-                    ->select('bills.id as id','bills.method','bills..note','discount.percent_discount')->get();
+                    ->select('bills.id as id','bills.method','bills.pay_online','discount.percent_discount')->get();
             $bills[$i++]=$bill;
           }
         }
