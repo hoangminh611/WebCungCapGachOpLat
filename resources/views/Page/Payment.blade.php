@@ -139,7 +139,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</form>
 					<div class="col-md-4 contact-left">
 						<div>
-						@if(Session::has('cart'))
+						@if(Cookie::has('cart'))
 							<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_self" id="paypal">
 						    	<!-- Nhập địa chỉ email người nhận tiền (người bán) -->
 								<input type="hidden" name="business" value="hoangminh@gmail.com">
@@ -153,17 +153,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						        <input type="hidden" name="cancel_return" value="{{route('index')}}">
 								<input type="hidden"  id="first_name" name="first_name" value="">
 								  <input type="hidden" id="address1" name="address1" value="">
-								  <input type="hidden" name="city" value="Ho Chi Minh">
+								 {{-- <input type="hidden" name="city" value="Ho Chi Minh">
+								  <input type="hidden" name="state" value="VN">
+								  <input type="hidden" name="zip" value="70800">
+								<input type="hidden" name="country" value="VN"> --}}
+								  <input type="hidden" name="city" value="San Jose">
 								  <input type="hidden" name="state" value="CA">
 								  <input type="hidden" name="zip" value="95121">
-								  <input type="hidden" name="country" value="VietNam">
+								  <input type="hidden" name="country" value="US">
 								<?php $i=1;?>	
 								@foreach($product_cart as $product)
-									<img src="images/{{$product['item'][0]->image}} " class="img-responsive" alt="" style="width: 50px; height: 50px;">
+									<img src="images/{{$product['item']->image}} " class="img-responsive" alt="" style="width: 50px; height: 50px;">
 									Số Lượng:{{$product['qty']}}   Giá: {{number_format($product['price'])}}
 									     <!-- Thông tin mua hàng. -->
-						            <input type="hidden" name="item_name_{{$i}}" value="{{$product['item'][0]->name}}">
-						            <input type="hidden" name="amount_{{$i}}" value="{{$product['item'][0]->export_price/22810}}">
+						            <input type="hidden" name="item_name_{{$i}}" value="{{$product['item']->name}}">
+						            <input type="hidden" name="amount_{{$i}}" value="{{$product['item']->export_price/22810}}">
 						            <input type="hidden" name="quantity_{{$i}}" value="{{$product['qty']}}">
 						            <input type="hidden" name="currency_code" value="USD">
 						            <?php $i++ ?>

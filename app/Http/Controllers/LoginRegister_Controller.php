@@ -15,7 +15,9 @@ use Mail;
 use App\Bill_Detail;
 use Session;
 use Cookie;
+use App\Cart;
 use App\View_product;
+use App\UserCartDetail;
 class LoginRegister_Controller extends Controller
 {
   //Login
@@ -24,11 +26,18 @@ class LoginRegister_Controller extends Controller
         
         if(Auth::attempt(['email'=>$req->email,'password'=>$req->password,'active'=>1])){
              if(Cookie::has('cookieIdWebGach')){
-                $user=Cookie::get('cookieIdWebGach');
-                $updateUserViewProduct=View_product:: updateWhenUserLogin($user,Auth::User()->id);
+                $user = Cookie::get('cookieIdWebGach');
+                $updateUserViewProduct = View_product:: updateWhenUserLogin($user,Auth::User()->id);
               }
-                
-                return redirect()->back()->with('thanhcong','Đăng nhập thành công');
+              $getUserCart = UserCartDetail::getCartDetailByUserId(Auth::User()->id)->get();
+              if(isset($getUserCart[0])) {
+                 $cart=new Cart(null);
+                foreach ($getUserCart as $cartDetail) {
+                  $cart->add($cartDetail, $cartDetail->idsize, $cartDetail->quantity);
+                }
+                 Cookie::queue(Cookie::make('cart', $cart, 800000));
+              }
+              return redirect()->back()->with('thanhcong','Đăng nhập thành công');
         }
         else
         {  

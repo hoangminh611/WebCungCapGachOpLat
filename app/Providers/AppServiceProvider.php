@@ -8,6 +8,7 @@ use App\Slide;
 use App\Product;
 use DB;
 use Session;
+use Cookie;
 use App\Cart;
 use App\Staff_permission;
 use Auth;
@@ -80,10 +81,11 @@ class AppServiceProvider extends ServiceProvider
             });
 
             view()->composer(['Master.Top_header','Page.Cart_Detail','Page.Cart_Detail_Update','Page.Payment'],function($view) {
-              if(Session('cart')) {
-                $oldcart=Session::get('cart');
+              if(Cookie('cart')) {
+                // $oldcart=Session::get('cart');
+                $oldcart = Cookie::get('cart');
                 $cart=new Cart($oldcart);
-              $view->with(['cart'=>Session::get('cart'),'product_cart'=>$cart->items,'totalPrice'=>$cart->totalPrice,'totalQty'=>$cart->totalQty]);
+              $view->with(['cart'=>Cookie::get('cart'),'product_cart'=>$cart->items,'totalPrice'=>$cart->totalPrice,'totalQty'=>$cart->totalQty]);
               }
             });
 

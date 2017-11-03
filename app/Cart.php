@@ -25,18 +25,18 @@ class Cart
 			}
 		}	
 			$giohang['qty']+=$quantity;
-			$giohang['price'] = $item[0]->export_price * $giohang['qty'];
+			$giohang['price'] = $item->export_price * $giohang['qty'];
 			$this->items[$id] = $giohang;
 			$this->totalQty+=$quantity;
-			$this->totalPrice +=  $item[0]->export_price * $quantity;
+			$this->totalPrice +=  $item->export_price * $quantity;
 	}
 
 	//giảm 1
 	public function reduceByOne($id){ 
 		$this->items[$id]['qty']--;
-		$this->items[$id]['price'] -= $this->items[$id]['item'][0]->export_price;;
+		$this->items[$id]['price'] -= $this->items[$id]['item']->export_price;;
 		$this->totalQty--;
-		$this->totalPrice -= $this->items[$id]['item'][0]->export_price;;
+		$this->totalPrice -= $this->items[$id]['item']->export_price;;
 		if($this->items[$id]['qty']<=0){
 			unset($this->items[$id]);
 		}
@@ -47,9 +47,9 @@ class Cart
 	//tăng 1
 	public function riseByOne($id){ 
 		$this->items[$id]['qty']++;
-		$this->items[$id]['price'] += $this->items[$id]['item'][0]->export_price;
+		$this->items[$id]['price'] += $this->items[$id]['item']->export_price;
 		$this->totalQty++;
-		$this->totalPrice += $this->items[$id]['item'][0]->export_price;
+		$this->totalPrice += $this->items[$id]['item']->export_price;
 		if($this->items[$id]['qty']<=0){
 			unset($this->items[$id]);
 		}

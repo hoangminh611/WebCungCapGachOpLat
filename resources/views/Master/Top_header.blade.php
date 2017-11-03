@@ -35,13 +35,13 @@
 							@else
 								<div><a  href="#login-box" class="login-window">Đăng Nhập</a></div>
 							@endif
-						 @if(Session::has('cart'))
+						 @if(Cookie::has('cart'))
 							<a href="{{route('cart-detail')}}">
 								 <div class="total">
-									<span class="cart_price">{{number_format(Session('cart')->totalPrice)}} Đồng</span>
+									<span class="cart_price">{{number_format(Cookie::get('cart')->totalPrice)}} Đồng</span>
 									<img src="images/cart-1.png" alt="" />
 								</div>
-								<p class="cart_qty" >{{Session('cart')->totalQty}} Sản Phẩm</p>
+								<p class="cart_qty" >{{Cookie::get('cart')->totalQty}} Sản Phẩm</p>
 							</a>
 						@else
 							<a href="javascript:void(0)">

@@ -19,6 +19,7 @@ use App\Customer;
 use App\Bill;
 use App\Bill_Detail;
 use App\Discount;
+use App\UserCartDetail;
 use Cookie;
 class Home_Controller extends Controller
 {
@@ -66,12 +67,20 @@ class Home_Controller extends Controller
    //thêm san pham vao giỏ
    public function AddCart(Request $req) {  
 
-      $product=Export_product::FindProductByIdPro_Size($req->idsize)->get();
+      $product=Export_product::FindProductByIdPro_Size($req->idsize)->first();
 
-      $oldcart=Session('cart')?Session::get('cart'):null;
+      // $oldcart=Session('cart')?Session::get('cart'):null;
+      // $cart=new Cart($oldcart);
+      // $cart->add($product,$req->idsize,$req->quantity);
+      // $req->session()->put('cart',$cart);
+      // return redirect()->back();
+      $oldcart=Cookie('cart')?Cookie::get('cart'):null;
       $cart=new Cart($oldcart);
-      $cart->add($product,$req->idsize,$req->quantity);
-      $req->session()->put('cart',$cart);
+      $cart->add($product,$req->idsize, $req->quantity);
+      Cookie::queue(Cookie::make('cart', $cart, 800000));
+      if(Auth::check()) {
+        $cart = UserCartDetail::addProductToCartUserByID($req->idsize,Auth::User()->id, $req->quantity);
+      }
       return redirect()->back();
       
    }
@@ -81,46 +90,99 @@ class Home_Controller extends Controller
    }
    //Dùng ajax cai update cart_detail
    public function Update_Cart() {
-      return view('Page.Cart_Detail_Update');
+    return view('Page.Cart_Detail_Update');
    }
    public function DeleteCart(Request $req) {
-       Session::forget('cart');
-       return redirect()->route('index');
+     // Session::forget('cart');
+     // return redirect()->route('index');
+    Cookie::queue(Cookie::forget('cart'));
+    if(Auth::check()) {
+      $updateCart  = UserCartDetail::deleteAllProductFromCartByID(Auth::User()->id);
+    }
+    return redirect()->route('index');
    }
    //xóa 1 sản phẩm trong cart
    public function getDelItemCart(Request $req) {
-        $oldCart=Session('cart')?Session::get('cart'):null;
-        $cart=new Cart($oldCart);
-        $cart->removeItem($req->id);
-        if(count($cart->items)<=0)
-            Session::forget('cart');
-        else
-            Session::put('cart',$cart);
+    // $oldCart=Session('cart')?Session::get('cart'):null;
+    // $cart=new Cart($oldCart);
+    // $cart->removeItem($req->id);
+    // if(count($cart->items)<=0)
+    //     Session::forget('cart');
+    // else
+    //     Session::put('cart',$cart);
+    $oldCart=Cookie('cart')?Cookie::get('cart'):null;
+    $cart=new Cart($oldCart);
+    $cart->removeItem($req->id);
+    if(count($cart->items)<=0) {
+      Cookie::queue(Cookie::forget('cart'));
+      if(Auth::check()) {
+        $updateCart  = UserCartDetail::deleteAllProductFromCartByID(Auth::User()->id);
+      }
     }
+    else {
+      Cookie::queue(Cookie::make('cart', $cart, 800000));
+      if(Auth::check()) {
+        $updateCart  = UserCartDetail::deleteOneProductFromCartByID($req->id, Auth::User()->id);
+      }
+    }
+   }
     //giảm 1 sản phẩm
     public function reduceByOne($id) {
-        $oldCart = Session('cart')?Session::get('cart'):null;
-        $cart = new Cart($oldCart);
-        $cart->reduceByOne($id);
-        if(count($cart->items)<=0)
-        {
-            Session::forget('cart');
+      // $oldCart = Session('cart')?Session::get('cart'):null;
+      // $cart = new Cart($oldCart);
+      // $cart->reduceByOne($id);
+      // if(count($cart->items)<=0)
+      // {
+      //     Session::forget('cart');
+      // }
+      // else
+      //     Session::put('cart',$cart);
+      // return json_encode($cart);
+      $oldCart = Cookie('cart')?Cookie::get('cart'):null;
+      $cart = new Cart($oldCart);
+      $cart->reduceByOne($id);
+      if(count($cart->items)<=0) {
+        Cookie::queue(Cookie::forget('cart'));
+        if(Auth::check()) {
+          $updateCart  = UserCartDetail::deleteAllProductFromCartByID(Auth::User()->id);
         }
-        else
-            Session::put('cart',$cart);
-        return json_encode($cart);
+      }
+      else {
+        Cookie::queue(Cookie::make('cart', $cart, 800000));
+        if(Auth::check()) {
+          $updateCart  = UserCartDetail::reduceByOne($id, Auth::User()->id);
+        }
+      }
+      return json_encode($cart);
     }
     //tnag8 1 sản phẩm
     public function riseByOne($id) {
 
-        $oldCart = Session('cart')?Session::get('cart'):null;
+        // $oldCart = Session('cart')?Session::get('cart'):null;
+        // $cart = new Cart($oldCart);
+        // $cart->riseByOne($id);
+
+        // if(count($cart->items)<=0)
+        //     Session::forget('cart');
+        // else
+        //     Session::put('cart',$cart);
+        // return json_encode($cart);
+        $oldCart = Cookie('cart')?Cookie::get('cart'):null;
         $cart = new Cart($oldCart);
         $cart->riseByOne($id);
 
-        if(count($cart->items)<=0)
-            Session::forget('cart');
-        else
-            Session::put('cart',$cart);
+        if(count($cart->items)<=0) {
+          Cookie::queue(Cookie::forget('cart'));
+          if(Auth::check()) {
+            $updateCart = UserCartDetail::deleteAllProductFromCartByID(Auth::User()->id);
+          }
+        }
+        else {
+          Cookie::queue(Cookie::make('cart', $cart, 800000));
+          if(Auth::check()) {
+            $updateCart = UserCartDetail::addProductToCartUserByID($id, Auth::User()->id, 1);
+          }
+        }
         return json_encode($cart);
     }
 
@@ -136,23 +198,22 @@ class Home_Controller extends Controller
    public function Customer_Edit(Request $req) {
         $a=array();
         $i=0;
-        $oldCart = Session('cart')?Session::get('cart'):null;
+        $oldCart = Cookie('cart')?Cookie::get('cart'):null;
         $cart = new Cart($oldCart);
-        foreach ($cart->items as $key) {
-          $id=$key['item'][0]->id;
-          $size=$key['item'][0]->size;
-          $name=$key['item'][0]->name;
-          $Qty=$key['qty'];
+        // foreach ($cart->items as $key) {
+        //   $id=$key['item']->id;
+        //   $size=$key['item']->size;
+        //   $name=$key['item']->name;
+        //   $Qty=$key['qty'];
 
-          // $export_quantity=Export_product::FindOneExportProduct($id,$size)->get();
-          // $import_quantity=Import_product::FindOneImportProduct($id,$size)->sum('import_quantity');
-          // $quantity=$import_quantity-$export_quantity[0]->export_quantity;
+        //   // $export_quantity=Export_product::FindOneExportProduct($id,$size)->get();
+        //   // $import_quantity=Import_product::FindOneImportProduct($id,$size)->sum('import_quantity');
+        //   // $quantity=$import_quantity-$export_quantity[0]->export_quantity;
 
-          // if($quantity<$Qty)
-          // $a[$i++]=$name." - ".$size." : hàng không đủ hàng trong kho chỉ còn : ".$quantity;
-          // # code...
-        }
-
+        //   // if($quantity<$Qty)
+        //   // $a[$i++]=$name." - ".$size." : hàng không đủ hàng trong kho chỉ còn : ".$quantity;
+        //   // # code...
+        // }
         // if($a==null) {
           if(Cookie::has('information')){
             $customer = Cookie::get('information');
@@ -199,16 +260,16 @@ class Home_Controller extends Controller
           $id_bill=Bill::Insert_Bill($id_customer,$note,$id_discount,$discount[0]->price_gift,$discount[0]->percent_discount,$discount[0]->name_gift, $payOnline);
           
           foreach ($cart->items as $key) {
-
-              $id_export_product=$key['item'][0]->idsize;
-              $size=$key['item'][0]->size;
-              $sales_price=$key['item'][0]->export_price;
+              $id_export_product=$key['item']->idsize;
+              $size=$key['item']->size;
+              $sales_price=$key['item']->export_price;
               $quantity=$key['qty'];
               $bill_detail=Bill_Detail::Insert_Bill_Detail($id_bill,$id_export_product,$sales_price,$quantity);
               $export_product=Export_product:: Insert_Export_Product($id_export_product,$quantity);
             }
-
-          Session::forget('cart');
+          // Session::forget('cart');
+          Cookie::queue(Cookie::forget('cart'));
+          $updateCart  = UserCartDetail::deleteAllProductFromCartByID(Auth::User()->id);
           return redirect()->route('index')->with('thanhcong','mua hàng thành công,chúng tôi sẽ liên hệ bạn sớm nhất');
         // }
         // else {

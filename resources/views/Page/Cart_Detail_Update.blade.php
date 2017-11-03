@@ -17,8 +17,6 @@
 							var price=$('.gia'+val).attr('value');
 							var totalPrice=parseInt(totalPrice-price);
 							var totalQty=parseInt(totalQty-soluong);
-							alert(totalPrice);
-							alert(totalQty);
 							var route="{{route('delete-item-cart','id')}}";
 							route=route.replace('id',val);
 							$.ajax ({
@@ -64,37 +62,37 @@
 					
 				<div class="in-check" >
 					<ul class="unit" style="border:solid 1px black;">
-						<li><span>Item</span></li>
-						<li><span>Product Name</span></li>
-						<li><span>Quantity/Size</span></li>
-						<li><span>Price/Unit_Price</span></li>
+						<li><span>Hình Ảnh</span></li>
+						<li><span>Tên Sản Phẩm</span></li>
+						<li><span>Số Lượng/Kích thước</span></li>
+						<li><span>Giá/Đơn Giá</span></li>
 						<div class="clearfix"> </div>
 					</ul>
-					@if(Session::has('cart'))
+					@if(Cookie::has('cart'))
 						@foreach($product_cart as $product)
-							<ul class="cart-header product{{$product['item'][0]->idsize}}">
-								<div class="close1 {{$product['item'][0]->idsize}}" value="{{$product['item'][0]->idsize}}"> </div>
+							<ul class="cart-header product{{$product['item']->idsize}}">
+								<div class="close1 {{$product['item']->idsize}}" value="{{$product['item']->idsize}}"> </div>
 									<li class="ring-in">
-										<a href="{{route('Detail',$product['item'][0]->id)}}">
-											<img src="images/{{$product['item'][0]->image}} " class="img-responsive" alt="" style="width: 100px; height: 100px;">
+										<a href="{{route('Detail',$product['item']->id)}}">
+											<img src="images/{{$product['item']->image}} " class="img-responsive" alt="" style="width: 100px; height: 100px;">
 										</a>
 									</li>
 									<li>
-										<span class="name">{{$product['item'][0]->name}}</span>
+										<span class="name">{{$product['item']->name}}</span>
 									</li>
 									<li>
 										
-										<span class="quantity soluong{{$product['item'][0]->idsize}}" value="{{$product['qty']}}" >
-										<a href='javascript:void(0)' class='subtruct_itm_qty quantity_change' item_id="{{$product['item'][0]->idsize}}"><button style="border-radius: 6px;">-</button></a>
+										<span class="quantity soluong{{$product['item']->idsize}}" value="{{$product['qty']}}" >
+										<a href='javascript:void(0)' class='subtruct_itm_qty quantity_change' item_id="{{$product['item']->idsize}}"><button style="border-radius: 6px;">-</button></a>
 											Số Lượng:{{$product['qty']}}
-										<a href='javascript:void(0)' class='add_itm_qty quantity_change' item_id="{{$product['item'][0]->idsize}}"><button style="border-radius: 6px;">+</button></a>
+										<a href='javascript:void(0)' class='add_itm_qty quantity_change' item_id="{{$product['item']->idsize}}"><button style="border-radius: 6px;">+</button></a>
 										</span>
 										
-										{{$product['item'][0]->size}}
+										{{$product['item']->size}}
 									</li>
 									<li>
-										<span class="cost price gia{{$product['item'][0]->idsize}}" value="{{$product['price']}}">{{number_format($product['price'])}}</span>
-										{{number_format($product['item'][0]->export_price)}}
+										<span class="cost price gia{{$product['item']->idsize}}" value="{{$product['price']}}">{{number_format($product['price'])}}</span>
+										{{number_format($product['item']->export_price)}}
 									</li>
 								<div class="clearfix"> </div>
 							</ul>

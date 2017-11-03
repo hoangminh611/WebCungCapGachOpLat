@@ -167,6 +167,7 @@ class Bill_Detail extends Model
                 ->where('bills.method','LIKE','%Đã Thanh Toán%')
                 ->whereRaw("DATE(bill_detail.updated_at)>='$month_start' AND DATE(bill_detail.updated_at)<'$month_end'")
                 ->get();
+
         foreach ($bill as $bill_detail) {
 
             $bill_discount=Bill::View_bill_byId($bill_detail->id_bill)->first();
