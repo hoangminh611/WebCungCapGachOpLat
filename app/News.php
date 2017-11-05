@@ -79,16 +79,22 @@ class News extends Model
                 ->join('users','news.id_user','=','users.id')->select();
         return $news;
     }
-    public static function InsertNews($id_user,$title,$description,$content,$category_id_news){
+    public static function InsertNews($id_user,$title,$image,$description,$content,$category_id_news){
         $id=DB::table('news')
-                ->insertGetId(['id_user'=>$id_user,'title'=>$title,'description'=>$description,'content'=>$content,'Category_ID_News'=>$category_id_news]);
+                ->insertGetId(['id_user' => $id_user,'title' => $title, 'image' => $image, 'description' => $description, 'content' => $content, 'Category_ID_News' => $category_id_news]);
         return $id;
     }
-    public static function UpdateNews($id,$id_user,$title,$image,$description,$content,$category_id_news,$show_new){
-
-               $News=DB::table('news')
-                        ->where('id',$id)
-                        ->update(['id_user'=>$id_user,'title'=>$title,'description'=>$description,'content'=>$content,'Category_ID_News'=>$category_id_news,'show'=>$show_new]);
+    public static function UpdateNews($themSuaAnh, $id, $id_user, $title, $image, $description, $content, $category_id_news, $show_new) {
+        if($themSuaAnh == 1) {
+            $News=DB::table('news')
+                    ->where('id',$id)
+                    ->update(['id_user' => $id_user, 'title' => $title, 'image' => $image , 'description' => $description, 'content' => $content, 'Category_ID_News' => $category_id_news, 'show' => $show_new]);
+        }
+        else {
+            $News=DB::table('news')
+                    ->where('id',$id)
+                    ->update(['id_user' => $id_user, 'title' => $title, 'description' => $description, 'content' => $content, 'Category_ID_News' => $category_id_news, 'show' => $show_new]);
+        }
                 return $News;
 
     }
@@ -136,21 +142,11 @@ class News extends Model
             return $type;
     }
 
-     public static function Update_Type_News($anhthemmoi_suaAnh,$id,$name,$description,$type_cha,$type,$image){
-            if($anhthemmoi_suaAnh==1)
-            {
+     public static function Update_Type_News($id,$name,$description,$type_cha,$type){
                $News=DB::table('category')
-                        ->where('id',$id)
-                        ->update(['name'=>$name,'image'=>$image,'description'=>$description,'type_cha'=>$type_cha,'type'=>$type]);
-                return $News;
-            }
-            else
-            {
-                 $News=DB::table('category')
                         ->where('id',$id)
                         ->update(['name'=>$name,'description'=>$description,'type_cha'=>$type_cha,'type'=>$type]);
                 return $News;
-            }
     }
 }
 

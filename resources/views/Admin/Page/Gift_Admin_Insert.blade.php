@@ -57,7 +57,7 @@
                                     </div>
 
                                 </div>
-                                <button type="submit" id="submit" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">Thêm</button>           
+                                <button type="submit" id="submit" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">Lưu</button>           
                             </form>
                         </div>
                        @else 

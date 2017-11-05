@@ -29,12 +29,13 @@ class Admin_Discount_Controller extends Controller
    }
 
    public function Insert_Discount(Request $req){
-   		$insert_discount=Discount::Discount_Insert($req->price_discount,$req->gift,$req->percent_discount,$req->ship_price);
+   		$insert_discount=Discount::Discount_Insert($req->price_discount, $req->gift, $req->percent_discount, $req->ship_price);
    	 	return redirect()->route('Discount_Admin');
    }
 
    public function Update_Discount(Request $req){
-   		$update_discount=Discount::Discount_Update($req->id,$req->price_discount,$req->gift,$req->percent_discount,$req->ship_price);
+         $priceDiscount = ($req->price_discount) ? $req->price_discount : 0;
+   		$update_discount=Discount::Discount_Update($req->id, $priceDiscount, $req->gift, $req->percent_discount, $req->ship_price);
    	 	return redirect()->route('Discount_Admin');
    }
 

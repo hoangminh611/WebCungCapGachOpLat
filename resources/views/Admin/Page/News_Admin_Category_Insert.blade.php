@@ -69,7 +69,7 @@
                                           </div>
 
                                       </div>
-                                       <div class="form-group">
+                                      {{--  <div class="form-group">
                                           <label class="col-sm-3 control-label">Hình ảnh*</label>
                                           <div class="col-sm-6">
                                                  <input type="file" value="" name="image" id="f" accept="image/*" class="form-control" style="border-top: 1px solid black;"  onchange=" file_change(this) ">
@@ -77,7 +77,7 @@
                                               <span class="help-block">Chọn Ảnh </span>
                                           </div>
 
-                                      </div>
+                                      </div> --}}
                                       <div class="form-group">
                                           <label class=" col-sm-3 control-label ">Mô tả</label>
                                           <div class="col-sm-6">

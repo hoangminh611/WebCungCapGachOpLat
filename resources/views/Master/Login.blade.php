@@ -25,7 +25,7 @@
 					<div class="account-bottom">
 					<form  accept-charset="UTF-8" action="{{route('login')}}"  method="post">
 						<input type="hidden" name="_token" value="{{csrf_token()}}">
-						<input placeholder="Email" type="text" tabindex="3" title="Email Address" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$" data-validation="email" required="" value="" name="email">
+						<input placeholder="Email" type="text" tabindex="3" title="Email Address" pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$" data-validation="email" required="" value="" name="email">
 						<input placeholder="Password" type="password" name="password" tabindex="4" required>
 						<div class="address">
 							<a class="forgot" href="{{route('Forget_Password')}}">Quên mật khẩu?</a>

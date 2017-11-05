@@ -89,7 +89,7 @@
                     function delete_row(id)
                     {
                         ssi_modal.confirm({
-                        content: 'Xóa sẽ ảnh hưởng tới bảng product ,bill_detail,export,import product?',
+                        content: 'Bạn Chắc Chắn Muốn Xóa.Nếu Đã Xóa sẽ không thể phục hồi?',
                         okBtn: {
                         className:'btn btn-primary'
                         },

@@ -45,7 +45,7 @@
 						<BR>
 						EMAIL:
 						<BR>
-						<input placeholder="Email" type="text"  name="email" id="email" tabindex="3" required  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$" data-validation="email">
+						<input placeholder="Email" type="text"  name="email" id="email" tabindex="3" required  pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$" data-validation="email">
 						<div  class=" thongbao" style="display: none;"></div>
 						<BR>
 						SỐ ĐIỆN THOẠI

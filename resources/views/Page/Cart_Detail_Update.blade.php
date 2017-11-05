@@ -119,7 +119,7 @@
 			 </div>
 			</div>
 		</div>
-				<script type="text/javascript">
+		<script type="text/javascript">
 			$('a.add_itm_qty').click(function(e){
 			 e.preventDefault(); 
 	        var item_id = $(this).attr("item_id"); 
@@ -137,6 +137,20 @@
 				e.preventDefault(); 
 		        var item_id = $(this).attr("item_id"); 
 		        var soluong=$('.soluong'+item_id).attr('value');
+		        if(soluong==1)
+		        {
+		        	var route="{{route('delete-item-cart','id')}}";
+							route=route.replace('id',item_id); 
+		        	$.ajax ({
+								url: route,
+								type:'get',
+								data: null,
+								success:function(data){
+									window.location.replace('{{route('cart-detail')}}');
+									return;
+								}
+							});
+		        }	
 		        var route = "{{route('reduce-to-qty','id_sp')}}";
 		        route=route.replace("id_sp",item_id);   
 		        $.getJSON( route, function(data){ 
@@ -144,12 +158,6 @@
 		           	$(".cart_qty").html(data.totalQty.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+" Sản Phẩm"); 
 		           	$("#update").load("{{route('Update_Cart')}}");
            		});
-           			if(soluong==1)
-		        {
-		        	route="{{route('cart-detail')}}";
-		        	window.location.replace(route);
-		        }	
-
-		});
+			 });
 		</script>
 </div>

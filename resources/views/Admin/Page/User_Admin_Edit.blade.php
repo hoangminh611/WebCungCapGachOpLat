@@ -10,7 +10,7 @@
             <div class="col-lg-12">
                 <section class="panel">
                     <header class="panel-heading">
-                        Update User
+                        Cập Nhật Quyền Nhân Viên
                     </header>
                     <div class="panel-body">
                             <form class="form-horizontal bucket-form" enctype="multipart/form-data"  id="edit-form" method="post" action="{{route('Update_User')}}">
@@ -111,7 +111,7 @@
                                       </table>                            
                                     </div>
                                 </div>
-                                <button type="submit"  class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">  Save</button>           
+                                <button type="submit"  class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">Lưu</button>           
                             </form>
                     </div>
                 </section>

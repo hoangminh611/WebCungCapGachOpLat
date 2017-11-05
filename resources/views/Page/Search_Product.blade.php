@@ -17,7 +17,7 @@
 			<div class="prdt-top">
 				<div class="col-md-9 prdt-left">
 					<div class="product-one">
-
+					  @if(isset($product[0]))
 						@foreach($product as $All)
 							<div class="col-md-4 product-left p-left">
 								<div class="product-main simpleCart_shelfItem">
@@ -38,6 +38,11 @@
 							</div>
 						@endforeach
 						<div class="clearfix"></div>
+					  @else
+					 	<div>
+							<h2>Không Có Sản Phẩm</h2>
+						</div>
+					 @endif
 					</div>
 				</div>
 				<form action="{{route('Search')}}" method="get">

@@ -49,17 +49,16 @@ class Admin_News_Controller extends Controller
          $content=($req->content);
          $category_id_news=$req->category_id_news;
          $show_new=$req->show_new;
-
          if ($req->hasFile('image')) {
             $image= $req->file('image')->getClientOriginalName();
             $req->file('image')->move('images/news',$image);
             $suaanh=1;
-            $news=News::UpdateNews($suaanh,$id,$id_user,$title,$image,$description,$content,$category_id_news,$show_new);
+            $news=News::UpdateNews($suaanh, $id, $id_user, $title, $image, $description, $content, $category_id_news, $show_new);
          }
          else{
             $image=null;
             $suaanh=0;
-            $news=News::UpdateNews($suaanh,$id,$id_user,$title,$image,$description,$content,$category_id_news,$show_new);
+            $news=News::UpdateNews($suaanh, $id, $id_user, $title, $image, $description, $content, $category_id_news, $show_new);
          }
          
           return redirect()->route('ViewNews');
@@ -78,7 +77,6 @@ class Admin_News_Controller extends Controller
          else{
             $image=null;
          }
-
          $description=($req->description);
          $content=($req->content);
          $category_id_news=$req->category_id_news;

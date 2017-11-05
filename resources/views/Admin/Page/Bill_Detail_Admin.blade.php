@@ -95,7 +95,7 @@
                     <p>{{$bill[0]->current_name_gift}}</p>
               <a href="{{route('downloadPDF',[$customer[0]->id,$idhoadon])}}">Xuất file PDF</a>
               <br>
-              <button id="btnback" class="btn-info" style="border-radius: 5px;">Trở lại</button>
+              <button id="btnback" class="btn-warning" style="border-radius: 5px;">Trở lại</button>
           </div>
       </div>
     </div>

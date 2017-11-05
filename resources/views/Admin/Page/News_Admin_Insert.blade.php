@@ -123,6 +123,9 @@
                                                             <option  id="0" value="0">Kiểm Tra</option>
                                                             <option  id="1" value="1">Hiện Tin</option>
                                                         </select>
+                                                        <script type="text/javascript">
+                                                            $('#'+{{$news[0]->show}}).attr('selected','selected');
+                                                        </script>
                                                 </div>
                                             </div>
                                             <button type="button" onclick="submit_form()" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">Save</button>           

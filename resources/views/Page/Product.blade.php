@@ -20,6 +20,7 @@
 					<div class="product-one">
 
 					@if( $typepro == 0)
+					 @if(isset($product[0]))
 						@foreach($All_Product as $pro)
 							@foreach($pro as $All)
 							<div class="col-md-4 product-left p-left">
@@ -37,7 +38,13 @@
 						@endforeach
 						<div class="clearfix"></div>
 						{{-- <div>{{$All_Product->links()}}</div> --}}
+					 @else
+					 	<div>
+							<h2>Không Có Sản Phẩm</h2>
+						</div>
+					 @endif
 					@else
+					 @if(isset($product[0]))
 						@foreach($product as $pro)
 							<div class="col-md-4 product-left p-left">
 								<div class="product-main simpleCart_shelfItem">
@@ -52,6 +59,11 @@
 						@endforeach
 						<div class="clearfix"></div>
 						<div>{{$product->links()}}</div>
+					 @else
+					 	<div>
+								<h2>Không Có Sản Phẩm</h2>
+						</div>
+					 @endif
 					@endif
 					</div>
 				</div>	

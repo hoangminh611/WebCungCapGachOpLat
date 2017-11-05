@@ -49,11 +49,13 @@
                                             <input type="text" name="quantity" value="{{$Bill_Detail[0]->sales_price}}" disabled="">
                                         </div>
                                     </div>
-                                    <button type="submit" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">Lưu</button>           
+                                    <button type="submit" class="button submit-button btn btn-info btn-lg glyphicon glyphicon-floppy-save saveEdit" style="border-radius: 10px;">Lưu</button>    
+                                    <br><br>
+                                    <button type="button" id="btnback" class="btn-warning" style="border-radius: 5px;" onclick="history.back();" >Trở lại</button>
                                 </form>
                         </div>
-                
-
+                        <br>
+                        
                     </section>
 
                 </div>

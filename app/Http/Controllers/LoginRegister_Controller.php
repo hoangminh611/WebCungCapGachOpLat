@@ -37,6 +37,14 @@ class LoginRegister_Controller extends Controller
                 }
                  Cookie::queue(Cookie::make('cart', $cart, 800000));
               }
+              else {
+                $cart = Cookie('cart') ? Cookie::get('cart') : null;
+                if($cart != null) {
+                  foreach(($cart->items) as $cartDetail) {
+                    $addCart = UserCartDetail::addProductToCartUserByID($cartDetail['item']->idsize, Auth::User()->id, $cartDetail['qty']);
+                  }
+                }
+              }
               return redirect()->back()->with('thanhcong','Đăng nhập thành công');
         }
         else
@@ -185,6 +193,22 @@ class LoginRegister_Controller extends Controller
           $userCookie=Cookie::get('cookieIdWebGach');
           $updateUserViewProduct=View_product::updateWhenUserLogin($userCookie,$user->id);
         }
+      $getUserCart = UserCartDetail::getCartDetailByUserId($user->id)->get();
+      if(isset($getUserCart[0])) {
+        $cart=new Cart(null);
+        foreach ($getUserCart as $cartDetail) {
+          $cart->add($cartDetail, $cartDetail->idsize, $cartDetail->quantity);
+        }
+         Cookie::queue(Cookie::make('cart', $cart, 800000));
+      }
+      else {
+        $cart = Cookie('cart') ? Cookie::get('cart') : null;
+        if($cart != null) {
+          foreach(($cart->items) as $cartDetail) {
+            $addCart = UserCartDetail::addProductToCartUserByID($cartDetail['item']->idsize, $user->id, $cartDetail['qty']);
+          }
+        }
+      }
       Auth()->login($user);
        
       return redirect()->route('home')->with(['flash_level'=>'success','thanhcong'=>"Đăng nhập thành công"]);
