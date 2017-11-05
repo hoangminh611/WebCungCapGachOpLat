@@ -53,10 +53,9 @@ class Product_Controller extends Controller
 
     $updateViewSimilarProduct=View_product::InsertVIewOnProductByPeople($req->id,$user,$typePeople);
     $product_recommend=Product_Controller::getSimilarProduct($req);
-
       if ( $product_recommend != 0  ) {
          foreach ($product_recommend as $key => $value) {
-            $product_same_type[]=Product::FindSimilarProduct($value)->first();
+            $product_same_type[]=Product::FindSimilarProduct($key)->first();
             if(isset($product_same_type[2]))
               break;
          }
@@ -64,7 +63,6 @@ class Product_Controller extends Controller
       else {
           $product_same_type=Product::Find_Product_By_Same_Type($product[0]->id_type,$product[0]->id)->limit(3)->get();
       }
-
    	return view('Page.Detail_Product',compact('product','product_same_type'));
    }
    //search product theo loại sản phẩm hoặc kích thước
@@ -101,37 +99,36 @@ class Product_Controller extends Controller
       return response()->json($results);
    }
 
-      public function getSimilarProduct(Request $req){
+  public function getSimilarProduct(Request $req){
       
-      if(Cookie::has('cookieIdWebGach')){
-         $user=Cookie::get('cookieIdWebGach');
-      }
-      if(Auth::check()){
-         $user=Auth::User()->id;
-      }
-      $exitUser=View_product::checkUserExist($user)->first();
-      if(isset($exitUser->id)){
+    if(Cookie::has('cookieIdWebGach')){
+       $user=Cookie::get('cookieIdWebGach');
+    }
+    if(Auth::check()){
+       $user=Auth::User()->id;
+    }
+    $exitUser=View_product::checkUserExist($user)->first();
+    if(isset($exitUser->id)){
 
-         $products=array();
-         $product=View_product::getProduct()->get();
-         foreach($product as $key){
-            $products[$key->id_people_view][$key->id_product]=$key->number_view;
-         }
-         // dd($products);
-         //ý tưởng là nếu như không có sản phẩm nào được gợi ý thì ẽ lấy những thằng sản phẩm cùng loại 
-         $pro=Product_Controller::getRecommendations_Cosine($products,$user);
-
-         if(!$pro){
-          return 0;
-         }
-         else {
-          return $pro;
-         } 
-      }
-      else{
-         return 0;
-      }
-   }
+       $products=array();
+       $product=View_product::getProduct()->get();
+       foreach($product as $key){
+          $products[$key->id_people_view][$key->id_product]=$key->number_view;
+       }
+       // dd($products);
+       //ý tưởng là nếu như không có sản phẩm nào được gợi ý thì ẽ lấy những thằng sản phẩm cùng loại 
+       $pro=Product_Controller::getRecommendations_Cosine($products,$user);
+       if(!$pro){
+        return 0;
+       }
+       else {
+        return $pro;
+       } 
+    }
+    else{
+       return 0;
+    }
+ }
 
 
     public function matchItems_Cosine($preferences, $person){
@@ -170,7 +167,7 @@ class Product_Controller extends Controller
         if(count($similar) == 0){
             return 0;
         }
-        
+        //sigma của a nhân b và tổng của tất cả sản phẩm person đã view
         foreach($preferences[$person1] as $key=>$value){
 
             if(array_key_exists($key, $preferences[$person2])){
@@ -179,7 +176,7 @@ class Product_Controller extends Controller
 
             $s1=$s1+pow($value,2);
         }
-
+        //tính sqrt của tất cả các sản phẩm mà person2 đã view
         foreach($preferences[$person2] as $key=>$value){
             $s2=$s2+pow($value,2);
         }
@@ -193,7 +190,7 @@ class Product_Controller extends Controller
         $ranks = array();
         $sim = 0;
         
-        foreach($preferences as $otherPerson=>$values)
+        foreach($preferences as $otherPerson => $values)
         {
             //Nếu 2 user có trùng nhau 1 sách nào đó 
             if($otherPerson != $person)
@@ -205,20 +202,19 @@ class Product_Controller extends Controller
             {
                 foreach($preferences[$otherPerson] as $key=>$value)
                 {
-                    //Tìm ra những sách mà user cần  không có đánh giá
+                    //Tìm ra những sách mà user cần  không có view
                     if(!array_key_exists($key, $preferences[$person]))
                     {
                         if(!array_key_exists($key, $total)) {
                             $total[$key] = 0;
                         }
-                        //Tìm tổng của user có key không trùng với user đưa vào ti lệ thuận với độ tương tự của nó
+                        //Tìm tổng của user có key không trùng với user đưa vào ti lệ thuận với độ tương tự của nó(tổng só lượng view trung bình  của 1 sản phẩm  của tất cả các user ứng với độ tương tự của từng user)
                         $total[$key] += $preferences[$otherPerson][$key] * $sim;
-
                         if(!array_key_exists($key, $simSums)) {
                             $simSums[$key] = 0;
                         }
                         //Tổng các độ tương tự của người dùng với sản phẩm ấy
-                        $simSums[$key] += $sim;
+                        // $simSums[$key] += $sim;
 
 
                     }
@@ -226,16 +222,17 @@ class Product_Controller extends Controller
                 
             }
         }
-        
-        foreach($total as $key=>$value)
-        {
-            // $ranks[] = $value / $simSums[$key];
+        //bỏ đi do chia ra hay không chia thì tỷ lệ vẫn vậy
+        // foreach($total as $key=>$value)
+        // {
+        //   $ranks[$key] = 0;
+        //   // $ranks[$key] = $value / $simSums[$key];
 
-            $ranks[]=$key;
-        }
+        //   $ranks[$key]=$value;
+        // }
         //sort theo value giảm dần
-        arsort($ranks);
-       return $ranks;    
+        arsort($total);
+       return $total;    
     }
 
 }
