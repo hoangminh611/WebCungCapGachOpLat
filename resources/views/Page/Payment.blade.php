@@ -75,6 +75,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="container">
 			<div class="contact-top heading">
 				<h2>Khách Hàng</h2>
+				<br>
+				<span>Tỷ giá VNĐ và USD theo ngân Hàng Vietcombank</span>
+				<br>
+				<span><b>{{$VNĐtoUSD['USD']['id']}} : {{$VNĐtoUSD['USD']['buy']}} VNĐ</b></span>
 			</div>
 				<div class="contact-text">
 					<form method="post" action="{{route('Customer_Edit')}}" id="information">
@@ -177,7 +181,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 								@if(!Auth::check())
 									@if($totalPrice<5000000)
-										<input type="hidden" name="shipping_1" value="{{$discount[0]->ship_price/22810}}">
+										<input type="hidden" name="shipping_1" value="{{$discount[0]->ship_price/$VNĐtoUSD['USD']['buy']}}">
 										<b>Phí vận Chuyển:{{number_format($discount[0]->ship_price)}}VNĐ</b>
 										<br>
 										<b>Tổng sản phẩm:</b>{{number_format($totalQty)}} Sản Phẩm</b>
@@ -204,7 +208,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									            @endif
 									      @endfor
 									<input type="hidden" name="discount_rate_cart" value="{{$percent_discount}}">
-									<input type="hidden" name="shipping_1" value="{{$ship_price/22810}}">
+									<input type="hidden" name="shipping_1" value="{{$ship_price/$VNĐtoUSD['USD']['buy']}}">
 									<b>Phí vận Chuyển:{{number_format($ship_price)}}VNĐ</b>
 									<br>
 									<b>Tổng sản phẩm:</b>{{number_format($totalQty)}} Sản Phẩm</b>

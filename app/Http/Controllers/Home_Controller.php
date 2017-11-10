@@ -191,7 +191,8 @@ class Home_Controller extends Controller
     //gọi trang thanh toán
    public function Payment() {
       $discount=Discount::Get_All()->orderBy('price_discount')->get();
-   	return view('Page.Payment',compact('discount'));
+      $VNĐtoUSD = $this-> getExchangeRatesVCB();
+   	return view('Page.Payment',compact('discount','VNĐtoUSD'));
    }
 
    //Insert vào bảng customer khi thanh toán
@@ -276,6 +277,37 @@ class Home_Controller extends Controller
 
         // return redirect()->route('cart-detail')->with('hangkhongdu',$a);;
         // }
+   }
+    public function getExchangeRatesVCB(){
+     $Link = $Link2 = '';
+     $dir='cache/';
+     if(!is_dir($dir)) mkdir($dir,0755,true);
+     $Link = $dir.'ExchangeRates.xml';
+     $Link2 = 'http://vietcombank.com.vn/ExchangeRates/ExrateXML.aspx';
+     $content = @file_get_contents($Link2);
+     if($content==''){
+       $content = @file_get_contents($Link);
+     }else{
+       copy($Link2,$Link);
+     } 
+     //preg_match_all : Kiểm tra content có các từ đó không có thì bỏ vào $matched
+     if($content!='' and preg_match_all('/Exrate CurrencyCode="(.*)" CurrencyName="(.*)" Buy="(.*)" Transfer="(.*)" Sell="(.*)"/',$content,$matches) and count($matches)>0){
+       $exchange_rates=array(
+       'USD'=>array()
+       );
+       foreach($matches[1] as $key=>$value){
+          if(isset($exchange_rates[$value])){
+             $exchange_rates[$value]=array(
+             'id'=>$value
+             ,'name'=>$matches[2][$key]
+             ,'buy'=>$matches[3][$key]
+             ,'transfer'=>$matches[4][$key]
+             ,'sell'=>$matches[5][$key]
+             );
+          }
+       }
+       return $exchange_rates;
+     }
    }
    // public function news_All(){
    //    $news=News::Load_ALL_News()->orderBy('created_at','DESC')->paginate(5);

@@ -46,5 +46,10 @@ class Staff_permission extends Model
          $staff = DB::table('staff_permission')->where('id_staff', $idUser)->select();
          return $staff;
     }
+
+    public static function deleteUser($idUser) {
+         $staff = DB::table('staff_permission')->where('id_staff', $idUser)->delete();
+         return $staff;
+    }
 }
 

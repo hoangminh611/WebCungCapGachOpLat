@@ -194,10 +194,13 @@ class Admin_Controller extends Controller
          $newsPermission = 0;
       }
       $user = User::Update_User($id,$group);
-      if($group != 0) {
+      if ($group != 0) {
          $permission = Staff_permission::updateStaffPermission($id,$bannerPermission, $productPermission
            , $categoryPermission, $userPermission, $billPermission, $historyPermission
            , $errorProductPermission, $discountPermission, $giftPermission,$newsPermission);
+      }
+      elseif ($group == 0) {
+          $permission = Staff_permission::deleteUser($id);
       }
       return redirect()->route('ViewPage_User_Admin');
    }
@@ -241,4 +244,6 @@ class Admin_Controller extends Controller
          // return view('Admin.Page.Bill_Detail_Admin_PDF',compact('customer','Bill_Detail'));
       return $pdf->stream();
    }
+
+   
 }

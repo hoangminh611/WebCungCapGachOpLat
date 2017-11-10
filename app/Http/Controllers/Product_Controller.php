@@ -56,8 +56,8 @@ class Product_Controller extends Controller
       if ( $product_recommend != 0  ) {
          foreach ($product_recommend as $key => $value) {
             $product_same_type[]=Product::FindSimilarProduct($key)->first();
-            // if(isset($product_same_type[2]))
-            //   break;
+            if(isset($product_same_type[2]))
+              break;
          }
       }
       else {
