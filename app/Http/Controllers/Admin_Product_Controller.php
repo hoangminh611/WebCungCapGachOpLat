@@ -80,8 +80,11 @@ class Admin_Product_Controller extends Controller
          $import_quantity=$req->import_quantity;
          $export_product=Export_product::Update_Export_Product($id,$first_size,$size,$export_price);
          $import_product=Import_product::Update_Import_Product($id,$first_size,$size,$import_price,$import_quantity);
-         if ($req->hasFile('image')) 
-         {
+         if ($req->hasFile('image')) {
+
+            $imageProduct = Product::getImageProduct($id)->first();   
+            File::delete('images/'.$imageProduct->image);
+            
             $image= $req->file('image')->getClientOriginalName();
             $req->file('image')->move('images',$image);
             $suaanh=1;         

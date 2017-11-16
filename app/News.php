@@ -67,22 +67,29 @@ class News extends Model
                 ->orderBy('id','DESC');
         return $news;
     }
-    public static function UpdateNewById($id){
+    public static function UpdateNewById($id) {
         $news=DB::table('news')
                 ->where('news.id',$id)
                 ->select();
         return $news;
     }
-    public static function NewById($id){
+    public static function NewById($id) {
         $news=DB::table('news')
                 ->where('news.id',$id)
                 ->join('users','news.id_user','=','users.id')->select();
         return $news;
     }
-    public static function InsertNews($id_user,$title,$image,$description,$content,$category_id_news){
+
+    public static function InsertNews($id_user,$title,$image,$description,$content,$category_id_news) {
         $id=DB::table('news')
                 ->insertGetId(['id_user' => $id_user,'title' => $title, 'image' => $image, 'description' => $description, 'content' => $content, 'Category_ID_News' => $category_id_news]);
         return $id;
+    }
+
+    public static function getImageNameFromNews($id) {
+         $News=DB::table('news')
+                    ->where('id',$id)->select('image');
+        return $News;       
     }
     public static function UpdateNews($themSuaAnh, $id, $id_user, $title, $image, $description, $content, $category_id_news, $show_new) {
         if($themSuaAnh == 1) {

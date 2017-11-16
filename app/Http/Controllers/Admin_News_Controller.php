@@ -50,7 +50,11 @@ class Admin_News_Controller extends Controller
          $category_id_news=$req->category_id_news;
          $show_new=$req->show_new;
          if ($req->hasFile('image')) {
-            $image= $req->file('image')->getClientOriginalName();
+
+            $imageNew=News::getImageNameFromNews($id)->first();
+            File::delete('images/news/'.$imageNew->image);
+
+            $image=$req->file('image')->getClientOriginalName();
             $req->file('image')->move('images/news',$image);
             $suaanh=1;
             $news=News::UpdateNews($suaanh, $id, $id_user, $title, $image, $description, $content, $category_id_news, $show_new);
@@ -86,6 +90,10 @@ class Admin_News_Controller extends Controller
       //xoa tin tuc
       public function DeleteNews(Request $req){
          $id=$req->id;
+
+         $imageNew=News::getImageNameFromNews($id)->first();
+         File::delete('images/news/'.$imageNew->image);
+         
          $news=News::DeleteNews($id);
          return $news;
       }

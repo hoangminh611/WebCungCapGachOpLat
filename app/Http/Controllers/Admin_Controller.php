@@ -26,6 +26,9 @@ class Admin_Controller extends Controller
 {
    //lấy lãi lỗ
    public function getContentAdmin(Request $req) {
+      $outOfDate = new DateTime(Carbon::now()->format('Y-m-01'));
+      $outOfDate->sub(new DateInterval('P1M'));
+      $user = User::selectAllUserWithNoActiveAndNotProvider($outOfDate);
    	$a=array();
       $bill_detail=Bill_Detail::Select_Bill_Detail();
 

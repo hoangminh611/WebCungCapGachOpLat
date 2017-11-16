@@ -71,11 +71,14 @@ class User extends Authenticatable
     //     return $user;
     // }
     //đếm số lượng user
-    public static function Count_All_User()
-    {  
+    public static function Count_All_User() {  
          $user=DB::table('users')->count('id');
         return $user; 
+    }
 
+    public static function selectAllUserWithNoActiveAndNotProvider($dateToDeleteUser) {
+        $user = DB::table('users')->where([['active',0],['provider',null],['updated_at','<',$dateToDeleteUser]])->delete();
+        return $user;
     }
 
 }

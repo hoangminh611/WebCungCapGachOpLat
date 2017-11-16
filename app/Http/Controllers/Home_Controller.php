@@ -278,6 +278,7 @@ class Home_Controller extends Controller
         // return redirect()->route('cart-detail')->with('hangkhongdu',$a);;
         // }
    }
+   //Lấy tỉ giá USD theo vietcombank
     public function getExchangeRatesVCB(){
      $Link = $Link2 = '';
      $dir='cache/';

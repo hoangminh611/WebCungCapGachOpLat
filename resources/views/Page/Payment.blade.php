@@ -174,6 +174,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						            <input type="hidden" name="amount_{{$i}}" value="{{$product['item']->export_price/22810}}">
 						            <input type="hidden" name="quantity_{{$i}}" value="{{$product['qty']}}">
 						            <input type="hidden" name="currency_code" value="USD">
+						             <INPUT TYPE="hidden" name="charset" value="utf-8">
 						            <?php $i++ ?>
 
 								@endforeach

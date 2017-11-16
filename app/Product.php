@@ -192,6 +192,11 @@ class Product extends Model
         return $product;
 
     }
+
+  public static function getImageProduct($id) {
+    $pro=DB::table('products')->where('id','=',$id)->select('image');
+    return $pro;
+  }
   //Update sản phẩm
   public static function Update_Product($anhthemmoi_suaAnh,$id,$name, $type,$desc,$image){
       if($anhthemmoi_suaAnh==1)
