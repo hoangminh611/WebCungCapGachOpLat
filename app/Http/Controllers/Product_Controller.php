@@ -17,24 +17,53 @@ use App\View_product;
 class Product_Controller extends Controller
 {
    //vào trnag home
-   public function getIndex()
-   {
+  public function getIndex()
+  {
    	return view('Master.home');
-   }
+  }
    //Lấy tất cả sản phẩm của loại cha
-   public function All_Product($id)
+  public function All_Product($id)
    {
+    $countTypeNotNull = 0;
    	$All_Product=Product::All_Product_ById($id);
-      $typepro=0;
-   	return view('Page.Product',compact('All_Product','typepro'));
+    $typepro=0;
+    $countAllType =count($All_Product);
+
+    foreach ($All_Product as $key => $value) {
+      if(!isset($value[0])) {
+        $countTypeNotNull++;
+      }
+    }
+
+    if($countTypeNotNull == $countAllType) {
+      $haveProduct = 0;
+    }
+    else {
+      $haveProduct = 1;
+    }
+   	return view('Page.Product',compact('All_Product','typepro','haveProduct'));
    }
    //Lấy sản phẩm của 1 loại nhất định
    public function All_Product_By_Type(Request $req)
    {
-      $product=Product::Find_Product_By_Id_Type($req->id)->paginate(6);
+      $sort = $req->sort;
+      if(isset($req->sort)) {
+        if($sort === "No Sort") {
+            $product=Product::Find_Product_By_Id_Type($req->id)->paginate(6);
+        }
+        elseif($sort === "ASC") {
+          $product=Product::Find_Product_By_Id_Type($req->id)->orderBy('name','ASC')->paginate(6);
+        }
+        elseif ($sort === "DESC") {
+           $product=Product::Find_Product_By_Id_Type($req->id)->orderBy("name",'DESC')->paginate(6);
+        }
+      }
+      else {
+        $product=Product::Find_Product_By_Id_Type($req->id)->paginate(6);
+      }
       $typepro=$req->id;
 
-      return view('Page.Product',compact('product','typepro'));
+      return view('Page.Product',compact('product','typepro','sort'));
    }
    //Lây chi tiết sản phẩm đó vả đưa ra 1 số sản phẩm gợi ý cùng loại
    public function getDetail(Request $req)
@@ -68,17 +97,18 @@ class Product_Controller extends Controller
    //search product theo loại sản phẩm hoặc kích thước
    public function Search_Product(Request $req)
    {
-      $type=$req->type;
-      $size=$req->size;
-      if($type=="khong"&&$size=='khong')
-         $product=DB::table('products')->select()->get();
-      else if($type!="khong"&&$size=='khong')
-         $product=DB::table('products')->where('id_type',$type)->select()->get();
-      else if($type=="khong"&&$size!='khong')
-         $product=Product::Search_Product_By_Size($size)->get();
+      $typeSearch=$req->typeSearch;
+      $sizeSearch=$req->sizeSearch;
+      $sort =$req->sort;
+      if($typeSearch=="khong"&&$sizeSearch=='khong')
+         $product=DB::table('products')->orderBy('name',$sort)->paginate(6);
+      else if($typeSearch!="khong"&&$sizeSearch=='khong')
+         $product=DB::table('products')->where('id_type',$typeSearch)->orderBy('name',$sort)->paginate(6);
+      else if($typeSearch=="khong"&&$sizeSearch!='khong')
+         $product=Product::Search_Product_By_Size($sizeSearch)->orderBy('name',$sort)->paginate(6);
       else
-         $product=Product::Search_Product_By_Type_Size($type,$size)->get();
-      return view('Page.Search_Product',compact('product'));
+         $product=Product::Search_Product_By_Type_Size($typeSearch,$sizeSearch)->orderBy('name',$sort)->paginate(6);
+      return view('Page.Search_Product',compact('product','typeSearch','sizeSearch','sort'));
    }
    //search theo tên sản phẩm
    public function Search_Detail(Request $req) {

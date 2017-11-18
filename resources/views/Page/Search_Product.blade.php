@@ -18,6 +18,27 @@
 				<div class="col-md-9 prdt-left">
 					<div class="product-one">
 					  @if(isset($product[0]))
+					  	<div class="col-md-4 p-left" style="float: right;" >
+						Sắp Xếp:
+						 	<select name="sort" id="sort">
+							 	<option  id="No Sort" value="No Sort" selected="">Không Có</option>
+							 	<option id="ASC" value="ASC">A-Z</option>
+							 	<option id="DESC" value="DESC">Z-A</option>
+						 	</select>
+					 	<script type="text/javascript">
+					 		$('#sort').change(function(){
+					 			var sort = $(this).val();
+					 			var route = '{{route('Search',["typeSearch=$typeSearch","sizeSearch=$sizeSearch","sort=sortName"])}}' ;
+					 			route = route.replace('sortName',sort);
+					 			route = route.replace(/&amp;/g,'&')
+					 			window.location.replace(route);
+					 		});
+					 		var sort = "{{$sort}}";
+					 		if(sort != null)
+					 			$('#'+sort).attr('selected','selected');
+					 	</script>
+					 	</div><br><br><br><br>
+					 	<div class="clearfix"></div>
 						@foreach($product as $All)
 							<div class="col-md-4 product-left p-left">
 								<div class="product-main simpleCart_shelfItem">
@@ -38,6 +59,7 @@
 							</div>
 						@endforeach
 						<div class="clearfix"></div>
+						<div>{{$product->appends(Request::capture()->except('product'))->links()}}</div>
 					  @else
 					 	<div>
 							<h2>Không Có Sản Phẩm</h2>
@@ -53,12 +75,12 @@
 									<h4>Loại Sản Phẩm</h4>
 									<div class="row1 scroll-pane">
 										<div class="col col-4">
-											<label><input type="radio" name="type" checked="" value="khong"><i></i>Tất Cả Sản Phẩm</a></label>
+											<label><input type="radio" name="typeSearch" checked="" class="typekhong" value="khong"><i></i>Tất Cả Sản Phẩm</a></label>
 										</div>
 										<div class="col col-4">
 											@foreach($type as $typePro)								
 													@foreach($loaicon[$typePro->id] as $typebrand)	
-													<label ><input type="radio" name="type"  class="type{{$typebrand->id}}" value="{{$typebrand->id}}"><i></i>{{$typebrand->name}}</label>
+													<label ><input type="radio" name="typeSearch"  class="type{{$typebrand->id}}" value="{{$typebrand->id}}"><i></i>{{$typebrand->name}}</label>
 													<br>
 												@endforeach
 											@endforeach
@@ -68,20 +90,20 @@
 								<section class="sky-form">
 									<h4>Kích Thước</h4>
 										<div class="col col-4">
-											<label><input type="radio" name="size" checked="" class="size" value="khong"><i></i>Tất Cả Kích Thước</label>
+											<label><input type="radio" name="sizeSearch" checked="" class="sizekhong" value="khong"><i></i>Tất Cả Kích Thước</label>
 										</div>
 										<div class="col col-4">
 											@foreach($size_gach as $sizePro)
-												<label><input type="radio" name="size" class="size{{$sizePro}}" value="{{$sizePro}}"><i></i>{{$sizePro}}</label>
+												<label><input type="radio" name="sizeSearch" class="size{{$sizePro}}" value="{{$sizePro}}"><i></i>{{$sizePro}}</label>
 												<br>
 											@endforeach
 										</div>
 								</section>
-								@if(isset($_GET['type']))
+								@if(isset($_GET['typeSearch']))
 										<script type="text/javascript">
-											var a="{{$_GET['type']}}";
+											var a="{{$_GET['typeSearch']}}";
 											$(".type"+a).attr('checked','checked');
-											var b="{{$_GET['size']}}";
+											var b="{{$_GET['sizeSearch']}}";
 											$(".size"+b).attr('checked','checked');
 									</script>
 								@endif

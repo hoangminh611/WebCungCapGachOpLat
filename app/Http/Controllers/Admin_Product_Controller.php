@@ -130,7 +130,7 @@ class Admin_Product_Controller extends Controller
       $id = $req->id;
 
       $size=$req->size;
-      $image = $req->imageFile;
+      // $image = $req->imageFile;
       //chua xoa dc cai hinh nay
       // File::delete('images/'.$image);
       // $import_product=Import_product::Delete_Import_Product($id,$size);

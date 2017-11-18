@@ -76,9 +76,10 @@ class Product extends Model
       foreach ($type as $loaicha)
       {
         $newpro = DB::table('products')->select()->where('id_type',$loaicha->id)->get();
-        $newPro[$loaicha->id]=$newpro;
+        // $newPro[$loaicha->id]=$newpro;
+        $newPro[]=$newpro;
       }
-            return $newPro;
+      return $newPro;
     }
 
      //Tìm sản phẩm theo loại và kích thước

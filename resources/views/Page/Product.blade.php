@@ -18,9 +18,8 @@
 			<div class="prdt-top">
 				<div class="col-md-9 prdt-left">
 					<div class="product-one">
-
 					@if( $typepro == 0)
-					 @if(isset($product[0]))
+					 @if($haveProduct === 1)
 						@foreach($All_Product as $pro)
 							@foreach($pro as $All)
 							<div class="col-md-4 product-left p-left">
@@ -37,13 +36,32 @@
 							@endforeach
 						@endforeach
 						<div class="clearfix"></div>
-						{{-- <div>{{$All_Product->links()}}</div> --}}
 					 @else
 					 	<div>
 							<h2>Không Có Sản Phẩm</h2>
 						</div>
 					 @endif
 					@else
+					 <div class="col-md-4 p-left" style="float: right;" >
+					 Sắp Xếp:
+					 	<select name="sort" id="sort">
+						 	<option  id="No Sort" value="No Sort" selected="">Không Có</option>
+						 	<option id="ASC" value="ASC">A-Z</option>
+						 	<option id="DESC" value="DESC">Z-A</option>
+					 	</select>
+					 	<script type="text/javascript">
+					 		$('#sort').change(function(){
+					 			var sort = $(this).val();
+					 			var route = "{{route('ViewAll_Product_By_Type',[$typepro,'sort' =>'sortName'])}}" ;
+					 			route = route.replace('sortName',sort);
+					 			window.location.replace(route);
+					 		});
+					 		var sort = "{{$sort}}";
+					 		if(sort != null)
+					 			$('#'+sort).attr('selected','selected');
+					 	</script>
+					 </div><br><br><br><br>
+					 <div class="clearfix"></div>
 					 @if(isset($product[0]))
 						@foreach($product as $pro)
 							<div class="col-md-4 product-left p-left">
@@ -58,7 +76,7 @@
 							</div>
 						@endforeach
 						<div class="clearfix"></div>
-						<div>{{$product->links()}}</div>
+						<div>{{$product->appends('sort',$sort)->links()}}</div>
 					 @else
 					 	<div>
 								<h2>Không Có Sản Phẩm</h2>
