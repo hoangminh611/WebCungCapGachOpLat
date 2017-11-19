@@ -69,7 +69,7 @@
 									<a href="{{route('Detail',"$pro->id")}}" class="mask">
 										<img class="img-responsive zoom-img"  src="images/{{$pro->image}}" style="width: 200px;height:200px;" alt="" /></a>
 										<div class="product-bottom">
-										<h3>{{$pro->name}}</h3>
+										<h3 style="height: 30px;">{{$pro->name}}</h3>
 										<p>Tìm hiểu thêm</p>									
 									</div>
 								</div>
@@ -92,7 +92,7 @@
 									<h4>Loại Sản Phẩm</h4>
 									<div class="row1 scroll-pane">
 										<div class="col col-4">
-											<label><input type="radio" name="type" class="type" checked="" value="khong"><i></i>Tất Cả Sản Phẩm</a></label>
+											<label><input type="radio" name="typeSearch" class="type" checked="" value="khong"><i></i>Tất Cả Sản Phẩm</a></label>
 										</div>
 										<div class="col col-4">
 											@foreach($type as $typePro)								
@@ -107,7 +107,7 @@
 								<section class="sky-form">
 									<h4>Kích Thước</h4>
 										<div class="col col-4">
-											<label><input type="radio" name="size" checked="" value="khong"><i></i>Tất Cả Kích Thước</label>
+											<label><input type="radio" name="sizeSearch" checked="" value="khong"><i></i>Tất Cả Kích Thước</label>
 										</div>
 										<div class="col col-4">
 											@foreach($size_gach as $sizePro)
