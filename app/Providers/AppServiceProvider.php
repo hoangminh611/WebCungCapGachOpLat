@@ -21,7 +21,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-            view()->composer(['Master.Menu','Page.Product','Page.Detail_Product','Page.Search_Product','Admin.Master.Admin_Master','Admin.Page.Product_Admin_Insert','Admin.Page.Product_Admin_Import','Admin.Page.Category_Admin_Insert'],function($view)
+            view()->composer(['Master.Menu', 'Master.home', 'Page.Product', 'Page.Detail_Product'
+              , 'Page.Search_Product', 'Admin.Master.Admin_Master', 'Admin.Page.Product_Admin_Insert'
+              ,'Admin.Page.Product_Admin_Import', 'Admin.Page.Category_Admin_Insert'],function($view)
             {
               $type =  DB::table('category')->select()->where([
                                     ['type', '=', '1'],
@@ -59,7 +61,7 @@ class AppServiceProvider extends ServiceProvider
               $view->with(['Slide'=>$Slide,'hotPro'=>$hotPro]);
             });
 
-            view()->composer(['Page.Product','Page.Detail_Product','Page.Search_Product'],function($view)
+            view()->composer(['Page.Product', 'Page.Detail_Product', 'Page.Search_Product', 'Master.home'],function($view)
             {
                $size=DB::table('export_product')->where('status',0)->select()->get();
                $size_gach=array();

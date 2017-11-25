@@ -102,7 +102,7 @@
 	@endif
 						
 	<div class="logo">
-		<a href="index.html"><h1>Gạch Ốp Lát Cao Cấp</h1></a>
+		<a href="{{route('index')}}"><h1 style="color: red; font-family: Times New Roman">GẠCH ỐP LÁT CAO CẤP</h1></a>
 	</div>
 	<!--start-logo-->
 

@@ -1,7 +1,7 @@
 <!--information-starts-->
-	<div class="information">
+	<div class="information" style="background-color: black;" >
 		<div class="container">
-			<div class="infor-top">
+			<div class="infor-top" style=" color: white;">
 {{-- 				<div class="col-md-3 infor-left">
 					<h3>Follow Us</h3>
 					<ul>
@@ -30,13 +30,17 @@
 						<li><a href="#"><p>My Addresses</p></a></li>
 					</ul>
 				</div> --}}
-				<div class="col-md-12 infor-left">
-					<h3>Liên Hệ</h3>
-					<h4>Hùng Minh
+				<div class="col-md-6 infor-left" >
+					<h3 style=" color: white;">Liên Hệ</h3>
+					<h4 style=" color: white;">Công Ty:Hùng Minh
 						<span>22 Lê Trung Nghĩa Phường 12 Quận Tân Bình</span>
 					</h4>
-					<h5>+0989488537</h5>	
-					<p>manhhoangminh1010@gmail.com</p>
+					<h5 style=" color: white;">SDT: 0989488537
+					<br><br>
+					<span>Email: manhhoangminh1010@gmail.com</span></h5>	
+				</div>
+				<div class="col-md-6 infor-right" style="float: right;text-align: center; margin-top:8%;">
+					<p>CopyRight: 2017 CUNG CẤP GẠCH ỐP LÁT </a> </p>
 				</div>
 				<div class="clearfix"></div>
 			</div>
@@ -44,14 +48,14 @@
 	</div>
 	<!--information-end-->
 	<!--footer-starts-->
-	<div class="footer">
+{{-- 	<div class="footer">
 		<div class="container">
 			<div class="footer-top">
 				<div class="col-md-6 footer-left">
-					{{-- <form>
+					<form>
 						<input type="text" value="Enter Your Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter Your Email';}">
 						<input type="submit" value="Subscribe">
-					</form> --}}
+					</form>
 				</div>
 				<div class="col-md-6 footer-right">					
 					<p> 2017 CUNG CẤP GẠCH ỐP LÁT </a> </p>
@@ -59,5 +63,5 @@
 				<div class="clearfix"></div>
 			</div>
 		</div>
-	</div>
+	</div> --}}
 	<!--footer-end-->	

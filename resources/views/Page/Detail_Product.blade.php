@@ -201,7 +201,7 @@
 								<section  class="sky-form">
 								
 									<h4>Loại Sản Phẩm</h4>
-									<div class="row1 scroll-pane">
+									<div class="row1 scroll-pane" style="min-height: 300px;">
 										<div class="col col-4">
 											<label><input type="radio" name="type" checked="" value="khong"><i></i>Tất Cả Sản Phẩm</a></label>
 										</div>
@@ -277,6 +277,7 @@
 				$("#quantity").val(s);
 			}
 		})
+		$('#home').hide();
 	</script>
 	<!--end-single-->
 @endsection

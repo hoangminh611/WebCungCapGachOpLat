@@ -25,13 +25,13 @@ class Home_Controller extends Controller
 {
   //Lấy 8 sản phẩm mới
    public function getIndex() {
-      $new8Pro=Product::Top8NewsProduct();
+      $new9Pro=Product::Top9NewsProduct();
       // Cookie::queue(Cookie::forget('cookieIdWebGach'));
       if(!Cookie::has('cookieIdWebGach')){
         Session::regenerate();
         Cookie::queue('cookieIdWebGach', Session::getId(), 800000);
       }
-   	return view('Master.home',compact('new8Pro'));
+   	return view('Master.home',compact('new9Pro'));
    }
    public function getCookie(Request $req) {
     $information=['name' => $req->name,'phone' => $req->phone,'email' => $req->email,'address' => $req->address,'note' => $req->note];

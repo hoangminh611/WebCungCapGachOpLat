@@ -41,7 +41,7 @@ class Product extends Model
 
     }
     //8 sản phẩm mới
-    public static function Top8NewsProduct()
+    public static function Top9NewsProduct()
     {
       $a=array();
       $i=0;
@@ -58,7 +58,7 @@ class Product extends Model
                 {
                       $a[$newpro->id]=$Pro;
                       $i++;
-                      if($i==8)
+                      if($i==9)
                         break;
                 }
 

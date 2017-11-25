@@ -7,7 +7,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html>
 <head>
-<title>Gạch Ốp Lát Cao Cấp</title>
+<title>GẠCH ỐP LÁT CAO CẤP</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <base href="{{asset('')}}">
@@ -61,7 +61,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	});
 </script>				
 </head>
-<body> 
+<body style="background-color: #FFFFCC"> 
 	<div id="fb-root"></div>
 		<script>(function(d, s, id) {
 		  var js, fjs = d.getElementsByTagName(s)[0];
@@ -93,5 +93,5 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!--footer-end-->	
 </body>
 {{-- Tích hợp vchat --}}
-<script lang="javascript">(function() {var pname = ( (document.title !='')? document.title : document.querySelector('h1').innerHTML );var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async=1; ga.src = '//live.vnpgroup.net/js/web_client_box.php?hash=5dffb8c7523401e01be1144f8d2c8218&data=eyJzc29faWQiOjQ5Nzc2MjgsImhhc2giOiJhNzRlOTRhYWI1NjNiMTYwNmViZTJlNjIwYTIzNDYzNyJ9&pname='+pname;var s = document.getElementsByTagName('script');s[0].parentNode.insertBefore(ga, s[0]);})();</script>	
+<script lang="javascript">(function() {var pname = ( (document.title !='')? document.title : document.querySelector('h1').innerHTML );var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async=1; ga.src = '//live.vnpgroup.net/js/web_client_box.php?hash=5dffb8c7523401e01be1144f8d2c8218&data=eyJzc29faWQiOjQ5Nzc2MjgsImhhc2giOiJhNzRlOTRhYWI1NjNiMTYwNmViZTJlNjIwYTIzNDYzNyJ9&pname='+pname;var s = document.getElementsByTagName('script');s[0].parentNode.insertBefore(ga, s[0]);})();</script>
 </html>
