@@ -18,26 +18,28 @@
 				<div class="col-md-9 prdt-left">
 					<div class="product-one">
 					  @if(isset($product[0]))
-					  	<div class="col-md-4 p-left" style="float: right;" >
-						Sắp Xếp:
-						 	<select name="sort" id="sort">
-							 	<option  id="No Sort" value="No Sort" selected="">Không Có</option>
-							 	<option id="ASC" value="ASC">A-Z</option>
-							 	<option id="DESC" value="DESC">Z-A</option>
-						 	</select>
-					 	<script type="text/javascript">
-					 		$('#sort').change(function(){
-					 			var sort = $(this).val();
-					 			var route = '{{route('Search',["typeSearch=$typeSearch","sizeSearch=$sizeSearch","sort=sortName"])}}' ;
-					 			route = route.replace('sortName',sort);
-					 			route = route.replace(/&amp;/g,'&')
-					 			window.location.replace(route);
-					 		});
-					 		var sort = "{{$sort}}";
-					 		if(sort != null)
-					 			$('#'+sort).attr('selected','selected');
-					 	</script>
-					 	</div><br><br><br><br>
+					  	@if(!isset($searchNamePro))
+						  	<div class="col-md-4 p-left" style="float: right;" >
+							Sắp Xếp:
+							 	<select name="sort" id="sort">
+								 	<option  id="No Sort" value="No Sort" selected="">Không Có</option>
+								 	<option id="ASC" value="ASC">A-Z</option>
+								 	<option id="DESC" value="DESC">Z-A</option>
+							 	</select>
+						 	<script type="text/javascript">
+						 		$('#sort').change(function(){
+						 			var sort = $(this).val();
+						 			var route = '{{route('Search',["typeSearch=$typeSearch","sizeSearch=$sizeSearch","sort=sortName"])}}' ;
+						 			route = route.replace('sortName',sort);
+						 			route = route.replace(/&amp;/g,'&')
+						 			window.location.replace(route);
+						 		});
+						 		var sort = "{{$sort}}";
+						 		if(sort != null)
+						 			$('#'+sort).attr('selected','selected');
+						 	</script>
+						 	</div><br><br><br><br>
+						@endif
 					 	<div class="clearfix"></div>
 						@foreach($product as $All)
 							<div class="col-md-4 product-left p-left">
@@ -59,7 +61,11 @@
 							</div>
 						@endforeach
 						<div class="clearfix"></div>
-						<div>{{$product->appends(Request::capture()->except('product'))->links()}}</div>
+						@if(isset($searchNamePro))
+							<div>{{$product->links()}}</div>
+						@else
+							<div>{{$product->appends(Request::capture()->except('product'))->links()}}</div>
+						@endif
 					  @else
 					 	<div>
 							<h2>Không Có Sản Phẩm</h2>

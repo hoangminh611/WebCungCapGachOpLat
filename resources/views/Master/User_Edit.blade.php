@@ -48,6 +48,10 @@
 							</span>
 							<span>Email:</span>
 							<input type="text" placeholder="Email" value="{{Auth::User()->email}}" disabled="" style="width: 100%;margin-left: 0px;">
+							<span>Địa Chỉ:<a id='address' href="javascript:void(0)">Sửa</a></span>
+							<span id="address_edit">
+								<input type="text" placeholder="Địa Chỉ" value="{{Auth::User()->address}}" disabled="" style="width: 100%;margin-left: 0px;">
+							</span>
 							<span>Mật Khẩu:<a id='password' href="javascript:void(0)">Sửa</a></span>
 							<span id="password_edit">
 								<input type="password"  value="{{Auth::User()->password}}" disabled="" style="width: 100%;margin-left: 0px;">
@@ -65,6 +69,9 @@
 	<script type="text/javascript">
 		$('#name').click(function(){
 			$('#name_edit').html('<input type="text" name="name" placeholder="Họ Tên"  required value="" style="width: 100%; margin-left: 0px;">');
+		})
+		$('#address').click(function(){
+			$('#address_edit').html('<input type="text" name="address" placeholder="Địa Chỉ"  required value="" style="width: 100%; margin-left: 0px;">');
 		})
 		$('#phone').click(function(){
 			$('#phone_edit').html('<input type="text" name="phone" pattern="[0-9]{10,11}" minlength="10" maxlength="11" placeholder="Số điện thoại" value="" style="width: 100%;margin-left: 0px;" required title=" nhâp số điện thoại 10 hoặc 11 chữ số">');

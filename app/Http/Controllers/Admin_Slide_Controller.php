@@ -52,7 +52,7 @@ class Admin_Slide_Controller extends Controller
    		if ($req->hasFile('image')) 
          {
             $image= $req->file('image')->getClientOriginalName();
-            $req->file('image')->move('images',$image);
+            $req->file('image')->move('images/Banner',$image);
             $suaanh=1;         
          }
          else

@@ -225,10 +225,13 @@ class LoginRegister_Controller extends Controller
       $name=$req->name;
       $phone=$req->phone;
       $password=$req->password;
+      $address = $req->address;
       if($name==null)
         $name=Auth::User()->full_name;
       if($phone==null)
         $phone=Auth::User()->phone;
+      if($address==null)
+        $address=Auth::User()->address;
       if($password==null)
         $password=Auth::User()->password;
       else
@@ -242,7 +245,7 @@ class LoginRegister_Controller extends Controller
             ]);
         $password=Hash::make($password);
       }
-      $user = User::where('email',Auth::User()->email)->update(['full_name'=>$name,'phone'=>$phone,'password'=>$password]);
+      $user = User::where('email',Auth::User()->email)->update(['full_name'=>$name,'phone'=>$phone,'password'=>$password,'address' =>$address]);
       return redirect()->back()->with('thanhcong','Thay đổi thông tin thành công');
     }
     //vài trang bill của user

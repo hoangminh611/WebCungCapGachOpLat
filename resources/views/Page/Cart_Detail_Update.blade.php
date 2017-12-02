@@ -61,6 +61,15 @@
 				   </script> --}}
 					
 				<div class="in-check" >
+					@if(!Auth::check())
+						<div class="alert alert-warning"> Hãy Đăng Nhập để nhận ưu đãi từ cửa hàng chúng tôi</div>
+					@else
+						<div class="alert alert-warning"> 
+							@foreach($discounts as $discount)
+								<p>VỚI HÓA ĐƠN CÓ GIÁ TRỊ LÀ :{{$discount->price_discount}} VNĐ sẽ được giảm giá {{$discount->percent_discount}} % và tiền ship là :{{$discount->ship_price}} và được bộ quà tặng là :{{$discount->name_gift != null ? $discount->name_gift : 'Không có'}}</p></p>
+							@endforeach
+						</div>
+					@endif
 					<ul class="unit" style="border:solid 1px black;">
 						<li><span>Hình Ảnh</span></li>
 						<li><span>Tên Sản Phẩm</span></li>

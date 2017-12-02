@@ -101,9 +101,17 @@ class Product_Controller extends Controller
       $sizeSearch=$req->sizeSearch;
       $sort =$req->sort;
       if($typeSearch=="khong"&&$sizeSearch=='khong')
-         $product=DB::table('products')->orderBy('name',$sort)->paginate(6);
+         $product=DB::table('products')->join('export_product','products.id','=','export_product.id_product')
+                                      ->where([
+                                          ['status',0],
+                                          ])
+                                      ->select('products.id','products.id_type','products.view','products.name','products.image','products.description')->orderBy('name',$sort)->paginate(6);
       else if($typeSearch!="khong"&&$sizeSearch=='khong')
-         $product=DB::table('products')->where('id_type',$typeSearch)->orderBy('name',$sort)->paginate(6);
+         $product=DB::table('products')->join('export_product','products.id','=','export_product.id_product')
+                                      ->where([
+                                          ['status',0],['id_type',$typeSearch]
+                                          ])
+                                      ->select('products.id','products.id_type','products.view','products.name','products.image','products.description')->orderBy('name',$sort)->paginate(6);
       else if($typeSearch=="khong"&&$sizeSearch!='khong')
          $product=Product::Search_Product_By_Size($sizeSearch)->orderBy('name',$sort)->paginate(6);
       else
@@ -112,15 +120,23 @@ class Product_Controller extends Controller
    }
    //search theo tên sản phẩm
    public function Search_Detail(Request $req) {
-      $product=DB::table('products')->whereRaw("match(name) against('$req->search')")->orWhere('name','Like','%'.$req->search.'%')->get();
-     return view('Page.Search_Product',compact('product'));
+      $product=DB::table('products')->join('export_product','products.id','=','export_product.id_product')
+                                      ->select('products.id','products.id_type','products.view','products.name','products.image','products.description')->whereRaw("match(name) against('$req->search') and status = 0")->orWhere([['name','Like','%'.$req->search.'%'],['status',0]])->paginate(6);
+      $typeSearch = 'khong';
+      $sizeSearch = 'khong';
+      $searchNamePro = 1;
+     return view('Page.Search_Product',compact('product','typeSearch','sizeSearch','searchNamePro'));
    }
    //cái này dùng để hiện ajax các gợi ý
    public function autocomplete(Request $req) {
       $term = $req->term;
       $results = array();
       
-      $queries =DB::table('products')->whereRaw("match(name) against('$term')")->orWhere('name','Like','%'.$term.'%')
+      $queries =DB::table('products')->join('export_product','products.id','=','export_product.id_product')
+                                      ->where([
+                                          ['status',0]
+                                          ])
+                                      ->select('products.id','products.id_type','products.view','products.name','products.image','products.description')->whereRaw("match(name) against('$term') and status = 0")->orWhere([['name','Like','%'.$term.'%'],['status',0]])
               ->take(5)->get();
       foreach ($queries as $query)
       {

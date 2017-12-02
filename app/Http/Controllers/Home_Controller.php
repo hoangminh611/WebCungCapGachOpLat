@@ -86,11 +86,13 @@ class Home_Controller extends Controller
    }
    //Hiện ra trang cart-detail
    public function DetailCart() {
-      return view('Page.Cart_Detail');
+      $discounts =Discount::Get_All()->orderBy('price_discount')->get();
+      return view('Page.Cart_Detail',compact('discounts'));
    }
    //Dùng ajax cai update cart_detail
    public function Update_Cart() {
-    return view('Page.Cart_Detail_Update');
+    $discounts =Discount::Get_All()->orderBy('price_discount')->get();
+    return view('Page.Cart_Detail_Update',compact('discounts'));
    }
    public function DeleteCart(Request $req) {
      // Session::forget('cart');
