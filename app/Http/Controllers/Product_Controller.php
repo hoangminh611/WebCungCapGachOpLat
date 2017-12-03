@@ -121,11 +121,12 @@ class Product_Controller extends Controller
    //search theo tên sản phẩm
    public function Search_Detail(Request $req) {
       $product=DB::table('products')->join('export_product','products.id','=','export_product.id_product')
-                                      ->select('products.id','products.id_type','products.view','products.name','products.image','products.description')->whereRaw("match(name) against('$req->search') and status = 0")->orWhere([['name','Like','%'.$req->search.'%'],['status',0]])->paginate(6);
+                                      ->select('products.id','products.id_type','products.view','products.name','products.image','products.description')->whereRaw("match(name) against('$req->search') and status = 0")->orWhere([['name','Like','%'.$req->search.'%'],['status',0]])->distinct()->paginate(6);
       $typeSearch = 'khong';
       $sizeSearch = 'khong';
       $searchNamePro = 1;
-     return view('Page.Search_Product',compact('product','typeSearch','sizeSearch','searchNamePro'));
+      $search = $req->search;
+     return view('Page.Search_Product',compact('product','typeSearch','sizeSearch','searchNamePro','search'));
    }
    //cái này dùng để hiện ajax các gợi ý
    public function autocomplete(Request $req) {
@@ -136,7 +137,7 @@ class Product_Controller extends Controller
                                       ->where([
                                           ['status',0]
                                           ])
-                                      ->select('products.id','products.id_type','products.view','products.name','products.image','products.description')->whereRaw("match(name) against('$term') and status = 0")->orWhere([['name','Like','%'.$term.'%'],['status',0]])
+                                      ->select('products.id','products.id_type','products.view','products.name','products.image','products.description')->whereRaw("match(name) against('$term') and status = 0")->orWhere([['name','Like','%'.$term.'%'],['status',0]])->distinct()
               ->take(5)->get();
       foreach ($queries as $query)
       {

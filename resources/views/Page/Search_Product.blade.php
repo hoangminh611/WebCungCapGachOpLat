@@ -62,7 +62,7 @@
 						@endforeach
 						<div class="clearfix"></div>
 						@if(isset($searchNamePro))
-							<div>{{$product->links()}}</div>
+							<div>{{$product->appends(['search' => $search])->links()}}</div>
 						@else
 							<div>{{$product->appends(Request::capture()->except('product'))->links()}}</div>
 						@endif
