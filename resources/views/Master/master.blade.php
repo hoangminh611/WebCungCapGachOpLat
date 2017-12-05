@@ -72,6 +72,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		}(document, 'script', 'facebook-jssdk'));</script>
 	<!--top-header-->
 	@include('Master.Top_header')
+	@include('Master.CheckCart')
 	@include('Master.Login')
 	{{-- @include('Master.Register') --}}
 	<!--top-header-->

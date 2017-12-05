@@ -17,6 +17,9 @@ Route::get('/',[
 Route::get('home',[
 	'as'=>'index',
 	'uses'=>'Home_Controller@getindex']);
+Route::get('checkcart',[
+	'as'=>'checkcart',
+	'uses'=>'Home_Controller@checkcart']);
 Route::get('Contact',[
 	'as'=>'Contact',
 	'uses'=>'Home_Controller@getContact']);
@@ -371,4 +374,3 @@ Route::get('Customer_Edit',[
 //------------------------------Giỏ Hàng------------------------------------
 
 //------------------------------Trang Giao Diện------------------------------------
-

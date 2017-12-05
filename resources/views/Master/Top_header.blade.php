@@ -122,8 +122,8 @@
 				    $('#mask').fadeIn(300);
 				    
 				    return false;
-				});
 
+				});
 				// When clicking on the button close or the mask layer the popup closed
 				$(document).on('click','a.close, #mask', function() 
 				{ 

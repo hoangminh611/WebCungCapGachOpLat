@@ -10,17 +10,13 @@ use Illuminate\Support\Facades\Input;
 use App\TypeProduct;
 use App\News;
 use Cookie;
+use Session;
 use Auth;
 use App\Product;
 use App\Rating_Product;
 use App\View_product;
 class Product_Controller extends Controller
 {
-   //vào trnag home
-  public function getIndex()
-  {
-   	return view('Master.home');
-  }
    //Lấy tất cả sản phẩm của loại cha
   public function All_Product($id)
    {
@@ -68,6 +64,7 @@ class Product_Controller extends Controller
    //Lây chi tiết sản phẩm đó vả đưa ra 1 số sản phẩm gợi ý cùng loại
    public function getDetail(Request $req)
    {
+    Session::put('checkcart',false);
    	$product=Product::Find_Product_By_Id($req->id)->get();
 
     if(Cookie::has('cookieIdWebGach')){

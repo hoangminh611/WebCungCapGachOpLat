@@ -26,12 +26,22 @@ class Home_Controller extends Controller
   //Lấy 8 sản phẩm mới
    public function getIndex() {
       $new9Pro=Product::Top9NewsProduct();
+      $oldcart=Cookie('cart')?Cookie::get('cart'):null;
+
+      if((!Session::has('checkcart') || Session::get('checkcart') == true) && $oldcart !=null) {
+        Session::put('checkcart',true);
+      }
+      // Session::forget('checkcart');
       // Cookie::queue(Cookie::forget('cookieIdWebGach'));
       if(!Cookie::has('cookieIdWebGach')){
         Session::regenerate();
         Cookie::queue('cookieIdWebGach', Session::getId(), 800000);
       }
    	return view('Master.home',compact('new9Pro'));
+   }
+   public function checkcart() {
+    Session::put('checkcart',false);
+    return redirect()->route('index');
    }
    public function getCookie(Request $req) {
     $information=['name' => $req->name,'phone' => $req->phone,'email' => $req->email,'address' => $req->address,'note' => $req->note];

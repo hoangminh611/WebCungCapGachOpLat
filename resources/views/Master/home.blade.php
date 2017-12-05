@@ -69,4 +69,16 @@
 				</form>
 		</div>
 	</div>
+	@if(Session::get('checkcart') == true) 
+		<script type="text/javascript">
+		$(document).ready(function() 
+			{
+			$("#cart-box").fadeIn(500);
+					    // Add the mask to body
+			$('body').append('<div id="mask"></div>');
+			$('#mask').fadeIn(500);
+		});
+		</script>
+	@endif
+
 @endsection
