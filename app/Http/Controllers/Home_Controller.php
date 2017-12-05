@@ -28,7 +28,7 @@ class Home_Controller extends Controller
       $new9Pro=Product::Top9NewsProduct();
       $oldcart=Cookie('cart')?Cookie::get('cart'):null;
 
-      if((!Session::has('checkcart') || Session::get('checkcart') == true) && $oldcart !=null) {
+      if(!Session::has('checkcart')  && $oldcart !=null) {
         Session::put('checkcart',true);
       }
       // Session::forget('checkcart');

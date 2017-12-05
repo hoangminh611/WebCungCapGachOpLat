@@ -1,15 +1,6 @@
 
 <!--dropdown-->
-	<div id="cart-box" class="login-popup">
-		<div id="fb-root"></div>
-			<script>(function(d, s, id) {
-			  var js, fjs = d.getElementsByTagName(s)[0];
-			  if (d.getElementById(id)) return;
-			  js = d.createElement(s); js.id = id;
-			  js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.10&appId=2033544113598636";
-			  fjs.parentNode.insertBefore(js, fjs);
-			}(document, 'script', 'facebook-jssdk'));</script>
-
+	<div id="cart-box" class="login-popup"  style="width: 1000px;">
 					<div class="in-check" >
 					<ul class="unit" style="border:solid 1px black;">
 						<li><span>Hình Ảnh</span></li>
@@ -21,7 +12,6 @@
 					@if(Cookie::has('cart'))
 						@foreach($product_cart as $product)
 							<ul class="cart-header product{{$product['item']->idsize}}">
-								<div class="close1 {{$product['item']->idsize}}" value="{{$product['item']->idsize}}"> </div>
 									<li class="ring-in">
 										<a href="{{route('Detail',$product['item']->id)}}">
 											<img src="images/{{$product['item']->image}} " class="img-responsive" alt="" style="width: 100px; height: 100px;">
