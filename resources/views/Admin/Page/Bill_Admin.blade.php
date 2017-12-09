@@ -48,6 +48,8 @@
                          <td style="color: yellow">{{$bill->method}}</td>
                       @elseif($bill->method=="Đã Thanh Toán")
                            <td>{{$bill->method}}</td>
+                      @elseif($bill->method=="Đã Xác Nhận")
+                        <td style="color: blue">{{$bill->method}}</td>
                       @endif
                       <td>{{$bill->note}}</td>
                       <td>{{$bill->created_at}}</td>
@@ -64,6 +66,8 @@
                                 $(document).ready(function(){
 
                                   var method="{{$bill->method}}";
+                                  if(method=="Đã Xác Nhận")
+                                    $('#'+{{$bill->id}}).attr('disabled','');
                                   if(method=="Đã Xác Nhận Chưa Thanh Toán")
                                     $('#'+{{$bill->id}}).attr('disabled','');
                                   if(method=="Đang Xử Lý")

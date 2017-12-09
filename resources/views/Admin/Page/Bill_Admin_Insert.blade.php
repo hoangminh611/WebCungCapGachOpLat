@@ -35,6 +35,7 @@
                                               <option id="4" value="Đã Thanh Toán" >Đã Thanh Toán</option>
                                               <option id="5" value="Đang Xử Lý" >Đang Xử Lý</option>
                                               <option id="6" value="Đang vận chuyển" >Đang vận chuyển</option>
+                                              <option id="7" value="Đã Xác Nhận">Đã Xác Nhận</option>
                                           </select>
                                           @if(Auth::User()->group<2)
                                           <script type="text/javascript">

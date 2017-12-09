@@ -69,7 +69,7 @@
 				</form>
 		</div>
 	</div>
-	@if(Session::get('checkcart') == true) 
+	@if(Session::get('checkcart') == true && Cookie::has('cart')) 
 		<script type="text/javascript">
 		$(document).ready(function() 
 			{

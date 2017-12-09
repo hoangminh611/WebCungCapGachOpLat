@@ -1,57 +1,64 @@
 
 <!--dropdown-->
-	<div id="cart-box" class="login-popup"  style="width: 1000px;">
+@if(Cookie::has('cart'))
+	<div id="cart-box" class="login-popup">
 					<div class="in-check" >
-					<ul class="unit" style="border:solid 1px black;">
-						<li><span>Hình Ảnh</span></li>
-						<li><span>Tên Sản Phẩm</span></li>
-						<li><span>Số Lượng/Kích thước</span></li>
-						<li><span>Giá/Đơn Giá</span></li>
+					<table>
+					<tr class="unit" style="border:1px solid black;">
+						<th style=" text-align: center;border:1px solid black">Hình Ảnh</th>
+						<th style=" text-align: center;border:1px solid black">Tên Sản Phẩm </th>
+						<th style=" text-align: center ;border:1px solid black">Số Lượng/Kích thước</th>
+						<th style=" text-align: center;border:1px solid black">Giá/Đơn Giá</th>
 						<div class="clearfix"> </div>
-					</ul>
-					@if(Cookie::has('cart'))
+					</tr>
 						@foreach($product_cart as $product)
-							<ul class="cart-header product{{$product['item']->idsize}}">
-									<li class="ring-in">
+							<tr class="cart-header product{{$product['item']->idsize}}">
+									<td class="ring-in"
 										<a href="{{route('Detail',$product['item']->id)}}">
 											<img src="images/{{$product['item']->image}} " class="img-responsive" alt="" style="width: 100px; height: 100px;">
 										</a>
-									</li>
-									<li>
+									</td> 
+									<td>
 										<span class="name">{{$product['item']->name}}</span>
-									</li>
-									<li>
-										
+									</td> 
+									<td>
 										<span class="quantity soluong{{$product['item']->idsize}}" value="{{$product['qty']}}" >
 											Số Lượng:{{$product['qty']}}
 										</span>
-										    
+										    <br>
 										{{$product['item']->size}}
-									</li>
-									<li>
+									</td> 
+									<td>
 										<span class="cost price gia{{$product['item']->idsize}}" value="{{$product['price']}}">{{number_format($product['price'])}}</span>
+										<br>
 										{{number_format($product['item']->export_price)}}
-									</li>
-								<div class="clearfix"> </div>
-							</ul>
+									</td> 
+							</tr>
+									<div class="clearfix"> </div>
 						@endforeach
-						<ul class="cart-header">
-									<li style="float: right;">
+
+						<tr class="cart-header">
+									<td style="float: right;">
 										<span>Tổng Tiền:</span>
 										<span class="cost totalPrice" value="{{$totalPrice}}">{{number_format($totalPrice)}} Đồng</span>
-									</li>
-									<li style="float: right;">
+									</td>
+									<td></td>
+									<td></td>
+									<td style="float: right;">
 										<span>Tổng Số Lượng:</span>
 										<span class="cost totalQty" value="{{$totalQty}}">{{number_format($totalQty)}} Sản Phẩm</span>
-									</li>
+									</td>
 								<div class="clearfix"> </div>
-							</ul>
-						<ul>
-									<li style="float: right"><a href="javavoid:(0)"  id="isMyCart" class="add-cart btn btn-success">TÔi dang mua hàng</a></li>
-									<li  style="float:left;"><a href="javavoid:(0)" id="notMyCart" class=" add-cart btn btn-warning">Giỏ Hàng Không phải của tôi</a></li>
+						</tr>
+						<tr>
+									<td style="float: right"><a href="javavoid:(0)"  id="isMyCart" class="add-cart btn btn-success">TÔi dang mua hàng</a></td>
+									<td></td>
+									<td></td>
+									<td  style="float:left;"><a href="javavoid:(0)" id="notMyCart" class=" add-cart btn btn-warning">Giỏ Hàng Không phải của tôi</a></td>
 									<div class="clearfix"> </div>
-						</ul>
-					@endif				
+						</tr>
+
+					</table>			
 		</div>
 		<script type="text/javascript">
 			$('#notMyCart').click(function() {
@@ -80,3 +87,4 @@
 			})
 		</script>
 	</div>
+@endif	

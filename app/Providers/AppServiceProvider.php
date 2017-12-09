@@ -82,7 +82,7 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('size_gach',$size_gach);
             });
 
-            view()->composer(['Master.Top_header', 'Master.CheckCart', 'Page.Cart_Detail','Page.Cart_Detail_Update','Page.Payment'],function($view) {
+            view()->composer(['Master.Top_header', 'Master.CheckCart', 'Page.Cart_Detail','Page.Cart_Detail_Update','Page.Payment', 'Master.home'],function($view) {
               if(Cookie('cart')) {
                 // $oldcart=Session::get('cart');
                 $oldcart = Cookie::get('cart');
