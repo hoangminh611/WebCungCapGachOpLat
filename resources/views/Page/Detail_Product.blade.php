@@ -203,12 +203,12 @@
 									<h4>Loại Sản Phẩm</h4>
 									<div class="row1 scroll-pane" style="min-height: 300px;">
 										<div class="col col-4">
-											<label><input type="radio" name="type" checked="" value="khong"><i></i>Tất Cả Sản Phẩm</a></label>
+											<label><input type="radio" name="typeSearch" checked="" value="khong"><i></i>Tất Cả Sản Phẩm</a></label>
 										</div>
 										<div class="col col-4">
 											@foreach($type as $typePro)								
 													@foreach($loaicon[$typePro->id] as $typebrand)	
-													<label><input type="radio" name="type" value="{{$typebrand->id}}"><i></i>{{$typebrand->name}}</label>
+													<label><input type="radio" name="typeSearch" value="{{$typebrand->id}}"><i></i>{{$typebrand->name}}</label>
 													<br>
 												@endforeach
 											@endforeach
@@ -218,11 +218,11 @@
 								<section class="sky-form">
 									<h4>Kích Thước</h4>
 										<div class="col col-4">
-											<label><input type="radio" name="size" checked="" value="khong"><i></i>Tất Cả Kích Thước</label>
+											<label><input type="radio" name="sizeSearch" checked="" value="khong"><i></i>Tất Cả Kích Thước</label>
 										</div>
 										<div class="col col-4">
 											@foreach($size_gach as $sizePro)
-												<label><input type="radio" name="size" value="{{$sizePro}}"><i></i>{{$sizePro}}</label>
+												<label><input type="radio" name="sizeSearch" value="{{$sizePro}}"><i></i>{{$sizePro}}</label>
 												<br>
 											@endforeach
 										</div>

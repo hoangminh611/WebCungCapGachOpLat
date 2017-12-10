@@ -77,7 +77,7 @@ class Product extends Model
       {
         $newpro = DB::table('products')->join('export_product','products.id','=','export_product.id_product')
                     ->where([['status',0],['id_type',$loaicha->id]])
-                    ->select('export_product.id as idsize','products.id','products.id_type','products.view','products.name','products.image','products.description','export_product.size as size','export_product.export_price','export_product.export_quantity')->get();
+                    ->select('products.id','products.id_type','products.view','products.name','products.image','products.description')->distinct()->get();
         // $newPro[$loaicha->id]=$newpro;
         $newPro[]=$newpro;
       }
@@ -94,7 +94,7 @@ class Product extends Model
                     ['size','=',$size],
                     ['status',0],
                     ])
-                  ->select('export_product.id as idsize','products.id','products.id_type','products.view','products.name','products.image','products.description','export_product.size as size','export_product.export_price');
+                  ->select('products.id','products.id_type','products.view','products.name','products.image','products.description')->distinct();
             return $product;
     }
 
@@ -104,7 +104,7 @@ class Product extends Model
       $product=DB::table('products')
                   ->join('export_product','products.id','=','export_product.id_product')
                   ->where([['size',$size],['status',0],])
-                  ->select('export_product.id as idsize','products.id','products.id_type','products.view','products.name','products.image','products.description','export_product.size as size','export_product.export_price');
+                  ->select('products.id','products.id_type','products.view','products.name','products.image','products.description')->distinct();
             return $product;
     }
 
@@ -113,7 +113,7 @@ class Product extends Model
 
         $product=DB::table('products')->where('id_type',$id)->join('export_product','products.id','=','export_product.id_product')
                     ->where('status',0)
-                    ->select('export_product.id as idsize','products.id','products.id_type','products.view','products.name','products.image','products.description','export_product.size as size','export_product.export_price','export_product.export_quantity');
+                    ->select('products.id','products.id_type','products.view','products.name','products.image','products.description')->distinct();
 
         return $product;
     }

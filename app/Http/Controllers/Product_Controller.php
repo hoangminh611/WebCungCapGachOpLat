@@ -45,17 +45,17 @@ class Product_Controller extends Controller
       $sort = $req->sort;
       if(isset($req->sort)) {
         if($sort === "No Sort") {
-            $product=Product::Find_Product_By_Id_Type($req->id)->paginate(6);
+            $product=Product::Find_Product_By_Id_Type($req->id)->paginate(6,['products.id']);
         }
         elseif($sort === "ASC") {
-          $product=Product::Find_Product_By_Id_Type($req->id)->orderBy('name','ASC')->paginate(6);
+          $product=Product::Find_Product_By_Id_Type($req->id)->orderBy('name','ASC')->paginate(6,['products.id']);
         }
         elseif ($sort === "DESC") {
-           $product=Product::Find_Product_By_Id_Type($req->id)->orderBy("name",'DESC')->paginate(6);
+           $product=Product::Find_Product_By_Id_Type($req->id)->orderBy("name",'DESC')->paginate(6,['products.id']);
         }
       }
       else {
-        $product=Product::Find_Product_By_Id_Type($req->id)->paginate(6);
+        $product=Product::Find_Product_By_Id_Type($req->id)->paginate(6,['products.id']);
       }
       $typepro=$req->id;
 
@@ -97,22 +97,23 @@ class Product_Controller extends Controller
       $typeSearch=$req->typeSearch;
       $sizeSearch=$req->sizeSearch;
       $sort =$req->sort;
-      if($typeSearch=="khong"&&$sizeSearch=='khong')
+      if($typeSearch == "khong" &&  $sizeSearch == 'khong') {
          $product=DB::table('products')->join('export_product','products.id','=','export_product.id_product')
                                       ->where([
                                           ['status',0],
                                           ])
-                                      ->select('products.id','products.id_type','products.view','products.name','products.image','products.description')->orderBy('name',$sort)->paginate(6);
+                                      ->select('products.id','products.id_type','products.view','products.name','products.image','products.description')->orderBy('name',$sort)->distinct()->paginate(6,['products.id']);
+                              }
       else if($typeSearch!="khong"&&$sizeSearch=='khong')
          $product=DB::table('products')->join('export_product','products.id','=','export_product.id_product')
                                       ->where([
                                           ['status',0],['id_type',$typeSearch]
                                           ])
-                                      ->select('products.id','products.id_type','products.view','products.name','products.image','products.description')->orderBy('name',$sort)->paginate(6);
+                                      ->select('products.id','products.id_type','products.view','products.name','products.image','products.description')->distinct()->orderBy('name',$sort)->paginate(6,['products.id']);
       else if($typeSearch=="khong"&&$sizeSearch!='khong')
-         $product=Product::Search_Product_By_Size($sizeSearch)->orderBy('name',$sort)->paginate(6);
+         $product=Product::Search_Product_By_Size($sizeSearch)->orderBy('name',$sort)->paginate(6,['products.id']);
       else
-         $product=Product::Search_Product_By_Type_Size($typeSearch,$sizeSearch)->orderBy('name',$sort)->paginate(6);
+         $product=Product::Search_Product_By_Type_Size($typeSearch,$sizeSearch)->orderBy('name',$sort)->paginate(6,['products.id']);
       return view('Page.Search_Product',compact('product','typeSearch','sizeSearch','sort'));
    }
    //search theo tên sản phẩm
