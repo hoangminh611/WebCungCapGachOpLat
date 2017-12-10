@@ -197,7 +197,7 @@ class Product extends Model
         return $product;
 
     }
-
+    //lay anh ra de xoa
   public static function getImageProduct($id) {
     $pro=DB::table('products')->where('id','=',$id)->select('image');
     return $pro;
